@@ -3,6 +3,7 @@ package base;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -19,6 +20,12 @@ public class Main extends Application {
 		StackPane sp = new StackPane();
 		Scene scene = new Scene(sp);
 		stage.setScene(scene);
+		
+		Circle c = new Circle();
+		c.setRadius(20);
+		
+		sp.getChildren().add(c);
+		
 		stage.show();
 	}
 	
