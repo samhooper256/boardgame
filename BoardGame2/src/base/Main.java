@@ -18,14 +18,16 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
 		Pane sp = new Pane();
-		Scene scene = new Scene(sp);
+		Scene scene = new Scene(sp, 600, 400);
 		stage.setScene(scene);
 		
 		Circle c = new Circle();
 		c.setRadius(20);
+		c.setLayoutX(50);
+		c.setLayoutY(100);
 		
 		sp.getChildren().add(c);
-		
+	
 		stage.show();
 	}
 	
