@@ -31,6 +31,8 @@ public class Main extends Application {
 		
 		Rectangle r = new Rectangle(1, 1, 1, 1);
 		sp.getChildren().add(r);
+		
+		//totest
 	
 		stage.show();
 	}
