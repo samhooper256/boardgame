@@ -2,7 +2,7 @@ package base;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -17,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
-		StackPane sp = new StackPane();
+		Pane sp = new Pane();
 		Scene scene = new Scene(sp);
 		stage.setScene(scene);
 		
