@@ -112,5 +112,9 @@ public class ImagePane extends StackPane {
     public Image image() {
     	return rimage().getImage();
     }
+
+    public void setImage(Image image) {
+    	rimage().setImage(image);
+    }
     
 }
