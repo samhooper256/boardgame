@@ -8,24 +8,24 @@ import javafx.scene.image.*;
  */
 public final class ResizableImage extends ImageView {
 	
-	private static final double MAX_SIZE = 16384;
+	private static final double MIN_SIZE = 2, MAX_SIZE = 16384;
 	
-	private final double minWidth, minHeight;
+	private final double desiredWidth, desiredHeight;
 	
 	public ResizableImage(Image im)  {
-    	this(im, 40, 40);
+    	this(im, im.getWidth(), im.getHeight());
     }
     
-    public ResizableImage(Image im, double minWidth, double minHeight) {
+    public ResizableImage(Image im, double desiredWidth, double desiredHeight) {
     	super(im);
     	setPreserveRatio(false);
-    	this.minWidth = minWidth;
-    	this.minHeight = minHeight;
+    	this.desiredWidth = desiredWidth;
+    	this.desiredHeight = desiredHeight;
     }
 
     @Override
     public double minWidth(double height) {
-    	return minWidth;
+    	return MIN_SIZE;
     }
 
     @Override
@@ -43,7 +43,7 @@ public final class ResizableImage extends ImageView {
 
     @Override
     public double minHeight(double width) {
-    	return minHeight;
+    	return MIN_SIZE;
     }
     
     @Override
@@ -68,6 +68,14 @@ public final class ResizableImage extends ImageView {
     public void resize(double width, double height) {
         setFitWidth(width);
         setFitHeight(height);
+    }
+    
+    public double desiredWidth() {
+    	return desiredWidth;
+    }
+    
+    public double desiredHeight() {
+    	return desiredHeight;
     }
     
 }

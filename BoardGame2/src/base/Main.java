@@ -3,7 +3,7 @@ package base;
 import java.io.*;
 import java.util.*;
 
-import fxutils.Images;
+import fxutils.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
@@ -26,28 +26,16 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
-		Pane sp = new Pane();
-		Scene scene = new Scene(sp, 600, 400);
+		Game g = new Game();
+		Scene scene = new Scene(g, 600, 400);
 		stage.setScene(scene);
 		
-		Circle c = new Circle();
-		c.setRadius(20);
-		c.setLayoutX(50);
-		c.setLayoutY(100);
+		ResizableImage view = new ResizableImage(TILE_IMAGE);
 		
-		sp.getChildren().add(c);
-		
-		Rectangle r = new Rectangle(1, 1, 1, 1);
-		sp.getChildren().add(r);
-		
-		ImageView view = new ImageView(TILE_IMAGE);
-		
-		sp.getChildren().add(view);
+		g.getChildren().add(view);
 		
 		view.setLayoutX(200);
 		
-		//totest
-	
 		stage.show();
 	}
 	
