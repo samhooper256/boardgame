@@ -7,6 +7,8 @@ import javafx.scene.layout.*;
 
 public class Board extends Pane implements ScaledPane {
 
+	public static final int TILE_COUNT = 36;
+	
 	private static final double DEFAULT_WIDTH = 1920, DEFAULT_HEIGHT = 1080;
 	private static final Board INSTANCE = new Board();
 	
@@ -16,11 +18,12 @@ public class Board extends Pane implements ScaledPane {
 	
 	private final List<ImagePane> images;
 	
+	private List<Tile> tileOrder;
+	
 	private Board() {
 		images = new ArrayList<>();
-		ImagePane im = new ImagePane(Images.EVENT_TILE);
-		im.setIdealCoords(200, 200);
-		add(im);
+		tileOrder = generateTileOrder();
+		
 	}
 	
 	@Override
@@ -66,6 +69,13 @@ public class Board extends Pane implements ScaledPane {
 	
 	private double hscale() {
 		return getHeight() / DEFAULT_HEIGHT;
+	}
+	
+	private List<Tile> generateTileOrder() {
+		List<Tile> order = new ArrayList<>(TILE_COUNT);
+		for(TileSection section : TileSection.ORDER)
+			order.addAll(section.randomOrder());
+		return order;
 	}
 	
 }
