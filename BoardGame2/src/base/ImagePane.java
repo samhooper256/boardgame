@@ -24,12 +24,12 @@ public class ImagePane extends StackPane {
 		rimage = new ResizableImage(image);
 		this.idealWidth = new SimpleDoubleProperty(idealWidth);
 		this.idealHeight = new SimpleDoubleProperty(idealHeight);
-		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> Board.updateImageSize(this);
+		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> Board.get().updateImageSize(this);
 		this.idealWidth.addListener(sizeListener);
 		this.idealHeight.addListener(sizeListener);
 		this.idealX = new SimpleDoubleProperty(idealX);
 		this.idealY = new SimpleDoubleProperty(idealY);
-		ChangeListener<? super Number> coordListener = (o, ov, nv) -> Board.updateImageLayoutCoords(this);
+		ChangeListener<? super Number> coordListener = (o, ov, nv) -> Board.get().updateImageLayoutCoords(this);
 		this.idealX.addListener(coordListener);
 		this.idealY.addListener(coordListener);
 		Nodes.setMaxSize(this, idealWidth, idealHeight);
