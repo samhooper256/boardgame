@@ -19,11 +19,14 @@ public class Board extends Pane implements ScaledPane {
 	}
 	
 	private final List<ImagePane> images;
+	private final Die die;
 	
 	private List<Tile> tileOrder;
 	
 	private Board() {
 		images = new ArrayList<>();
+		die = new Die();
+		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
 		tileOrder = generateTileOrder();
 		for(int i = 0; i < TILE_COUNT; i++) {
 			Tile t = tileOrder.get(i);
@@ -31,6 +34,7 @@ public class Board extends Pane implements ScaledPane {
 			t.setIdealCoords(point);
 			add(t);
 		}
+		add(die);
 	}
 	
 	private List<Tile> generateTileOrder() {
