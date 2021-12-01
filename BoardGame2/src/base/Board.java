@@ -3,6 +3,7 @@ package base;
 import java.util.*;
 
 import fxutils.*;
+import javafx.geometry.Point2D;
 import javafx.scene.layout.*;
 
 public class Board extends Pane implements ScaledPane {
@@ -23,7 +24,12 @@ public class Board extends Pane implements ScaledPane {
 	private Board() {
 		images = new ArrayList<>();
 		tileOrder = generateTileOrder();
-		
+		for(int i = 0; i < TILE_COUNT; i++) {
+			Tile t = tileOrder.get(i);
+			Point2D point = Main.POINTS.get(i);
+			t.setIdealCoords(point);
+			add(t);
+		}
 	}
 	
 	@Override
@@ -33,6 +39,11 @@ public class Board extends Pane implements ScaledPane {
 			return true;
 		}
 		return false;
+	}
+	
+	public void clearAllImages() {
+		getChildren().clear();
+		images.clear();
 	}
 	
 	@Override

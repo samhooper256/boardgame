@@ -3,6 +3,7 @@ package base;
 import fxutils.*;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 
@@ -97,6 +98,11 @@ public class ImagePane extends StackPane {
     public void setIdealCoords(double idealX, double idealY) {
     	setIdealX(idealX);
     	setIdealY(idealY);
+    }
+    
+    /** The x coordinate is set before the y coordinate. */
+    public void setIdealCoords(Point2D idealCoords) {
+    	setIdealCoords(idealCoords.getX(), idealCoords.getY());
     }
  
     public ResizableImage rimage() {
