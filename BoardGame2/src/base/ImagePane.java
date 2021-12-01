@@ -98,5 +98,9 @@ public class ImagePane extends StackPane {
     	setIdealX(idealX);
     	setIdealY(idealY);
     }
+ 
+    public ResizableImage rimage() {
+    	return rimage;
+    }
     
 }
