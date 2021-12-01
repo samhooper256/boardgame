@@ -2,6 +2,7 @@ package base;
 
 import fxutils.*;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 
@@ -9,9 +10,7 @@ public class ImagePane extends StackPane {
 
 	private final ResizableImage rimage;
 	
-	private final double idealWidth, idealHeight;
-	private final DoubleProperty idealX;
-	private final DoubleProperty idealY;
+	private final DoubleProperty idealWidth, idealHeight, idealX, idealY;
 	
 	public ImagePane(Image image) {
 		this(image, image.getWidth(), image.getHeight());
@@ -23,20 +22,42 @@ public class ImagePane extends StackPane {
 	
 	public ImagePane(Image image, double idealWidth, double idealHeight, double idealX, double idealY) {
 		rimage = new ResizableImage(image);
-		this.idealWidth = idealWidth;
-		this.idealHeight = idealHeight;
-		Nodes.setMaxSize(this, 2 * idealWidth, idealHeight);
+		this.idealWidth = new SimpleDoubleProperty(idealWidth);
+		this.idealHeight = new SimpleDoubleProperty(idealHeight);
+		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> Board.updateImageSize(this);
+		this.idealWidth.addListener(sizeListener);
+		this.idealHeight.addListener(sizeListener);
 		this.idealX = new SimpleDoubleProperty(idealX);
 		this.idealY = new SimpleDoubleProperty(idealY);
+		ChangeListener<? super Number> coordListener = (o, ov, nv) -> Board.updateImageLayoutCoords(this);
+		this.idealX.addListener(coordListener);
+		this.idealY.addListener(coordListener);
+		Nodes.setMaxSize(this, idealWidth, idealHeight);
 		getChildren().add(rimage);
 	}
 	
-	public double idealWidth() {
-    	return idealWidth;
+	public DoubleProperty idealWidthProperty() {
+		return idealWidth;
+	}
+	
+	public DoubleProperty idealHeightProperty() {
+		return idealHeight;
+	}
+	
+	public double getIdealWidth() {
+    	return idealWidthProperty().get();
     }
     
-    public double idealHeight() {
-    	return idealHeight;
+    public double getIdealHeight() {
+    	return idealHeightProperty().get();
+    }
+    
+    public void setIdealWidth(double idealWidth) {
+    	idealWidthProperty().set(idealWidth);
+    }
+    
+    public void setIdealHeight(double idealHeight) {
+    	idealHeightProperty().set(idealHeight);
     }
 
     public DoubleProperty idealXProperty() {

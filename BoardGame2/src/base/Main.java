@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import fxutils.*;
-import javafx.application.Application;
+import javafx.application.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -20,15 +20,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
-		Board g = new Board();
-		Scene scene = new Scene(g, 600, 400);
+		Scene scene = new Scene(Board.INSTANCE, 600, 400);
 		stage.setScene(scene);
 		
 		ImagePane im = new ImagePane(Images.TILE, Images.TILE.getWidth(), Images.TILE.getHeight());
 		im.setIdealX(200);
 		im.setIdealY(200);
 		
-		g.add(im);
+		Board.add(im);
 		
 		stage.setFullScreen(true);
 		stage.show();
