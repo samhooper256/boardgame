@@ -16,7 +16,14 @@ public final class Images {
 			MINIGAME_TILE = get("minigame_tile.png"),
 			SAFE_TILE = get("safe_tile.png"),
 			START_TILE = get("start_tile.png"),
-			START_TILE_HOVERED = get("start_tile_hovered.png");
+			START_TILE_HOVERED = get("start_tile_hovered.png"),
+			DIE0 = get("die0.png"),
+			DIE1 = get("die1.png"),
+			DIE2 = get("die2.png"),
+			DIE3 = get("die3.png"),
+			DIE4 = get("die4.png"),
+			DIE5 = get("die5.png"),
+			DIE6 = get("die6.png");
 
 	private Images() {}
 
