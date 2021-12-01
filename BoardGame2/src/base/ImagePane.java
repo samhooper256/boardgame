@@ -13,6 +13,10 @@ public class ImagePane extends StackPane {
 	private final DoubleProperty idealX;
 	private final DoubleProperty idealY;
 	
+	public ImagePane(Image image) {
+		this(image, image.getWidth(), image.getHeight());
+	}
+	
 	public ImagePane(Image image, double idealWidth, double idealHeight) {
 		this(image, idealWidth, idealHeight, 0, 0);
 	}

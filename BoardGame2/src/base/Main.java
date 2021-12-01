@@ -6,15 +6,12 @@ import java.util.*;
 import fxutils.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.*;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
 	private static Stage stage;
 	static final String RESOURCES_PREFIX = "/resources/";
-	
-	private static final Image TILE_IMAGE = Images.get("tile.png");
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -27,7 +24,7 @@ public class Main extends Application {
 		Scene scene = new Scene(g, 600, 400);
 		stage.setScene(scene);
 		
-		ImagePane im = new ImagePane(Main.TILE_IMAGE, Main.TILE_IMAGE.getWidth(), Main.TILE_IMAGE.getHeight());
+		ImagePane im = new ImagePane(Images.TILE, Images.TILE.getWidth(), Images.TILE.getHeight());
 		im.setIdealX(200);
 		im.setIdealY(200);
 		

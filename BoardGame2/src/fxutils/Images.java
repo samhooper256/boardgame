@@ -11,6 +11,8 @@ import javafx.scene.image.*;
  */
 public final class Images {
 	
+	public static final Image TILE = get("tile.png");
+
 	private Images() {}
 
 	/**
