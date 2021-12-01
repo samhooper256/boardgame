@@ -5,16 +5,16 @@ import java.util.*;
 public class TileSection {
 
 	public static final List<TileSection> ORDER = new ArrayList<>(Arrays.asList(
-			new TileSection(new EventTile(), new SafeTile(),
-					new SafeTile(), new MinigameTile(), new MinigameTile()),
-			new TileSection(new EventTile(), new SafeTile(),
-					new SafeTile(), new MinigameTile(), new MinigameTile()),
-			new TileSection(new EventTile(), new SafeTile(),
-					new SafeTile(), new MinigameTile(), new MinigameTile()),
-			new TileSection(new EventTile(), new SafeTile(),
-					new SafeTile(), new MinigameTile(), new MinigameTile()),
-			new TileSection(new EventTile(), new SafeTile(),
-					new SafeTile(), new MinigameTile(), new MinigameTile())
+			new TileSection(new EventTile(), new EventTile(), new SafeTile(), new SafeTile(), new MinigameTile(),
+					new MinigameTile(), new MinigameTile()),
+			new TileSection(new EventTile(), new EventTile(), new SafeTile(), new SafeTile(), new MinigameTile(),
+					new MinigameTile(), new MinigameTile()),
+			new TileSection(new EventTile(), new EventTile(), new SafeTile(), new SafeTile(), new MinigameTile(),
+					new MinigameTile(), new MinigameTile()),
+			new TileSection(new EventTile(), new EventTile(), new SafeTile(), new SafeTile(), new MinigameTile(),
+					new MinigameTile(), new MinigameTile()),
+			new TileSection(new EventTile(), new EventTile(), new SafeTile(), new SafeTile(), new MinigameTile(),
+					new MinigameTile(), new MinigameTile())
 	));
 	
 	private final List<Tile> tiles;

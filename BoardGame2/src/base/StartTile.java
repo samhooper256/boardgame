@@ -1,11 +1,11 @@
 package base;
 
-import javafx.scene.image.Image;
+import fxutils.Images;
 
 public class StartTile extends Tile {
 
-	public StartTile(Image tileImage) {
-		super(tileImage);
+	public StartTile() {
+		super(Images.START_TILE);
 	}
 
 }
