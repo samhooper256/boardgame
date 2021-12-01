@@ -5,6 +5,7 @@ import java.util.*;
 import fxutils.*;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.*;
+import tiles.*;
 
 public class Board extends Pane implements ScaledPane {
 

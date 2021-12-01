@@ -1,4 +1,4 @@
-package base;
+package tiles;
 
 import java.util.*;
 
