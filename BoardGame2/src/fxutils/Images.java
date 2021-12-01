@@ -15,7 +15,8 @@ public final class Images {
 			EVENT_TILE = get("event_tile.png"),
 			MINIGAME_TILE = get("minigame_tile.png"),
 			SAFE_TILE = get("safe_tile.png"),
-			START_TILE = get("start_tile.png");
+			START_TILE = get("start_tile.png"),
+			START_TILE_HOVERED = get("start_tile_hovered.png");
 
 	private Images() {}
 
