@@ -7,9 +7,6 @@ import fxutils.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -26,16 +23,17 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
-		Game g = new Game();
+		Board g = new Board();
 		Scene scene = new Scene(g, 600, 400);
 		stage.setScene(scene);
 		
-		ResizableImage view = new ResizableImage(TILE_IMAGE);
+		ImagePane im = new ImagePane(Main.TILE_IMAGE, Main.TILE_IMAGE.getWidth(), Main.TILE_IMAGE.getHeight());
+		im.setIdealX(200);
+		im.setIdealY(200);
 		
-		g.getChildren().add(view);
+		g.add(im);
 		
-		view.setLayoutX(200);
-		
+		stage.setFullScreen(true);
 		stage.show();
 	}
 	

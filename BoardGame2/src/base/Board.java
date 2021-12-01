@@ -2,16 +2,16 @@ package base;
 
 import java.util.*;
 
-import fxutils.ResizableImage;
+import fxutils.*;
 import javafx.scene.layout.*;
 
-public class Game extends Pane {
+public class Board extends Pane {
 
-	private final List<ImagePane> images;
-	
 	private static final double DEFAULT_WIDTH = 1920, DEFAULT_HEIGHT = 1080;
 	
-	public Game() {
+	private final List<ImagePane> images;
+	
+	public Board() {
 		images = new ArrayList<>();
 	}
 	
@@ -29,14 +29,27 @@ public class Game extends Pane {
 	
 	@Override
 	public void resize(double width, double height) {
-		// TODO Auto-generated method stub
 		super.resize(width, height);
-		System.out.printf("Resized to: %f, %f%n", width, height);
-		double hscale = height / DEFAULT_HEIGHT, wscale = width / DEFAULT_WIDTH;
+		relayout();
+	}
+	
+	private void relayout() {
 		for(ImagePane im : images) {
-//			im.resize(im.desiredWidth() * wscale, im.desiredHeight() * hscale);
-			im.setFitWidth(im.desiredWidth() * wscale);
+			Nodes.setMaxSize(im, wscale() * im.idealWidth(), hscale() * im.idealHeight());
+			updateImageLayoutCoords(im);
 		}
+	}
+	
+	public void updateImageLayoutCoords(ImagePane im) {
+		Nodes.setLayout(im, wscale() * im.getIdealX(), hscale() * im.getIdealY());
+	}
+	
+	private double wscale() {
+		return getWidth() / DEFAULT_WIDTH;
+	}
+	
+	private double hscale() {
+		return getHeight() / DEFAULT_HEIGHT;
 	}
 	
 }
