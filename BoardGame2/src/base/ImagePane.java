@@ -60,6 +60,12 @@ public class ImagePane extends StackPane {
     	idealHeightProperty().set(idealHeight);
     }
 
+    /** The width is set before the height. */
+    public void setIdealSize(double idealWidth, double idealHeight) {
+    	setIdealWidth(idealWidth);
+    	setIdealHeight(idealHeight);
+    }
+    
     public DoubleProperty idealXProperty() {
     	return idealX;
     }
@@ -82,6 +88,12 @@ public class ImagePane extends StackPane {
     
     public void setIdealY(double idealY) {
     	idealYProperty().set(idealY);
+    }
+    
+    /** The x coordinate is set before the y coordinate. */
+    public void setIdealCoords(double idealX, double idealY) {
+    	setIdealX(idealX);
+    	setIdealY(idealY);
     }
     
 }

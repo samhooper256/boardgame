@@ -3,7 +3,6 @@ package base;
 import java.io.*;
 import java.util.*;
 
-import fxutils.*;
 import javafx.application.*;
 import javafx.stage.Stage;
 
@@ -20,13 +19,6 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
 		stage.setScene(GameScene.get());
-		
-		ImagePane im = new ImagePane(Images.TILE);
-		im.setIdealX(200);
-		im.setIdealY(200);
-		
-		Board.get().add(im);
-		
 		stage.setFullScreen(true);
 		stage.show();
 	}
