@@ -33,6 +33,14 @@ public class Board extends Pane implements ScaledPane {
 		}
 	}
 	
+	private List<Tile> generateTileOrder() {
+		List<Tile> order = new ArrayList<>(TILE_COUNT);
+		order.add(new StartTile());
+		for(TileSection section : TileSection.ORDER)
+			order.addAll(section.randomOrder());
+		return order;
+	}
+	
 	@Override
 	public boolean add(ImagePane image) {
 		if(getChildren().add(image)) {
@@ -81,14 +89,6 @@ public class Board extends Pane implements ScaledPane {
 	
 	private double hscale() {
 		return getHeight() / DEFAULT_HEIGHT;
-	}
-	
-	private List<Tile> generateTileOrder() {
-		List<Tile> order = new ArrayList<>(TILE_COUNT);
-		order.add(new StartTile());
-		for(TileSection section : TileSection.ORDER)
-			order.addAll(section.randomOrder());
-		return order;
 	}
 	
 }
