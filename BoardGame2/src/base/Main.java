@@ -12,7 +12,42 @@ public class Main extends Application {
 	private static Stage stage;
 	
 	public static final List<Point2D> POINTS = new ArrayList<>(Arrays.asList(
-			
+			new Point2D(55.38,31.11), //top left corner
+			new Point2D(210.76, 31.11),
+			new Point2D(366.14, 31.11),
+			new Point2D(521.52, 31.11),
+			new Point2D(676.90, 31.11),
+			new Point2D(832.28, 31.11),
+			new Point2D(987.66, 31.11),
+			new Point2D(1143.04, 31.11),
+			new Point2D(1298.42, 31.11),
+			new Point2D(1453.80, 31.11),
+			new Point2D(1609.18, 31.11),
+			new Point2D(1764.56, 31.11), //top right corner
+			new Point2D(1764.56, 162.22),
+			new Point2D(1764.56, 293.33),
+			new Point2D(1764.56, 424.44),
+			new Point2D(1764.56, 555.55),
+			new Point2D(1764.56, 686.66),
+			new Point2D(1764.56, 817.77),
+			new Point2D(1764.56, 948.88), //bottom right corner
+			new Point2D(1609.18, 948.88),
+			new Point2D(1453.80, 948.88),
+			new Point2D(1298.42, 948.88),
+			new Point2D(1143.04, 948.88),
+			new Point2D(987.66, 948.88),
+			new Point2D(832.28, 948.88),
+			new Point2D(676.9, 948.88),
+			new Point2D(521.52, 948.88),
+			new Point2D(366.14, 948.88),
+			new Point2D(210.76, 948.88),
+			new Point2D(55.38, 948.88), //bottom left corner
+			new Point2D(55.38, 817.77),
+			new Point2D(55.38, 686.66),
+			new Point2D(55.38, 555.55),
+			new Point2D(55.38, 424.44),
+			new Point2D(55.38, 293.33),
+			new Point2D(55.38, 162.22)
 	));
 	
 	static final String RESOURCES_PREFIX = "/resources/";
