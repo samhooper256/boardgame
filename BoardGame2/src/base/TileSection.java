@@ -7,16 +7,16 @@ import fxutils.Images;
 public class TileSection {
 
 	public static final List<TileSection> ORDER = new ArrayList<>(Arrays.asList(
-			new TileSection(new EventTile(Images.TILE), new SafeTile(Images.TILE),
-					new SafeTile(Images.TILE), new MinigameTile(Images.TILE), MinigameTile.ARCHERY),
-			new TileSection(new EventTile(Images.TILE), new SafeTile(Images.TILE),
-					new SafeTile(Images.TILE), new MinigameTile(Images.TILE), new MinigameTile(Images.TILE)),
-			new TileSection(new EventTile(Images.TILE), new SafeTile(Images.TILE),
-					new SafeTile(Images.TILE), new MinigameTile(Images.TILE), new MinigameTile(Images.TILE)),
-			new TileSection(new EventTile(Images.TILE), new SafeTile(Images.TILE),
-					new SafeTile(Images.TILE), new MinigameTile(Images.TILE), new MinigameTile(Images.TILE)),
-			new TileSection(new EventTile(Images.TILE), new SafeTile(Images.TILE),
-					new SafeTile(Images.TILE), new MinigameTile(Images.TILE), new MinigameTile(Images.TILE))
+			new TileSection(new EventTile(Images.EVENT_TILE), new SafeTile(Images.EVENT_TILE),
+					new SafeTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE), MinigameTile.ARCHERY),
+			new TileSection(new EventTile(Images.EVENT_TILE), new SafeTile(Images.EVENT_TILE),
+					new SafeTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE)),
+			new TileSection(new EventTile(Images.EVENT_TILE), new SafeTile(Images.EVENT_TILE),
+					new SafeTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE)),
+			new TileSection(new EventTile(Images.EVENT_TILE), new SafeTile(Images.EVENT_TILE),
+					new SafeTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE)),
+			new TileSection(new EventTile(Images.EVENT_TILE), new SafeTile(Images.EVENT_TILE),
+					new SafeTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE), new MinigameTile(Images.EVENT_TILE))
 	));
 	
 	private final Tile[] tiles;

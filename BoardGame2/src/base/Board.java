@@ -18,7 +18,7 @@ public class Board extends Pane implements ScaledPane {
 	
 	private Board() {
 		images = new ArrayList<>();
-		ImagePane im = new ImagePane(Images.TILE);
+		ImagePane im = new ImagePane(Images.EVENT_TILE);
 		im.setIdealCoords(200, 200);
 		add(im);
 	}
