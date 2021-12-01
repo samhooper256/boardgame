@@ -23,6 +23,7 @@ public class Board extends Pane implements ScaledPane {
 		add(im);
 	}
 	
+	@Override
 	public boolean add(ImagePane image) {
 		if(getChildren().add(image)) {
 			images.add(image);
@@ -31,6 +32,7 @@ public class Board extends Pane implements ScaledPane {
 		return false;
 	}
 	
+	@Override
 	public List<ImagePane> imagesUnmodifiable() {
 		return Collections.unmodifiableList(images);
 	}
@@ -48,10 +50,12 @@ public class Board extends Pane implements ScaledPane {
 		}
 	}
 
+	@Override
 	public void updateImageSize(ImagePane ip) {
 		Nodes.setMaxSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
 	}
 	
+	@Override
 	public void updateImageLayoutCoords(ImagePane ip) {
 		Nodes.setLayout(ip, wscale() * ip.getIdealX(), hscale() * ip.getIdealY());
 	}
