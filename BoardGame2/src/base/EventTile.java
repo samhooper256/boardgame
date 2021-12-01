@@ -1,11 +1,11 @@
 package base;
 
-import javafx.scene.image.Image;
+import fxutils.Images;
 
 public class EventTile extends Tile {
 
-	public EventTile(Image tileImage) {
-		super(tileImage);
+	public EventTile() {
+		super(Images.EVENT_TILE);
 	}
 	
 }

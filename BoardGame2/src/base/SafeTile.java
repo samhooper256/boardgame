@@ -1,11 +1,11 @@
 package base;
 
-import javafx.scene.image.Image;
+import fxutils.Images;
 
 public class SafeTile extends Tile {
 
-	public SafeTile(Image tileImage) {
-		super(tileImage);
+	public SafeTile() {
+		super(Images.SAFE_TILE);
 	}
 	
 }
