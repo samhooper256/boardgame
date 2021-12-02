@@ -23,7 +23,8 @@ public final class Images {
 			DIE3 = get("die3.png"),
 			DIE4 = get("die4.png"),
 			DIE5 = get("die5.png"),
-			DIE6 = get("die6.png");
+			DIE6 = get("die6.png"),
+			ARCHERY = get("Archerytile.png");
 
 	private Images() {}
 
