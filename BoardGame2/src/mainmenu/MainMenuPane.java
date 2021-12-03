@@ -12,8 +12,10 @@ public class MainMenuPane extends AbstractScaledPane {
 	}
 	
 	private MainMenuPane() {
-		add(new ImagePane(Images.MAIN_MENU));
-		ImagePane play = new ImagePane(Images.PLAY_BUTTON);
+		ImagePane mainImage = new ImagePane(Images.MAIN_MENU);
+		add(mainImage);
+		mainImage.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 4);
+		PlayButton play = new PlayButton();
 		play.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
 		add(play);
 	}
