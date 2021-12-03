@@ -28,6 +28,17 @@ public final class Images {
 
 	private Images() {}
 
+	public static Image die(int face) {
+		switch(face) {
+			case 1: return DIE1;
+			case 2: return DIE2;
+			case 3: return DIE3;
+			case 4: return DIE4;
+			case 5: return DIE5;
+			case 6: return DIE6;
+		}
+		throw new IllegalArgumentException(String.format("Invalid face: %d", face));
+	}
 	/**
 	 * Returns the image given by {@code filename} by invoking {@link Image#Image(java.io.InputStream)} with
 	 * the appropriate {@link InputStream}. The file indicated by {@code filename} must be in the "resources"
