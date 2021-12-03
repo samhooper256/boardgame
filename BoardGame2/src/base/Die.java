@@ -4,6 +4,7 @@ import java.util.function.*;
 
 import fxutils.Images;
 import javafx.animation.*;
+import javafx.animation.Animation.Status;
 import javafx.util.Duration;
 import utils.RNG;
 
@@ -16,27 +17,30 @@ public class Die extends ImagePane {
 		return Duration.millis((ROLL_DURATION.toMillis()  / (FACE_COUNT * FACE_COUNT)) * (i * i));
 	};
 	
+	private final Timeline timeline;
+	
 	private int currentFace;
 	
 	public Die() {
 		super(Images.DIE0);
 		currentFace = 0;
-		this.setOnMouseClicked(eh -> {
-			roll();
-		});
-	}
-	
-	public void roll() {
-		System.out.println("roll");
-		Timeline t = new Timeline();
+		timeline = new Timeline();
 		for(int i = 0; i < FACE_COUNT; i++) {
 			Duration duration = DURATION_FUNCTION.apply(i);
-			System.out.println(duration.toMillis());
-			t.getKeyFrames().add(new KeyFrame(duration, eh -> {
+			timeline.getKeyFrames().add(new KeyFrame(duration, eh -> {
 				setFace(differentFace());
 			}));
 		}
-		t.playFromStart();
+		this.setOnMouseClicked(eh -> tryRoll());
+	}
+	
+	public void tryRoll() {
+		if(!isRolling())
+			roll();
+	}
+	
+	private void roll() {
+		timeline.playFromStart();
 	}
 	
 	/** Accepts an {@code int} from {@code 1} to {@code 6} (inclusive). */
@@ -51,6 +55,10 @@ public class Die extends ImagePane {
 			face = RNG.intInclusive(1, 6);
 		while(face == currentFace);
 		return face;
+	}
+	
+	public boolean isRolling() {
+		return timeline.getStatus() == Status.RUNNING;
 	}
 
 }
