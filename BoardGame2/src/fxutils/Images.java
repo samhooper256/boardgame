@@ -4,7 +4,7 @@ import base.Main;
 import javafx.scene.image.*;
 
 /**
- * Utility class for creating {@link javafx.scene.image. Image} objects from resource files and working with
+ * Utility class for creating {@link javafx.scene.image.Image} objects from resource files and working with
  * {@link ImageView ImageViews}.
  * @author Sam Hooper
  *
@@ -24,7 +24,9 @@ public final class Images {
 			DIE4 = get("die4.png"),
 			DIE5 = get("die5.png"),
 			DIE6 = get("die6.png"),
-			ARCHERY = get("Archerytile.png");
+			ARCHERY = get("Archerytile.png"),
+			MAIN_MENU = get("main_menu.png"),
+			PLAY_BUTTON = get("play_button.png");
 
 	private Images() {}
 

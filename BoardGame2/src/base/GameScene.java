@@ -11,7 +11,7 @@ public class GameScene extends Scene {
 	}
 	
 	private GameScene() {
-		super(Board.get(), 640, 360);
+		super(Board.get());
 	}
 	
 }

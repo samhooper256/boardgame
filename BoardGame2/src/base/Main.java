@@ -6,6 +6,7 @@ import java.util.*;
 import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.stage.Stage;
+import mainmenu.MainMenuScene;
 
 public class Main extends Application {
 
@@ -59,7 +60,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
-		stage.setScene(GameScene.get());
+		stage.setScene(MainMenuScene.get());
 		stage.setFullScreen(true);
 		stage.show();
 	}

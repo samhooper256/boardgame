@@ -100,6 +100,10 @@ public class ImagePane extends StackPane {
     	setIdealY(idealY);
     }
     
+    public void setIdealCenter(double idealXCenter, double idealYCenter) {
+    	setIdealCoords(idealXCenter - getIdealWidth() / 2, idealYCenter - getIdealHeight() / 2);
+    }
+    
     /** The x coordinate is set before the y coordinate. */
     public void setIdealCoords(Point2D idealCoords) {
     	setIdealCoords(idealCoords.getX(), idealCoords.getY());
