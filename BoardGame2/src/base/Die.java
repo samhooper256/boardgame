@@ -10,7 +10,6 @@ import utils.RNG;
 
 public class Die extends ImagePane {
 	
-	
 	private static final Duration ROLL_DURATION = Duration.millis(3000);
 	private static final int FACE_COUNT = 10;
 	private static final IntFunction<Duration> DURATION_FUNCTION = i -> {

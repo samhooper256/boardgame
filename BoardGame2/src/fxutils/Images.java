@@ -12,7 +12,7 @@ import javafx.scene.image.*;
 public final class Images {
 	
 	public static final Image
-			EVENT_TILE = get("event_tile.png"),
+			EVENT_TILE = get("MedicalTile.png"),
 			MINIGAME_TILE = get("minigame_tile.png"),
 			SAFE_TILE = get("safe_tile.png"),
 			START_TILE = get("start_tile.png"),
