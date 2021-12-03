@@ -1,7 +1,8 @@
-package base;
+package game;
 
 import java.util.*;
 
+import base.*;
 import javafx.geometry.Point2D;
 import tiles.*;
 

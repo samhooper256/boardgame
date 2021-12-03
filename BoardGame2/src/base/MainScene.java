@@ -1,5 +1,6 @@
 package base;
 
+import game.Board;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import mainmenu.*;

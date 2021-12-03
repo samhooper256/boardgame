@@ -1,6 +1,7 @@
 package base;
 
 import fxutils.*;
+import game.Board;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
