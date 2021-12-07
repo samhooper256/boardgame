@@ -13,10 +13,8 @@ public final class Images {
 	
 	public static final Image
 			EVENT_TILE = get("MedicalTile.png"),
-			MINIGAME_TILE = get("minigame_tile.png"),
 			SAFE_TILE = get("SafeTile.png"),
 			START_TILE = get("StarterTile.png"),
-			START_TILE_HOVERED = get("start_tile_hovered.png"),
 			DIE0 = get("die0.png"),
 			DIE1 = get("die1.png"),
 			DIE2 = get("die2.png"),
