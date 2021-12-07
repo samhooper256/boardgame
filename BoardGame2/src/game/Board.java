@@ -73,15 +73,18 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	
 	/** Moves the given {@link Player} to the given {@link Tile}.*/
 	public void movePlayer(Player p, Tile t) {
-		p.setIdealCenter(t.getIdealCenterX(), t.getIdealCenterY());
+		Tile oldTile = p.tile();
+		oldTile.players().remove(p);
+		p.setTile(t);
+		t.players().add(p);
+		t.arrangePlayers();
+		oldTile.arrangePlayers();
 	}
 	
 	/** Moves the given {@link Player} to the {@link Tile} at the given index. Updates the player's
 	 * {@link Player#tile() current tile}.*/
 	public void movePlayer(Player p, int tileIndex) {
-		Tile newTile = tileAt(tileIndex);
-		movePlayer(p, newTile);
-		p.setTile(newTile);
+		movePlayer(p, tileAt(tileIndex));
 	}
 	
 	public int turn() {

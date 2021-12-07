@@ -6,6 +6,8 @@ import tiles.*;
 
 public class Player extends ImagePane {
 
+	public static final int MAX_PLAYER_COUNT = 4;
+	
 	private static final Player[] PLAYERS = {
 			new Player(1),
 			new Player(2),
@@ -42,6 +44,16 @@ public class Player extends ImagePane {
 	@Override
 	public String toString() {
 		return String.format("Player[%d]", number());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj == this;
+	}
+	
+	@Override
+	public int hashCode() {
+		return number();
 	}
 	
 }
