@@ -57,6 +57,11 @@ public class Die extends ImagePane {
 		return face;
 	}
 	
+	/** Returns {@code true} if this die is ready to be rolled. */
+	public boolean readyToRoll() {
+		return !isRolling();
+	}
+	
 	public boolean isRolling() {
 		return timeline.getStatus() == Status.RUNNING;
 	}

@@ -2,7 +2,7 @@ package players;
 
 import base.ImagePane;
 import fxutils.Images;
-import tiles.Tile;
+import tiles.*;
 
 public class Player extends ImagePane {
 
@@ -21,6 +21,11 @@ public class Player extends ImagePane {
 	
 	private Player(int n) {
 		super(Images.player(n));
+		current = StartTile.get();
 	}
 
+	public Tile currentTile() {
+		return current;
+	}
+	
 }

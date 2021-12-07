@@ -100,6 +100,14 @@ public class ImagePane extends StackPane {
     	setIdealX(idealX);
     	setIdealY(idealY);
     }
+
+    public double getIdealCenterX() {
+    	return getIdealX() + getIdealWidth() / 2;
+    }
+    
+    public double getIdealCenterY() {
+    	return getIdealY() + getIdealHeight() / 2;
+    }
     
     public void setIdealCenter(double idealXCenter, double idealYCenter) {
     	setIdealCoords(idealXCenter - getIdealWidth() / 2, idealYCenter - getIdealHeight() / 2);
