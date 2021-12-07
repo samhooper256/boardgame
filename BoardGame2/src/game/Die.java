@@ -20,10 +20,12 @@ public class Die extends ImagePane {
 	private final Timeline timeline;
 	
 	private int currentFace;
+	private boolean readyToRoll;
 	
 	public Die() {
 		super(Images.DIE0);
 		currentFace = 0;
+		readyToRoll = true;
 		timeline = new Timeline();
 		for(int i = 0; i < FACE_COUNT; i++) {
 			Duration duration = DURATION_FUNCTION.apply(i);
@@ -37,11 +39,12 @@ public class Die extends ImagePane {
 	}
 	
 	public void tryRoll() {
-		if(!isRolling())
+		if(readyToRoll())
 			roll();
 	}
 	
 	private void roll() {
+		readyToRoll = false;
 		timeline.playFromStart();
 	}
 	
@@ -61,7 +64,7 @@ public class Die extends ImagePane {
 	
 	/** Returns {@code true} if this die is ready to be rolled. */
 	public boolean readyToRoll() {
-		return !isRolling();
+		return readyToRoll;
 	}
 	
 	public boolean isRolling() {
@@ -70,6 +73,10 @@ public class Die extends ImagePane {
 
 	public int face() {
 		return currentFace;
+	}
+	
+	public void setReady() {
+		readyToRoll = true;
 	}
 	
 }

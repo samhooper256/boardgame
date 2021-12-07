@@ -76,6 +76,14 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		p.setIdealCenter(t.getIdealCenterX(), t.getIdealCenterY());
 	}
 	
+	/** Moves the given {@link Player} to the {@link Tile} at the given index. Updates the player's
+	 * {@link Player#tile() current tile}.*/
+	public void movePlayer(Player p, int tileIndex) {
+		Tile newTile = tileAt(tileIndex);
+		movePlayer(p, newTile);
+		p.setTile(newTile);
+	}
+	
 	public int turn() {
 		return turn;
 	}
@@ -87,11 +95,13 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	
 	/** Updates the given {@link Player Player's} {@link Player#tile() current tile}. */
 	private void walk(Player p, int distance) {
-		int newTileIndex = p.tile().index() + distance;
-		newTileIndex = Math.min(newTileIndex, TILE_COUNT - 1);
-		Tile newTile = tileAt(newTileIndex);
-		movePlayer(p, newTile);
-		p.setTile(newTile);
+		WalkAnimation wa = new WalkAnimation(p, distance);
+		wa.playFromStart();
+	}
+	
+	/** Called by {@link WalkAnimation} to notify this {@link Board} that the animation has finished. */
+	public void walkFinished(WalkAnimation w) {
+		die.setReady();
 	}
 	
 	private void incrementTurn() {
