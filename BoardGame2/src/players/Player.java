@@ -1,13 +1,23 @@
 package players;
 
 import base.ImagePane;
-import javafx.scene.image.Image;
+import fxutils.Images;
 
 public class Player extends ImagePane {
 
-	public Player(Image image) {
-		super(image);
-		// TODO Auto-generated constructor stub
+	private static final Player[] PLAYERS = {
+			new Player(1),
+			new Player(2),
+			new Player(3),
+			new Player(4)
+	};
+	
+	public static Player get(int n) {
+		return PLAYERS[n - 1];
+	}
+	
+	private Player(int n) {
+		super(Images.player(n));
 	}
 
 }

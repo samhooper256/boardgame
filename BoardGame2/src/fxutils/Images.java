@@ -22,6 +22,10 @@ public final class Images {
 			DIE4 = get("die4.png"),
 			DIE5 = get("die5.png"),
 			DIE6 = get("die6.png"),
+			PLAYER1 = get("player1.png"),
+			PLAYER2 = get("player2.png"),
+			PLAYER3 = get("player3.png"),
+			PLAYER4 = get("player4.png"),
 			ARCHERY = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("play_button.png");
@@ -39,6 +43,18 @@ public final class Images {
 		}
 		throw new IllegalArgumentException(String.format("Invalid face: %d", face));
 	}
+	
+	/** Assumes {@code n} between {@code 1} and {@code 4} (inclusive). */
+	public static Image player(int n) {
+		switch(n) {
+			case 1: return PLAYER1;
+			case 2: return PLAYER2;
+			case 3: return PLAYER3;
+			case 4: return PLAYER4;
+		}
+		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
+	}
+	
 	/**
 	 * Returns the image given by {@code filename} by invoking {@link Image#Image(java.io.InputStream)} with
 	 * the appropriate {@link InputStream}. The file indicated by {@code filename} must be in the "resources"
