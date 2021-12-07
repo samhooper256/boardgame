@@ -2,6 +2,7 @@ package players;
 
 import base.ImagePane;
 import fxutils.Images;
+import tiles.Tile;
 
 public class Player extends ImagePane {
 
@@ -15,6 +16,8 @@ public class Player extends ImagePane {
 	public static Player get(int n) {
 		return PLAYERS[n - 1];
 	}
+	
+	private Tile current;
 	
 	private Player(int n) {
 		super(Images.player(n));

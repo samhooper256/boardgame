@@ -35,7 +35,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	
 	private List<Tile> generateTileOrder() {
 		List<Tile> order = new ArrayList<>(TILE_COUNT);
-		order.add(new StartTile());
+		order.add(StartTile.get());
 		for(TileSection section : TileSection.ORDER)
 			order.addAll(section.randomOrder());
 		return order;
