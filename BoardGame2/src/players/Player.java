@@ -17,15 +17,31 @@ public class Player extends ImagePane {
 		return PLAYERS[n - 1];
 	}
 	
+	private final int number;
+	
 	private Tile current;
 	
-	private Player(int n) {
-		super(Images.player(n));
+	private Player(int number) {
+		super(Images.player(number));
+		this.number = number;
 		current = StartTile.get();
 	}
 
-	public Tile currentTile() {
+	public Tile tile() {
 		return current;
+	}
+	
+	public void setTile(Tile newTile) {
+		current = newTile;
+	}
+	
+	public int number() {
+		return number;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("Player[%d]", number());
 	}
 	
 }

@@ -31,6 +31,8 @@ public class Die extends ImagePane {
 				setFace(differentFace());
 			}));
 		}
+		Duration last = DURATION_FUNCTION.apply(FACE_COUNT - 1);
+		timeline.getKeyFrames().add(new KeyFrame(last.add(Duration.seconds(1)), eh -> Board.get().executeTurn(face())));
 		this.setOnMouseClicked(eh -> tryRoll());
 	}
 	
@@ -66,4 +68,8 @@ public class Die extends ImagePane {
 		return timeline.getStatus() == Status.RUNNING;
 	}
 
+	public int face() {
+		return currentFace;
+	}
+	
 }

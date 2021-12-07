@@ -6,6 +6,7 @@ import java.util.*;
 import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.stage.Stage;
+import tiles.SafeTile;
 
 public class Main extends Application {
 

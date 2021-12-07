@@ -11,7 +11,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 
 	public static final int TILE_COUNT = 36;
 	
-	private static final Board INSTANCE = new Board(1);
+	private static final Board INSTANCE = new Board(2);
 	
 	public static Board get() {
 		return INSTANCE;
@@ -67,6 +67,10 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		return tileOrder.get(index);
 	}
 
+	public int tileIndex(Tile tile) {
+		return tileOrder.indexOf(tile);
+	}
+	
 	/** Moves the given {@link Player} to the given {@link Tile}.*/
 	public void movePlayer(Player p, Tile t) {
 		p.setIdealCenter(t.getIdealCenterX(), t.getIdealCenterY());
@@ -74,6 +78,27 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	
 	public int turn() {
 		return turn;
+	}
+	
+	public void executeTurn(int diceRoll) {
+		walk(Player.get(turn), diceRoll);
+		incrementTurn();
+	}
+	
+	/** Updates the given {@link Player Player's} {@link Player#tile() current tile}. */
+	private void walk(Player p, int distance) {
+		int newTileIndex = p.tile().index() + distance;
+		newTileIndex = Math.min(newTileIndex, TILE_COUNT - 1);
+		Tile newTile = tileAt(newTileIndex);
+		movePlayer(p, newTile);
+		p.setTile(newTile);
+	}
+	
+	private void incrementTurn() {
+		if(turn == playerCount)
+			turn = 1;
+		else
+			turn++;
 	}
 	
 }
