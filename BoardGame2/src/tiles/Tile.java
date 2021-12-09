@@ -66,4 +66,8 @@ public abstract class Tile extends ImagePane {
 		throw new UnsupportedOperationException(String.format("Unsupported amount of players: %d", players.size()));
 	}
 	
+	/** Called when a {@link Player} lands on this {@link Tile}.
+	 * Assumes the given {@link Player} is already in this {@link Tile Tile's} set of {@link #players() players}.*/
+	public abstract void land(Player p);
+	
 }

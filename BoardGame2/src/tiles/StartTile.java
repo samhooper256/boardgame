@@ -1,6 +1,7 @@
 package tiles;
 
 import fxutils.Images;
+import players.Player;
 
 public final class StartTile extends Tile {
 
@@ -12,6 +13,11 @@ public final class StartTile extends Tile {
 	
 	private StartTile() {
 		super(Images.START_TILE);
+	}
+
+	@Override
+	public void land(Player p) {
+		// TODO Auto-generated method stub
 	}
 
 }
