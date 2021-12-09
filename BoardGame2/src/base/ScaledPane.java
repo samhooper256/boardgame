@@ -10,6 +10,9 @@ public interface ScaledPane {
 	/** Returns {@code true} if the {@link ImagePane} was successfully added, {@code false} otherwise. */
 	boolean add(ImagePane ip);
 	
+	/** Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
+	boolean remove(ImagePane ip);
+	
 	List<ImagePane> imagesUnmodifiable();
 	
 	void resize(double width, double height);

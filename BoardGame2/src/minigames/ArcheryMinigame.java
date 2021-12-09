@@ -1,14 +1,23 @@
 package minigames;
 
-import base.ImagePane;
+import base.*;
 import fxutils.Images;
 
 public class ArcheryMinigame extends Minigame {
 
+	private final FadeableImagePane instructions;
+	
 	public ArcheryMinigame() {
 		super();
-		ImagePane ip = new ImagePane(Images.MINIGAME_INSTRUCTIONS);
-		add(ip);
+		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS);
+		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+		
+	}
+
+	@Override
+	public void start() {
+		instructions.makeFullyVisible();
+		add(instructions);
 	}
 	
 }

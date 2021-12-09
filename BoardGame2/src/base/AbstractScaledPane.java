@@ -26,6 +26,15 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	}
 	
 	@Override
+	public boolean remove(ImagePane image) {
+		if(getChildren().remove(image)) {
+			images.remove(image);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public List<ImagePane> imagesUnmodifiable() {
 		return Collections.unmodifiableList(images);
 	}
