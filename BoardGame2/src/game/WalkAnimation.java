@@ -36,4 +36,12 @@ final class WalkAnimation {
 		return timeline.getStatus() == Status.RUNNING;
 	}
 
+	public Player player() {
+		return player;
+	}
+	
+	public int destTileIndex() {
+		return destIndex;
+	}
+	
 }

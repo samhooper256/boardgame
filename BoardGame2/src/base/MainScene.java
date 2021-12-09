@@ -2,8 +2,9 @@ package base;
 
 import game.Board;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import mainmenu.*;
+import minigames.Minigame;
 
 public class MainScene extends Scene {
 
@@ -18,12 +19,20 @@ public class MainScene extends Scene {
 	private MainScene() {
 		super(new StackPane());
 		root = (StackPane) getRoot();
-		root.getChildren().add(MainMenuPane.get());
+		setContent(MainMenuPane.get());
+	}
+	
+	private void setContent(Pane p) {
+		root.getChildren().clear();
+		root.getChildren().add(p);
 	}
 	
 	public void startGame() {
-		root.getChildren().clear();
-		root.getChildren().add(Board.get());
+		setContent(Board.get());
+	}
+
+	public void startMinigame(Minigame mg) {
+		setContent(mg);
 	}
 	
 }

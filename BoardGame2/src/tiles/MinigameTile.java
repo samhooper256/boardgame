@@ -1,6 +1,8 @@
 package tiles;
 
+import base.MainScene;
 import fxutils.Images;
+import minigames.*;
 import players.Player;
 
 public class MinigameTile extends Tile {
@@ -12,6 +14,7 @@ public class MinigameTile extends Tile {
 	@Override
 	public void land(Player p) {
 		// TODO Auto-generated method stub
+		MainScene.get().startMinigame(new ArcheryMinigame());
 	}
 	
 }
