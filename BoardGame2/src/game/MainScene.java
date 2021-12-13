@@ -41,12 +41,13 @@ public class MainScene extends Scene {
 	}
 
 	public void startMinigame(Minigame mg) {
-		root.getChildren().addAll(fadeLayer);
+		root.getChildren().add(fadeLayer);
 		fadeLayer.fadeIn(mg, mg::start);
 	}
 	
 	public void fadeBackFromMinigame(MinigameResult mr) {
-		//TODO
+		root.getChildren().add(fadeLayer);
+		fadeLayer.fadeIn(Board.get(), null);
 	}
 	
 	public void setRootBase(Pane p) {
