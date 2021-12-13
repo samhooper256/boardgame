@@ -1,7 +1,7 @@
 package tiles;
 
-import base.MainScene;
 import fxutils.Images;
+import game.MainScene;
 import minigames.*;
 import players.Player;
 

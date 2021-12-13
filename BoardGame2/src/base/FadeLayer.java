@@ -1,6 +1,7 @@
 package base;
 
 import fxutils.*;
+import game.MainScene;
 import javafx.animation.Transition;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;

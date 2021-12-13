@@ -2,6 +2,7 @@ package mainmenu;
 
 import base.*;
 import fxutils.Images;
+import game.MainScene;
 
 public class PlayButton extends ImagePane {
 

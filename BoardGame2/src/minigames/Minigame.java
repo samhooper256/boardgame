@@ -1,6 +1,7 @@
 package minigames;
 
 import base.*;
+import game.MainScene;
 import javafx.scene.input.KeyEvent;
 
 public abstract class Minigame extends AbstractScaledPane {

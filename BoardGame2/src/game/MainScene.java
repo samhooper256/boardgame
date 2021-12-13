@@ -1,11 +1,11 @@
-package base;
+package game;
 
-import game.Board;
+import base.FadeLayer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import mainmenu.*;
-import minigames.Minigame;
+import minigames.*;
 
 public class MainScene extends Scene {
 
@@ -43,6 +43,10 @@ public class MainScene extends Scene {
 	public void startMinigame(Minigame mg) {
 		root.getChildren().addAll(fadeLayer);
 		fadeLayer.fadeIn(mg);
+	}
+	
+	public void fadeBackFromMinigame(MinigameResult mr) {
+		//TODO
 	}
 	
 	public void setRootBase(Pane p) {

@@ -6,6 +6,7 @@ import base.*;
 import fxutils.Timing;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
+import minigames.MinigameResult;
 import players.Player;
 import tiles.*;
 
