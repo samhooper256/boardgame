@@ -3,7 +3,7 @@ package minigames;
 import base.*;
 import fxutils.Images;
 import game.MainScene;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.util.Duration;
 
 public class ArcheryMinigame extends Minigame {
@@ -32,7 +32,8 @@ public class ArcheryMinigame extends Minigame {
 				instructions.fadeOut(this);
 		}
 		else {
-			MainScene.get().fadeBackFromMinigame(null);
+			if(ke.getCode() == KeyCode.E)
+				MainScene.get().fadeBackFromMinigame(null);
 		}
 	}
 	
