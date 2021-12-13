@@ -42,7 +42,7 @@ public class MainScene extends Scene {
 
 	public void startMinigame(Minigame mg) {
 		root.getChildren().addAll(fadeLayer);
-		fadeLayer.fadeIn(mg);
+		fadeLayer.fadeIn(mg, mg::start);
 	}
 	
 	public void fadeBackFromMinigame(MinigameResult mr) {
