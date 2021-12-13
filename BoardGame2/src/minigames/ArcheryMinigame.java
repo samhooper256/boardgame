@@ -16,7 +16,6 @@ public class ArcheryMinigame extends Minigame {
 		super();
 		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS, INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
-		
 	}
 
 	@Override

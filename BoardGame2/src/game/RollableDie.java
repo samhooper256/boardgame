@@ -9,7 +9,7 @@ import javafx.animation.Animation.Status;
 import javafx.util.Duration;
 import utils.RNG;
 
-public class Die extends ImagePane {
+public class RollableDie extends ImagePane {
 	
 	private static final Duration ROLL_DURATION = Duration.millis(3000);
 	private static final int FACE_COUNT = 10;
@@ -22,7 +22,7 @@ public class Die extends ImagePane {
 	private int currentFace;
 	private boolean readyToRoll;
 	
-	public Die() {
+	public RollableDie() {
 		super(Images.DIE0);
 		currentFace = 0;
 		readyToRoll = true;

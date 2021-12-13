@@ -23,7 +23,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		return INSTANCE;
 	}
 	
-	private final Die die;
+	private final RollableDie die;
 	
 	private List<Tile> tileOrder;
 	private int playerCount, turn;
@@ -31,7 +31,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	private Board(int playerCount) {
 		this.playerCount = playerCount;
 		turn = 1;
-		die = new Die();
+		die = new RollableDie();
 		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
 		tileOrder = generateTileOrder();
 		placeTiles();
