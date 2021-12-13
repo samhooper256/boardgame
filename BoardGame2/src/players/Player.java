@@ -28,7 +28,7 @@ public class Player extends ImagePane {
 		super(Images.player(number));
 		this.number = number;
 		current = StartTile.get();
-		rollType = RollType.RANDOM;
+		rollType = RollType.CHOOSE; //TODO set back to RANDOM
 	}
 
 	public Tile tile() {

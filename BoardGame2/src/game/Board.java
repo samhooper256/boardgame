@@ -4,10 +4,10 @@ import java.util.*;
 
 import base.*;
 import fxutils.Timing;
-import javafx.geometry.Point2D;
+import javafx.geometry.*;
 import javafx.util.Duration;
 import minigames.MinigameResult;
-import players.Player;
+import players.*;
 import tiles.*;
 
 public class Board extends AbstractScaledPane implements ScaledPane {
@@ -23,20 +23,23 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		return INSTANCE;
 	}
 	
-	private final RollableDie die;
-	
 	private List<Tile> tileOrder;
 	private int playerCount, turn;
+	private RollType lastRollType;
+	private boolean turnRunning;
 	
 	private Board(int playerCount) {
 		this.playerCount = playerCount;
 		turn = 1;
-		die = new RollableDie();
+		RollableDie die = RollableDie.get();
 		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
 		tileOrder = generateTileOrder();
+		turnRunning = false;
 		placeTiles();
 		placePlayers();
 		add(die);
+		lastRollType = RollType.RANDOM; //this will be updated by the setupDie() method below.
+		setupDie();
 	}
 
 	private void placeTiles() {
@@ -98,8 +101,8 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	}
 	
 	public void executeTurn(int diceRoll) {
+		turnRunning = true;
 		walk(Player.get(turn), diceRoll);
-		incrementTurn();
 	}
 	
 	/** Updates the given {@link Player Player's} {@link Player#tile() current tile}. */
@@ -110,9 +113,11 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	
 	/** Called by {@link WalkAnimation} to notify this {@link Board} that the animation has finished. */
 	public void walkFinished(WalkAnimation w) {
+		Tile destTile = tileAt(w.destTileIndex());
 		Timing.doAfterDelay(LAND_DELAY_TO_MINIGAME, () -> {
-			tileAt(w.destTileIndex()).land(w.player());
-			die.setReady();
+			destTile.land(w.player());
+			if(!(destTile instanceof MinigameTile)) //TODO this is not how this should be done.
+				incrementTurn();
 		});
 	}
 	
@@ -121,10 +126,52 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 			turn = 1;
 		else
 			turn++;
+		setupDie();
+		turnRunning = false;
+	}
+	
+	private void setupDie() {
+		RollType type = currentPlayer().rollType();
+		switch(type) {
+			case RANDOM: 
+				setupRandomDie();
+				break;
+			case CHOOSE:
+				setupChooseDie();
+				break;
+			default: throw new UnsupportedOperationException(String.format("Unsupported RollType: %s", type));
+		}
+		lastRollType = type;
+	}
+	
+	private void setupRandomDie() {
+		if(lastRollType == RollType.CHOOSE) {
+			for(int face = 1; face <= 6; face++)
+				remove(FixedDie.showing(face));
+			add(RollableDie.get());
+			RollableDie.get().setReady();
+		}
+	}
+	
+	private void setupChooseDie() {
+		if(lastRollType == RollType.RANDOM) {
+			remove(RollableDie.get());
+			for(int face = 1; face <= 6; face++)
+				add(FixedDie.showing(face));
+		}
 	}
 	
 	public void minigameFinished(MinigameResult mr) {
-		//TODO
+		incrementTurn();
 	}
+	
+	public Player currentPlayer() {
+		return Player.get(turn());
+	}
+	
+	public boolean turnRunning() {
+		return turnRunning;
+	}
+	
 	
 }

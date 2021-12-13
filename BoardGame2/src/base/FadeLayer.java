@@ -6,7 +6,6 @@ import javafx.animation.Transition;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import minigames.Minigame;
 
 public class FadeLayer extends StackPane {
 

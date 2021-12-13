@@ -35,6 +35,7 @@ public final class Images {
 
 	public static Image die(int face) {
 		switch(face) {
+			case 0: return DIE0;
 			case 1: return DIE1;
 			case 2: return DIE2;
 			case 3: return DIE3;

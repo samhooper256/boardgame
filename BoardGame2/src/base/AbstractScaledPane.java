@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 
 public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 
-	public static final double DEFAULT_WIDTH = 1920, DEFAULT_HEIGHT = 1080;
-	
 	protected final List<ImagePane> images;
 	
 	public AbstractScaledPane() {
