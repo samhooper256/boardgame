@@ -22,11 +22,13 @@ public class Player extends ImagePane {
 	private final int number;
 	
 	private Tile current;
+	private RollType rollType;
 	
 	private Player(int number) {
 		super(Images.player(number));
 		this.number = number;
 		current = StartTile.get();
+		rollType = RollType.RANDOM;
 	}
 
 	public Tile tile() {
@@ -39,6 +41,14 @@ public class Player extends ImagePane {
 	
 	public int number() {
 		return number;
+	}
+	
+	public RollType rollType() {
+		return rollType;
+	}
+
+	public void setRollType(RollType rollType) {
+		this.rollType = rollType;
 	}
 	
 	@Override
