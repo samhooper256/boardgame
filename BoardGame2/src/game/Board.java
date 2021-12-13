@@ -123,4 +123,8 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 			turn++;
 	}
 	
+	public void minigameFinished(MinigameResult mr) {
+		//TODO
+	}
+	
 }

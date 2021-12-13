@@ -2,6 +2,7 @@ package minigames;
 
 import base.*;
 import fxutils.Images;
+import game.MainScene;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
@@ -29,6 +30,9 @@ public class ArcheryMinigame extends Minigame {
 		if(instructionsShowing()) {
 			if(!instructions.isFadingOut())
 				instructions.fadeOut(this);
+		}
+		else {
+			MainScene.get().fadeBackFromMinigame(null);
 		}
 	}
 	

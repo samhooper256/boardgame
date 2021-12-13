@@ -67,7 +67,7 @@ public class FadeLayer extends StackPane {
 	}
 	
 	private void fadeOutFinished() {
-		//TODO anything here?
+		MainScene.get().removeFadeLayer();
 	}
 	
 	private void runPeakAction() {
