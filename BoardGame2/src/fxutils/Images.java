@@ -15,7 +15,7 @@ public final class Images {
 			EVENT_TILE = get("MedicalTile.png"),
 			SAFE_TILE = get("SafeTile.png"),
 			START_TILE = get("StarterTile.png"),
-			DIE0 = get("Dice1.png"),
+			DIE0 = get("DiceBase.png"),
 			DIE1 = get("Dice1.png"),
 			DIE2 = get("Dice2.png"),
 			DIE3 = get("Dice3.png"),
