@@ -10,7 +10,7 @@ public class EventTile extends Tile {
 	
 	public EventTile() {
 		super(Images.EVENT_TILE);
-		this.event = new AthenasBlessing();
+		this.event = new AthenasBlessingEvent();
 	}
 
 	@Override

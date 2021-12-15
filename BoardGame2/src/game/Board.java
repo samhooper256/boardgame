@@ -3,6 +3,7 @@ package game;
 import java.util.*;
 
 import base.*;
+import events.Event;
 import fxutils.Timing;
 import javafx.geometry.*;
 import javafx.util.Duration;
@@ -120,8 +121,8 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		Tile destTile = tileAt(w.destTileIndex());
 		Timing.doAfterDelay(LAND_DELAY_TO_MINIGAME, () -> {
 			destTile.land(w.player());
-			if(!(destTile instanceof MinigameTile)) //TODO this is not how this should be done.
-				incrementTurn();
+			if(destTile instanceof SafeTile) //TODO this is not how this should be done.
+				incrementTurn(); //Minigames and events will call this when they finish.
 		});
 	}
 	
@@ -168,6 +169,10 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	}
 	
 	public void minigameFinished(MinigameResult mr) {
+		incrementTurn();
+	}
+	
+	public void eventFinished(Event event) {
 		incrementTurn();
 	}
 	
