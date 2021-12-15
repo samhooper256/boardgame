@@ -127,6 +127,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	}
 	
 	private void incrementTurn() {
+		Player.get(turn()).turnFinished();
 		if(turn == playerCount)
 			turn = 1;
 		else
