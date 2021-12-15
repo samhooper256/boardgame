@@ -22,7 +22,7 @@ public final class Images {
 			DIE4 = get("Dice4.png"),
 			DIE5 = get("Dice5.png"),
 			DIE6 = get("Dice6.png"),
-			PLAYER1 = get("player1.png"),
+			PLAYER1 = get("WingsPlayer.png"),
 			PLAYER2 = get("player2.png"),
 			PLAYER3 = get("player3.png"),
 			PLAYER4 = get("player4.png"),
