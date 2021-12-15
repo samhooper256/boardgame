@@ -45,7 +45,7 @@ public final class FixedDie extends ImagePane implements Die {
 	}
 
 	public void clickAction() {
-		if(!Board.get().turnRunning())
+		if(Board.get().readyToRoll())
 			Board.get().executeTurn(face);
 	}
 	

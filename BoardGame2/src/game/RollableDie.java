@@ -27,12 +27,10 @@ public final class RollableDie extends ImagePane implements Die {
 	private final Timeline timeline;
 	
 	private int currentFace;
-	private boolean readyToRoll;
 	
 	private RollableDie() {
 		super(Images.die(DEFAULT_FACE));
 		currentFace = DEFAULT_FACE;
-		readyToRoll = true;
 		timeline = new Timeline();
 		for(int i = 0; i < FACE_COUNT; i++) {
 			Duration duration = DURATION_FUNCTION.apply(i);
@@ -46,17 +44,16 @@ public final class RollableDie extends ImagePane implements Die {
 	}
 	
 	public void tryRoll() {
-		if(readyToRoll())
+		if(Board.get().readyToRoll())
 			roll();
 	}
 	
 	private void roll() {
-		readyToRoll = false;
 		timeline.playFromStart();
 	}
 	
 	/** Accepts an {@code int} from {@code 1} to {@code 6} (inclusive). */
-	private void setFace(int face) {
+	public void setFace(int face) {
 		setImage(Images.die(face));
 		currentFace = face;
 	}
@@ -69,21 +66,13 @@ public final class RollableDie extends ImagePane implements Die {
 		return face;
 	}
 	
-	/** Returns {@code true} if this die is ready to be rolled. */
-	public boolean readyToRoll() {
-		return readyToRoll;
-	}
-	
 	public boolean isRolling() {
 		return timeline.getStatus() == Status.RUNNING;
 	}
 
+	@Override
 	public int face() {
 		return currentFace;
-	}
-	
-	public void setReady() {
-		readyToRoll = true;
 	}
 	
 }

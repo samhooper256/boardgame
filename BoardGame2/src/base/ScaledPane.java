@@ -27,4 +27,10 @@ public interface ScaledPane {
 	
 	void updateImageLayoutCoords(ImagePane ip);
 	
+	/** @throws IllegalStateException if the given {@link ImagePane} is not in this {@link ScaledPane}. */
+	default void bringToFront(ImagePane ip) {
+		if(!remove(ip))
+			throw new IllegalStateException(String.format("ImagePane is not in this ScaledPane: %s", ip));
+		add(ip);
+	}
 }

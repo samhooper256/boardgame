@@ -26,7 +26,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	private List<Tile> tileOrder;
 	private int playerCount, turn;
 	private RollType lastRollType;
-	private boolean turnRunning;
+	private boolean readyToRoll;
 	
 	private Board(int playerCount) {
 		this.playerCount = playerCount;
@@ -34,7 +34,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		RollableDie die = RollableDie.get();
 		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
 		tileOrder = generateTileOrder();
-		turnRunning = false;
+		readyToRoll = false;
 		placeTiles();
 		placePlayers();
 		add(die);
@@ -105,7 +105,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	}
 	
 	public void executeTurn(int diceRoll) {
-		turnRunning = true;
+		readyToRoll = false;
 		walk(Player.get(turn), diceRoll);
 	}
 	
@@ -131,7 +131,6 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		else
 			turn++;
 		setupDie();
-		turnRunning = false;
 	}
 	
 	private void setupDie() {
@@ -149,18 +148,23 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	}
 	
 	private void setupRandomDie() {
-		if(lastRollType == RollType.CHOOSE) {
-			for(int face = 1; face <= 6; face++)
-				remove(FixedDie.showing(face));
-			add(RollableDie.get());
-			RollableDie.get().setReady();
-		}
+		if(lastRollType == RollType.CHOOSE)
+			//readyToRoll is set to true after the transition finishes.
+			BoardAnimations.transitionToRandomRoll(this::rollTransitionFinished);
+		else
+			readyToRoll = true;
 	}
 	
 	private void setupChooseDie() {
-		if(lastRollType == RollType.RANDOM) {
-			BoardAnimations.transitionToChooseRoll();
-		}
+		if(lastRollType == RollType.RANDOM)
+			//readyToRoll is set to true after the transition finishes.
+			BoardAnimations.transitionToChooseRoll(this::rollTransitionFinished);
+		else
+			readyToRoll = true;
+	}
+	
+	private void rollTransitionFinished() {
+		readyToRoll = true;
 	}
 	
 	public void minigameFinished(MinigameResult mr) {
@@ -171,9 +175,8 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		return Player.get(turn());
 	}
 	
-	public boolean turnRunning() {
-		return turnRunning;
+	public boolean readyToRoll() {
+		return readyToRoll;
 	}
-	
 	
 }
