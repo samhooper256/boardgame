@@ -1,5 +1,7 @@
 package players;
 
+import java.util.*;
+
 import base.ImagePane;
 import fxutils.Images;
 import tiles.*;
@@ -20,6 +22,7 @@ public class Player extends ImagePane {
 	}
 	
 	private final int number;
+	private final List<Passive> passives;
 	
 	private Tile current;
 	private RollType rollType;
@@ -27,10 +30,30 @@ public class Player extends ImagePane {
 	private Player(int number) {
 		super(Images.player(number));
 		this.number = number;
+		passives = new ArrayList<>();
 		current = StartTile.get();
 		rollType = RollType.RANDOM;
 	}
 
+	public void acquirePassive(Passive p) {
+		p.activate();
+		passives.add(p);
+	}
+	
+	public void turnFinished() {
+		for(int i = 0; i < passives.size(); i++) {
+			Passive p = passives.get(i);
+			if(p instanceof TemporaryPassive) {
+				TemporaryPassive tp = (TemporaryPassive) p;
+				tp.turnElapsed();
+				if(tp.turnsRemaining() == 0) {
+					passives.remove(i);
+					i--;
+				}
+			}
+		}
+	}
+	
 	public Tile tile() {
 		return current;
 	}
