@@ -43,7 +43,7 @@ public abstract class Tile extends ImagePane {
 			return;
 		}
 		Player third = itr.next();
-		if(players.size() == 4) {
+		if(players.size() == 3) {
 			first.setIdealCenter(this.getIdealCenterX() - this.getIdealWidth() * .25,
 					this.getIdealCenterY() - this.getIdealHeight() * .25);
 			second.setIdealCenter(this.getIdealCenterX() + this.getIdealWidth() * .25,

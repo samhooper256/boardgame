@@ -15,7 +15,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 
 	public static final int TILE_COUNT = 36;
 	
-	private static final Board INSTANCE = new Board(2);
+	private static final Board INSTANCE = new Board(4);
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
 	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);
