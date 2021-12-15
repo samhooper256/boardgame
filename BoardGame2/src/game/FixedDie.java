@@ -2,24 +2,23 @@ package game;
 
 import base.*;
 import fxutils.Images;
+import players.RollType;
 
-public final class FixedDie extends ImagePane {
+public final class FixedDie extends ImagePane implements Die {
 	
 	private static final double HORIZONTAL_CENTER_DIST = 100, VERTICAL_CENTER_DIST = 140;
 	
 	private static final FixedDie[] DICE = new FixedDie[7];
 	
 	static {
-		for(int i = 0; i < DICE.length; i++)
-			DICE[i] = new FixedDie(i);
 		double hc = ScaledPane.DEFAULT_WIDTH / 2, vc = ScaledPane.DEFAULT_HEIGHT / 2,
 				hcd = HORIZONTAL_CENTER_DIST, vcd = VERTICAL_CENTER_DIST;
-		showing(1).setIdealCenter(hc - hcd, vc - vcd);
-		showing(2).setIdealCenter(hc + hcd, vc - vcd);
-		showing(3).setIdealCenter(hc - hcd, vc);
-		showing(4).setIdealCenter(hc + hcd, vc);
-		showing(5).setIdealCenter(hc - hcd, vc + vcd);
-		showing(6).setIdealCenter(hc + hcd, vc + vcd);
+		DICE[1] = new FixedDie(1, hc - hcd, vc - vcd);
+		DICE[2] = new FixedDie(2, hc + hcd, vc - vcd);
+		DICE[3] = new FixedDie(3, hc - hcd, vc);
+		DICE[4] = new FixedDie(4, hc + hcd, vc);
+		DICE[5] = new FixedDie(5, hc - hcd, vc + vcd);
+		DICE[6] = new FixedDie(6, hc + hcd, vc + vcd);
 	}
 	
 	public static FixedDie showing(int face) {
@@ -27,14 +26,20 @@ public final class FixedDie extends ImagePane {
 	}
 	
 	private final int face;
+	/** The coordinates of this {@link FixedDie} when the {@link Board} is showing a {@link RollType#CHOOSE choose}
+	 * roll. */
+	private final double choiceX, choiceY;
 	
-	private FixedDie(int face) {
+	private FixedDie(int face, double choiceXCenter, double choiceYCenter) {
 		super(Images.die(face));
 		this.face = face;
+		this.choiceX = choiceXCenter;
+		this.choiceY = choiceYCenter;
 		setOnMouseClicked(eh -> clickAction());
 	}
 	
 	/** Returns {@code 0} for the base die. */
+	@Override
 	public int face() {
 		return face;
 	}
@@ -42,6 +47,14 @@ public final class FixedDie extends ImagePane {
 	public void clickAction() {
 		if(!Board.get().turnRunning())
 			Board.get().executeTurn(face);
+	}
+	
+	public double choiceX() {
+		return choiceX - getIdealWidth() / 2;
+	}
+	
+	public double choiceY() {
+		return choiceY - getIdealHeight() / 2;
 	}
 	
 }

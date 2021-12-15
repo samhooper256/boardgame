@@ -9,8 +9,9 @@ import javafx.animation.Animation.Status;
 import javafx.util.Duration;
 import utils.RNG;
 
-public final class RollableDie extends ImagePane {
+public final class RollableDie extends ImagePane implements Die {
 	
+	private static final int DEFAULT_FACE = 1;
 	private static final Duration ROLL_DURATION = Duration.millis(3000);
 	/** The number of different faces to show while the die is rolling. */
 	private static final int FACE_COUNT = 10;
@@ -29,8 +30,8 @@ public final class RollableDie extends ImagePane {
 	private boolean readyToRoll;
 	
 	private RollableDie() {
-		super(Images.DIE0);
-		currentFace = 0;
+		super(Images.die(DEFAULT_FACE));
+		currentFace = DEFAULT_FACE;
 		readyToRoll = true;
 		timeline = new Timeline();
 		for(int i = 0; i < FACE_COUNT; i++) {

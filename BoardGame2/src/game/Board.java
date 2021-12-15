@@ -38,8 +38,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		placeTiles();
 		placePlayers();
 		add(die);
-		lastRollType = RollType.RANDOM; //this will be updated by the setupDie() method below.
-		setupDie();
+		lastRollType = RollType.RANDOM;
 	}
 
 	private void placeTiles() {
@@ -64,6 +63,11 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		for(TileSection section : TileSection.ORDER)
 			order.addAll(section.randomOrder());
 		return order;
+	}
+	
+	/** Called immediately before this {@link Board} is shown to the player. */
+	public void start() {
+		setupDie();
 	}
 	
 	public void clearAllImages() {
@@ -155,9 +159,7 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	
 	private void setupChooseDie() {
 		if(lastRollType == RollType.RANDOM) {
-			remove(RollableDie.get());
-			for(int face = 1; face <= 6; face++)
-				add(FixedDie.showing(face));
+			BoardAnimations.transitionToChooseRoll();
 		}
 	}
 	

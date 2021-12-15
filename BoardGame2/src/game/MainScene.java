@@ -37,17 +37,18 @@ public class MainScene extends Scene {
 	}
 	
 	public void startGame() {
+		Board.get().start();
 		setContent(Board.get());
 	}
 
 	public void startMinigame(Minigame mg) {
 		root.getChildren().add(fadeLayer);
-		fadeLayer.fadeIn(mg, mg::start);
+		fadeLayer.fadeIn(mg, mg::start, null);
 	}
 	
 	public void fadeBackFromMinigame(MinigameResult mr) {
 		root.getChildren().add(fadeLayer);
-		fadeLayer.fadeIn(Board.get(), () -> Board.get().minigameFinished(mr));
+		fadeLayer.fadeIn(Board.get(), null, () -> Board.get().minigameFinished(mr));
 	}
 	
 	public void removeFadeLayer() {
