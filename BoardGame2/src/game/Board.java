@@ -4,6 +4,7 @@ import java.util.*;
 
 import base.*;
 import events.Event;
+import fxutils.Images;
 import fxutils.Timing;
 import javafx.geometry.*;
 import javafx.util.Duration;
@@ -36,6 +37,8 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
 		tileOrder = generateTileOrder();
 		readyToRoll = false;
+		ImagePane Background = new ImagePane(Images.BACKGROUND);
+		add(Background);
 		placeTiles();
 		placePlayers();
 		add(die);

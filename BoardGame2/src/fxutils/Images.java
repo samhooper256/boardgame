@@ -29,7 +29,9 @@ public final class Images {
 			ARCHERY = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
-			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png");
+			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
+			BACKGROUND = get("BoardBackground.png");
+			
 
 	private Images() {}
 
