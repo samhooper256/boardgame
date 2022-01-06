@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	public static final String TITLE = "greek olympics and stuff";
+	
 	private static Stage stage;
 	
 	public static final List<Point2D> POINTS = new ArrayList<>(Arrays.asList(
@@ -62,6 +64,7 @@ public class Main extends Application {
 		Main.stage = stage;
 		stage.setScene(MainScene.get());
 		stage.setFullScreen(true);
+		stage.setTitle(TITLE);
 		stage.show();
 	}
 	
