@@ -2,9 +2,9 @@ package minigames;
 
 import base.*;
 import game.MainScene;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 
-public abstract class Minigame extends AbstractScaledPane {
+public abstract class Minigame extends AbstractScaledPane implements Updatable {
 	
 	public Minigame() {
 		
@@ -15,8 +15,15 @@ public abstract class Minigame extends AbstractScaledPane {
 	public abstract void start();
 	
 	/** no-op by default. */
-	public void keyPressed(KeyEvent ke) {
+	public void keyPressed(KeyCode kc) {
 		
 	}
+	
+	/** no-op by default. */
+	public void keyReleased(KeyCode kc) {
+		
+	}
+	
+	
 	
 }

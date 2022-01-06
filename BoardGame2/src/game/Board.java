@@ -1,6 +1,7 @@
 package game;
 
 import java.util.*;
+import java.util.stream.*;
 
 import base.*;
 import events.Event;
@@ -16,7 +17,9 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 
 	public static final int TILE_COUNT = 36;
 	
-	private static final Board INSTANCE = new Board(4);
+	private static final int PLAYER_COUNT = 1; //TODO remove later - user can pick how many players.
+	
+	private static final Board INSTANCE = new Board(PLAYER_COUNT);
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
 	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);
@@ -187,5 +190,14 @@ public class Board extends AbstractScaledPane implements ScaledPane {
 	public boolean readyToRoll() {
 		return readyToRoll;
 	}
+	
+	public int playerCount() {
+		return playerCount;
+	}
+	
+	public Stream<Player> players() {
+		return IntStream.rangeClosed(1, playerCount).mapToObj(Player::get);
+	}
+	
 	
 }

@@ -1,6 +1,6 @@
 package base;
 
-import java.util.List;
+import java.util.*;
 
 import javafx.scene.layout.Pane;
 
@@ -17,6 +17,11 @@ public interface ScaledPane {
 	boolean add(ImagePane ip);
 	
 	default void addAll(ImagePane... ips) {
+		for(ImagePane ip : ips)
+			add(ip);
+	}
+	
+	default void addAll(Collection<? extends ImagePane> ips) {
 		for(ImagePane ip : ips)
 			add(ip);
 	}

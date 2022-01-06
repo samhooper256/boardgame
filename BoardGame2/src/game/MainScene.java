@@ -1,18 +1,22 @@
 package game;
 
-import base.FadeLayer;
+import java.util.EnumSet;
+
+import base.*;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import mainmenu.*;
 import minigames.*;
 
-public class MainScene extends Scene {
+public class MainScene extends Scene implements Updatable {
 
 	private static final MainScene INSTANCE = new MainScene();
 	
 	private final StackPane root;
 	private final FadeLayer fadeLayer;
+	private final EnumSet<KeyCode> keysPressed;
+	private final Timer timer;
 	
 	public static MainScene get() {
 		return INSTANCE;
@@ -22,8 +26,12 @@ public class MainScene extends Scene {
 		super(new StackPane());
 		root = (StackPane) getRoot();
 		fadeLayer = new FadeLayer();
+		keysPressed = EnumSet.noneOf(KeyCode.class);
 		setContent(MainMenuPane.get());
 		this.setOnKeyPressed(this::keyPressed);
+		this.setOnKeyReleased(this::keyReleased);
+		timer = new Timer(this::update);
+		timer.start();
 	}
 	
 	private void setContent(Pane p) {
@@ -32,10 +40,28 @@ public class MainScene extends Scene {
 	}
 	
 	private void keyPressed(KeyEvent ke) {
+		KeyCode kc = ke.getCode();
+		if(keysPressed.contains(kc))
+			return;
+		keysPressed.add(kc);
 		if(isPlayingMinigame())
-			currentMinigame().keyPressed(ke);
+			currentMinigame().keyPressed(kc);
 	}
 	
+	private void keyReleased(KeyEvent ke) {
+		KeyCode kc = ke.getCode();
+		keysPressed.remove(kc);
+		if(isPlayingMinigame())
+			currentMinigame().keyReleased(kc);
+	}
+	
+	
+	@Override
+	public void update(long diff) {
+		if(isPlayingMinigame())
+			currentMinigame().update(diff);
+	}
+
 	public void startGame() {
 		Board.get().start();
 		setContent(Board.get());

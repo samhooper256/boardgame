@@ -3,6 +3,7 @@ package tiles;
 import fxutils.Images;
 import game.MainScene;
 import minigames.*;
+import minigames.archery.ArcheryMinigame;
 import players.Player;
 
 public class MinigameTile extends Tile {
