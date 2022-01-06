@@ -10,25 +10,29 @@ public class ArcheryMinigame extends Minigame {
 
 	private static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
 	
-	private final FadeableImagePane instructions;
+	private final FadeableImagePane instructions, pressSpace;
 	
 	public ArcheryMinigame() {
 		super();
 		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS, INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+		pressSpace = new FadeableImagePane(Images.PRESS_SPACE, INSTRUCTIONS_FADE_OUT_DURATION);
+		pressSpace.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .8);
 	}
 
 	@Override
 	public void start() {
 		instructions.makeFullyVisible();
-		add(instructions);
+		addAll(instructions, pressSpace);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent ke) {
 		if(instructionsShowing()) {
-			if(!instructions.isFadingOut())
+			if(ke.getCode() == KeyCode.SPACE && !instructions.isFadingOut()) {
 				instructions.fadeOut(this);
+				pressSpace.fadeOut(this);
+			}
 		}
 		else {
 			if(ke.getCode() == KeyCode.E)

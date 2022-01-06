@@ -16,6 +16,11 @@ public interface ScaledPane {
 	/** Returns {@code true} if the {@link ImagePane} was successfully added, {@code false} otherwise. */
 	boolean add(ImagePane ip);
 	
+	default void addAll(ImagePane... ips) {
+		for(ImagePane ip : ips)
+			add(ip);
+	}
+	
 	/** Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
 	boolean remove(ImagePane ip);
 	

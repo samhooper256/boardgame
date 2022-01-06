@@ -11,7 +11,6 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	
 	public AbstractScaledPane() {
 		images = new ArrayList<>();
-		
 	}
 	
 	@Override

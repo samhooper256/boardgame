@@ -30,8 +30,8 @@ public final class Images {
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
 			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
+			PRESS_SPACE = get("pressspace.png"),
 			BACKGROUND = get("BoardBackground.png");
-			
 
 	private Images() {}
 
