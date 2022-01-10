@@ -3,6 +3,7 @@ package base;
 import java.util.*;
 
 import fxutils.Nodes;
+import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
 public abstract class AbstractScaledPane extends Pane implements ScaledPane {
@@ -64,12 +65,20 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 		Nodes.setLayout(ip, wscale() * ip.getIdealX(), hscale() * ip.getIdealY());
 	}
 	
-	protected double wscale() {
-		return getWidth() / DEFAULT_WIDTH;
+	public Point2D idealToLocal(Point2D ideal) {
+		return idealToLocal(ideal.getX(), ideal.getY());
 	}
 	
-	protected double hscale() {
-		return getHeight() / DEFAULT_HEIGHT;
+	public Point2D idealToLocal(double idealX, double idealY) {
+		return new Point2D(idealX * wscale(), idealY * hscale());
+	}
+	
+	public Point2D localToIdeal(Point2D local) {
+		return localToIdeal(local.getX(), local.getY());
+	}
+	
+	public Point2D localToIdeal(double localX, double localY) {
+		return new Point2D(localX / wscale(), localY / hscale());
 	}
 	
 }

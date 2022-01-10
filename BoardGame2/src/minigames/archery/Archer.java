@@ -3,7 +3,7 @@ package minigames.archery;
 import base.*;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
+import javafx.scene.input.*;
 
 public class Archer extends ImagePane implements Updatable {
 	
@@ -57,8 +57,14 @@ public class Archer extends ImagePane implements Updatable {
 			setIdealY(oldY);
 	}
 	
-	public void shoot(Point2D target) {
-		
+	public void mouseClicked(MouseEvent me) {
+		if(me.getButton() == MouseButton.PRIMARY) {
+			Point2D local = new Point2D(me.getSceneX(), me.getSceneY());
+			Point2D archerCenter = getIdealCenter();
+			Arrow arrow = new Arrow(archerCenter, ArcheryMinigame.get().localToIdeal(local));
+			arrow.setIdealCenter(archerCenter);
+			ArcheryMinigame.get().addArrow(arrow);
+		}
 	}
 	
 }

@@ -1,12 +1,12 @@
 package minigames.archery;
 
-import base.ImagePane;
+import base.*;
 import fxutils.Images;
 import javafx.geometry.Point2D;
 
-public class Arrow extends ImagePane {
+public class Arrow extends ImagePane implements Updatable {
 
-	private static final double SPEED = 100;
+	private static final double SPEED = 500;
 	
 	private double xvel, yvel;
 	
@@ -35,6 +35,19 @@ public class Arrow extends ImagePane {
 		double angrad = Math.atan2(y, x);
 		xvel = Math.cos(angrad) * SPEED;
 		yvel = Math.sin(angrad) * SPEED;
+		setRotate(Math.toDegrees(angrad) + 90);
+	}
+
+	@Override
+	public void update(long diff) {
+		double sec = diff / 1e9;
+		double newX = getIdealX() + xvel * sec;
+		double newY = getIdealY() + yvel * sec;
+		setIdealX(newX);
+		setIdealY(newY);
+		if(getIdealY() < -getIdealHeight() || getIdealY() > ScaledPane.DEFAULT_HEIGHT ||
+				getIdealX() < -getIdealWidth() || getIdealX() > ScaledPane.DEFAULT_WIDTH)
+			ArcheryMinigame.get().trash(this);
 	}
 	
 }

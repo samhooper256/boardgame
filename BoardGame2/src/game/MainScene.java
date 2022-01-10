@@ -30,6 +30,7 @@ public class MainScene extends Scene implements Updatable {
 		setContent(MainMenuPane.get());
 		this.setOnKeyPressed(this::keyPressed);
 		this.setOnKeyReleased(this::keyReleased);
+		this.setOnMouseClicked(this::mouseClicked);
 		timer = new Timer(this::update);
 		timer.start();
 	}
@@ -55,6 +56,10 @@ public class MainScene extends Scene implements Updatable {
 			currentMinigame().keyReleased(kc);
 	}
 	
+	private void mouseClicked(MouseEvent me) {
+		if(isPlayingMinigame())
+			currentMinigame().mouseClicked(me);
+	}
 	
 	@Override
 	public void update(long diff) {

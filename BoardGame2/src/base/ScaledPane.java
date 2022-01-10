@@ -45,4 +45,17 @@ public interface ScaledPane {
 			throw new IllegalStateException(String.format("ImagePane is not in this ScaledPane: %s", ip));
 		add(ip);
 	}
+	
+	double getWidth();
+	
+	double getHeight();
+	
+	default double wscale() {
+		return getWidth() / DEFAULT_WIDTH;
+	}
+	
+	default double hscale() {
+		return getHeight() / DEFAULT_HEIGHT;
+	}
+	
 }

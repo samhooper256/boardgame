@@ -100,13 +100,21 @@ public class ImagePane extends StackPane {
     	setIdealX(idealX);
     	setIdealY(idealY);
     }
-
+    
+    public Point2D getIdealCenter() {
+    	return new Point2D(getIdealCenterX(), getIdealCenterY());
+    }
+    
     public double getIdealCenterX() {
     	return getIdealX() + getIdealWidth() / 2;
     }
     
     public double getIdealCenterY() {
     	return getIdealY() + getIdealHeight() / 2;
+    }
+    
+    public void setIdealCenter(Point2D idealCenter) {
+    	setIdealCenter(idealCenter.getX(), idealCenter.getY());
     }
     
     public void setIdealCenter(double idealXCenter, double idealYCenter) {

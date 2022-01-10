@@ -5,6 +5,7 @@ import java.util.*;
 import base.*;
 import fxutils.Images;
 import game.*;
+import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import minigames.Minigame;
@@ -52,10 +53,11 @@ public class ArcheryMinigame extends Minigame {
 
 	
 	@Override
-	public void update(long diff) {
+	public void updateGame(long diff) {
 		if(!instructionsShowing()) {
-			for(Archer a : archerMap.values())
-				a.update(diff);
+			for(ImagePane ip : imagesUnmodifiable())
+				if(ip instanceof Updatable)
+					((Updatable) ip).update(diff);
 		}
 	}
 
@@ -82,9 +84,20 @@ public class ArcheryMinigame extends Minigame {
 				a.keyReleased(kc);
 	}
 
+	
+	@Override
+	public void mouseClicked(MouseEvent me) {
+		for(Archer a : archerMap.values())
+			a.mouseClicked(me);
+	}
+
 	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
 	private boolean instructionsShowing() {
 		return instructions.getOpacity() > 0;
+	}
+	
+	public void addArrow(Arrow a) {
+		add(a);
 	}
 	
 	public Fence fence() {
