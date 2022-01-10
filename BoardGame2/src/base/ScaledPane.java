@@ -37,6 +37,8 @@ public interface ScaledPane {
 	
 	void updateImageLayoutCoords(ImagePane ip);
 	
+	boolean imagesIntersect(ImagePane ip1, ImagePane ip2);
+	
 	/** @throws IllegalStateException if the given {@link ImagePane} is not in this {@link ScaledPane}. */
 	default void bringToFront(ImagePane ip) {
 		if(!remove(ip))

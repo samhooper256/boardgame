@@ -13,19 +13,24 @@ import players.Player;
 public class ArcheryMinigame extends Minigame {
 
 	private static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
+	private static final ArcheryMinigame INSTANCE = new ArcheryMinigame();
+	
+	public static ArcheryMinigame get() {
+		return INSTANCE;
+	}
 	
 	private final FadeableImagePane instructions, pressSpace;
-	private final ImagePane fence;
+	private final Fence fence;
 	
 	private final Map<Player, Archer> archerMap;
 	
-	public ArcheryMinigame() {
+	private ArcheryMinigame() {
 		super();
 		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS, INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
 		pressSpace = new FadeableImagePane(Images.PRESS_SPACE, INSTRUCTIONS_FADE_OUT_DURATION);
 		pressSpace.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .8);
-		fence = new ImagePane(Images.FENCE);
+		fence = new Fence();
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
 		archerMap = new HashMap<>();
 		Board.get().players().forEachOrdered(p -> {
@@ -80,6 +85,10 @@ public class ArcheryMinigame extends Minigame {
 	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
 	private boolean instructionsShowing() {
 		return instructions.getOpacity() > 0;
+	}
+	
+	public Fence fence() {
+		return fence;
 	}
 	
 }

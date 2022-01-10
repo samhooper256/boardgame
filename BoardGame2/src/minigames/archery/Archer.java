@@ -43,8 +43,17 @@ public class Archer extends ImagePane implements Updatable {
 	@Override
 	public void update(long diff) {
 		double sec = diff / 1e9;
-		setIdealX(getIdealX() + xvel * sec);
-		setIdealY(getIdealY() + yvel * sec);
+		double oldX = getIdealX();
+		double newX = oldX + xvel * sec;
+		double oldY = getIdealY();
+		double newY = oldY + yvel * sec;
+		ArcheryMinigame am = ArcheryMinigame.get();
+		setIdealX(newX);
+		if(am.imagesIntersect(this, am.fence()))
+			setIdealX(oldX);
+		setIdealY(newY);
+		if(am.imagesIntersect(this, am.fence()))
+			setIdealY(oldY);
 	}
 	
 }

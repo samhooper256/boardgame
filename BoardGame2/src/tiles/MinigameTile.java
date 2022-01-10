@@ -15,7 +15,7 @@ public class MinigameTile extends Tile {
 	@Override
 	public void land(Player p) {
 		// TODO Auto-generated method stub
-		MainScene.get().startMinigame(new ArcheryMinigame());
+		MainScene.get().startMinigame(ArcheryMinigame.get());
 	}
 	
 }

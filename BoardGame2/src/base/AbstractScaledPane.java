@@ -50,6 +50,11 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	}
 	
 	@Override
+	public boolean imagesIntersect(ImagePane ip1, ImagePane ip2) {
+		return ip1.getBoundsInParent().intersects(ip2.getBoundsInParent());
+	}
+
+	@Override
 	public void updateImageSize(ImagePane ip) {
 		Nodes.setMaxSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
 	}
