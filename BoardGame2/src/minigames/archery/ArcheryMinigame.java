@@ -5,6 +5,7 @@ import java.util.*;
 import base.*;
 import fxutils.Images;
 import game.*;
+import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import minigames.Minigame;
@@ -40,6 +41,7 @@ public class ArcheryMinigame extends Minigame {
 		int archer = 1;
 		for(Archer a : archers)
 			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
+		
 	}
 
 	@Override
@@ -48,6 +50,7 @@ public class ArcheryMinigame extends Minigame {
 		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(archerMap.values());
 		addAll(fence, instructions, pressSpace);
+		add(new Target(new TargetPath(Duration.millis(300), 500, new Point2D(100, 100), new Point2D(500, 500), new Point2D(1000, 100))));
 	}
 
 	
