@@ -1,6 +1,7 @@
 package minigames.archery;
 
 import base.*;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
@@ -54,6 +55,10 @@ public class Archer extends ImagePane implements Updatable {
 		setIdealY(newY);
 		if(am.imagesIntersect(this, am.fence()))
 			setIdealY(oldY);
+	}
+	
+	public void shoot(Point2D target) {
+		
 	}
 	
 }
