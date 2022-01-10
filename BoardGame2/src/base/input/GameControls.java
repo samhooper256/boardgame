@@ -1,13 +1,13 @@
-package minigames.archery;
+package base.input;
 
 import javafx.scene.input.KeyCode;
 
-public interface ArcheryControls {
+public interface GameControls extends DirectionalControls {
 
-	ArcheryControls WASD = of(KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D);
+	GameControls DEFAULT = of(KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D);
 	
-	public static ArcheryControls of(KeyCode up, KeyCode left, KeyCode down, KeyCode right) {
-		return new ArcheryControls() {
+	static GameControls of(KeyCode up, KeyCode left, KeyCode down, KeyCode right) {
+		return new GameControls() {
 			
 			@Override
 			public KeyCode up() {
@@ -31,13 +31,5 @@ public interface ArcheryControls {
 			
 		};
 	}
-	
-	KeyCode up();
-	
-	KeyCode left();
-	
-	KeyCode down();
-	
-	KeyCode right();
 	
 }

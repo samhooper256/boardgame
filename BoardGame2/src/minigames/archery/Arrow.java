@@ -5,7 +5,7 @@ import fxutils.Images;
 import javafx.geometry.Point2D;
 
 public class Arrow extends ImagePane implements Updatable {
-
+	
 	private static final double SPEED = 500;
 	
 	private double xvel, yvel;

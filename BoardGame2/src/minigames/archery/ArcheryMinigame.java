@@ -35,7 +35,7 @@ public class ArcheryMinigame extends Minigame {
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
 		archerMap = new HashMap<>();
 		Board.get().players().forEachOrdered(p -> {
-			archerMap.put(p, new Archer(p.image(), ArcheryControls.WASD));
+			archerMap.put(p, new Archer(p.image()));
 		});
 		Collection<Archer> archers = archerMap.values();
 		int archer = 1;
