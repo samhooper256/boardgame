@@ -5,7 +5,6 @@ import java.util.*;
 import base.*;
 import fxutils.Images;
 import game.*;
-import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import minigames.Minigame;

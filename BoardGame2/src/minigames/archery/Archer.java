@@ -11,10 +11,12 @@ public class Archer extends ImagePane implements Updatable {
 	private static final double SPEED = 250;
 	
 	private double xvel, yvel;
+	private boolean active;
 	
 	public Archer(Image image) {
 		super(image);
 		this.xvel = this.yvel = 0;
+		this.active = true;
 	}
 	
 	public void keyPressed(KeyCode code) {
@@ -39,6 +41,15 @@ public class Archer extends ImagePane implements Updatable {
 			xvel -= SPEED;
 	}
 
+	/** All {@link Archer Archers} are active by default. */
+	public boolean isActive() {
+		return active;
+	}
+	
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
 	@Override
 	public void update(long diff) {
 		double sec = diff / 1e9;
