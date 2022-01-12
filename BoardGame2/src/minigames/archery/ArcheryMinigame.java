@@ -9,12 +9,16 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import minigames.Minigame;
+import minigames.archery.waves.*;
 import players.Player;
 
+/** The {@link ArcheryMinigame} consists of a series of {@link ArcheryWave waves}. All players take turns beating the
+ * wave. If a player misses the target at any point, they are out for the rest of the game.
+ * The minigame ends when there is one player remaining. */
 public class ArcheryMinigame extends Minigame {
 
 	private static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
-	private static final ArcheryMinigame INSTANCE = new ArcheryMinigame();
+	private static final ArcheryMinigame INSTANCE = new ArcheryMinigame(WaveGenerator.STANDARD);
 	
 	public static ArcheryMinigame get() {
 		return INSTANCE;
@@ -22,11 +26,14 @@ public class ArcheryMinigame extends Minigame {
 	
 	private final FadeableImagePane instructions, pressSpace;
 	private final Fence fence;
-	
+	private final WaveGenerator waveGenerator;
 	private final Map<Player, Archer> archerMap;
 	
-	private ArcheryMinigame() {
+	private int waveIndex, turn;
+	
+	private ArcheryMinigame(WaveGenerator waveGenerator) {
 		super();
+		this.waveGenerator = waveGenerator;
 		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS, INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
 		pressSpace = new FadeableImagePane(Images.PRESS_SPACE, INSTRUCTIONS_FADE_OUT_DURATION);
@@ -41,7 +48,7 @@ public class ArcheryMinigame extends Minigame {
 		int archer = 1;
 		for(Archer a : archers)
 			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
-		
+		waveIndex = 0; //is incremented to 1 when startNextWave() is first called.
 	}
 
 	@Override
@@ -50,9 +57,27 @@ public class ArcheryMinigame extends Minigame {
 		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(archerMap.values());
 		addAll(fence, instructions, pressSpace);
-		add(new Target(new TargetPath(Duration.millis(300), 500, new Point2D(100, 100), new Point2D(500, 500), new Point2D(1000, 100))));
+		startNextWave();
 	}
 
+	private void startNextWave() {
+		waveIndex++;
+		startWave(currentWave());
+	}
+	
+	private void startWave(ArcheryWave wave) {
+		turn = 1;
+		add(wave.createTarget());
+	}
+	
+	private void targetHit() {
+		System.out.printf("TARGET HIT!%n");
+	}
+	
+
+	public ArcheryWave currentWave() {
+		return waveGenerator.get(waveIndex);
+	}
 	
 	@Override
 	public void updateGame(long diff) {

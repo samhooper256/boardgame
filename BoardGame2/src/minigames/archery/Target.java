@@ -14,14 +14,17 @@ public class Target extends ImagePane implements Updatable {
 	/** If {@code -1}, this {@link Target} is in motion. */
 	private double sinceLastStop;
 	private int pathIndex;
+	private boolean leftOfTarget, aboveTarget;
 	
 	public Target(TargetPath path) {
 		super(Images.TARGET);
 		this.path = path;
 		this.pathIndex = 1;
 		this.sinceLastStop = -1;
+		leftOfTarget = aboveTarget = false;
 		setIdealCenter(path.point(0));
 		directVelocityTowards(path.point(1));
+		updateQuadrants(path.point(1));
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public class Target extends ImagePane implements Updatable {
 			setIdealX(getIdealX() + xvel * sec);
 			setIdealY(getIdealY() + yvel * sec);
 			Point2D dest = path.point(pathIndex);
-			if(Math.abs(getIdealX() - dest.getX()) < TOLERANCE && Math.abs(getIdealY() - dest.getY()) < TOLERANCE) {
+			if(withinTolerance(dest) || passedTarget(dest)) {
 				if(pathIndex == path.stops() - 1)
 					pathIndex = 0;
 				else
@@ -42,6 +45,7 @@ public class Target extends ImagePane implements Updatable {
 		else if(sinceLastStop >= path.delay().toSeconds()) {
 			Point2D dest = path.point(pathIndex);
 			directVelocityTowards(dest);
+			updateQuadrants(dest);
 			sinceLastStop = -1;
 		}
 		else {
@@ -49,6 +53,21 @@ public class Target extends ImagePane implements Updatable {
 		}
 	}
 
+	public void updateQuadrants(Point2D dest) {
+		leftOfTarget = dest.getX() > getIdealX();
+		aboveTarget = dest.getY() > getIdealY();
+	}
+
+	public boolean withinTolerance(Point2D dest) {
+		return Math.abs(getIdealX() - dest.getX()) < TOLERANCE && Math.abs(getIdealY() - dest.getY()) < TOLERANCE;
+	}
+	
+	public boolean passedTarget(Point2D dest) {
+		boolean nowLeft = dest.getX() > getIdealX();
+		boolean nowAbove = dest.getY() > getIdealY();
+		return nowLeft != leftOfTarget || nowAbove != aboveTarget;
+	}
+	
 	public void directVelocityTowards(Point2D dest) {
 		double x = dest.getX() - getIdealX(), y = dest.getY() - getIdealY();
 		double angrad = Math.atan2(y, x);
