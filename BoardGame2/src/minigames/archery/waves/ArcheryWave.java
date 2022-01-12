@@ -11,7 +11,9 @@ public interface ArcheryWave {
 	TargetPath path();
 	
 	default Target createTarget() {
-		return new Target(path());
+		return new Target(path(), () -> {
+			System.out.println("Hit!!");
+		});
 	}
 	
 }

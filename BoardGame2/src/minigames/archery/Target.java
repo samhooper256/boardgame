@@ -75,7 +75,6 @@ public class Target extends ImagePane implements Updatable {
 			hitAction.run();
 	}
 	
-	
 	public void directVelocityTowards(Point2D dest) {
 		double x = dest.getX() - getIdealX(), y = dest.getY() - getIdealY();
 		double angrad = Math.atan2(y, x);
