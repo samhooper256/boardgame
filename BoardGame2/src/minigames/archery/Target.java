@@ -9,6 +9,7 @@ public class Target extends ImagePane implements Updatable {
 	private static final double TOLERANCE = 5;
 	
 	private final TargetPath path;
+	private final Runnable hitAction;
 	
 	private double xvel, yvel;
 	/** If {@code -1}, this {@link Target} is in motion. */
@@ -16,9 +17,10 @@ public class Target extends ImagePane implements Updatable {
 	private int pathIndex;
 	private boolean leftOfTarget, aboveTarget;
 	
-	public Target(TargetPath path) {
+	public Target(TargetPath path, Runnable hitAction) {
 		super(Images.TARGET);
 		this.path = path;
+		this.hitAction = hitAction;
 		this.pathIndex = 1;
 		this.sinceLastStop = -1;
 		leftOfTarget = aboveTarget = false;
@@ -67,6 +69,12 @@ public class Target extends ImagePane implements Updatable {
 		boolean nowAbove = dest.getY() > getIdealY();
 		return nowLeft != leftOfTarget || nowAbove != aboveTarget;
 	}
+	
+	private void runHitAction() {
+		if(hitAction != null)
+			hitAction.run();
+	}
+	
 	
 	public void directVelocityTowards(Point2D dest) {
 		double x = dest.getX() - getIdealX(), y = dest.getY() - getIdealY();
