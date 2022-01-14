@@ -3,6 +3,7 @@ package game;
 import java.util.EnumSet;
 
 import base.*;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;

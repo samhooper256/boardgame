@@ -3,7 +3,7 @@ package base;
 import java.util.*;
 
 import fxutils.Nodes;
-import javafx.geometry.Point2D;
+import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 
 public abstract class AbstractScaledPane extends Pane implements ScaledPane {
@@ -52,9 +52,19 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	
 	@Override
 	public boolean imagesIntersect(ImagePane ip1, ImagePane ip2) {
-		return ip1.getBoundsInParent().intersects(ip2.getBoundsInParent());
+		return idealize(ip1.getBoundsInParent())
+				.intersects(idealize(ip2.getBoundsInParent()));
 	}
 
+	public BoundingBox idealize(Bounds bounds) {
+		return new BoundingBox(
+				localXToIdeal(bounds.getMinX()),
+				localYToIdeal(bounds.getMinY()),
+				localXToIdeal(bounds.getWidth()),
+				localYToIdeal(bounds.getHeight())
+		);
+	}
+	
 	@Override
 	public void updateImageSize(ImagePane ip) {
 		Nodes.setMaxSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
@@ -70,7 +80,15 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	}
 	
 	public Point2D idealToLocal(double idealX, double idealY) {
-		return new Point2D(idealX * wscale(), idealY * hscale());
+		return new Point2D(idealXToLocal(idealX), idealYToLocal(idealY));
+	}
+
+	public double idealXToLocal(double idealX) {
+		return idealX * wscale();
+	}
+	
+	public double idealYToLocal(double idealY) {
+		return idealY * hscale();
 	}
 	
 	public Point2D localToIdeal(Point2D local) {
@@ -78,7 +96,15 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	}
 	
 	public Point2D localToIdeal(double localX, double localY) {
-		return new Point2D(localX / wscale(), localY / hscale());
+		return new Point2D(localXToIdeal(localX), localYToIdeal(localY));
+	}
+
+	public double localXToIdeal(double localX) {
+		return localX / wscale();
+	}
+
+	public double localYToIdeal(double localY) {
+		return localY / hscale();
 	}
 	
 }

@@ -5,7 +5,7 @@ import java.util.*;
 import base.*;
 import fxutils.Images;
 import game.*;
-import javafx.geometry.Point2D;
+import javafx.geometry.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import minigames.Minigame;
@@ -27,7 +27,7 @@ public class ArcheryMinigame extends Minigame {
 	private final FadeableImagePane instructions, pressSpace;
 	private final Fence fence;
 	private final WaveGenerator waveGenerator;
-	private final Map<Player, Archer> archerMap;
+	final Map<Player, Archer> archerMap; //TODO make private
 	
 	private int waveIndex, turn;
 	
@@ -73,7 +73,6 @@ public class ArcheryMinigame extends Minigame {
 	private void targetHit() {
 		System.out.printf("TARGET HIT!%n");
 	}
-	
 
 	public ArcheryWave currentWave() {
 		return waveGenerator.get(waveIndex);
@@ -87,7 +86,7 @@ public class ArcheryMinigame extends Minigame {
 					((Updatable) ip).update(diff);
 		}
 	}
-
+	
 	@Override
 	public void keyPressed(KeyCode kc) {
 		if(instructionsShowing()) {
@@ -121,6 +120,15 @@ public class ArcheryMinigame extends Minigame {
 	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
 	private boolean instructionsShowing() {
 		return instructions.getOpacity() > 0;
+	}
+	
+	/** Returns {@code true} iff any {@link Arrow Arrows}. intersect the given {@link ImagePane}. */
+	public boolean anyArrowsIntersect(ImagePane ip) {
+		for(ImagePane a : images)
+			if(a instanceof Arrow && imagesIntersect(a, ip)) {
+				return true;
+			}
+		return false;
 	}
 	
 	public void addArrow(Arrow a) {

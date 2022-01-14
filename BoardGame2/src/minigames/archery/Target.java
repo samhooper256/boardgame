@@ -9,8 +9,8 @@ public class Target extends ImagePane implements Updatable {
 	private static final double TOLERANCE = 5;
 	
 	private final TargetPath path;
-	private final Runnable hitAction;
 	
+	private Runnable hitAction;
 	private double xvel, yvel;
 	/** If {@code -1}, this {@link Target} is in motion. */
 	private double sinceLastStop;
@@ -53,6 +53,9 @@ public class Target extends ImagePane implements Updatable {
 		else {
 			sinceLastStop += sec;
 		}
+		//test if an arrow is hitting this target:
+		if(ArcheryMinigame.get().anyArrowsIntersect(this))
+			runHitAction();
 	}
 
 	public void updateQuadrants(Point2D dest) {
@@ -68,6 +71,10 @@ public class Target extends ImagePane implements Updatable {
 		boolean nowLeft = dest.getX() > getIdealX();
 		boolean nowAbove = dest.getY() > getIdealY();
 		return nowLeft != leftOfTarget || nowAbove != aboveTarget;
+	}
+	
+	public void setHitAction(Runnable hitAction) {
+		this.hitAction = hitAction;
 	}
 	
 	private void runHitAction() {

@@ -32,6 +32,7 @@ public final class Images {
 			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
 			PRESS_SPACE = get("pressspace.png"),
 			FENCE = get("fence.png"),
+			FENCE2 = get("fence2.png"),
 			ARROW = get("arrow.png"),
 			TARGET = get("target.png"),
 			ARCHERY_BACKGROUND = get("archerybackground.png"),

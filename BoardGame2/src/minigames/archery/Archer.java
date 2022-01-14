@@ -5,6 +5,7 @@ import base.input.*;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
+import utils.Intersections;
 
 public class Archer extends ImagePane implements Updatable {
 	
@@ -57,12 +58,12 @@ public class Archer extends ImagePane implements Updatable {
 		double newX = oldX + xvel * sec;
 		double oldY = getIdealY();
 		double newY = oldY + yvel * sec;
-		ArcheryMinigame am = ArcheryMinigame.get();
 		setIdealX(newX);
-		if(am.imagesIntersect(this, am.fence()))
-			setIdealX(oldX);
 		setIdealY(newY);
-		if(am.imagesIntersect(this, am.fence()))
+//		Fence fence = ArcheryMinigame.get().fence();
+//		if(newY <= fence.getIdealY() + fence.getIdealHeight())
+//			setIdealY(oldY);
+		if(Intersections.test(this, ArcheryMinigame.get().fence()))
 			setIdealY(oldY);
 	}
 	
