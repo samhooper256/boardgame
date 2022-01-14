@@ -11,7 +11,7 @@ final class StandardWaveGenerator implements WaveGenerator {
 
 	private static final double
 			MIN_DELAY_MILLIS = 100,
-			SPEED_FUNCTION_FACTOR = 20,
+			SPEED_FUNCTION_FACTOR = 25,
 			STARTING_SPEED = 100,
 			TARGET_Y = 100;
 	private static final Point2D[] POINTS = {
@@ -42,7 +42,7 @@ final class StandardWaveGenerator implements WaveGenerator {
 	}
 	
 	private static double speed(int index) {
-		return SPEED_FUNCTION_FACTOR * Math.sqrt(index) + (STARTING_SPEED - SPEED_FUNCTION_FACTOR);
+		return SPEED_FUNCTION_FACTOR * index + (STARTING_SPEED - SPEED_FUNCTION_FACTOR);
 	}
 	
 }

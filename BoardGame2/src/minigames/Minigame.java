@@ -9,9 +9,11 @@ import javafx.scene.input.*;
 public abstract class Minigame extends AbstractScaledPane implements Updatable {
 	
 	private final List<ImagePane> trash;
+	private final List<Runnable> endOfUpdateActions;
 	
 	public Minigame() {
 		trash = new ArrayList<>();
+		endOfUpdateActions = new ArrayList<>();
 	}
 	
 	/** Assumes this {@link Minigame} has already been set as the
@@ -33,6 +35,10 @@ public abstract class Minigame extends AbstractScaledPane implements Updatable {
 		trash.add(ip);
 	}
 
+	public void addEndOfUpdateAction(Runnable action) {
+		endOfUpdateActions.add(action);
+	}
+	
 	public abstract void updateGame(long diff);
 	
 	@Override
@@ -41,6 +47,9 @@ public abstract class Minigame extends AbstractScaledPane implements Updatable {
 		for(ImagePane ip : trash)
 			remove(ip);
 		trash.clear();
+		for(Runnable eoua : endOfUpdateActions)
+			eoua.run();
+		endOfUpdateActions.clear();
 	}
 	
 }

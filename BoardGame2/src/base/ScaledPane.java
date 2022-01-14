@@ -2,6 +2,7 @@ package base;
 
 import java.util.*;
 
+import javafx.beans.binding.DoubleBinding;
 import javafx.scene.layout.Pane;
 
 /** Implementing classes should also be subclasses of {@link Pane}.*/
@@ -50,12 +51,16 @@ public interface ScaledPane {
 	
 	double getHeight();
 	
-	default double wscale() {
-		return getWidth() / DEFAULT_WIDTH;
-	}
+	DoubleBinding hscaleBinding();
+	
+	DoubleBinding wscaleBinding();
 	
 	default double hscale() {
-		return getHeight() / DEFAULT_HEIGHT;
+		return hscaleBinding().get();
+	}
+
+	default double wscale() {
+		return wscaleBinding().get();
 	}
 	
 }

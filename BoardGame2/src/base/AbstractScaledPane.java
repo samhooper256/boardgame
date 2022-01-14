@@ -3,6 +3,7 @@ package base;
 import java.util.*;
 
 import fxutils.Nodes;
+import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 
@@ -10,8 +11,12 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 
 	protected final List<ImagePane> images;
 	
+	private final DoubleBinding hscaleBinding, wscaleBinding;
+	
 	public AbstractScaledPane() {
 		images = new ArrayList<>();
+		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
+		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
 	}
 	
 	@Override
@@ -105,6 +110,16 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 
 	public double localYToIdeal(double localY) {
 		return localY / hscale();
+	}
+
+	@Override
+	public DoubleBinding hscaleBinding() {
+		return hscaleBinding;
+	}
+
+	@Override
+	public DoubleBinding wscaleBinding() {
+		return wscaleBinding;
 	}
 	
 }

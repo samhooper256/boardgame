@@ -5,8 +5,7 @@ import java.util.stream.*;
 
 import base.*;
 import events.Event;
-import fxutils.Images;
-import fxutils.Timing;
+import fxutils.*;
 import javafx.geometry.*;
 import javafx.util.Duration;
 import minigames.MinigameResult;
@@ -17,6 +16,7 @@ public class Board extends AbstractScaledPane {
 
 	public static final int TILE_COUNT = 36;
 	
+	private static final int MAX_PLAYER_COUNT = 4;
 	private static final int PLAYER_COUNT = 2; //TODO remove later - user can pick how many players.
 	
 	private static final Board INSTANCE = new Board(PLAYER_COUNT);
@@ -27,6 +27,10 @@ public class Board extends AbstractScaledPane {
 	
 	public static Board get() {
 		return INSTANCE;
+	}
+	
+	public static int maxPlayerCount() {
+		return MAX_PLAYER_COUNT;
 	}
 	
 	private List<Tile> tileOrder;
@@ -41,8 +45,8 @@ public class Board extends AbstractScaledPane {
 		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
 		tileOrder = generateTileOrder();
 		readyToRoll = false;
-		ImagePane Background = new ImagePane(Images.BACKGROUND);
-		add(Background);
+		ImagePane background = new ImagePane(Images.BACKGROUND);
+		add(background);
 		placeTiles();
 		placePlayers();
 		add(die);
@@ -199,6 +203,5 @@ public class Board extends AbstractScaledPane {
 	public Stream<Player> players() {
 		return IntStream.rangeClosed(1, playerCount).mapToObj(Player::get);
 	}
-	
 	
 }

@@ -126,6 +126,11 @@ public class ImagePane extends StackPane {
     	setIdealCoords(idealCoords.getX(), idealCoords.getY());
     }
  
+    public boolean isOffscreen() {
+    	return 	getIdealX() < -getIdealWidth() || getIdealX() > ScaledPane.DEFAULT_WIDTH ||
+    			getIdealY() < -getIdealHeight() || getIdealY() > ScaledPane.DEFAULT_HEIGHT;
+    }
+    
     public ResizableImage rimage() {
     	return rimage;
     }

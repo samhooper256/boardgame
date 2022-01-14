@@ -45,9 +45,10 @@ public class Arrow extends ImagePane implements Updatable {
 		double newY = getIdealY() + yvel * sec;
 		setIdealX(newX);
 		setIdealY(newY);
-		if(getIdealY() < -getIdealHeight() || getIdealY() > ScaledPane.DEFAULT_HEIGHT ||
-				getIdealX() < -getIdealWidth() || getIdealX() > ScaledPane.DEFAULT_WIDTH)
+		if(isOffscreen()) {
 			ArcheryMinigame.get().trash(this);
+			ArcheryMinigame.get().addEndOfUpdateAction(() -> ArcheryMinigame.get().arrowLeftScreen(this));
+		}
 	}
 	
 }

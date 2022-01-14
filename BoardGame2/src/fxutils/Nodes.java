@@ -9,6 +9,11 @@ public final class Nodes {
 		
 	}
 	
+	public static void setMinSize(Region r, double minWidth, double minHeight) {
+		r.setMinWidth(minWidth);
+		r.setMinHeight(minHeight);
+	}
+	
 	public static void setMaxSize(Region r, double maxWidth, double maxHeight) {
 		r.setMaxWidth(maxWidth);
 		r.setMaxHeight(maxHeight);

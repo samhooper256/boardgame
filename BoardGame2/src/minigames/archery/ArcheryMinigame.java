@@ -3,9 +3,9 @@ package minigames.archery;
 import java.util.*;
 
 import base.*;
+import base.input.GameInput;
 import fxutils.Images;
 import game.*;
-import javafx.geometry.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import minigames.Minigame;
@@ -28,8 +28,11 @@ public class ArcheryMinigame extends Minigame {
 	private final FadeableImagePane instructions, pressSpace;
 	private final Fence fence;
 	private final WaveGenerator waveGenerator;
-	final Map<Player, Archer> archerMap; //TODO make private
+	private final Map<Player, Archer> archerMap;
+	private final Set<Archer> movableArchers;
+	private final boolean[] alive;
 	
+	private boolean arrowFired;
 	private int waveIndex, turn;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
@@ -49,32 +52,76 @@ public class ArcheryMinigame extends Minigame {
 		int archer = 1;
 		for(Archer a : archers)
 			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
-		waveIndex = 0; //is incremented to 1 when startNextWave() is first called.
+		waveIndex = 1;
+		turn = 1;
+		alive = new boolean[Board.maxPlayerCount() + 1];
+		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+			alive[i] = true;
+		movableArchers = new HashSet<>();
+		arrowFired = false;
+		initMovableArchers();
 	}
 
+	private void initMovableArchers() {
+		if(GameInput.isSingle())
+			movableArchers.add(archer(1));
+		else
+			for(int i = 1; i <= Board.get().playerCount(); i++)
+				movableArchers.add(archer(i));
+	}
+	
 	@Override
 	public void start() {
 		instructions.makeFullyVisible();
 		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(archerMap.values());
 		addAll(fence, instructions, pressSpace);
-		startNextWave();
+		createNextTarget();
 	}
 
-	private void startNextWave() {
+	private void incrementWave() {
 		waveIndex++;
-		startWave(currentWave());
-	}
-	
-	private void startWave(ArcheryWave wave) {
-		turn = 1;
-		add(wave.createTarget(this::targetHit));
-	}
-	
-	private void targetHit(Target t) {
-		System.out.printf("TARGET HIT!%n");
+		System.out.printf("wave incremented to: %d%n", waveIndex);
 	}
 
+	public void createNextTarget() {
+		add(currentWave().createTarget(this::targetHit));
+	}
+	
+	/** Assumes the given {@link Target} has already been trashed. */
+	private void targetHit(Target t) {
+		int oldTurn = turn;
+		updateControls(turn = nextTurn(turn));
+		if(turn < oldTurn)
+			incrementWave();
+		createNextTarget();
+		arrowFired = false;
+	}
+
+	/** Assumes the given {@link Arrow} has already been trashed. */
+	public void arrowLeftScreen(Arrow a) {
+		//TODO
+	}
+	
+	private int nextTurn(int turn) {
+		do {
+			turn = turn == Board.get().playerCount() ? 1 : turn + 1;
+		}
+		while(!alive[turn]);
+		return turn;
+	}
+	
+	private void updateControls(int player) {
+		if(GameInput.isSingle()) {
+			movableArchers.clear();
+			movableArchers.add(archer(player));
+		}
+	}
+	
+	public Archer archer(int playerNumber) {
+		return archerMap.get(Player.get(playerNumber));
+	}
+	
 	public ArcheryWave currentWave() {
 		return waveGenerator.get(waveIndex);
 	}
@@ -110,14 +157,20 @@ public class ArcheryMinigame extends Minigame {
 			for(Archer a : archerMap.values())
 				a.keyReleased(kc);
 	}
-
 	
 	@Override
 	public void mouseClicked(MouseEvent me) {
-		for(Archer a : archerMap.values())
-			a.mouseClicked(me);
+		if(!arrowFired) {
+			archer(turn).mouseClicked(me);
+			arrowFired = true;
+		}
 	}
 
+	private void kill(int player) {
+		remove(archer(player));
+		alive[player] = false;
+	}
+	
 	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
 	private boolean instructionsShowing() {
 		return instructions.getOpacity() > 0;
@@ -137,6 +190,10 @@ public class ArcheryMinigame extends Minigame {
 	
 	public Fence fence() {
 		return fence;
+	}
+	
+	public boolean isMobile(Archer a) {
+		return movableArchers.contains(a);
 	}
 	
 }

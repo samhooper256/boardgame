@@ -21,26 +21,30 @@ public class Archer extends ImagePane implements Updatable {
 	}
 	
 	public void keyPressed(KeyCode code) {
-		if(code == controls().up())
-			yvel -= SPEED;
-		else if(code == controls().down())
-			yvel += SPEED;
-		else if(code == controls().left())
-			xvel -= SPEED;
-		else if(code == controls().right())
-			xvel += SPEED;
+		updateMovement();
 	}
 	
 	public void keyReleased(KeyCode code) {
-		if(code == controls().up())
-			yvel += SPEED;
-		else if(code == controls().down())
-			yvel -= SPEED;
-		else if(code == controls().left())
-			xvel += SPEED;
-		else if(code == controls().right())
-			xvel -= SPEED;
+		updateMovement();
 	}
+	
+	private void updateMovement() {
+		boolean up = GameInput.isPressed(controls().up()), down = GameInput.isPressed(controls().down()),
+				left = GameInput.isPressed(controls().left()), right = GameInput.isPressed(controls().right());
+		if(up == down)
+			yvel = 0;
+		else if(up)
+			yvel = -SPEED;
+		else
+			yvel = SPEED;
+		if(left == right)
+			xvel = 0;
+		else if(left)
+			xvel = -SPEED;
+		else
+			xvel = SPEED;
+	}
+	
 
 	/** All {@link Archer Archers} are active by default. */
 	public boolean isActive() {
@@ -53,18 +57,26 @@ public class Archer extends ImagePane implements Updatable {
 	
 	@Override
 	public void update(long diff) {
+		if(!isMobile()) {
+			xvel = 0;
+			yvel = 0;
+			return;
+		}
 		double sec = diff / 1e9;
 		double oldX = getIdealX();
 		double newX = oldX + xvel * sec;
 		double oldY = getIdealY();
 		double newY = oldY + yvel * sec;
-		setIdealX(newX);
+		if(newX < 0 || newX + getIdealWidth() > ScaledPane.DEFAULT_WIDTH)
+			xvel = 0;
+		else
+			setIdealX(newX);
 		setIdealY(newY);
-//		Fence fence = ArcheryMinigame.get().fence();
-//		if(newY <= fence.getIdealY() + fence.getIdealHeight())
-//			setIdealY(oldY);
-		if(Intersections.test(this, ArcheryMinigame.get().fence()))
+		if(newY > ScaledPane.DEFAULT_HEIGHT - getIdealWidth() ||
+				Intersections.test(this, ArcheryMinigame.get().fence())) {
 			setIdealY(oldY);
+			yvel = 0;
+		}
 	}
 	
 	public void mouseClicked(MouseEvent me) {
@@ -81,6 +93,10 @@ public class Archer extends ImagePane implements Updatable {
 		if(GameInput.isSingle())
 			return GameInputMode.SINGLE.controls();
 		throw new UnsupportedOperationException(String.format("Unsupported input mode: %s", GameInput.mode()));
+	}
+	
+	public boolean isMobile() {
+		return ArcheryMinigame.get().isMobile(this);
 	}
 	
 }

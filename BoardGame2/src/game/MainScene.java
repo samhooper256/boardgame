@@ -1,9 +1,7 @@
 package game;
 
-import java.util.EnumSet;
-
 import base.*;
-import javafx.geometry.Bounds;
+import base.input.GameInput;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
@@ -16,7 +14,6 @@ public class MainScene extends Scene implements Updatable {
 	
 	private final StackPane root;
 	private final FadeLayer fadeLayer;
-	private final EnumSet<KeyCode> keysPressed;
 	private final Timer timer;
 	
 	public static MainScene get() {
@@ -27,7 +24,6 @@ public class MainScene extends Scene implements Updatable {
 		super(new StackPane());
 		root = (StackPane) getRoot();
 		fadeLayer = new FadeLayer();
-		keysPressed = EnumSet.noneOf(KeyCode.class);
 		setContent(MainMenuPane.get());
 		this.setOnKeyPressed(this::keyPressed);
 		this.setOnKeyReleased(this::keyReleased);
@@ -43,16 +39,16 @@ public class MainScene extends Scene implements Updatable {
 	
 	private void keyPressed(KeyEvent ke) {
 		KeyCode kc = ke.getCode();
-		if(keysPressed.contains(kc))
+		if(GameInput.isPressed(kc))
 			return;
-		keysPressed.add(kc);
+		GameInput.keysPressed().add(kc);
 		if(isPlayingMinigame())
 			currentMinigame().keyPressed(kc);
 	}
 	
 	private void keyReleased(KeyEvent ke) {
 		KeyCode kc = ke.getCode();
-		keysPressed.remove(kc);
+		GameInput.keysPressed().remove(kc);
 		if(isPlayingMinigame())
 			currentMinigame().keyReleased(kc);
 	}
