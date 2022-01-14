@@ -13,13 +13,14 @@ import minigames.MinigameResult;
 import players.*;
 import tiles.*;
 
-public class Board extends AbstractScaledPane implements ScaledPane {
+public class Board extends AbstractScaledPane {
 
 	public static final int TILE_COUNT = 36;
 	
-	private static final int PLAYER_COUNT = 1; //TODO remove later - user can pick how many players.
+	private static final int PLAYER_COUNT = 2; //TODO remove later - user can pick how many players.
 	
 	private static final Board INSTANCE = new Board(PLAYER_COUNT);
+	
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
 	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);

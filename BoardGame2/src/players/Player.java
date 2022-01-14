@@ -32,7 +32,7 @@ public class Player extends ImagePane {
 		this.number = number;
 		passives = new ArrayList<>();
 		current = StartTile.get();
-		rollType = RollType.CHOOSE; //TODO change later
+		rollType = RollType.RANDOM; //TODO change later
 	}
 
 	public void acquirePassive(Passive p) {

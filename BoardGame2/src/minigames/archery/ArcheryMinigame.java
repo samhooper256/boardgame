@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import minigames.Minigame;
 import minigames.archery.waves.*;
 import players.Player;
+import utils.Intersections;
 
 /** The {@link ArcheryMinigame} consists of a series of {@link ArcheryWave waves}. All players take turns beating the
  * wave. If a player misses the target at any point, they are out for the rest of the game.
@@ -67,10 +68,10 @@ public class ArcheryMinigame extends Minigame {
 	
 	private void startWave(ArcheryWave wave) {
 		turn = 1;
-		add(wave.createTarget());
+		add(wave.createTarget(this::targetHit));
 	}
 	
-	private void targetHit() {
+	private void targetHit(Target t) {
 		System.out.printf("TARGET HIT!%n");
 	}
 
@@ -125,9 +126,8 @@ public class ArcheryMinigame extends Minigame {
 	/** Returns {@code true} iff any {@link Arrow Arrows}. intersect the given {@link ImagePane}. */
 	public boolean anyArrowsIntersect(ImagePane ip) {
 		for(ImagePane a : images)
-			if(a instanceof Arrow && imagesIntersect(a, ip)) {
+			if(a instanceof Arrow && Intersections.test(a, ip))
 				return true;
-			}
 		return false;
 	}
 	
