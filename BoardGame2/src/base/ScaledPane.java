@@ -5,7 +5,10 @@ import java.util.*;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.layout.Pane;
 
-/** Implementing classes should also be subclasses of {@link Pane}.*/
+/**<p>{@link ScaledPane ScaledPanes} allow for {@link ImagePane ImagePanes} to be properly displayed on the screen. See
+ * the documentation of {@link ImagePane} for more details.</p>
+ *  
+ * <p>Implementing classes must also be a subclasses of {@link Pane}.</p>*/
 public interface ScaledPane {
 
 	double DEFAULT_WIDTH = 1920, DEFAULT_HEIGHT = 1080, CENTER_X = DEFAULT_WIDTH / 2, CENTER_Y = DEFAULT_HEIGHT / 2;

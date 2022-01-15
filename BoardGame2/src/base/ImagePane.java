@@ -5,9 +5,19 @@ import game.Board;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
+/** <p>A JavaFX {@link Node} used for displaying an {@link Image} in a {@link ScaledPane}. All
+ * {@link ImagePane ImagePanes} have {@link #getIdealCoords() ideal} coordinates that assume a screen width of
+ * {@link ScaledPane#DEFAULT_WIDTH} and a screen height of {@link ScaledPane#DEFAULT_HEIGHT} with {@code (0, 0)} at the
+ * top-left corner.</p>
+ * 
+ * <p>A separate "ideal" coordinate system allows {@link ImagePane ImagePanes} to be laid out independent of how the
+ * user has the screen resized. In other words, it allows all {@link ImagePane ImagePanes} on the screen to scale
+ * smoothly and uniformly if the user resizes the game window.</p>
+ * */
 public class ImagePane extends StackPane {
 
 	private final ResizableImage rimage;
@@ -99,6 +109,10 @@ public class ImagePane extends StackPane {
     public void setIdealCoords(double idealX, double idealY) {
     	setIdealX(idealX);
     	setIdealY(idealY);
+    }
+    
+    public Point2D getIdealCoords() {
+    	return new Point2D(getIdealX(), getIdealY());
     }
     
     public Point2D getIdealCenter() {
