@@ -54,7 +54,7 @@ public class Target extends ImagePane implements Updatable {
 			sinceLastStop += sec;
 		}
 		//test if an arrow is hitting this target:
-		if(ArcheryMinigame.get().anyArrowsIntersect(this))
+		if(ArcheryMinigame.sp().anyArrowsIntersect(this))
 			runHitAction();
 	}
 

@@ -32,7 +32,7 @@ public class MainScene extends Scene implements Updatable {
 		timer.start();
 	}
 	
-	private void setContent(Pane p) {
+	private void setContent(GamePane p) {
 		clearContent();
 		root.getChildren().add(p);
 	}

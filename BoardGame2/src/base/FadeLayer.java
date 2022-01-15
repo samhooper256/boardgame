@@ -40,7 +40,7 @@ public class FadeLayer extends StackPane {
 	};
 	
 	
-	private AbstractScaledPane scaledPane;
+	private GamePane gamePane;
 	private Runnable peakAction, finishAction;
 	
 	public FadeLayer() {
@@ -53,15 +53,15 @@ public class FadeLayer extends StackPane {
 		setBackground(Backgrounds.of(Color.rgb(255, 255, 255, frac)));
 	}
 	
-	public void fadeIn(AbstractScaledPane scaledPane, Runnable peakAction, Runnable finishAction) {
-		this.scaledPane = scaledPane;
+	public void fadeIn(GamePane gamePane, Runnable peakAction, Runnable finishAction) {
+		this.gamePane = gamePane;
 		this.peakAction = peakAction;
 		this.finishAction = finishAction;
 		fadeIn.playFromStart();
 	}
 	
 	private void fadeInFinished() {
-		MainScene.get().setRootBase(scaledPane);
+		MainScene.get().setRootBase(gamePane);
 		fadeOut.playFromStart();
 		runPeakAction();
 	}

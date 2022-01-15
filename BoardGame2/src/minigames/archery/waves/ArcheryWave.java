@@ -18,8 +18,8 @@ public interface ArcheryWave {
 	default Target createTarget(Consumer<Target> endOfUpdateAction) {
 		Target t = new Target(path(), null);
 		Runnable hitActionInternal = () -> {
-			ArcheryMinigame.get().trash(t);
-			ArcheryMinigame.get().addEndOfUpdateAction(() -> endOfUpdateAction.accept(t));
+			ArcheryMinigame.sp().trash(t);
+			ArcheryMinigame.sp().addEndOfUpdateAction(() -> endOfUpdateAction.accept(t));
 		};
 		t.setHitAction(hitActionInternal);
 		return t;

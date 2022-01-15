@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
  * the documentation of {@link ImagePane} for more details.</p>
  *  
  * <p>Implementing classes must also be a subclasses of {@link Pane}.</p>*/
-public interface ScaledPane {
+public interface ScaledPane extends Updatable {
 
 	double DEFAULT_WIDTH = 1920, DEFAULT_HEIGHT = 1080, CENTER_X = DEFAULT_WIDTH / 2, CENTER_Y = DEFAULT_HEIGHT / 2;
 	
@@ -65,5 +65,9 @@ public interface ScaledPane {
 	default double wscale() {
 		return wscaleBinding().get();
 	}
+	
+	void setGamePane(GamePane gp);
+	
+	GamePane gamePane();
 	
 }

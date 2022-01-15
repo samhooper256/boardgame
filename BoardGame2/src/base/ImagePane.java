@@ -1,11 +1,10 @@
 package base;
 
 import fxutils.*;
-import game.Board;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
+import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
@@ -36,14 +35,15 @@ public class ImagePane extends StackPane {
 		rimage = new ResizableImage(image);
 		this.idealWidth = new SimpleDoubleProperty(idealWidth);
 		this.idealHeight = new SimpleDoubleProperty(idealHeight);
-		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> Board.get().updateImageSize(this);
+		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> getScaledPane().updateImageSize(this);
 		this.idealWidth.addListener(sizeListener);
 		this.idealHeight.addListener(sizeListener);
 		this.idealX = new SimpleDoubleProperty(idealX);
 		this.idealY = new SimpleDoubleProperty(idealY);
 		ChangeListener<? super Number> coordListener = (o, ov, nv) -> {
-			if(Board.get() != null)
-				Board.get().updateImageLayoutCoords(this);
+			ScaledPane sp = getScaledPane();
+			if(sp != null)
+				sp.updateImageLayoutCoords(this);
 		};
 		this.idealX.addListener(coordListener);
 		this.idealY.addListener(coordListener);
@@ -155,6 +155,15 @@ public class ImagePane extends StackPane {
 
     public void setImage(Image image) {
     	rimage().setImage(image);
+    }
+    
+    /** Returns the {@link ScaledPane} that this {@link ImagePane} is contained within. Returns {@code null} if this
+     * {@link ImagePane} is not currently within a {@link ScaledPane}.*/
+    public ScaledPane getScaledPane() {
+    	Parent p = getParent();
+    	while(p != null && !(p instanceof ScaledPane))
+    		p = p.getParent();
+    	return (ScaledPane) p;
     }
     
 }

@@ -10,13 +10,24 @@ import javafx.scene.layout.Pane;
 public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 
 	protected final List<ImagePane> images;
+	protected GamePane gamePane;
 	
+	private final List<ImagePane> trash;
+	private final List<Runnable> endOfUpdateActions;
 	private final DoubleBinding hscaleBinding, wscaleBinding;
 	
-	public AbstractScaledPane() {
+	/** The {@link #gamePane()} must be set after construction. */
+	protected AbstractScaledPane() {
+		this(null);
+	}
+	
+	public AbstractScaledPane(GamePane gamePane) {
 		images = new ArrayList<>();
+		trash = new ArrayList<>();
+		endOfUpdateActions = new ArrayList<>();
 		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
 		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
+		this.gamePane = gamePane;
 	}
 	
 	@Override
@@ -41,6 +52,29 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	public List<ImagePane> imagesUnmodifiable() {
 		return Collections.unmodifiableList(images);
 	}
+	
+	/** {@link ImagePane ImagePanes} put in the trash will be {@link #remove(ImagePane) removed} at the end of this
+	 * {@link #update(long) update} pulse. */
+	public void trash(ImagePane ip) {
+		trash.add(ip);
+	}
+	
+	public void addEndOfUpdateAction(Runnable action) {
+		endOfUpdateActions.add(action);
+	}
+	
+	@Override
+	public final void update(long diff) {
+		updatePane(diff);
+		for(ImagePane ip : trash)
+			remove(ip);
+		trash.clear();
+		for(Runnable eoua : endOfUpdateActions)
+			eoua.run();
+		endOfUpdateActions.clear();
+	}
+	
+	public abstract void updatePane(long diff);
 	
 	@Override
 	public void resize(double width, double height) {
@@ -120,6 +154,16 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	@Override
 	public DoubleBinding wscaleBinding() {
 		return wscaleBinding;
+	}
+
+	@Override
+	public void setGamePane(GamePane gamePane) {
+		this.gamePane = gamePane;
+	}
+	
+	@Override
+	public GamePane gamePane() {
+		return gamePane;
 	}
 	
 }

@@ -21,9 +21,9 @@ final class WalkAnimation {
 		for(int i = 1; i <= distance; i++) {
 			int iCopy = i; //for lambda below.
 			timeline.getKeyFrames().add(new KeyFrame(STEP_DURATION.multiply(i), eh -> {
-				Board.get().movePlayer(player, pStartIndex + iCopy);
+				Board.sp().movePlayer(player, pStartIndex + iCopy);
 				if(iCopy == distance)
-					Board.get().walkFinished(this);
+					Board.sp().walkFinished(this);
 			}));
 		}
 	}

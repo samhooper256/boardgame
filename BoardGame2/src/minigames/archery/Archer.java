@@ -73,7 +73,7 @@ public class Archer extends ImagePane implements Updatable {
 			setIdealX(newX);
 		setIdealY(newY);
 		if(newY > ScaledPane.DEFAULT_HEIGHT - getIdealWidth() ||
-				Intersections.test(this, ArcheryMinigame.get().fence())) {
+				Intersections.test(this, ArcheryMinigame.sp().fence())) {
 			setIdealY(oldY);
 			yvel = 0;
 		}
@@ -83,9 +83,9 @@ public class Archer extends ImagePane implements Updatable {
 		if(me.getButton() == MouseButton.PRIMARY) {
 			Point2D local = new Point2D(me.getSceneX(), me.getSceneY());
 			Point2D archerCenter = getIdealCenter();
-			Arrow arrow = new Arrow(archerCenter, ArcheryMinigame.get().localToIdeal(local));
+			Arrow arrow = new Arrow(archerCenter, ArcheryMinigame.sp().localToIdeal(local));
 			arrow.setIdealCenter(archerCenter);
-			ArcheryMinigame.get().addArrow(arrow);
+			ArcheryMinigame.sp().addArrow(arrow);
 		}
 	}
 	
