@@ -2,6 +2,7 @@ package game;
 
 import base.*;
 import base.input.GameInput;
+import base.panes.GamePane;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;

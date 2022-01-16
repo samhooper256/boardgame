@@ -2,7 +2,7 @@ package game;
 
 import java.util.function.*;
 
-import base.ImagePane;
+import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.animation.*;
 import javafx.animation.Animation.Status;

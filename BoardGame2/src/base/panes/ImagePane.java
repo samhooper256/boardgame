@@ -1,4 +1,4 @@
-package base;
+package base.panes;
 
 import fxutils.*;
 import javafx.beans.property.*;

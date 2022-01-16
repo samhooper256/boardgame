@@ -1,5 +1,6 @@
-package base;
+package base.panes;
 
+import base.AcceptsInput;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;

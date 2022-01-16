@@ -1,6 +1,6 @@
 package utils;
 
-import base.ImagePane;
+import base.panes.ImagePane;
 import javafx.geometry.Point2D;
 
 public final class Intersections {

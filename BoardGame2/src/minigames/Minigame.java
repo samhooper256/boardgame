@@ -1,6 +1,7 @@
 package minigames;
 
 import base.*;
+import base.panes.*;
 import game.MainScene;
 
 public abstract class Minigame extends GamePane implements Updatable {

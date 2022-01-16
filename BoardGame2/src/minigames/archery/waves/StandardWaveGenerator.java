@@ -2,7 +2,7 @@ package minigames.archery.waves;
 
 import java.util.*;
 
-import base.ScaledPane;
+import base.panes.ScaledPane;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import minigames.archery.TargetPath;

@@ -1,7 +1,8 @@
-package base;
+package base.panes;
 
 import java.util.*;
 
+import base.Updatable;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.layout.Pane;
 

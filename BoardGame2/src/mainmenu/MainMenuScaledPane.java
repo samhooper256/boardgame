@@ -1,6 +1,7 @@
 package mainmenu;
 
 import base.*;
+import base.panes.*;
 import fxutils.Images;
 
 public class MainMenuScaledPane extends AbstractScaledPane {

@@ -1,6 +1,6 @@
 package game;
 
-import base.ScaledPane;
+import base.panes.ScaledPane;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.util.Duration;

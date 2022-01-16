@@ -2,7 +2,7 @@ package players;
 
 import java.util.*;
 
-import base.ImagePane;
+import base.panes.ImagePane;
 import fxutils.Images;
 import tiles.*;
 

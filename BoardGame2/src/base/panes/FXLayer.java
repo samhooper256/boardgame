@@ -1,8 +1,6 @@
-package base;
+package base.panes;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 
 public class FXLayer extends StackPane {
 

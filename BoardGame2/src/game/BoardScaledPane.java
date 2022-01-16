@@ -3,6 +3,7 @@ package game;
 import java.util.*;
 
 import base.*;
+import base.panes.*;
 import fxutils.*;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;

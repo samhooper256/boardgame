@@ -1,5 +1,6 @@
 package base;
 
+import base.panes.GamePane;
 import fxutils.*;
 import game.MainScene;
 import javafx.animation.Transition;

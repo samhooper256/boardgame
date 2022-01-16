@@ -1,4 +1,4 @@
-package base;
+package base.panes;
 
 import javafx.animation.*;
 import javafx.animation.Animation.Status;

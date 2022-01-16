@@ -2,6 +2,7 @@ package minigames.archery;
 
 import base.*;
 import base.input.*;
+import base.panes.*;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
