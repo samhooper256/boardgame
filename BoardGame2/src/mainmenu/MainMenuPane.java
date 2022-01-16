@@ -1,6 +1,5 @@
 package mainmenu;
 
-import base.*;
 import base.panes.GamePane;
 
 public class MainMenuPane extends GamePane {

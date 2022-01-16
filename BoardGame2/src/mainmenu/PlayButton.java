@@ -1,6 +1,5 @@
 package mainmenu;
 
-import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import game.MainScene;

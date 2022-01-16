@@ -2,7 +2,6 @@ package game;
 
 import java.util.stream.*;
 
-import base.*;
 import base.panes.GamePane;
 import events.Event;
 import minigames.MinigameResult;

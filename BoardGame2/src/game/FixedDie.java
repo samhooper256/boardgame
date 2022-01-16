@@ -1,6 +1,5 @@
 package game;
 
-import base.*;
 import base.panes.*;
 import fxutils.Images;
 import players.RollType;
