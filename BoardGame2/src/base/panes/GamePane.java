@@ -10,9 +10,9 @@ public abstract class GamePane extends StackPane implements AcceptsInput {
 	private final ScaledPane scaledPane;
 	private final FXLayer fxLayer;
 	
-	public GamePane(ScaledPane scaledPane) {
+	public GamePane(ScaledPane scaledPane, FXLayer fxLayer) {
 		this.scaledPane = scaledPane;
-		fxLayer = new FXLayer(this);
+		this.fxLayer = fxLayer;
 		getChildren().addAll((Node) scaledPane, fxLayer);
 	}
 	

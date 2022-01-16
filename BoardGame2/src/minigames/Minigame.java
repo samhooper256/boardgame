@@ -6,8 +6,10 @@ import game.MainScene;
 
 public abstract class Minigame extends GamePane implements Updatable {
 	
-	public Minigame(ScaledPane imageLayer) {
-		super(imageLayer);
+	public Minigame(ScaledPane imageLayer, FXLayer fxLayer) {
+		super(imageLayer, fxLayer);
+		imageLayer.setGamePane(this);
+		fxLayer.setGamePane(this);
 	}
 	
 	/** Assumes this {@link Minigame} has already been set as the

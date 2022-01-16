@@ -33,8 +33,7 @@ public class ArcheryMinigame extends Minigame {
 	private int waveIndex, turn;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
-		super(new ArcheryScaledPane());
-		imageLayer().setGamePane(this);
+		super(new ArcheryScaledPane(), new ArcheryFXLayer());
 		this.waveGenerator = waveGenerator;
 		archerMap = new HashMap<>();
 		Board.get().players().forEachOrdered(p -> {
