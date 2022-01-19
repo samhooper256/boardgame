@@ -107,6 +107,7 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	@Override
 	public void updateImageSize(ImagePane ip) {
 		Nodes.setMaxSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
+		Nodes.setMinSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
 	}
 	
 	@Override

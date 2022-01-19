@@ -1,7 +1,5 @@
 package minigames.archery.waves;
 
-import java.util.function.Consumer;
-
 import minigames.archery.*;
 
 public interface ArcheryWave {
@@ -12,14 +10,15 @@ public interface ArcheryWave {
 	
 	TargetPath path();
 	
-	/** The given {@link Consumer} need not {@link ArcheryMinigame#trash(base.ImagePane) trash} the {@link Target}.
-	 * The passed action is wrapped in another action that will call {@code trash}. The given action may be {@code null}
-	 * (it will do nothing). The given action will be invoked <em>after</em> the {@link Target} is trashed. */
-	default Target createTarget(Consumer<Target> endOfUpdateAction) {
+	/** The given {@link HitAction} need not {@link ArcheryMinigame#trash(base.ImagePane) trash} the {@link Target}.
+	 * The passed action is wrapped in another action that will call
+	 * {@link ArcheryMinigame#trash(base.ImagePane) trash}. The given action may be {@code null} (it will do nothing).
+	 * The given action will be invoked <em>after</em> {@link ArcheryMinigame#trash(base.ImagePane) trash} is called. */
+	default Target createTarget(HitAction hitAction) {
 		Target t = new Target(path(), null);
-		Runnable hitActionInternal = () -> {
+		HitAction hitActionInternal = (arrow, target) -> {
 			ArcheryMinigame.sp().trash(t);
-			ArcheryMinigame.sp().addEndOfUpdateAction(() -> endOfUpdateAction.accept(t));
+			ArcheryMinigame.sp().addEndOfUpdateAction(() -> hitAction.accept(arrow, target));
 		};
 		t.setHitAction(hitActionInternal);
 		return t;

@@ -16,6 +16,7 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	
 	private final FadeableImagePane instructions, pressSpace;
 	private final Fence fence;
+	private final ImagePane winBackground, winner;
 	
 	public ArcheryScaledPane() {
 		super();
@@ -25,6 +26,10 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		pressSpace.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .8);
 		fence = new Fence();
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
+		winBackground = new ImagePane(Images.MINIGAME_WIN_BACKGROUND);
+		winBackground.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+		winner = new ImagePane(Images.PLAYER1, 100, 100);
+		winner.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .45);
 	}
 	
 	void init(Collection<Archer> archers) {
@@ -49,12 +54,13 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		add(a);
 	}
 	
-	/** Returns {@code true} iff any {@link Arrow Arrows}. intersect the given {@link ImagePane}. */
-	public boolean anyArrowsIntersect(ImagePane ip) {
+	/** Returns one of the {@link Arrow Arrows} that is currently intersecting the given {@link ImagePane}. Returns
+	 * {@code null} if no {@link Arrow} is currently intersecting the {@link ImagePane}. */
+	public Arrow getIntersectingArrow(ImagePane ip) {
 		for(ImagePane a : images)
 			if(a instanceof Arrow && Intersections.test(a, ip))
-				return true;
-		return false;
+				return (Arrow) a;
+		return null;
 	}
 	
 	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
@@ -93,6 +99,11 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 				if(ip instanceof Updatable)
 					((Updatable) ip).update(diff);
 		}
+	}
+	
+	public void win(int player) {
+		winner.setImage(Images.player(player));
+		addAll(winBackground, winner);
 	}
 	
 	public Fence fence() {

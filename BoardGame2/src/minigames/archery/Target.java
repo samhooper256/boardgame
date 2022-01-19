@@ -5,20 +5,21 @@ import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.geometry.Point2D;
 
+/** @see HitAction */
 public class Target extends ImagePane implements Updatable {
 
 	private static final double TOLERANCE = 5;
 	
 	private final TargetPath path;
 	
-	private Runnable hitAction;
+	private HitAction hitAction;
 	private double xvel, yvel;
 	/** If {@code -1}, this {@link Target} is in motion. */
 	private double sinceLastStop;
 	private int pathIndex;
 	private boolean leftOfTarget, aboveTarget;
 	
-	public Target(TargetPath path, Runnable hitAction) {
+	public Target(TargetPath path, HitAction hitAction) {
 		super(Images.TARGET);
 		this.path = path;
 		this.hitAction = hitAction;
@@ -55,8 +56,9 @@ public class Target extends ImagePane implements Updatable {
 			sinceLastStop += sec;
 		}
 		//test if an arrow is hitting this target:
-		if(ArcheryMinigame.sp().anyArrowsIntersect(this))
-			runHitAction();
+		Arrow a = ArcheryMinigame.sp().getIntersectingArrow(this);
+		if(a != null)
+			runHitAction(a);
 	}
 
 	public void updateQuadrants(Point2D dest) {
@@ -74,13 +76,13 @@ public class Target extends ImagePane implements Updatable {
 		return nowLeft != leftOfTarget || nowAbove != aboveTarget;
 	}
 	
-	public void setHitAction(Runnable hitAction) {
+	public void setHitAction(HitAction hitAction) {
 		this.hitAction = hitAction;
 	}
 	
-	private void runHitAction() {
+	private void runHitAction(Arrow a) {
 		if(hitAction != null)
-			hitAction.run();
+			hitAction.accept(a, this);
 	}
 	
 	public void directVelocityTowards(Point2D dest) {

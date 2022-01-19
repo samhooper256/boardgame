@@ -12,7 +12,7 @@ public class Board extends GamePane {
 	public static final int TILE_COUNT = 36;
 	
 	private static final int MAX_PLAYER_COUNT = 4;
-	private static final int PLAYER_COUNT = 2; //TODO remove later - user can pick how many players.
+	private static final int PLAYER_COUNT = 3; //TODO remove later - user can pick how many players.
 	
 	private static final Board INSTANCE = new Board(PLAYER_COUNT);
 	

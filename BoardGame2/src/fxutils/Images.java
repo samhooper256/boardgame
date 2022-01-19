@@ -30,6 +30,7 @@ public final class Images {
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
 			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
+			MINIGAME_WIN_BACKGROUND = get("minigame_win_background.png"),
 			PRESS_SPACE = get("pressspace.png"),
 			FENCE = get("fence.png"),
 			FENCE2 = get("fence2.png"),
@@ -37,7 +38,9 @@ public final class Images {
 			TARGET = get("target.png"),
 			ARCHERY_BACKGROUND = get("archerybackground.png"),
 			BACKGROUND = get("BoardBackground.png");
-
+	
+	public static final double PLAYER_IDEAL_SIZE = PLAYER1.getWidth();
+	
 	private Images() {}
 
 	public static Image die(int face) {

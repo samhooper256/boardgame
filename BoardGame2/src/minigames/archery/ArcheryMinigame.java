@@ -31,6 +31,7 @@ public class ArcheryMinigame extends Minigame {
 	
 	private boolean arrowFired;
 	private int waveIndex, turn;
+	private Target currentTarget;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
 		super(new ArcheryScaledPane(), new ArcheryFXLayer());
@@ -44,10 +45,11 @@ public class ArcheryMinigame extends Minigame {
 		waveIndex = 1;
 		turn = 1;
 		alive = new boolean[Board.maxPlayerCount() + 1];
-		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+		for(int i = 1; i <= Board.get().playerCount(); i++)
 			alive[i] = true;
 		movableArchers = new HashSet<>();
 		arrowFired = false;
+		currentTarget = null;
 		initMovableArchers();
 	}
 
@@ -71,7 +73,14 @@ public class ArcheryMinigame extends Minigame {
 	}
 
 	/** Assumes the given {@link Target} has already been trashed. */
-	void targetHit(Target t) {
+	void targetHit(Arrow a, Target t) {
+		currentTarget = null;
+		imageLayer().trash(a);
+		incrementTurn();
+	}
+
+	/** Also {@link #incrementWave() increments the wave} if necessary. */
+	public void incrementTurn() {
 		int oldTurn = turn;
 		updateControls(turn = nextTurn(turn));
 		if(turn < oldTurn)
@@ -81,12 +90,23 @@ public class ArcheryMinigame extends Minigame {
 	}
 
 	public void createNextTarget() {
-		imageLayer().add(currentWave().createTarget(this::targetHit));
+		imageLayer().add(currentTarget = currentWave().createTarget(this::targetHit));
 	}
 	
 	/** Assumes the given {@link Arrow} has already been trashed. */
 	public void arrowLeftScreen(Arrow a) {
-		//TODO
+		imageLayer().remove(currentTarget);
+		kill(turn);
+		int playersRemaining = playersRemaining();
+		if(playersRemaining > 1)
+			incrementTurn();
+		else
+			win(getOnlyPlayerAlive());
+	}
+	
+	private void kill(int player) {
+		imageLayer().remove(archer(player));
+		alive[player] = false;
 	}
 	
 	private int nextTurn(int turn) {
@@ -104,8 +124,13 @@ public class ArcheryMinigame extends Minigame {
 		}
 	}
 	
-	public Archer archer(int playerNumber) {
-		return archerMap.get(Player.get(playerNumber));
+	private void win(int player) {
+		imageLayer().win(player);
+		fxLayer().showWinner(player);
+	}
+	
+	public Archer archer(int player) {
+		return archerMap.get(Player.get(player));
 	}
 	
 	public ArcheryWave currentWave() {
@@ -135,11 +160,6 @@ public class ArcheryMinigame extends Minigame {
 		}
 	}
 
-	private void kill(int player) { //TODO
-//		remove(archer(player));
-//		alive[player] = false;
-	}
-	
 	public boolean isMobile(Archer a) {
 		return movableArchers.contains(a);
 	}
@@ -148,8 +168,37 @@ public class ArcheryMinigame extends Minigame {
 		return archerMap.values();
 	}
 	
+	public Target currentTarget() {
+		return currentTarget;
+	}
+	
+	public int playersRemaining() {
+		int players = 0;
+		for(int i = 1; i < alive.length; i++)
+			if(alive[i])
+				players++;
+		return players;
+	}
+	
+	/** @throws IllegalStateException if there is more than one player alive. */
+	public int getOnlyPlayerAlive() {
+		int p = 0;
+		for(int i = 1; i < alive.length; i++)
+			if(alive[i])
+				if(p == 0)
+					p = i;
+				else
+					throw new IllegalStateException("Multiple players are still alive.");
+		return p;
+	}
+	
 	@Override
 	public ArcheryScaledPane imageLayer() {
 		return (ArcheryScaledPane) super.imageLayer();
+	}
+	
+	@Override
+	public ArcheryFXLayer fxLayer() {
+		return (ArcheryFXLayer) super.fxLayer();
 	}
 }

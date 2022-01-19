@@ -35,7 +35,11 @@ public class ImagePane extends StackPane {
 		rimage = new ResizableImage(image);
 		this.idealWidth = new SimpleDoubleProperty(idealWidth);
 		this.idealHeight = new SimpleDoubleProperty(idealHeight);
-		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> getScaledPane().updateImageSize(this);
+		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> {
+			ScaledPane sp = getScaledPane();
+			if(sp != null)
+				sp.updateImageSize(this);
+		};
 		this.idealWidth.addListener(sizeListener);
 		this.idealHeight.addListener(sizeListener);
 		this.idealX = new SimpleDoubleProperty(idealX);
@@ -79,6 +83,11 @@ public class ImagePane extends StackPane {
     public void setIdealSize(double idealWidth, double idealHeight) {
     	setIdealWidth(idealWidth);
     	setIdealHeight(idealHeight);
+    }
+    
+    /** The width is set before the height. */
+    public void setIdealSize(double idealSize) {
+    	setIdealSize(idealSize, idealSize);
     }
     
     public DoubleProperty idealXProperty() {
