@@ -34,6 +34,11 @@ public interface ScaledPane extends Updatable {
 	/** Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
 	boolean remove(ImagePane ip);
 	
+	default void removeAll(ImagePane... ips) {
+		for(ImagePane ip : ips)
+			remove(ip);
+	}
+	
 	List<ImagePane> imagesUnmodifiable();
 	
 	void resize(double width, double height);

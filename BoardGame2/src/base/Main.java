@@ -8,6 +8,8 @@ import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.stage.Stage;
 
+//TODO: Make ArcheryMinigame replayable
+//TODO: add medals.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";

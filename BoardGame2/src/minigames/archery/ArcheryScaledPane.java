@@ -32,17 +32,19 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		winner.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .45);
 	}
 	
-	void init(Collection<Archer> archers) {
+	void init() {
 		int archer = 1;
+		Collection<Archer> archers = gamePane().archers();
 		for(Archer a : archers)
 			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
+		add(new ImagePane(Images.ARCHERY_BACKGROUND));
+		addAll(fence, instructions, pressSpace);
+		addAll(archers);
 	}
 	
 	void start() {
 		instructions.makeFullyVisible();
-		add(new ImagePane(Images.ARCHERY_BACKGROUND));
-		addAll(gamePane().archers());
-		addAll(fence, instructions, pressSpace);
+		removeAll(winner, winBackground);
 	}
 	
 	@Override
@@ -78,10 +80,13 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 			}
 		}
 		else {
-			if(kc == KeyCode.E)
+			if(gamePane().hasWinner()) {
 				MainScene.get().fadeBackFromMinigame(null);
-			for(Archer a : gamePane().archers())
-				a.keyPressed(kc);
+			}
+			else {
+				for(Archer a : gamePane().archers())
+					a.keyPressed(kc);
+			}
 		}
 	}
 

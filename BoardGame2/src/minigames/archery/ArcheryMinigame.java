@@ -32,6 +32,7 @@ public class ArcheryMinigame extends Minigame {
 	private boolean arrowFired;
 	private int waveIndex, turn;
 	private Target currentTarget;
+	private int winner;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
 		super(new ArcheryScaledPane(), new ArcheryFXLayer());
@@ -40,10 +41,9 @@ public class ArcheryMinigame extends Minigame {
 		Board.get().players().forEachOrdered(p -> {
 			archerMap.put(p, new Archer(p.image()));
 		});
-		Collection<Archer> archers = archerMap.values();
-		imageLayer().init(archers);
 		waveIndex = 1;
 		turn = 1;
+		winner = 0; //no winner
 		alive = new boolean[Board.maxPlayerCount() + 1];
 		for(int i = 1; i <= Board.get().playerCount(); i++)
 			alive[i] = true;
@@ -51,6 +51,7 @@ public class ArcheryMinigame extends Minigame {
 		arrowFired = false;
 		currentTarget = null;
 		initMovableArchers();
+		imageLayer().init();
 	}
 
 	private void initMovableArchers() {
@@ -63,6 +64,14 @@ public class ArcheryMinigame extends Minigame {
 	
 	@Override
 	public void start() {
+		waveIndex = 1;
+		turn = 1;
+		winner = 0; //no winner
+		for(int i = 1; i <= Board.get().playerCount(); i++)
+			alive[i] = true;
+		arrowFired = false;
+		currentTarget = null;
+		updateControls(turn);
 		imageLayer().start();
 		createNextTarget();
 	}
@@ -125,6 +134,7 @@ public class ArcheryMinigame extends Minigame {
 	}
 	
 	private void win(int player) {
+		winner = player;
 		imageLayer().win(player);
 		fxLayer().showWinner(player);
 	}
@@ -190,6 +200,10 @@ public class ArcheryMinigame extends Minigame {
 				else
 					throw new IllegalStateException("Multiple players are still alive.");
 		return p;
+	}
+	
+	public boolean hasWinner() {
+		return winner > 0;
 	}
 	
 	@Override

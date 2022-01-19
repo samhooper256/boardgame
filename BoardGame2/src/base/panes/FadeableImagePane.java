@@ -33,6 +33,7 @@ public class FadeableImagePane extends ImagePane {
 		removeFrom.remove(this);
 	}
 	
+	/** Makes this {@link FadeableImagePane} fully visible with no fade-in time. */
 	public void makeFullyVisible() {
 		fadeOut.stop();
 		this.setOpacity(1);
