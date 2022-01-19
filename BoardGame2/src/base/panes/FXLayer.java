@@ -2,6 +2,7 @@ package base.panes;
 
 import javafx.scene.layout.StackPane;
 
+/** {@link FXLayer FXLayers} are {@link #isMouseTransparent() mouse transparent} by default. */
 public class FXLayer extends StackPane {
 
 	private GamePane gamePane;
@@ -12,8 +13,14 @@ public class FXLayer extends StackPane {
 		this(null);
 	}
 	
+	/** {@link #init()} must be called after this constructor is invoked <em>and</em> after the {@link GamePane} is
+	 * {@link #setGamePane(GamePane) set}. */
 	public FXLayer(GamePane gamePane) {
 		this.gamePane = gamePane;
+		this.setMouseTransparent(true);
+	}
+	
+	public void init() {
 		this.scaleXProperty().bind(gamePane().wscaleBinding());
 		this.scaleYProperty().bind(gamePane().hscaleBinding());
 	}
