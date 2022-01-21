@@ -33,13 +33,16 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	}
 	
 	void init() {
+		add(new ImagePane(Images.ARCHERY_BACKGROUND));
+		addAll(fence);
+		addAll(gamePane().archers());
+	}
+
+	public void putArchersInPosition() {
 		int archer = 1;
 		Collection<Archer> archers = gamePane().archers();
 		for(Archer a : archers)
 			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
-		add(new ImagePane(Images.ARCHERY_BACKGROUND));
-		addAll(fence);
-		addAll(archers);
 	}
 	
 	void start() {
@@ -48,6 +51,7 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		pressSpace.makeFullyVisible();
 		removeAll(winner, winBackground);
 		removeAll(gamePane().archers());
+		putArchersInPosition();
 		addAll(gamePane().archers());
 	}
 	
