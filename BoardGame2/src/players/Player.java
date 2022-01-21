@@ -8,7 +8,7 @@ import tiles.*;
 
 public class Player extends ImagePane {
 
-	public static final int MAX_PLAYER_COUNT = 4;
+	private static final int MAX_COUNT = 4;
 	
 	private static final Player[] PLAYERS = {
 			new Player(1),
@@ -16,6 +16,11 @@ public class Player extends ImagePane {
 			new Player(3),
 			new Player(4)
 	};
+	
+	/** Returns the maximum number of players. */
+	public static int maxCount() {
+		return MAX_COUNT;
+	}
 	
 	public static Player get(int n) {
 		return PLAYERS[n - 1];

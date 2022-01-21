@@ -10,13 +10,18 @@ public final class Medal {
 			SILVER = new Medal("Silver", 2, Images.GOLD_MEDAL),
 			BRONZE = new Medal("Bronze", 1, Images.GOLD_MEDAL);
 	
-	public static final Medal of(String type) {
+	public static Medal of(String type) {
 		switch(type.toLowerCase()) {
 			case "gold": return GOLD;
 			case "silver": return SILVER;
 			case "bronze": return BRONZE;
 		}
 		throw new IllegalArgumentException(String.format("Invalid medal type: %s", type));
+	}
+	
+	/** Returns the number of different kinds of {@link Medal Medals}. */
+	public static int count() {
+		return 3;
 	}
 	
 	private final String name;
@@ -39,6 +44,16 @@ public final class Medal {
 	
 	public Image image() {
 		return image;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this == obj;
+	}
+	
+	@Override
+	public int hashCode() {
+		return pointValue;
 	}
 	
 }
