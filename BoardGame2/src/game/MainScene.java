@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import mainmenu.*;
+import medals.MedalReward;
 import minigames.*;
 
 public class MainScene extends Scene implements Updatable {
@@ -76,6 +77,8 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	public void fadeBackFromMinigame(MinigameResult mr) {
+		for(MedalReward reward : mr.rewards())
+			reward.apply();
 		root.getChildren().add(fadeLayer);
 		fadeLayer.fadeIn(Board.get(), null, () -> Board.get().minigameFinished(mr));
 	}

@@ -2,8 +2,9 @@ package game;
 
 import java.util.stream.*;
 
-import base.panes.GamePane;
+import base.panes.*;
 import events.Event;
+import game.fx.BoardFXLayer;
 import minigames.MinigameResult;
 import players.*;
 
@@ -12,9 +13,13 @@ public class Board extends GamePane {
 	public static final int TILE_COUNT = 36;
 	
 	private static final int MAX_PLAYER_COUNT = 4;
-	private static final int PLAYER_COUNT = 3; //TODO remove later - user can pick how many players.
+	private static final int PLAYER_COUNT = 4; //TODO remove later - user can pick how many players.
 	
 	private static final Board INSTANCE = new Board(PLAYER_COUNT);
+	
+	static {
+		INSTANCE.init();
+	}
 	
 	public static Board get() {
 		return INSTANCE;
@@ -33,13 +38,18 @@ public class Board extends GamePane {
 	private boolean readyToRoll;
 	
 	private Board(int playerCount) {
-		super(new BoardScaledPane());
+		super(new BoardScaledPane(), new BoardFXLayer());
 		imageLayer().setGamePane(this);
+		fxLayer().setGamePane(this);
 		this.playerCount = playerCount;
 		turn = 1;
 		readyToRoll = false;
 		lastRollType = RollType.RANDOM;
+	}
+	
+	private void init() {
 		imageLayer().init();
+		fxLayer().init();
 	}
 	
 	/** Called immediately before this {@link Board} is shown to the player. */
@@ -132,6 +142,11 @@ public class Board extends GamePane {
 	@Override
 	public BoardScaledPane imageLayer() {
 		return (BoardScaledPane) super.imageLayer();
+	}
+	
+	@Override
+	public BoardFXLayer fxLayer() {
+		return (BoardFXLayer) super.fxLayer();
 	}
 	
 }

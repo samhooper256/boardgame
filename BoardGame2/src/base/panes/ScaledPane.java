@@ -39,6 +39,11 @@ public interface ScaledPane extends Updatable {
 			remove(ip);
 	}
 	
+	default void removeAll(Collection<? extends ImagePane> ips) {
+		for(ImagePane ip : ips)
+			remove(ip);
+	}
+	
 	List<ImagePane> imagesUnmodifiable();
 	
 	void resize(double width, double height);

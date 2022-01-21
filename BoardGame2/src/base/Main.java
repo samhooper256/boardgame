@@ -7,11 +7,8 @@ import game.MainScene;
 import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.stage.Stage;
+import players.Player;
 
-//TODO for MVP:
-//TODO: Make ArcheryMinigame replayable
-//TODO: add medals.
-//TODO export to jar.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
@@ -66,6 +63,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
+		Player.maxCount(); //cause Player to be initialized.
 		stage.setScene(MainScene.get());
 		stage.setFullScreen(true);
 		stage.setTitle(TITLE);

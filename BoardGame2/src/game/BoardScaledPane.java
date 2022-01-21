@@ -7,6 +7,7 @@ import base.panes.*;
 import fxutils.*;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
+import medals.*;
 import players.Player;
 import tiles.*;
 
@@ -29,6 +30,7 @@ public class BoardScaledPane extends AbstractScaledPane {
 		add(new ImagePane(Images.BACKGROUND));
 		placeTiles();
 		placePlayers();
+		addMedalAreas();
 		add(die);
 	}
 	
@@ -59,6 +61,21 @@ public class BoardScaledPane extends AbstractScaledPane {
 		for(TileSection section : TileSection.ORDER)
 			order.addAll(section.randomOrder());
 		return order;
+	}
+	
+	private void addMedalAreas() {
+		for(int i = 1; i <= Board.get().playerCount(); i++) {
+			MedalCoords coords = MedalCoords.forPlayer(i);
+			ImagePane p = new ImagePane(Images.player(i));
+			MedalDisplay gold = new MedalDisplay(Medal.GOLD, .25);
+			MedalDisplay silver = new MedalDisplay(Medal.SILVER, .25);
+			MedalDisplay bronze = new MedalDisplay(Medal.BRONZE, .25);
+			p.setIdealCenter(coords.player());
+			gold.setIdealCenter(coords.gold());
+			silver.setIdealCenter(coords.silver());
+			bronze.setIdealCenter(coords.bronze());
+			addAll(p, gold, silver, bronze);
+		}
 	}
 	
 	@Override

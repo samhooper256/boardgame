@@ -13,7 +13,7 @@ public abstract class Tile extends ImagePane {
 	
 	public Tile(Image tileImage) {
 		super(tileImage);
-		players = new HashSet<>(Player.MAX_PLAYER_COUNT);
+		players = new HashSet<>(Player.maxCount());
 	}
 	
 	public int index() {

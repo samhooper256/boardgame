@@ -4,11 +4,12 @@ import java.util.*;
 
 import base.panes.ImagePane;
 import fxutils.Images;
+import medals.MedalCounter;
 import tiles.*;
 
 public class Player extends ImagePane {
 
-	public static final int MAX_PLAYER_COUNT = 4;
+	private static final int MAX_COUNT = 4;
 	
 	private static final Player[] PLAYERS = {
 			new Player(1),
@@ -17,12 +18,26 @@ public class Player extends ImagePane {
 			new Player(4)
 	};
 	
+	/** @return {@code player} 
+	 * @throws IllegalArgumentException if {@code (player < 1 || player > maxCount())}. */
+	public static int validate(int player) {
+		if(player < 1 || player > maxCount())
+			throw new IllegalArgumentException(String.format("Invalid player number: %d", player));
+		return player;
+	}
+	
+	/** Returns the maximum number of players. */
+	public static int maxCount() {
+		return MAX_COUNT;
+	}
+	
 	public static Player get(int n) {
 		return PLAYERS[n - 1];
 	}
 	
 	private final int number;
 	private final List<Passive> passives;
+	private final MedalCounter medalCounter;
 	
 	private Tile current;
 	private RollType rollType;
@@ -30,9 +45,10 @@ public class Player extends ImagePane {
 	private Player(int number) {
 		super(Images.player(number));
 		this.number = number;
+		medalCounter = new MedalCounter();
 		passives = new ArrayList<>();
 		current = StartTile.get();
-		rollType = RollType.CHOOSE; //TODO change later
+		rollType = RollType.RANDOM;
 	}
 
 	public void acquirePassive(Passive p) {
@@ -72,6 +88,10 @@ public class Player extends ImagePane {
 
 	public void setRollType(RollType rollType) {
 		this.rollType = rollType;
+	}
+	
+	public MedalCounter medalCounter() {
+		return medalCounter;
 	}
 	
 	@Override
