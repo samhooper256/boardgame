@@ -4,7 +4,7 @@ import java.util.*;
 
 import medals.MedalReward;
 
-public class MinigameResultImpl {
+final class MinigameResultImpl implements MinigameResult {
 
 	/** Unmodifiable. */
 	private final Set<MedalReward> rewards;
@@ -20,7 +20,7 @@ public class MinigameResultImpl {
 		this.rewards = Collections.unmodifiableSet(new HashSet<>(rewards));
 	}
 	
-	/** The returned {@link Set} is unmodifiable. */
+	@Override
 	public Set<MedalReward> rewards() {
 		return rewards;
 	}
