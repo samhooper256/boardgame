@@ -7,6 +7,7 @@ import game.MainScene;
 import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.stage.Stage;
+import players.Player;
 
 //TODO: Make ArcheryMinigame replayable
 //TODO: add medals.
@@ -64,6 +65,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
+		Player.maxCount(); //cause Player to be initialized.
 		stage.setScene(MainScene.get());
 		stage.setFullScreen(true);
 		stage.setTitle(TITLE);

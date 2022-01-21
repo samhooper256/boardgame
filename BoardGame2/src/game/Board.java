@@ -16,6 +16,10 @@ public class Board extends GamePane {
 	
 	private static final Board INSTANCE = new Board(PLAYER_COUNT);
 	
+	static {
+		INSTANCE.init();
+	}
+	
 	public static Board get() {
 		return INSTANCE;
 	}
@@ -39,6 +43,9 @@ public class Board extends GamePane {
 		turn = 1;
 		readyToRoll = false;
 		lastRollType = RollType.RANDOM;
+	}
+	
+	private void init() {
 		imageLayer().init();
 	}
 	

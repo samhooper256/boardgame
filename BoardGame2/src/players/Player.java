@@ -17,6 +17,14 @@ public class Player extends ImagePane {
 			new Player(4)
 	};
 	
+	/** @return {@code player} 
+	 * @throws IllegalArgumentException if {@code (player < 1 || player > maxCount())}. */
+	public static int validate(int player) {
+		if(player < 1 || player > maxCount())
+			throw new IllegalArgumentException(String.format("Invalid player number: %d", player));
+		return player;
+	}
+	
 	/** Returns the maximum number of players. */
 	public static int maxCount() {
 		return MAX_COUNT;

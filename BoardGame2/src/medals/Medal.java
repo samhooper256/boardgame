@@ -7,8 +7,8 @@ public final class Medal {
 
 	public static final Medal
 			GOLD = new Medal("Gold", 3, Images.GOLD_MEDAL),
-			SILVER = new Medal("Silver", 2, Images.GOLD_MEDAL),
-			BRONZE = new Medal("Bronze", 1, Images.GOLD_MEDAL);
+			SILVER = new Medal("Silver", 2, Images.SILVER_MEDAL),
+			BRONZE = new Medal("Bronze", 1, Images.BRONZE_MEDAL);
 	
 	public static Medal of(String type) {
 		switch(type.toLowerCase()) {
