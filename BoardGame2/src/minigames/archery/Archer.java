@@ -3,8 +3,8 @@ package minigames.archery;
 import base.*;
 import base.input.*;
 import base.panes.*;
+import fxutils.Images;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import utils.Intersections;
 
@@ -15,18 +15,20 @@ public class Archer extends ImagePane implements Updatable {
 	private double xvel, yvel;
 	private boolean active;
 	
-	public Archer(Image image) {
-		super(image);
+	public Archer(int player) {
+		super(Images.sprite1(player));
 		this.xvel = this.yvel = 0;
 		this.active = true;
 	}
 	
 	public void keyPressed(KeyCode code) {
 		updateMovement();
+		updateOrientation();
 	}
 	
 	public void keyReleased(KeyCode code) {
 		updateMovement();
+		updateOrientation();
 	}
 	
 	private void updateMovement() {
@@ -46,6 +48,13 @@ public class Archer extends ImagePane implements Updatable {
 			xvel = SPEED;
 	}
 	
+	private void updateOrientation() {
+		boolean left = GameInput.isPressed(controls().left()), right = GameInput.isPressed(controls().right());
+		if(left)
+			setScaleX(-1);
+		else if(right)
+			setScaleX(1);
+	}
 
 	/** All {@link Archer Archers} are active by default. */
 	public boolean isActive() {
@@ -73,7 +82,7 @@ public class Archer extends ImagePane implements Updatable {
 		else
 			setIdealX(newX);
 		setIdealY(newY);
-		if(newY > ScaledPane.DEFAULT_HEIGHT - getIdealWidth() ||
+		if(newY > ScaledPane.DEFAULT_HEIGHT - getIdealHeight() ||
 				Intersections.test(this, ArcheryMinigame.sp().fence())) {
 			setIdealY(oldY);
 			yvel = 0;

@@ -41,7 +41,7 @@ public class ArcheryMinigame extends Minigame {
 		archerMap = new HashMap<>();
 		medalOrder = new ArrayDeque<>();
 		Board.get().players().forEachOrdered(p -> {
-			archerMap.put(p, new Archer(p.image()));
+			archerMap.put(p, new Archer(p.number()));
 		});
 		waveIndex = 1;
 		turn = 1;

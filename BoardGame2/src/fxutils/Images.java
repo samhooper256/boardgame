@@ -26,10 +26,11 @@ public final class Images {
 			SILVER_MEDAL = get("Silver Medal.png"),
 			BRONZE_MEDAL = get("Bronze Medal.png"),
 			WARRIOR_SELECT = get("Warrior Select.png"),
-			PLAYER1 = get("TreePlayer.png"),
-			PLAYER2 = get("LyrePlayer.png"),
-			PLAYER3 = get("SwordPlayer.png"),
-			PLAYER4 = get("WingsPlayer.png"),
+			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
+			TREE = get("TreePlayer.png"),
+			LYRE = get("LyrePlayer.png"),
+			WARRIOR = get("SwordPlayer.png"),
+			WINGS = get("WingsPlayer.png"),
 			ARCHERY = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
@@ -43,7 +44,7 @@ public final class Images {
 			ARCHERY_BACKGROUND = get("archerybackground.png"),
 			BACKGROUND = get("BoardBackground.png");
 	
-	public static final double PLAYER_IDEAL_SIZE = PLAYER1.getWidth();
+	public static final double PLAYER_IDEAL_SIZE = TREE.getWidth();
 	
 	private Images() {}
 
@@ -63,10 +64,20 @@ public final class Images {
 	/** Assumes {@code n} between {@code 1} and {@code 4} (inclusive). */
 	public static Image player(int n) {
 		switch(n) {
-			case 1: return PLAYER1;
-			case 2: return PLAYER2;
-			case 3: return PLAYER3;
-			case 4: return PLAYER4;
+			case 1: return TREE;
+			case 2: return LYRE;
+			case 3: return WARRIOR;
+			case 4: return WINGS;
+		}
+		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
+	}
+	
+	public static Image sprite1(int n) { //just returns the player image for players 1, 2, 4
+		switch(n) {
+			case 1: return TREE;
+			case 2: return LYRE;
+			case 3: return WARRIOR_SPRITE1;
+			case 4: return WINGS;
 		}
 		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
 	}

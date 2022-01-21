@@ -28,7 +28,7 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
 		winBackground = new ImagePane(Images.MINIGAME_WIN_BACKGROUND);
 		winBackground.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
-		winner = new ImagePane(Images.PLAYER1, 100, 100);
+		winner = new ImagePane(Images.TREE, 100, 100);
 		winner.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .45);
 	}
 	
@@ -90,7 +90,8 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 			}
 			else {
 				for(Archer a : gamePane().archers())
-					a.keyPressed(kc);
+					if(gamePane().isMobile(a))
+						a.keyPressed(kc);
 			}
 		}
 	}
