@@ -1,9 +1,10 @@
 package base.panes;
 
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.transform.Scale;
 
 /** {@link FXLayer FXLayers} are {@link #isMouseTransparent() mouse transparent} by default. */
-public class FXLayer extends StackPane {
+public class FXLayer extends Pane {
 
 	private GamePane gamePane;
 	
@@ -13,16 +14,18 @@ public class FXLayer extends StackPane {
 		this(null);
 	}
 	
-	/** {@link #init()} must be called after this constructor is invoked <em>and</em> after the {@link GamePane} is
-	 * {@link #setGamePane(GamePane) set}. */
+	/** {@link #addScaleTransform()} must be called after this constructor is invoked <em>and</em> after the
+	 * {@link GamePane} is {@link #setGamePane(GamePane) set}. */
 	public FXLayer(GamePane gamePane) {
 		this.gamePane = gamePane;
 		this.setMouseTransparent(true);
 	}
 	
-	public void init() {
-		this.scaleXProperty().bind(gamePane().wscaleBinding());
-		this.scaleYProperty().bind(gamePane().hscaleBinding());
+	void addScaleTransform() {
+		Scale s = new Scale(1, 1, 0, 0);
+		s.xProperty().bind(gamePane().wscaleBinding());
+		s.yProperty().bind(gamePane().hscaleBinding());
+		getTransforms().add(s);
 	}
 	
 	public void setGamePane(GamePane gamePane) {

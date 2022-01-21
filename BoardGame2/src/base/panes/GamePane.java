@@ -1,16 +1,18 @@
 package base.panes;
 
 import base.AcceptsInput;
+import fxutils.Backgrounds;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public abstract class GamePane extends StackPane implements AcceptsInput {
 	
 	private final ScaledPane scaledPane;
 	private final FXLayer fxLayer;
 	
-	/** An empty {@link FXLayer} will be used*/
+	/** An empty {@link FXLayer} will be used. */
 	public GamePane(ScaledPane scaledPane) {
 		this(scaledPane, new FXLayer());
 	}
@@ -19,7 +21,7 @@ public abstract class GamePane extends StackPane implements AcceptsInput {
 		this.scaledPane = scaledPane;
 		this.fxLayer = fxLayer;
 		fxLayer.setGamePane(this);
-		fxLayer.init();
+		fxLayer.addScaleTransform();
 		getChildren().addAll((Node) scaledPane, fxLayer);
 	}
 	
@@ -35,6 +37,7 @@ public abstract class GamePane extends StackPane implements AcceptsInput {
 		return imageLayer().hscaleBinding();
 	}
 	
+	/** WIDTH (x) scale binding. */
 	public DoubleBinding wscaleBinding() {
 		return imageLayer().wscaleBinding();
 	}

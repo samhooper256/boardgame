@@ -1,11 +1,13 @@
 package game;
 
 import javafx.geometry.Point2D;
+import medals.Medal;
 import players.Player;
 import utils.Points;
 
 import static base.panes.ScaledPane.DEFAULT_WIDTH;
 import static base.panes.ScaledPane.DEFAULT_HEIGHT;
+import static medals.Medal.*;
 
 /** All {@link Point2D points} are centers. */
 public class MedalCoords {
@@ -42,14 +44,16 @@ public class MedalCoords {
 		return new Point2D(p.getX() + QUAD_X[quad], p.getY() + QUAD_Y[quad]);
 	}
 	
-	private final Point2D player, gold, silver, bronze;
-
+	private final Point2D player;
+	private final Point2D[] medals;
+	
 	/** Coords are zoomed by the {@link #ZOOM_FACTOR}. */
 	private MedalCoords(Point2D player, Point2D gold, Point2D silver, Point2D bronze) {
 		this.player = Points.zoom(player, ZOOM_FACTOR);
-		this.gold = Points.zoom(gold, ZOOM_FACTOR);
-		this.silver = Points.zoom(silver, ZOOM_FACTOR);
-		this.bronze = Points.zoom(bronze, ZOOM_FACTOR);
+		medals = new Point2D[Medal.count()];
+		medals[0] = Points.zoom(gold, ZOOM_FACTOR);
+		medals[1] = Points.zoom(silver, ZOOM_FACTOR);
+		medals[2] = Points.zoom(bronze, ZOOM_FACTOR);
 	}
 	
 	public Point2D player() {
@@ -57,15 +61,19 @@ public class MedalCoords {
 	}
 	
 	public Point2D gold() {
-		return gold;
+		return medal(GOLD.index());
 	}
 	
 	public Point2D silver() {
-		return silver;
+		return medal(SILVER.index());
 	}
 	
 	public Point2D bronze() {
-		return bronze;
+		return medal(BRONZE.index());
+	}
+	
+	public Point2D medal(int index) {
+		return medals[index];
 	}
 	
 }

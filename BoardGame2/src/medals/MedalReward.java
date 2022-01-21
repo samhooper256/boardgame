@@ -5,7 +5,6 @@ import java.util.Objects;
 import players.Player;
 
 import static medals.Medal.*;
-import static medals.MedalUtils.index;
 
 /** An immutable object storing a {@link Medal} and the index of the {@link Player} it should be awarded to. */
 public final class MedalReward {
@@ -14,14 +13,14 @@ public final class MedalReward {
 	
 	static {
 		for(int p = 1; p <= Player.maxCount(); p++) {
-			STORE[index(GOLD)][p] = new MedalReward(GOLD, p);
-			STORE[index(SILVER)][p]= new MedalReward(SILVER, p);
-			STORE[index(BRONZE)][p] = new MedalReward(BRONZE, p);
+			STORE[GOLD.index()][p] = new MedalReward(GOLD, p);
+			STORE[SILVER.index()][p]= new MedalReward(SILVER, p);
+			STORE[BRONZE.index()][p] = new MedalReward(BRONZE, p);
 		}
 	}
 	
 	public static MedalReward to(Medal medal, int playerNumber) {
-		return STORE[index(medal)][playerNumber];
+		return STORE[medal.index()][playerNumber];
 	}
 	
 	private final Medal medal;
