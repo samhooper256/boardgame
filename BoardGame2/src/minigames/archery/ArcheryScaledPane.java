@@ -81,7 +81,8 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		}
 		else {
 			if(gamePane().hasWinner()) {
-				MainScene.get().fadeBackFromMinigame(null);
+				if(kc == KeyCode.SPACE)
+					MainScene.get().fadeBackFromMinigame(null);
 			}
 			else {
 				for(Archer a : gamePane().archers())
