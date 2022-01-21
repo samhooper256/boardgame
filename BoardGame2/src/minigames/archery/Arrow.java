@@ -7,12 +7,12 @@ import javafx.geometry.Point2D;
 
 public class Arrow extends ImagePane implements Updatable {
 	
-	private static final double SPEED = 500;
+	private static final double SPEED = 500, WIDTH = 25, HEIGHT = 75;
 	
 	private double xvel, yvel;
 	
 	public Arrow(Point2D start, Point2D dest) {
-		super(Images.ARROW);
+		super(Images.ARROW, WIDTH, HEIGHT);
 		setTrajectory(start, dest);
 	}
 	

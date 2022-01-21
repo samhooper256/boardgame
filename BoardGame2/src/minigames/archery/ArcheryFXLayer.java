@@ -12,12 +12,17 @@ public class ArcheryFXLayer extends FXLayer {
 		winBox = new WinBox();
 		winBox.layoutXProperty().bind(winBox.widthProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_WIDTH * .5));
 		winBox.layoutYProperty().bind(winBox.heightProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_HEIGHT * .5));
+		getChildren().add(winBox);
+		winBox.setVisible(false);
 	}
 
 	public void showWinner(int player) {
 		winBox.setWinner(player);
-		getChildren().clear();
-		getChildren().add(winBox);
+		winBox.setVisible(true);
+	}
+	
+	public void start() {
+		winBox.setVisible(false);
 	}
 	
 	@Override

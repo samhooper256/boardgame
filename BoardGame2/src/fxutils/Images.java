@@ -25,6 +25,7 @@ public final class Images {
 			GOLD_MEDAL = get("Gold Medal.png"),
 			SILVER_MEDAL = get("Silver Medal.png"),
 			BRONZE_MEDAL = get("Bronze Medal.png"),
+			WARRIOR_SELECT = get("Warrior Select.png"),
 			PLAYER1 = get("TreePlayer.png"),
 			PLAYER2 = get("LyrePlayer.png"),
 			PLAYER3 = get("SwordPlayer.png"),
@@ -37,7 +38,7 @@ public final class Images {
 			PRESS_SPACE = get("pressspace.png"),
 			FENCE = get("fence.png"),
 			FENCE2 = get("fence2.png"),
-			ARROW = get("arrow2.png"),
+			ARROW = get("arrow.png"),
 			TARGET = get("target.png"),
 			ARCHERY_BACKGROUND = get("archerybackground.png"),
 			BACKGROUND = get("BoardBackground.png");

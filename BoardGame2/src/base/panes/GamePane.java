@@ -1,11 +1,9 @@
 package base.panes;
 
 import base.AcceptsInput;
-import fxutils.Backgrounds;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 public abstract class GamePane extends StackPane implements AcceptsInput {
 	

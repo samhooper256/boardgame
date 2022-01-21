@@ -74,13 +74,14 @@ public class ArcheryMinigame extends Minigame {
 		arrowFired = false;
 		currentTarget = null;
 		updateControls(turn);
+		medalOrder.clear();
 		imageLayer().start();
+		fxLayer().start();
 		createNextTarget();
 	}
 
 	private void incrementWave() {
 		waveIndex++;
-		System.out.printf("wave incremented to: %d%n", waveIndex);
 	}
 
 	/** Assumes the given {@link Target} has already been trashed. */

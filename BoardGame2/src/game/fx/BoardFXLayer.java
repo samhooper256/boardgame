@@ -11,7 +11,6 @@ public class BoardFXLayer extends FXLayer {
 	/** row=medal, col=player*/
 	private final MedalLabel[][] medals = new MedalLabel[Medal.count()][Player.maxCount() + 1];
 	
-	
 	public BoardFXLayer() {
 		for(int mindex = 0; mindex < medals.length; mindex++) {
 			for(int player = 1; player < medals[mindex].length; player++) {
@@ -38,7 +37,7 @@ public class BoardFXLayer extends FXLayer {
 	
 	public void init() {
 		for(int mindex = 0; mindex < medals.length; mindex++)
-			for(int player = 1; player < Board.get().playerCount(); player++)
+			for(int player = 1; player <= Board.get().playerCount(); player++)
 				medals[mindex][player].setVisible(true);
 	}
 	
