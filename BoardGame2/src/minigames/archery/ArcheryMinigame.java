@@ -6,6 +6,7 @@ import base.input.GameInput;
 import game.*;
 import javafx.scene.input.*;
 import minigames.*;
+import minigames.archery.fx.ArcheryFXLayer;
 import minigames.archery.waves.*;
 import players.Player;
 
@@ -80,10 +81,6 @@ public class ArcheryMinigame extends Minigame {
 		createNextTarget();
 	}
 
-	private void incrementWave() {
-		waveIndex++;
-	}
-
 	/** Assumes the given {@link Target} has already been trashed. */
 	void targetHit(Arrow a, Target t) {
 		currentTarget = null;
@@ -95,12 +92,22 @@ public class ArcheryMinigame extends Minigame {
 	public void incrementTurn() {
 		int oldTurn = turn;
 		updateControls(turn = nextTurn(turn));
-		if(turn < oldTurn)
-			incrementWave();
+		if(turn < oldTurn) {
+			startNextWave();
+		}
+		else {
+			createNextTarget();
+			arrowFired = false;
+		}
+	}
+	
+	private void startNextWave() {
+		waveIndex++;
+		fxLayer().startWave(waveIndex);
 		createNextTarget();
 		arrowFired = false;
 	}
-
+	
 	public void createNextTarget() {
 		imageLayer().add(currentTarget = currentWave().createTarget(this::targetHit));
 	}

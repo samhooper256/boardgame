@@ -24,6 +24,7 @@ public class WaveText extends Label implements Fadeable {
 
 	public void setWave(int wave) {
 		this.wave = wave;
+		setText(wave);
 	}
 	
 	public int getWave() {
