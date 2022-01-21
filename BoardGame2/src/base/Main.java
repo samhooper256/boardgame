@@ -8,8 +8,10 @@ import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.stage.Stage;
 
+//TODO for MVP:
 //TODO: Make ArcheryMinigame replayable
 //TODO: add medals.
+//TODO export to jar.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
