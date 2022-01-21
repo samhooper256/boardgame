@@ -2,10 +2,9 @@ package fxutils;
 
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class Fader extends Label {
+public final class Fader {
 
 	private final Node node;
 	private final FadeTransition out;
@@ -32,6 +31,11 @@ public class Fader extends Label {
 			node.setVisible(false);	
 			node.setOpacity(1);
 		});
+	}
+	
+	public void appear() {
+		node.setOpacity(1);
+		node.setVisible(true);
 	}
 	
 }
