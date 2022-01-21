@@ -5,7 +5,7 @@ import java.util.*;
 import base.input.GameInput;
 import game.*;
 import javafx.scene.input.*;
-import minigames.Minigame;
+import minigames.*;
 import minigames.archery.waves.*;
 import players.Player;
 
@@ -28,6 +28,7 @@ public class ArcheryMinigame extends Minigame {
 	private final Map<Player, Archer> archerMap;
 	private final Set<Archer> movableArchers;
 	private final boolean[] alive;
+	private final Deque<Integer> medalOrder;
 	
 	private boolean arrowFired;
 	private int waveIndex, turn;
@@ -38,6 +39,7 @@ public class ArcheryMinigame extends Minigame {
 		super(new ArcheryScaledPane(), new ArcheryFXLayer());
 		this.waveGenerator = waveGenerator;
 		archerMap = new HashMap<>();
+		medalOrder = new ArrayDeque<>();
 		Board.get().players().forEachOrdered(p -> {
 			archerMap.put(p, new Archer(p.image()));
 		});
@@ -116,6 +118,7 @@ public class ArcheryMinigame extends Minigame {
 	private void kill(int player) {
 		imageLayer().remove(archer(player));
 		alive[player] = false;
+		medalOrder.addFirst(player);
 	}
 	
 	private int nextTurn(int turn) {
@@ -204,6 +207,13 @@ public class ArcheryMinigame extends Minigame {
 	
 	public boolean hasWinner() {
 		return winner > 0;
+	}
+	
+	public MinigameResult getResult() {
+		if(!hasWinner())
+			throw new IllegalStateException("No winner");
+		medalOrder.addFirst(getOnlyPlayerAlive());
+		return MinigameResult.simple(medalOrder.stream().mapToInt(x -> x).toArray());
 	}
 	
 	@Override

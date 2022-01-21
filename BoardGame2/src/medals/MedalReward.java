@@ -43,6 +43,11 @@ public final class MedalReward {
 		return Player.get(playerNumber());
 	}
 
+	/** "Applies" this {@link MedalReward}, giving the {@link #medal()} to the {@link #player()}. */
+	public void apply() {
+		player().medalCounter().add(medal());
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(medal, playerNumber);

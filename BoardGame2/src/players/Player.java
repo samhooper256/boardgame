@@ -4,6 +4,7 @@ import java.util.*;
 
 import base.panes.ImagePane;
 import fxutils.Images;
+import medals.MedalCounter;
 import tiles.*;
 
 public class Player extends ImagePane {
@@ -36,6 +37,7 @@ public class Player extends ImagePane {
 	
 	private final int number;
 	private final List<Passive> passives;
+	private final MedalCounter medalCounter;
 	
 	private Tile current;
 	private RollType rollType;
@@ -43,6 +45,7 @@ public class Player extends ImagePane {
 	private Player(int number) {
 		super(Images.player(number));
 		this.number = number;
+		medalCounter = new MedalCounter();
 		passives = new ArrayList<>();
 		current = StartTile.get();
 		rollType = RollType.CHOOSE; //TODO change later
@@ -85,6 +88,10 @@ public class Player extends ImagePane {
 
 	public void setRollType(RollType rollType) {
 		this.rollType = rollType;
+	}
+	
+	public MedalCounter medalCounter() {
+		return medalCounter;
 	}
 	
 	@Override
