@@ -100,7 +100,8 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	public void keyReleased(KeyCode kc) {
 		if(!instructionsShowing())
 			for(Archer a : gamePane().archers())
-				a.keyReleased(kc);
+				if(gamePane().isMobile(a))
+					a.keyReleased(kc);
 	}
 
 	@Override
