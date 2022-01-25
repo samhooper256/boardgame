@@ -1,42 +1,25 @@
 package base.panes;
 
-import javafx.animation.*;
-import javafx.animation.Animation.Status;
+import fxutils.*;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-public class FadeableImagePane extends ImagePane {
+public class FadeableImagePane extends ImagePane implements Fadeable {
 
-	private ScaledPane removeFrom;
-	private final FadeTransition fadeOut;
+	private final Fader fader;
 	
 	public FadeableImagePane(Image image, Duration fadeOutDuration) {
+		this(image, fadeOutDuration, null);
+	}
+	
+	public FadeableImagePane(Image image, Duration fadeOutDuration, Runnable fadeOutFinishedAction) {
 		super(image);
-		fadeOut = new FadeTransition(fadeOutDuration, this);
-		fadeOut.setFromValue(1);
-		fadeOut.setToValue(0);
-		fadeOut.setOnFinished(eh -> fadeOutFinished());
+		fader = new Fader(this, fadeOutDuration, fadeOutFinishedAction);
 	}
 	
-	/** @param removeFrom the {@link ScaledPane} to {@link ScaledPane#remove(ImagePane) remove} this
-	 * {@link FadeableImagePane} from when it is completely faded out. */
-	public void fadeOut(ScaledPane removeFrom) {
-		this.removeFrom = removeFrom;
-		fadeOut.playFromStart();
-	}
-	
-	public boolean isFadingOut() {
-		return fadeOut.getStatus() == Status.RUNNING;
-	}
-	
-	private void fadeOutFinished() {
-		removeFrom.remove(this);
-	}
-	
-	/** Makes this {@link FadeableImagePane} fully visible with no fade-in time. */
-	public void makeFullyVisible() {
-		fadeOut.stop();
-		this.setOpacity(1);
+	@Override
+	public Fader fader() {
+		return fader;
 	}
 	
 }

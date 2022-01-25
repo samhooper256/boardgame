@@ -3,8 +3,11 @@ package minigames.archery;
 import java.util.*;
 
 import base.input.GameInput;
+import fxutils.Fader;
 import game.*;
+import javafx.animation.*;
 import javafx.scene.input.*;
+import javafx.util.Duration;
 import minigames.*;
 import minigames.archery.fx.ArcheryFXLayer;
 import minigames.archery.waves.*;
@@ -15,6 +18,7 @@ import players.Player;
  * The minigame ends when there is one player remaining. */
 public class ArcheryMinigame extends Minigame {
 
+	private static final Duration WAVE_POPUP_DURATION = Duration.millis(1000); //Does not include time spent fading out.
 	private static final ArcheryMinigame INSTANCE = new ArcheryMinigame(WaveGenerator.STANDARD);
 	
 	public static ArcheryMinigame get() {
@@ -30,11 +34,11 @@ public class ArcheryMinigame extends Minigame {
 	private final Set<Archer> movableArchers;
 	private final boolean[] alive;
 	private final Deque<Integer> medalOrder;
+	private final Timeline waveTimeline;
 	
-	private boolean arrowFired;
-	private int waveIndex, turn;
+	private boolean arrowFired, canShoot;
+	private int waveIndex, turn, winner;
 	private Target currentTarget;
-	private int winner;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
 		super(new ArcheryScaledPane(), new ArcheryFXLayer());
@@ -51,8 +55,13 @@ public class ArcheryMinigame extends Minigame {
 		for(int i = 1; i <= Board.get().playerCount(); i++)
 			alive[i] = true;
 		movableArchers = new HashSet<>();
-		arrowFired = false;
+		arrowFired = canShoot = false;
 		currentTarget = null;
+		Fader wtfader = fxLayer().waveText().fader();
+		waveTimeline = new Timeline(
+			new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide()),
+			new KeyFrame(WAVE_POPUP_DURATION.add(wtfader.outDuration()), eh -> { canShoot = true; })
+		);
 		initMovableArchers();
 		imageLayer().init();
 	}
@@ -67,18 +76,18 @@ public class ArcheryMinigame extends Minigame {
 	
 	@Override
 	public void start() {
-		waveIndex = 1;
+		waveIndex = 0;
 		turn = 1;
 		winner = 0; //no winner
 		for(int i = 1; i <= Board.get().playerCount(); i++)
 			alive[i] = true;
-		arrowFired = false;
+		canShoot = false;
 		currentTarget = null;
 		updateControls(turn);
 		medalOrder.clear();
 		imageLayer().start();
 		fxLayer().start();
-		createNextTarget();
+		startNextWave(); //arrowFired will be set to false in startNextWave()
 	}
 
 	/** Assumes the given {@link Target} has already been trashed. */
@@ -102,10 +111,13 @@ public class ArcheryMinigame extends Minigame {
 	}
 	
 	private void startNextWave() {
+		System.out.printf("[enter] ArcheryMinigame.startNextWave()%n");
 		waveIndex++;
 		fxLayer().startWave(waveIndex);
 		createNextTarget();
 		arrowFired = false;
+		System.out.printf("starting timeline!%n");
+		waveTimeline.playFromStart();
 	}
 	
 	public void createNextTarget() {
@@ -178,7 +190,7 @@ public class ArcheryMinigame extends Minigame {
 		if(imageLayer().instructionsShowing())
 			return;
 		if(me.getButton() == MouseButton.PRIMARY) {
-			if(!arrowFired) {
+			if(canShoot && !arrowFired) {
 				archer(turn).click(me);
 				arrowFired = true;
 			}

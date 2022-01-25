@@ -47,8 +47,8 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	
 	void start() {
 		addAll(instructions, pressSpace);
-		instructions.makeFullyVisible();
-		pressSpace.makeFullyVisible();
+		instructions.fader().appear();
+		pressSpace.fader().appear();
 		removeAll(winner, winBackground);
 		removeAll(gamePane().archers());
 		putArchersInPosition();
@@ -82,9 +82,9 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	@Override
 	public void keyPressed(KeyCode kc) {
 		if(instructionsShowing()) {
-			if(kc == KeyCode.SPACE && !instructions.isFadingOut()) {
-				instructions.fadeOut(this);
-				pressSpace.fadeOut(this);
+			if(kc == KeyCode.SPACE && !instructions.fader().isFadingOut()) {
+				instructions.fader().fadeOutAndHide();
+				pressSpace.fader().fadeOutAndHide();
 			}
 		}
 		else {

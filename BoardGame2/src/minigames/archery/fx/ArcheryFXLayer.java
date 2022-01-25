@@ -18,6 +18,7 @@ public class ArcheryFXLayer extends FXLayer {
 		waveText = new WaveText();
 		waveText.layoutXProperty().bind(waveText.widthProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_WIDTH * .5));
 		waveText.layoutYProperty().bind(waveText.heightProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_HEIGHT * .5));
+		waveText.setVisible(false);
 		getChildren().addAll(waveText, winBox);
 	}
 
@@ -32,8 +33,13 @@ public class ArcheryFXLayer extends FXLayer {
 	}
 	
 	public void startWave(int wave) {
+		System.out.printf("[enter] ArcheryFXLayer.startWave(%d)%n", wave);
 		waveText.setWave(wave);
 		waveText.fader().appear();
+	}
+	
+	public WaveText waveText() {
+		return waveText;
 	}
 	
 	@Override
