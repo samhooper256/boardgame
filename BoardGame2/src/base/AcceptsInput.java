@@ -13,4 +13,10 @@ public interface AcceptsInput {
 	/** no-op by default. */
 	default void mouseClicked(MouseEvent me) {}
 	
+	/** no-op by default. */
+	default void mouseReleased(MouseEvent me) {}
+	
+	/** no-op by default. */
+	default void mousePressed(MouseEvent me) {}
+	
 }

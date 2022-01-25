@@ -89,7 +89,8 @@ public class Archer extends ImagePane implements Updatable {
 		}
 	}
 	
-	public void mouseClicked(MouseEvent me) {
+	/** Assumes the given {@link MouseEvent} is a left-click. */
+	public void click(MouseEvent me) {
 		if(me.getButton() == MouseButton.PRIMARY) {
 			Point2D local = new Point2D(me.getSceneX(), me.getSceneY());
 			Point2D archerCenter = getIdealCenter();

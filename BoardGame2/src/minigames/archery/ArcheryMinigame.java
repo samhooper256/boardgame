@@ -174,10 +174,14 @@ public class ArcheryMinigame extends Minigame {
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent me) {
-		if(!arrowFired) {
-			archer(turn).mouseClicked(me);
-			arrowFired = true;
+	public void mouseReleased(MouseEvent me) {
+		if(imageLayer().instructionsShowing())
+			return;
+		if(me.getButton() == MouseButton.PRIMARY) {
+			if(!arrowFired) {
+				archer(turn).click(me);
+				arrowFired = true;
+			}
 		}
 	}
 

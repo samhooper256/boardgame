@@ -74,7 +74,7 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	}
 	
 	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
-	private boolean instructionsShowing() {
+	public boolean instructionsShowing() {
 		return instructions.getOpacity() > 0;
 	}
 	
