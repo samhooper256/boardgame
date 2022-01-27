@@ -35,6 +35,14 @@ public class Board extends GamePane {
 		return MAX_PLAYER_COUNT;
 	}
 	
+	public static int nextTurn(int turn) {
+		return turn == get().playerCount() ? 1 : turn + 1;
+	}
+	
+	public static int prevTurn(int turn) {
+		return turn == 1 ? Board.get().playerCount() : turn - 1;
+	}
+	
 	private int playerCount, turn;
 	private RollType lastRollType;
 	private boolean readyToRoll;
@@ -75,7 +83,7 @@ public class Board extends GamePane {
 	}
 	
 	public void playerLanded(Tile tile) {
-		imageLayer().playerLanded(tile);
+		imageLayer().playerLanded(currentPlayer(), tile);
 		tile.land(currentPlayer());
 	}
 	

@@ -70,6 +70,12 @@ public final class Fader {
 		node.setVisible(true);
 	}
 	
+	public void hide() {
+		stop();
+		node.setVisible(false);
+		node.setOpacity(1);
+	}
+	
 	public void fadeIn() {
 		stop();
 		node.setOpacity(0);

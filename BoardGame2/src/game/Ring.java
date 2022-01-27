@@ -5,6 +5,7 @@ import fxutils.Images;
 import javafx.util.Duration;
 import players.Player;
 
+/** Rings are <em>not</em> {@link #isVisible() visible} by default. */
 public class Ring extends FadeableImagePane {
 
 	private static final Duration
@@ -14,6 +15,7 @@ public class Ring extends FadeableImagePane {
 	public Ring() {
 		super(Images.RING, Images.RING.getWidth() * 1.5, Images.RING.getHeight() * 1.5);
 		fader().setInDuration(FADE_IN_DURATION).setOutDuration(FADE_OUT_DURATION);
+		fader().hide();
 	}
 	
 	public void lockCoordinatesTo(Player p) {
