@@ -11,7 +11,7 @@ import medals.*;
 import players.Player;
 import tiles.*;
 
-public class BoardScaledPane extends AbstractScaledPane {
+public class BoardScaledPane extends AbstractScaledPane implements Updatable {
 
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
@@ -44,7 +44,8 @@ public class BoardScaledPane extends AbstractScaledPane {
 	
 	@Override
 	public void updatePane(long diff) {
-		//nothing
+		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+			rings[i].update(diff);
 	}
 	
 	private void placeTiles() {

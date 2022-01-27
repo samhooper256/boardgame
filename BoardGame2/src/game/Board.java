@@ -2,6 +2,7 @@ package game;
 
 import java.util.stream.*;
 
+import base.Updatable;
 import base.panes.*;
 import events.Event;
 import game.fx.BoardFXLayer;
@@ -10,7 +11,7 @@ import minigames.MinigameResult;
 import players.*;
 import tiles.Tile;
 
-public class Board extends GamePane {
+public class Board extends GamePane implements Updatable {
 
 	public static final int TILE_COUNT = 36;
 	public static final Duration FADE_IN_DURATION = Duration.millis(500), FADE_OUT_DURATION = FADE_IN_DURATION;
@@ -153,6 +154,11 @@ public class Board extends GamePane {
 	
 	public Stream<Player> players() {
 		return IntStream.rangeClosed(1, playerCount).mapToObj(Player::get);
+	}
+	
+	@Override
+	public void update(long diff) {
+		imageLayer().update(diff);
 	}
 	
 	@Override

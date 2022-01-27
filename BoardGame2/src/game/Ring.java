@@ -1,13 +1,16 @@
 package game;
 
+import base.Updatable;
 import base.panes.*;
 import fxutils.Images;
 import javafx.util.Duration;
 import players.Player;
 
 /** Rings are <em>not</em> {@link #isVisible() visible} by default. */
-public class Ring extends FadeableImagePane {
+public class Ring extends FadeableImagePane implements Updatable {
 
+	private static final double ANGULAR_VELOCITY = 15; //degrees/sec
+	
 	private static final Duration
 			FADE_OUT_DURATION = Board.FADE_OUT_DURATION,
 			FADE_IN_DURATION = Board.FADE_IN_DURATION;
@@ -23,6 +26,12 @@ public class Ring extends FadeableImagePane {
 				.subtract(idealWidthProperty().multiply(.5)));
 		this.idealYProperty().bind(p.idealYProperty().add(p.idealHeightProperty().multiply(.5))
 				.subtract(idealHeightProperty().multiply(.5)));
+	}
+	
+	@Override
+	public void update(long diff) {
+		double sec = diff / 1e9;
+		this.setRotate(this.getRotate() + ANGULAR_VELOCITY * sec);
 	}
 	
 }

@@ -77,6 +77,8 @@ public class MainScene extends Scene implements Updatable {
 	public void update(long diff) {
 		if(isPlayingMinigame())
 			currentMinigame().update(diff);
+		else
+			Board.get().update(diff);
 	}
 
 	public void startGame() {
