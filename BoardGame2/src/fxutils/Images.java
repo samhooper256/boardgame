@@ -31,6 +31,7 @@ public final class Images {
 			LYRE = get("LyrePlayer.png"),
 			WARRIOR = get("SwordPlayer.png"),
 			WINGS = get("WingsPlayer.png"),
+			RING = get("PlayerRing.png"),
 			ARCHERY = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),

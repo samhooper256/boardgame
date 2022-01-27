@@ -5,23 +5,23 @@ import javafx.animation.Animation.Status;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
+/** This class has setter methods that return {@code this}. {@link #inDuration()} and {@link #outDuration()} are set to
+ * {@link Duration#ZERO} by default. */
 public final class Fader {
 
 	private final Node node;
-	private final FadeTransition out;
-	private final Duration outDuration;
+	private final FadeTransition in, out;
 	
 	private Runnable fadeOutFinishedAction;
 	
-	public Fader(Node node, Duration outDuration) {
-		this(node, outDuration, null);
+	public Fader(Node node) {
+		this(node, null);
 	}	
 	
-	public Fader(Node node, Duration outDuration, Runnable fadeOutFinishedAction) {
+	public Fader(Node node, Runnable fadeOutFinishedAction) {
 		this.node = node;
-		this.outDuration = outDuration;
 		this.fadeOutFinishedAction = fadeOutFinishedAction;
-		out = new FadeTransition(outDuration, node);
+		out = new FadeTransition(Duration.ZERO, node);
 		out.setFromValue(1);
 		out.setToValue(0);
 		out.setOnFinished(eh -> {
@@ -29,30 +29,62 @@ public final class Fader {
 			node.setOpacity(1);
 			run(fadeOutFinishedAction());
 		});
+		in = new FadeTransition(Duration.ZERO, node);
+		in.setFromValue(0);
+		in.setToValue(1);
 	}
 	
 	public Node node() {
 		return node;
 	}
 	
+	public Duration inDuration() {
+		return in.getDuration();
+	}
+	
+	public Fader setInDuration(Duration inDuration) {
+		in.setDuration(inDuration);
+		return this;
+	}
+	
 	public Duration outDuration() {
-		return outDuration;
+		return out.getDuration();
+	}
+	
+	public Fader setOutDuration(Duration outDuration) {
+		out.setDuration(outDuration);
+		return this;
 	}
 	
 	/** Fades out the {@link #node()}, then sets its {@link #visibleProperty() visibility} to {@code false}, sets its
 	 * {@link #opacityProperty()} to {@code 1}, and runs the {@link #fadeOutFinishedAction()}. */
 	public void fadeOutAndHide() {
+		node.setOpacity(1);
+		node.setVisible(true);
 		out.playFromStart();
 	}
 	
 	public void appear() {
-		out.stop();
+		stop();
 		node.setOpacity(1);
 		node.setVisible(true);
 	}
 	
-	public void setFadeOutFinishedAction(Runnable fadeOutFinishedAction) {
+	public void fadeIn() {
+		stop();
+		node.setOpacity(0);
+		node.setVisible(true);
+		in.playFromStart();
+	}
+	
+	public void stop() {
+		in.stop();
+		out.stop();
+	}
+	
+	public Fader setFadeOutFinishedAction(Runnable fadeOutFinishedAction) {
 		this.fadeOutFinishedAction = fadeOutFinishedAction;
+		return this;
 	}
 	
 	public Runnable fadeOutFinishedAction() {

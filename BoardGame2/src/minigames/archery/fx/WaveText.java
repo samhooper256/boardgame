@@ -21,7 +21,7 @@ public class WaveText extends Label implements Fadeable {
 		this.wave = wave;
 		setText(wave);
 		getStyleClass().add(CSS);
-		fader = new Fader(this, OUT_DURATION);
+		fader = new Fader(this).setOutDuration(OUT_DURATION);
 	}
 
 	public void setWave(int wave) {

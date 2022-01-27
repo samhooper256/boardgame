@@ -17,10 +17,12 @@ public class BoardScaledPane extends AbstractScaledPane {
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
 	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);
 	
+	private final Ring ring;
+	
 	private List<Tile> tileOrder;
 	
 	public BoardScaledPane() {
-		
+		this.ring = new Ring();
 	}
 	
 	void init() {
@@ -29,9 +31,11 @@ public class BoardScaledPane extends AbstractScaledPane {
 		tileOrder = generateTileOrder();
 		add(new ImagePane(Images.BACKGROUND));
 		placeTiles();
+		add(ring);
 		placePlayers();
 		addMedalAreas();
 		add(die);
+		ring.lockCoordinatesTo(Player.get(1));
 	}
 	
 	@Override
@@ -117,10 +121,22 @@ public class BoardScaledPane extends AbstractScaledPane {
 	public void walkFinished(WalkAnimation w) {
 		Tile destTile = tileAt(w.destTileIndex());
 		Timing.doAfterDelay(LAND_DELAY_TO_MINIGAME, () -> {
-			destTile.land(w.player());
+			Board.get().playerLanded(destTile); //calls playerLanded in this class.
 			if(destTile instanceof SafeTile) //TODO this is not how this should be done.
 				gamePane().incrementTurn(); //Minigames and events will call this when they finish.
 		});
+	}
+	
+	public void playerLanded(Tile tile) {
+		if(tile instanceof MinigameTile)
+			ring.fader().fadeOutAndHide();
+	}
+	
+	/** Called to notify this {@link BoardScaledPane} that the turn has been incremented. */
+	public void turnIncrementedTo(int turn) {
+		ring.lockCoordinatesTo(Player.get(turn));
+		if(!ring.fader().isShowing())
+			ring.fader().fadeIn();
 	}
 	
 }

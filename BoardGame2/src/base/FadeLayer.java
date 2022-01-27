@@ -2,20 +2,17 @@ package base;
 
 import base.panes.GamePane;
 import fxutils.*;
-import game.MainScene;
+import game.*;
 import javafx.animation.Transition;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 public class FadeLayer extends StackPane {
 
-	private static final Duration FADE_IN_DURATION = Duration.millis(500), FADE_OUT_DURATION = FADE_IN_DURATION;
-	
 	private final Transition fadeIn = new Transition() {
 		
 		{
-			setCycleDuration(FADE_IN_DURATION);
+			setCycleDuration(Board.FADE_IN_DURATION);
 			setOnFinished(eh -> fadeInFinished());
 		}
 		
@@ -29,7 +26,7 @@ public class FadeLayer extends StackPane {
 	private final Transition fadeOut = new Transition() {
 
 		{
-			setCycleDuration(FADE_OUT_DURATION);
+			setCycleDuration(Board.FADE_OUT_DURATION);
 			setOnFinished(eh -> fadeOutFinished());
 		}
 		

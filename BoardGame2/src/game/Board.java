@@ -5,13 +5,15 @@ import java.util.stream.*;
 import base.panes.*;
 import events.Event;
 import game.fx.BoardFXLayer;
+import javafx.util.Duration;
 import minigames.MinigameResult;
 import players.*;
+import tiles.Tile;
 
 public class Board extends GamePane {
 
 	public static final int TILE_COUNT = 36;
-	
+	public static final Duration FADE_IN_DURATION = Duration.millis(500), FADE_OUT_DURATION = FADE_IN_DURATION;
 	private static final int MAX_PLAYER_COUNT = 4;
 	private static final int PLAYER_COUNT = 4; //TODO remove later - user can pick how many players.
 	
@@ -72,12 +74,18 @@ public class Board extends GamePane {
 		wa.playFromStart();
 	}
 	
+	public void playerLanded(Tile tile) {
+		imageLayer().playerLanded(tile);
+		tile.land(currentPlayer());
+	}
+	
 	public void incrementTurn() {
-		Player.get(turn()).turnFinished();
+		currentPlayer().turnFinished();
 		if(turn == playerCount)
 			turn = 1;
 		else
 			turn++;
+		imageLayer().turnIncrementedTo(turn());
 		setupDie();
 	}
 	

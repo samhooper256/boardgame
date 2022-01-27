@@ -20,9 +20,11 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	
 	public ArcheryScaledPane() {
 		super();
-		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS, INSTRUCTIONS_FADE_OUT_DURATION);
+		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS);
+		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
-		pressSpace = new FadeableImagePane(Images.PRESS_SPACE, INSTRUCTIONS_FADE_OUT_DURATION);
+		pressSpace = new FadeableImagePane(Images.PRESS_SPACE);
+		pressSpace.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		pressSpace.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .8);
 		fence = new Fence();
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
@@ -36,6 +38,7 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(fence);
 		addAll(gamePane().archers());
+		addAll(instructions, pressSpace);
 	}
 
 	public void putArchersInPosition() {
@@ -46,7 +49,6 @@ public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInpu
 	}
 	
 	void start() {
-		addAll(instructions, pressSpace);
 		instructions.fader().appear();
 		pressSpace.fader().appear();
 		removeAll(winner, winBackground);
