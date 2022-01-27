@@ -36,7 +36,7 @@ public class ArcheryMinigame extends Minigame {
 	private final Deque<Integer> medalOrder;
 	private final Timeline waveTimeline;
 	
-	private boolean arrowFired, canShoot;
+	private boolean arrowFired;
 	private int waveIndex, turn, winner;
 	private Target currentTarget;
 	
@@ -55,15 +55,15 @@ public class ArcheryMinigame extends Minigame {
 		for(int i = 1; i <= Board.get().playerCount(); i++)
 			alive[i] = true;
 		movableArchers = new HashSet<>();
-		arrowFired = canShoot = false;
+		arrowFired = false;
 		currentTarget = null;
 		Fader wtfader = fxLayer().waveText().fader();
 		waveTimeline = new Timeline(
-			new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide()),
-			new KeyFrame(WAVE_POPUP_DURATION.add(wtfader.outDuration()), eh -> { canShoot = true; })
+			new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide())
 		);
 		initMovableArchers();
 		imageLayer().init();
+		imageLayer().instructions().fader().setFadeOutFinishedAction(() -> startFirstWave());
 	}
 
 	private void initMovableArchers() {
@@ -81,13 +81,12 @@ public class ArcheryMinigame extends Minigame {
 		winner = 0; //no winner
 		for(int i = 1; i <= Board.get().playerCount(); i++)
 			alive[i] = true;
-		canShoot = false;
+		arrowFired = false;
 		currentTarget = null;
 		updateControls(turn);
 		medalOrder.clear();
 		imageLayer().start();
 		fxLayer().start();
-		startNextWave(); //arrowFired will be set to false in startNextWave()
 	}
 
 	/** Assumes the given {@link Target} has already been trashed. */
@@ -110,13 +109,17 @@ public class ArcheryMinigame extends Minigame {
 		}
 	}
 	
+	private void startFirstWave() {
+		if(waveIndex != 0)
+			throw new IllegalStateException("Cannot start first wave");
+		startNextWave();
+	}
+	
 	private void startNextWave() {
-		System.out.printf("[enter] ArcheryMinigame.startNextWave()%n");
 		waveIndex++;
 		fxLayer().startWave(waveIndex);
 		createNextTarget();
 		arrowFired = false;
-		System.out.printf("starting timeline!%n");
 		waveTimeline.playFromStart();
 	}
 	
@@ -190,7 +193,7 @@ public class ArcheryMinigame extends Minigame {
 		if(imageLayer().instructionsShowing())
 			return;
 		if(me.getButton() == MouseButton.PRIMARY) {
-			if(canShoot && !arrowFired) {
+			if(!arrowFired) {
 				archer(turn).click(me);
 				arrowFired = true;
 			}

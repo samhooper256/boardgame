@@ -48,7 +48,7 @@ public class Player extends ImagePane {
 		medalCounter = new MedalCounter();
 		passives = new ArrayList<>();
 		current = StartTile.get();
-		rollType = RollType.RANDOM;
+		rollType = RollType.CHOOSE; //TODO set back to random
 	}
 
 	public void acquirePassive(Passive p) {
