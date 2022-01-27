@@ -14,6 +14,7 @@ import players.Player;
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
+	public static final String RESOURCES_PREFIX = "/resources/";
 	
 	private static Stage stage;
 	
@@ -55,8 +56,6 @@ public class Main extends Application {
 			new Point2D(55.38, 293.33),
 			new Point2D(55.38, 162.22)
 	));
-	
-	static final String RESOURCES_PREFIX = "/resources/";
 	
 	public static void main(String[] args) {
 		launch(args);

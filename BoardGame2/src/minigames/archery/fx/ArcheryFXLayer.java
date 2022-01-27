@@ -33,7 +33,6 @@ public class ArcheryFXLayer extends FXLayer {
 	}
 	
 	public void startWave(int wave) {
-		System.out.printf("[enter] ArcheryFXLayer.startWave(%d)%n", wave);
 		waveText.setWave(wave);
 		waveText.fader().appear();
 	}

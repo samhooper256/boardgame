@@ -33,6 +33,7 @@ public class MainScene extends Scene implements Updatable {
 		this.setOnMousePressed(this::mousePressed);
 		this.setOnMouseReleased(this::mouseReleased);
 		timer = new Timer(this::update);
+		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
 		timer.start();
 	}
 	

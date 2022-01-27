@@ -1,0 +1,7 @@
+@font-face {
+	src: url("fonts/DYONISIUS.TTF");
+}
+
+.wave-text {
+	-fx-font: 36 "DYONISIUS";
+}
