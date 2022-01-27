@@ -1,6 +1,6 @@
 package mainmenu;
 
-import base.panes.GamePane;
+import base.panes.*;
 
 public class MainMenuPane extends GamePane {
 
@@ -11,13 +11,18 @@ public class MainMenuPane extends GamePane {
 	}
 	
 	public MainMenuPane() {
-		super(new MainMenuScaledPane());
+		super(new MainMenuScaledPane(), new MainMenuFXLayer());
 		imageLayer().setGamePane(this);
 	}
 	
 	@Override
 	public MainMenuScaledPane imageLayer() {
 		return (MainMenuScaledPane) super.imageLayer();
+	}
+	
+	@Override
+	public MainMenuFXLayer fxLayer() {
+		return (MainMenuFXLayer) super.fxLayer();
 	}
 	
 }
