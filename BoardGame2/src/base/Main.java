@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
-// - ring around player whose turn it is.
+// - user can select how many players.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
