@@ -3,7 +3,8 @@ package game;
 import base.*;
 import base.input.GameInput;
 import base.panes.GamePane;
-import javafx.scene.Scene;
+import javafx.collections.ObservableList;
+import javafx.scene.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import mainmenu.*;
@@ -38,8 +39,14 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void setContent(GamePane p) {
-		clearContent();
-		root.getChildren().add(p);
+		ObservableList<Node> c = root.getChildren();
+		if(c.isEmpty()) { //only on initial startup.
+			c.add(p);
+		}
+		else {
+			c.set(0, p);
+			c.subList(1, c.size()).clear();
+		}
 	}
 	
 	private void keyPressed(KeyEvent ke) {
@@ -47,15 +54,13 @@ public class MainScene extends Scene implements Updatable {
 		if(GameInput.isPressed(kc))
 			return;
 		GameInput.keysPressed().add(kc);
-		if(isPlayingMinigame())
-			currentMinigame().keyPressed(kc);
+		content().keyPressed(kc);
 	}
 	
 	private void keyReleased(KeyEvent ke) {
 		KeyCode kc = ke.getCode();
 		GameInput.keysPressed().remove(kc);
-		if(isPlayingMinigame())
-			currentMinigame().keyReleased(kc);
+		content().keyReleased(kc);
 	}
 	
 	private void mouseClicked(MouseEvent me) {
@@ -109,10 +114,6 @@ public class MainScene extends Scene implements Updatable {
 			root.getChildren().set(0, p);
 	}
 	
-	private void clearContent() {
-		root.getChildren().clear();
-	}
-	
 	public boolean isPlayingMinigame() {
 		return !root.getChildren().isEmpty() && root.getChildren().get(0) instanceof Minigame;
 	}
@@ -120,8 +121,12 @@ public class MainScene extends Scene implements Updatable {
 	/** If a {@link Minigame} is not {@link #isPlayingMinigame() playing}, returns {@code null}. */
 	public Minigame currentMinigame() {
 		if(isPlayingMinigame())
-			return (Minigame) root.getChildren().get(0);
+			return (Minigame) content();
 		return null;
+	}
+	
+	public GamePane content() {
+		return (GamePane) root.getChildren().get(0);
 	}
 	
 }

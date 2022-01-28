@@ -3,9 +3,11 @@ package game;
 import java.util.stream.*;
 
 import base.Updatable;
+import base.input.GameInput;
 import base.panes.*;
 import events.Event;
 import game.fx.BoardFXLayer;
+import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import minigames.MinigameResult;
 import players.*;
@@ -46,7 +48,7 @@ public class Board extends GamePane implements Updatable {
 	
 	private int playerCount, turn;
 	private RollType lastRollType;
-	private boolean readyToRoll;
+	private boolean readyToRoll, paused;
 	
 	private Board(int playerCount) {
 		super(new BoardScaledPane(), new BoardFXLayer());
@@ -55,6 +57,7 @@ public class Board extends GamePane implements Updatable {
 		this.playerCount = playerCount;
 		turn = 1;
 		readyToRoll = false;
+		paused = false;
 		lastRollType = RollType.RANDOM;
 	}
 	
@@ -66,6 +69,7 @@ public class Board extends GamePane implements Updatable {
 	/** Called immediately before this {@link Board} is shown to the player. */
 	public void start() {
 		setupDie();
+		imageLayer().start();
 	}
 	
 	public int turn() {
@@ -126,6 +130,20 @@ public class Board extends GamePane implements Updatable {
 			BoardAnimations.transitionToChooseRoll(this::rollTransitionFinished);
 		else
 			readyToRoll = true;
+	}
+	
+	@Override
+	public void keyPressed(KeyCode kc) {
+		if(kc == GameInput.controls().pause()) {
+			if(paused) {
+				fxLayer().unpause();
+				paused = false;
+			}
+			else {
+				fxLayer().pause();
+				paused = true;
+			}
+		}
 	}
 	
 	private void rollTransitionFinished() {

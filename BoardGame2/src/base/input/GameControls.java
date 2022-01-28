@@ -4,9 +4,9 @@ import javafx.scene.input.KeyCode;
 
 public interface GameControls extends DirectionalControls {
 
-	GameControls DEFAULT = of(KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D);
+	GameControls DEFAULT = of(KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.ESCAPE);
 	
-	static GameControls of(KeyCode up, KeyCode left, KeyCode down, KeyCode right) {
+	static GameControls of(KeyCode up, KeyCode left, KeyCode down, KeyCode right, KeyCode pause) {
 		return new GameControls() {
 			
 			@Override
@@ -29,7 +29,14 @@ public interface GameControls extends DirectionalControls {
 				return right;
 			}
 			
+			@Override
+			public KeyCode pause() {
+				return pause;
+			}
+			
 		};
 	}
+	
+	KeyCode pause();
 	
 }

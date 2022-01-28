@@ -12,23 +12,16 @@ public class GameInput {
 	
 	private static final EnumSet<KeyCode> KEYS_PRESSED = EnumSet.noneOf(KeyCode.class);
 	
-	private static GameInputMode mode = GameInputMode.SINGLE;
-	
-	public static GameInputMode mode() {
-		return mode;
-	}
-	
-	/** Returns {@code true} iff {@code mode() instanceof SingleControllerMode}. */
-	public static boolean isSingle() {
-		return mode() instanceof SingleControllerMode;
-	}
-	
 	public static boolean isPressed(KeyCode kc) {
 		return keysPressed().contains(kc);
 	}
 	
 	public static EnumSet<KeyCode> keysPressed() {
 		return KEYS_PRESSED;
+	}
+	
+	public static GameControls controls() {
+		return GameControls.DEFAULT; //TODO let user edit controls?
 	}
 	
 }

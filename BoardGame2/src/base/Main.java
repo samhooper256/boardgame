@@ -6,11 +6,14 @@ import java.util.*;
 import game.MainScene;
 import javafx.application.*;
 import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
 // - user can select how many players.
+// - make it so you can't pause Board while transitioning to a minigame.
+// - add a "back to main menu" button to the pause menu.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
@@ -65,6 +68,7 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
 		Player.maxCount(); //cause Player to be initialized.
+		stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		stage.setScene(MainScene.get());
 		stage.setFullScreen(true);
 		stage.setTitle(TITLE);

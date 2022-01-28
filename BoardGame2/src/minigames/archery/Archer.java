@@ -101,9 +101,7 @@ public class Archer extends ImagePane implements Updatable {
 	}
 	
 	private DirectionalControls controls() {
-		if(GameInput.isSingle())
-			return GameInputMode.SINGLE.controls();
-		throw new UnsupportedOperationException(String.format("Unsupported input mode: %s", GameInput.mode()));
+		return GameInput.controls();
 	}
 	
 	public boolean isMobile() {

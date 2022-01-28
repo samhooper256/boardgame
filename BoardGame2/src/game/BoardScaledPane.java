@@ -38,7 +38,6 @@ public class BoardScaledPane extends AbstractScaledPane implements Updatable {
 		placePlayers();
 		addMedalAreas();
 		add(die);
-		rings[1].setVisible(true);
 		rings[1].lockCoordinatesTo(Player.get(1));
 	}
 	
@@ -85,6 +84,10 @@ public class BoardScaledPane extends AbstractScaledPane implements Updatable {
 			bronze.setIdealCenter(coords.bronze());
 			addAll(p, gold, silver, bronze);
 		}
+	}
+	
+	public void start() {
+		rings[1].fader().fadeIn();
 	}
 	
 	@Override

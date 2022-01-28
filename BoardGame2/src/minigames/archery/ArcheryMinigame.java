@@ -2,7 +2,6 @@ package minigames.archery;
 
 import java.util.*;
 
-import base.input.GameInput;
 import fxutils.Fader;
 import game.*;
 import javafx.animation.*;
@@ -67,11 +66,7 @@ public class ArcheryMinigame extends Minigame {
 	}
 
 	private void initMovableArchers() {
-		if(GameInput.isSingle())
-			movableArchers.add(archer(1));
-		else
-			for(int i = 1; i <= Board.get().playerCount(); i++)
-				movableArchers.add(archer(i));
+		movableArchers.add(archer(1));
 	}
 	
 	@Override
@@ -153,10 +148,8 @@ public class ArcheryMinigame extends Minigame {
 	}
 	
 	private void updateControls(int player) {
-		if(GameInput.isSingle()) {
-			movableArchers.clear();
-			movableArchers.add(archer(player));
-		}
+		movableArchers.clear();
+		movableArchers.add(archer(player));
 	}
 	
 	private void win(int player) {

@@ -3,6 +3,7 @@ package game.fx;
 import base.panes.*;
 import game.*;
 import javafx.geometry.Point2D;
+import javafx.scene.layout.StackPane;
 import medals.*;
 import players.Player;
 
@@ -10,6 +11,8 @@ public class BoardFXLayer extends FXLayer {
 	
 	/** row=medal, col=player*/
 	private final MedalLabel[][] medals = new MedalLabel[Medal.count()][Player.maxCount() + 1];
+	private final PauseLayer pauseLayer;
+	private final StackPane stack;
 	
 	public BoardFXLayer() {
 		for(int mindex = 0; mindex < medals.length; mindex++) {
@@ -33,12 +36,31 @@ public class BoardFXLayer extends FXLayer {
 			};
 			c.addChangeListener(changeListener);
 		}
+		pauseLayer = new PauseLayer();
+		stack = new StackPane(pauseLayer);
+		stack.prefWidthProperty().bind(widthProperty());
+		stack.prefHeightProperty().bind(heightProperty());
+		getChildren().addAll(stack);
 	}
 	
 	public void init() {
 		for(int mindex = 0; mindex < medals.length; mindex++)
 			for(int player = 1; player <= Board.get().playerCount(); player++)
 				medals[mindex][player].setVisible(true);
+	}
+	
+	public PauseLayer pauseLayer() {
+		return pauseLayer;
+	}
+	
+	public void pause() {
+		setMouseTransparent(false);
+		pauseLayer().fader().fadeIn(); //TODO
+	}
+	
+	public void unpause() {
+		setMouseTransparent(true);
+		pauseLayer().fader().fadeOutAndHide();
 	}
 	
 	@Override
