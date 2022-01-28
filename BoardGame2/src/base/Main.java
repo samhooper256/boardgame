@@ -12,7 +12,8 @@ import players.Player;
 
 //TODO:
 // - user can select how many players.
-// - make it so you can't pause Board while transitioning to a minigame.
+// - make it so you can't pause Board while transitioning to a minigame - or maybe make a single pause layer that can be
+// activated from anywhere in the game (board or minigame?)
 // - add a "back to main menu" button to the pause menu.
 public class Main extends Application {
 
