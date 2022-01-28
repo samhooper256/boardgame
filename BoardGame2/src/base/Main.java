@@ -76,7 +76,7 @@ public class Main extends Application {
 		stage.show();
 	}
 	
-	public Stage stage() {
+	public static Stage stage() {
 		return stage;
 	}
 	

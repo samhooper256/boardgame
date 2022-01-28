@@ -35,6 +35,7 @@ public final class Images {
 			ARCHERY = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
+			QUIT_BUTTON = get("quit_button.png"),
 			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
 			MINIGAME_WIN_BACKGROUND = get("minigame_win_background.png"),
 			PRESS_SPACE = get("pressspace.png"),
