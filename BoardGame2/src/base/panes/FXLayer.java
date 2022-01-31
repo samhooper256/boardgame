@@ -20,9 +20,6 @@ public class FXLayer extends Pane {
 	public FXLayer(GamePane gamePane) {
 		this.gamePane = gamePane;
 		this.setMouseTransparent(true);
-	}
-	
-	void addScaleTransform() {
 		Scale s = new Scale(1, 1, 0, 0);
 		s.xProperty().bind(Screen.wscaleBinding());
 		s.yProperty().bind(Screen.hscaleBinding());

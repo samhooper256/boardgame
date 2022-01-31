@@ -18,7 +18,6 @@ public abstract class GamePane extends StackPane implements AcceptsInput {
 		this.scaledPane = scaledPane;
 		this.fxLayer = fxLayer;
 		fxLayer.setGamePane(this);
-		fxLayer.addScaleTransform();
 		getChildren().addAll((Node) scaledPane, fxLayer);
 	}
 	
