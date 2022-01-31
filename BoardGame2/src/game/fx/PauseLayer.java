@@ -1,7 +1,9 @@
 package game.fx;
 
+import base.Main;
 import fxutils.*;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -14,12 +16,15 @@ public class PauseLayer extends StackPane implements Fadeable {
 	private final Fader fader;
 	private final VBox vBox;
 	private final PausedText pausedText;
+	private final Button quit;
 	
 	public PauseLayer() {
 		super();
 		fader = new Fader(this).setInDuration(FADE_IN).setOutDuration(FADE_OUT);
 		pausedText = new PausedText();
-		vBox = new VBox(pausedText);
+		quit = new Button("Quit :O");
+		quit.setOnAction(eh -> Main.stage().close());
+		vBox = new VBox(pausedText, quit);
 		vBox.setAlignment(Pos.CENTER);
 		getChildren().add(vBox);
 		setBackground(Backgrounds.of(Color.rgb(0, 0, 0, 0.25)));
