@@ -3,7 +3,6 @@ package game;
 import java.util.stream.*;
 
 import base.Updatable;
-import base.input.GameInput;
 import base.panes.*;
 import events.Event;
 import game.fx.BoardFXLayer;
@@ -48,7 +47,7 @@ public class Board extends GamePane implements Updatable {
 	
 	private int playerCount, turn;
 	private RollType lastRollType;
-	private boolean readyToRoll, paused;
+	private boolean readyToRoll;
 	
 	private Board(int playerCount) {
 		super(new BoardImageLayer(), new BoardFXLayer());
@@ -57,7 +56,6 @@ public class Board extends GamePane implements Updatable {
 		this.playerCount = playerCount;
 		turn = 1;
 		readyToRoll = false;
-		paused = false;
 		lastRollType = RollType.RANDOM;
 	}
 	
@@ -134,16 +132,7 @@ public class Board extends GamePane implements Updatable {
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
-		if(kc == GameInput.controls().pause()) {
-			if(paused) {
-				fxLayer().unpause();
-				paused = false;
-			}
-			else {
-				fxLayer().pause();
-				paused = true;
-			}
-		}
+		//nothing
 	}
 	
 	private void rollTransitionFinished() {
