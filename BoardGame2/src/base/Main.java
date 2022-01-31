@@ -11,9 +11,8 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
+// - maybe make the FadeLayer (over Board) run on update(long) calls so you can pause while it's playing?
 // - user can select how many players.
-// - make it so you can't pause Board while transitioning to a minigame - or maybe make a single pause layer that can be
-// activated from anywhere in the game (board or minigame?)
 // - add a "back to main menu" button to the pause menu.
 public class Main extends Application {
 
