@@ -34,7 +34,7 @@ public class MainScene extends Scene implements Updatable {
 	private final Timer timer;
 	private final PauseLayer pauseLayer;
 	
-	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
+	private StackBasedFXLayer glassLayer; //can't be final for initialization reasons...
 	private FadeLayer fadeLayer; //""
 	private boolean paused;
 	
@@ -56,12 +56,11 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void init() {
-		glassLayer = new UnaffiliatedFXLayer();
+		glassLayer = new StackBasedFXLayer();
 		StackPane base = new StackPane();
 		base.prefWidthProperty().bind(glassLayer.widthProperty());
 		base.prefHeightProperty().bind(glassLayer.heightProperty());
-		base.getChildren().add(pauseLayer);
-		glassLayer.getChildren().add(base);
+		glassLayer.base().getChildren().add(pauseLayer);
 		root.getChildren().add(glassLayer);
 		fadeLayer = new FadeLayer();
 		setContent(MainMenuPane.get());
