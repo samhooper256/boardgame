@@ -27,10 +27,13 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private final DoubleBinding hscaleBinding, wscaleBinding;
-	private final StackPane root;
+	//The root contains the glassLayer (top) and the contentLayer (bottom).
+	//The contentLayer contains the content and (at times) the FadeLayer.
+	private final StackPane root, contentLayer;
 	private final Timer timer;
 	
-	private FadeLayer fadeLayer; //can't be final for initialization reasons...
+	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
+	private FadeLayer fadeLayer; //""
 	
 	public static MainScene get() {
 		return INSTANCE;
@@ -39,6 +42,8 @@ public class MainScene extends Scene implements Updatable {
 	private MainScene() {
 		super(new StackPane());
 		root = (StackPane) getRoot();
+		contentLayer = new StackPane();
+		root.getChildren().addAll(contentLayer);
 		hscaleBinding = root.heightProperty().divide(DEFAULT_HEIGHT);
 		wscaleBinding = root.widthProperty().divide(DEFAULT_WIDTH);
 		timer = new Timer(this::update);
@@ -46,6 +51,8 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void init() {
+		glassLayer = new UnaffiliatedFXLayer();
+		root.getChildren().add(glassLayer);
 		fadeLayer = new FadeLayer();
 		setContent(MainMenuPane.get());
 		this.setOnKeyPressed(this::keyPressed);
@@ -57,7 +64,7 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void setContent(GamePane p) {
-		ObservableList<Node> c = root.getChildren();
+		ObservableList<Node> c = contentLayer.getChildren();
 		if(c.isEmpty()) { //only on initial startup.
 			c.add(p);
 		}
@@ -110,30 +117,30 @@ public class MainScene extends Scene implements Updatable {
 	}
 
 	public void startMinigame(Minigame mg) {
-		root.getChildren().add(fadeLayer);
+		contentLayer.getChildren().add(fadeLayer);
 		fadeLayer.fadeIn(mg, mg::start, null);
 	}
 	
 	public void fadeBackFromMinigame(MinigameResult mr) {
 		for(MedalReward reward : mr.rewards())
 			reward.apply();
-		root.getChildren().add(fadeLayer);
+		contentLayer.getChildren().add(fadeLayer);
 		fadeLayer.fadeIn(Board.get(), null, () -> Board.get().minigameFinished(mr));
 	}
 	
 	public void removeFadeLayer() {
-		root.getChildren().remove(fadeLayer);
+		contentLayer.getChildren().remove(fadeLayer);
 	}
 	
 	public void setRootBase(Pane p) {
-		if(root.getChildren().isEmpty())
-			root.getChildren().add(p);
+		if(contentLayer.getChildren().isEmpty())
+			contentLayer.getChildren().add(p);
 		else
-			root.getChildren().set(0, p);
+			contentLayer.getChildren().set(0, p);
 	}
 	
 	public boolean isPlayingMinigame() {
-		return !root.getChildren().isEmpty() && root.getChildren().get(0) instanceof Minigame;
+		return !contentLayer.getChildren().isEmpty() && contentLayer.getChildren().get(0) instanceof Minigame;
 	}
 	
 	/** If a {@link Minigame} is not {@link #isPlayingMinigame() playing}, returns {@code null}. */
@@ -144,7 +151,7 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	public GamePane content() {
-		return (GamePane) root.getChildren().get(0);
+		return (GamePane) contentLayer.getChildren().get(0);
 	}
 	
 	public DoubleBinding hscaleBinding() {

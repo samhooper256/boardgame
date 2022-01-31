@@ -1,7 +1,6 @@
 package base.panes;
 
 import fxutils.*;
-import game.MainScene;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
