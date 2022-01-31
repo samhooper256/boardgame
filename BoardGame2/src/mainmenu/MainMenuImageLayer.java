@@ -5,6 +5,9 @@ import fxutils.Images;
 
 import static game.MainScene.DEFAULT_WIDTH;
 import static game.MainScene.DEFAULT_HEIGHT;
+import static game.MainScene.CENTER_X;
+import static game.MainScene.CENTER_Y;
+
 public class MainMenuImageLayer extends AbstractImageLayer {
 
 	private final PlayButton playButton;
@@ -12,11 +15,11 @@ public class MainMenuImageLayer extends AbstractImageLayer {
 	
 	MainMenuImageLayer() {
 		ImagePane mainImage = new ImagePane(Images.MAIN_MENU);
-		mainImage.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 4);
+		mainImage.setIdealCenter(CENTER_X, CENTER_Y * .5);
 		playButton = new PlayButton();
-		playButton.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .55);
+		playButton.setIdealCenter(CENTER_X, DEFAULT_HEIGHT * .55);
 		quitButton = new QuitButton();
-		quitButton.setIdealCenter(DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .7);
+		quitButton.setIdealCenter(CENTER_X, DEFAULT_HEIGHT * .7);
 		ImagePane warrior = new ImagePane(Images.WARRIOR_SELECT);
 		warrior.setIdealCenter(DEFAULT_WIDTH * .2, DEFAULT_HEIGHT * .3);
 		addAll(mainImage, playButton, quitButton, warrior);
