@@ -11,7 +11,6 @@ public class BoardFXLayer extends FXLayer {
 	
 	/** row=medal, col=player*/
 	private final MedalLabel[][] medals = new MedalLabel[Medal.count()][Player.maxCount() + 1];
-	private final PauseLayer pauseLayer;
 	private final StackPane stack;
 	
 	public BoardFXLayer() {
@@ -36,8 +35,7 @@ public class BoardFXLayer extends FXLayer {
 			};
 			c.addChangeListener(changeListener);
 		}
-		pauseLayer = new PauseLayer();
-		stack = new StackPane(pauseLayer);
+		stack = new StackPane();
 		stack.prefWidthProperty().bind(widthProperty());
 		stack.prefHeightProperty().bind(heightProperty());
 		getChildren().addAll(stack);
@@ -47,20 +45,6 @@ public class BoardFXLayer extends FXLayer {
 		for(int mindex = 0; mindex < medals.length; mindex++)
 			for(int player = 1; player <= Board.get().playerCount(); player++)
 				medals[mindex][player].setVisible(true);
-	}
-	
-	public PauseLayer pauseLayer() {
-		return pauseLayer;
-	}
-	
-	public void pause() {
-		setMouseTransparent(false);
-		pauseLayer().fader().fadeIn(); //TODO
-	}
-	
-	public void unpause() {
-		setMouseTransparent(true);
-		pauseLayer().fader().fadeOutAndHide();
 	}
 	
 	@Override

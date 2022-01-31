@@ -3,6 +3,7 @@ package game;
 import base.*;
 import base.input.GameInput;
 import base.panes.*;
+import game.fx.PauseLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.scene.*;
@@ -31,9 +32,11 @@ public class MainScene extends Scene implements Updatable {
 	//The contentLayer contains the content and (at times) the FadeLayer.
 	private final StackPane root, contentLayer;
 	private final Timer timer;
+	private final PauseLayer pauseLayer;
 	
-	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
+	private StackBasedFXLayer glassLayer; //can't be final for initialization reasons...
 	private FadeLayer fadeLayer; //""
+	private boolean paused;
 	
 	public static MainScene get() {
 		return INSTANCE;
@@ -41,8 +44,10 @@ public class MainScene extends Scene implements Updatable {
 	
 	private MainScene() {
 		super(new StackPane());
+		paused = false;
 		root = (StackPane) getRoot();
 		contentLayer = new StackPane();
+		pauseLayer = new PauseLayer();
 		root.getChildren().addAll(contentLayer);
 		hscaleBinding = root.heightProperty().divide(DEFAULT_HEIGHT);
 		wscaleBinding = root.widthProperty().divide(DEFAULT_WIDTH);
@@ -51,7 +56,11 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void init() {
-		glassLayer = new UnaffiliatedFXLayer();
+		glassLayer = new StackBasedFXLayer();
+		StackPane base = new StackPane();
+		base.prefWidthProperty().bind(glassLayer.widthProperty());
+		base.prefHeightProperty().bind(glassLayer.heightProperty());
+		glassLayer.base().getChildren().add(pauseLayer);
 		root.getChildren().add(glassLayer);
 		fadeLayer = new FadeLayer();
 		setContent(MainMenuPane.get());
@@ -85,7 +94,16 @@ public class MainScene extends Scene implements Updatable {
 	private void keyReleased(KeyEvent ke) {
 		KeyCode kc = ke.getCode();
 		GameInput.keysPressed().remove(kc);
-		content().keyReleased(kc);
+		if(kc == GameInput.controls().pause()) {
+			if(paused)
+				unpause();
+			else
+				pause();
+			paused = !paused;
+		}
+		else {
+			content().keyReleased(kc);
+		}
 	}
 	
 	private void mouseClicked(MouseEvent me) {
@@ -105,10 +123,12 @@ public class MainScene extends Scene implements Updatable {
 	
 	@Override
 	public void update(long diff) {
-		if(isPlayingMinigame())
-			currentMinigame().update(diff);
-		else
-			Board.get().update(diff);
+		if(!paused) {
+			if(isPlayingMinigame())
+				currentMinigame().update(diff);
+			else
+				Board.get().update(diff);
+		}
 	}
 
 	public void startGame() {
@@ -168,6 +188,20 @@ public class MainScene extends Scene implements Updatable {
 
 	public double wscale() {
 		return wscaleBinding().get();
+	}
+	
+	public PauseLayer pauseLayer() {
+		return pauseLayer;
+	}
+	
+	public void pause() {
+		glassLayer.setMouseTransparent(false);
+		pauseLayer().fader().fadeIn(); //TODO
+	}
+	
+	public void unpause() {
+		glassLayer.setMouseTransparent(true);
+		pauseLayer().fader().fadeOutAndHide();
 	}
 	
 }
