@@ -1,7 +1,8 @@
-package game.fx;
+package game.pause;
 
 import base.Main;
 import fxutils.*;
+import game.fx.BoardFXLayer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;

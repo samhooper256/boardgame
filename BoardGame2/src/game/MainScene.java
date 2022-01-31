@@ -3,7 +3,7 @@ package game;
 import base.*;
 import base.input.GameInput;
 import base.panes.*;
-import game.fx.PauseLayer;
+import game.pause.PauseLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.scene.*;

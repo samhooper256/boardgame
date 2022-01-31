@@ -1,4 +1,4 @@
-package game.fx;
+package game.pause;
 
 import fxutils.Fonts;
 import javafx.scene.control.Label;
