@@ -18,7 +18,7 @@ public class Ring extends FadeableImagePane implements Updatable {
 	public Ring() {
 		super(Images.RING, Images.RING.getWidth() * 1.5, Images.RING.getHeight() * 1.5);
 		fader().setInDuration(FADE_IN_DURATION).setOutDuration(FADE_OUT_DURATION);
-		fader().hide();
+		fader().disappear();
 	}
 	
 	public void lockCoordinatesTo(Player p) {

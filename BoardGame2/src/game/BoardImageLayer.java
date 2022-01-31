@@ -35,7 +35,8 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		placeTiles();
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			add(rings[i]);
-		placePlayers();
+		addPlayers();
+		movePlayersToStart();
 		addMedalAreas();
 		add(die);
 		rings[1].lockCoordinatesTo(Player.get(1));
@@ -56,12 +57,21 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		}
 	}
 
-	private void placePlayers() {
-		for(int i = 1; i <= gamePane().playerCount(); i++) {
+	private void addPlayers() {
+		for(int i = 1; i <= gamePane().playerCount(); i++)
 			add(Player.get(i));
-			movePlayer(Player.get(i), tileAt(0));
-		}
 	}
+	
+	private void removePlayers() {
+		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+			remove(Player.get(i));
+	}
+	
+	private void movePlayersToStart() {
+		for(int i = 1; i <= gamePane().playerCount(); i++)
+			movePlayer(Player.get(i), tileAt(0));
+	}
+	
 
 	private List<Tile> generateTileOrder() {
 		List<Tile> order = new ArrayList<>(Board.TILE_COUNT);
@@ -87,6 +97,11 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	}
 	
 	public void start() {
+		removePlayers();
+		addPlayers();
+		movePlayersToStart();
+		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+			rings[i].fader().disappear();
 		rings[1].fader().fadeIn();
 	}
 	

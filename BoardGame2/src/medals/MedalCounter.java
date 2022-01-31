@@ -35,6 +35,11 @@ public class MedalCounter {
 		runChangeListeners();
 	}
 	
+	public void reset() {
+		for(Medal m : Medal.LIST)
+			clear(m);
+	}
+	
 	/** The given {@link Runnable} will be run immediately after any change to any medal count. */
 	public void addChangeListener(Runnable changeListener) {
 		changeListeners.add(changeListener);

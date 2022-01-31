@@ -35,6 +35,11 @@ public class Player extends ImagePane {
 		return PLAYERS[n - 1];
 	}
 	
+	public static void resetAll() {
+		for(int i = 1; i <= maxCount(); i++)
+			get(i).reset();
+	}
+	
 	private final int number;
 	private final List<Passive> passives;
 	private final MedalCounter medalCounter;
@@ -47,8 +52,7 @@ public class Player extends ImagePane {
 		this.number = number;
 		medalCounter = new MedalCounter();
 		passives = new ArrayList<>();
-		current = StartTile.get();
-		rollType = RollType.CHOOSE; //TODO set back to random
+		reset();
 	}
 
 	public void acquirePassive(Passive p) {
@@ -92,6 +96,13 @@ public class Player extends ImagePane {
 	
 	public MedalCounter medalCounter() {
 		return medalCounter;
+	}
+	
+	public void reset() {
+		setRollType(RollType.RANDOM);
+		medalCounter().reset();
+		passives.clear();
+		current = StartTile.get();
 	}
 	
 	@Override

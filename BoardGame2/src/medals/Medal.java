@@ -1,5 +1,7 @@
 package medals;
 
+import java.util.*;
+
 import fxutils.Images;
 import javafx.scene.image.Image;
 
@@ -9,6 +11,8 @@ public final class Medal {
 			GOLD = new Medal("Gold", 0, 3, Images.GOLD_MEDAL),
 			SILVER = new Medal("Silver", 1, 2, Images.SILVER_MEDAL),
 			BRONZE = new Medal("Bronze", 2, 1, Images.BRONZE_MEDAL);
+	
+	public static final List<Medal> LIST = Collections.unmodifiableList(Arrays.asList(GOLD, SILVER, BRONZE));
 	
 	public static Medal of(String type) {
 		switch(type.toLowerCase()) {

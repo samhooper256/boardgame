@@ -66,6 +66,10 @@ public class Board extends GamePane implements Updatable {
 	
 	/** Called immediately before this {@link Board} is shown to the player. */
 	public void start() {
+		turn = 1;
+		lastRollType = RollType.RANDOM;
+		readyToRoll = false;
+		Player.resetAll();
 		setupDie();
 		imageLayer().start();
 	}
