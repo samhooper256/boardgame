@@ -42,7 +42,7 @@ public final class Images {
 			FENCE = get("fence.png"),
 			FENCE2 = get("fence2.png"),
 			ARROW = get("arrow.png"),
-			TARGET = get("target.png"),
+			TARGET = get("Target.png"),
 			ARCHERY_BACKGROUND = get("archerybackground.png"),
 			BACKGROUND = get("BoardBackground.png");
 	
