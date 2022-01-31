@@ -5,12 +5,12 @@ import fxutils.Images;
 
 import static game.MainScene.DEFAULT_WIDTH;
 import static game.MainScene.DEFAULT_HEIGHT;
-public class MainMenuScaledPane extends AbstractImageLayer {
+public class MainMenuImageLayer extends AbstractImageLayer {
 
 	private final PlayButton playButton;
 	private final QuitButton quitButton;
 	
-	MainMenuScaledPane() {
+	MainMenuImageLayer() {
 		ImagePane mainImage = new ImagePane(Images.MAIN_MENU);
 		mainImage.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 4);
 		playButton = new PlayButton();

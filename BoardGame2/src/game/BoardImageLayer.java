@@ -11,7 +11,7 @@ import medals.*;
 import players.Player;
 import tiles.*;
 
-public class BoardScaledPane extends AbstractImageLayer implements Updatable {
+public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
@@ -21,7 +21,7 @@ public class BoardScaledPane extends AbstractImageLayer implements Updatable {
 	
 	private List<Tile> tileOrder;
 	
-	public BoardScaledPane() {
+	public BoardImageLayer() {
 		this.rings = new Ring[Board.maxPlayerCount() + 1];
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i] = new Ring();
@@ -140,7 +140,7 @@ public class BoardScaledPane extends AbstractImageLayer implements Updatable {
 			rings[p.number()].fader().fadeOutAndHide();
 	}
 	
-	/** Called to notify this {@link BoardScaledPane} that the turn has been incremented. */
+	/** Called to notify this {@link BoardImageLayer} that the turn has been incremented. */
 	public void turnIncrementedTo(int turn) {
 		rings[Board.prevTurn(turn)].fader().fadeOutAndHide();
 		Ring ring = rings[turn];

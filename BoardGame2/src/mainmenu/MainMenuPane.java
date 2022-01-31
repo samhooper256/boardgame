@@ -11,13 +11,13 @@ public class MainMenuPane extends GamePane {
 	}
 	
 	public MainMenuPane() {
-		super(new MainMenuScaledPane(), new MainMenuFXLayer());
+		super(new MainMenuImageLayer(), new MainMenuFXLayer());
 		imageLayer().setGamePane(this);
 	}
 	
 	@Override
-	public MainMenuScaledPane imageLayer() {
-		return (MainMenuScaledPane) super.imageLayer();
+	public MainMenuImageLayer imageLayer() {
+		return (MainMenuImageLayer) super.imageLayer();
 	}
 	
 	@Override

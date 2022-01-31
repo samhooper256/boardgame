@@ -50,7 +50,7 @@ public interface ImageLayer extends Updatable {
 	/** @throws IllegalStateException if the given {@link ImagePane} is not in this {@link ImageLayer}. */
 	default void bringToFront(ImagePane ip) {
 		if(!remove(ip))
-			throw new IllegalStateException(String.format("ImagePane is not in this ScaledPane: %s", ip));
+			throw new IllegalStateException(String.format("ImagePane is not in this ImageLayer: %s", ip));
 		add(ip);
 	}
 	

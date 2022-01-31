@@ -37,7 +37,7 @@ public class ImagePane extends StackPane {
 		this.idealWidth = new SimpleDoubleProperty(idealWidth);
 		this.idealHeight = new SimpleDoubleProperty(idealHeight);
 		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> {
-			ImageLayer sp = getScaledPane();
+			ImageLayer sp = getImageLayer();
 			if(sp != null)
 				sp.updateImageSize(this);
 		};
@@ -46,7 +46,7 @@ public class ImagePane extends StackPane {
 		this.idealX = new SimpleDoubleProperty(idealX);
 		this.idealY = new SimpleDoubleProperty(idealY);
 		ChangeListener<? super Number> coordListener = (o, ov, nv) -> {
-			ImageLayer sp = getScaledPane();
+			ImageLayer sp = getImageLayer();
 			if(sp != null)
 				sp.updateImageLayoutCoords(this);
 		};
@@ -164,7 +164,7 @@ public class ImagePane extends StackPane {
     
     /** Returns the {@link ImageLayer} that this {@link ImagePane} is contained within. Returns {@code null} if this
      * {@link ImagePane} is not currently within a {@link ImageLayer}.*/
-    public ImageLayer getScaledPane() {
+    public ImageLayer getImageLayer() {
     	Parent p = getParent();
     	while(p != null && !(p instanceof ImageLayer))
     		p = p.getParent();

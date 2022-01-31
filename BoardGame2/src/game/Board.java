@@ -30,7 +30,7 @@ public class Board extends GamePane implements Updatable {
 		return INSTANCE;
 	}
 	
-	public static BoardScaledPane sp() {
+	public static BoardImageLayer sp() {
 		return get().imageLayer();
 	}
 	
@@ -51,7 +51,7 @@ public class Board extends GamePane implements Updatable {
 	private boolean readyToRoll, paused;
 	
 	private Board(int playerCount) {
-		super(new BoardScaledPane(), new BoardFXLayer());
+		super(new BoardImageLayer(), new BoardFXLayer());
 		imageLayer().setGamePane(this);
 		fxLayer().setGamePane(this);
 		this.playerCount = playerCount;
@@ -180,8 +180,8 @@ public class Board extends GamePane implements Updatable {
 	}
 	
 	@Override
-	public BoardScaledPane imageLayer() {
-		return (BoardScaledPane) super.imageLayer();
+	public BoardImageLayer imageLayer() {
+		return (BoardImageLayer) super.imageLayer();
 	}
 	
 	@Override
