@@ -7,7 +7,7 @@ import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 import utils.Screen;
 
-public abstract class AbstractScaledPane extends Pane implements ScaledPane {
+public abstract class AbstractScaledImageLayer extends Pane implements ScaledImageLayer {
 
 	protected final List<ImagePane> images;
 	protected GamePane gamePane;
@@ -16,11 +16,11 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	private final List<Runnable> endOfUpdateActions;
 	
 	/** The {@link #gamePane()} must be set after construction. */
-	protected AbstractScaledPane() {
+	protected AbstractScaledImageLayer() {
 		this(null);
 	}
 	
-	public AbstractScaledPane(GamePane gamePane) {
+	public AbstractScaledImageLayer(GamePane gamePane) {
 		images = new ArrayList<>();
 		trash = new ArrayList<>();
 		endOfUpdateActions = new ArrayList<>();

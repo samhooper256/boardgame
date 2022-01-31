@@ -10,7 +10,7 @@ import javafx.scene.input.*;
 import javafx.util.Duration;
 import utils.Intersections;
 
-public class ArcheryScaledPane extends AbstractScaledPane implements AcceptsInput {
+public class ArcheryScaledPane extends AbstractScaledImageLayer implements AcceptsInput {
 
 	private static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
 	

@@ -33,8 +33,8 @@ public class MainScene extends Scene implements Updatable {
 	private MainScene() {
 		super(new StackPane());
 		root = (StackPane) getRoot();
-		hscaleBinding = root.heightProperty().divide(ScaledPane.DEFAULT_HEIGHT);
-		wscaleBinding = root.widthProperty().divide(ScaledPane.DEFAULT_WIDTH);
+		hscaleBinding = root.heightProperty().divide(ScaledImageLayer.DEFAULT_HEIGHT);
+		wscaleBinding = root.widthProperty().divide(ScaledImageLayer.DEFAULT_WIDTH);
 		timer = new Timer(this::update);
 		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
 	}

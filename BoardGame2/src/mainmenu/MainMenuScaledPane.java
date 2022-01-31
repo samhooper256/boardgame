@@ -3,7 +3,7 @@ package mainmenu;
 import base.panes.*;
 import fxutils.Images;
 
-public class MainMenuScaledPane extends AbstractScaledPane {
+public class MainMenuScaledPane extends AbstractScaledImageLayer {
 
 	private final PlayButton playButton;
 	private final QuitButton quitButton;

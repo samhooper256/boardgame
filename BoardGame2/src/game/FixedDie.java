@@ -11,7 +11,7 @@ public final class FixedDie extends ImagePane implements Die {
 	private static final FixedDie[] DICE = new FixedDie[Die.FACES + 1];
 	
 	static {
-		double hc = ScaledPane.DEFAULT_WIDTH / 2, vc = ScaledPane.DEFAULT_HEIGHT / 2,
+		double hc = ScaledImageLayer.DEFAULT_WIDTH / 2, vc = ScaledImageLayer.DEFAULT_HEIGHT / 2,
 				hcd = HORIZONTAL_CENTER_DIST, vcd = VERTICAL_CENTER_DIST;
 		DICE[1] = new FixedDie(1, hc - hcd, vc - vcd);
 		DICE[2] = new FixedDie(2, hc + hcd, vc - vcd);

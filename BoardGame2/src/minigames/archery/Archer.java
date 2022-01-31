@@ -77,12 +77,12 @@ public class Archer extends ImagePane implements Updatable {
 		double newX = oldX + xvel * sec;
 		double oldY = getIdealY();
 		double newY = oldY + yvel * sec;
-		if(newX < 0 || newX + getIdealWidth() > ScaledPane.DEFAULT_WIDTH)
+		if(newX < 0 || newX + getIdealWidth() > ScaledImageLayer.DEFAULT_WIDTH)
 			xvel = 0;
 		else
 			setIdealX(newX);
 		setIdealY(newY);
-		if(newY > ScaledPane.DEFAULT_HEIGHT - getIdealHeight() ||
+		if(newY > ScaledImageLayer.DEFAULT_HEIGHT - getIdealHeight() ||
 				Intersections.test(this, ArcheryMinigame.sp().fence())) {
 			setIdealY(oldY);
 			yvel = 0;

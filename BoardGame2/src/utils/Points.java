@@ -2,8 +2,8 @@ package utils;
 
 import javafx.geometry.Point2D;
 
-import static base.panes.ScaledPane.DEFAULT_WIDTH;
-import static base.panes.ScaledPane.DEFAULT_HEIGHT;
+import static base.panes.ScaledImageLayer.DEFAULT_WIDTH;
+import static base.panes.ScaledImageLayer.DEFAULT_HEIGHT;
 
 public final class Points {
 

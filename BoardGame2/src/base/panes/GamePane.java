@@ -6,22 +6,22 @@ import javafx.scene.layout.*;
 
 public abstract class GamePane extends StackPane implements AcceptsInput {
 	
-	private final ScaledPane scaledPane;
+	private final ScaledImageLayer scaledPane;
 	private final FXLayer fxLayer;
 	
 	/** An empty {@link FXLayer} will be used. */
-	public GamePane(ScaledPane scaledPane) {
+	public GamePane(ScaledImageLayer scaledPane) {
 		this(scaledPane, new FXLayer());
 	}
 	
-	public GamePane(ScaledPane scaledPane, FXLayer fxLayer) {
+	public GamePane(ScaledImageLayer scaledPane, FXLayer fxLayer) {
 		this.scaledPane = scaledPane;
 		this.fxLayer = fxLayer;
 		fxLayer.setGamePane(this);
 		getChildren().addAll((Node) scaledPane, fxLayer);
 	}
 	
-	public ScaledPane imageLayer() {
+	public ScaledImageLayer imageLayer() {
 		return scaledPane;
 	}
 	

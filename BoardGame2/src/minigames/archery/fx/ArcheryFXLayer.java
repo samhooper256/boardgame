@@ -12,12 +12,12 @@ public class ArcheryFXLayer extends FXLayer {
 		super();
 		winBox = new WinBox();
 		//TODO factor out centering a node?
-		winBox.layoutXProperty().bind(winBox.widthProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_WIDTH * .5));
-		winBox.layoutYProperty().bind(winBox.heightProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_HEIGHT * .5));
+		winBox.layoutXProperty().bind(winBox.widthProperty().multiply(.5).negate().add(ScaledImageLayer.DEFAULT_WIDTH * .5));
+		winBox.layoutYProperty().bind(winBox.heightProperty().multiply(.5).negate().add(ScaledImageLayer.DEFAULT_HEIGHT * .5));
 		winBox.setVisible(false);
 		waveText = new WaveText();
-		waveText.layoutXProperty().bind(waveText.widthProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_WIDTH * .5));
-		waveText.layoutYProperty().bind(waveText.heightProperty().multiply(.5).negate().add(ScaledPane.DEFAULT_HEIGHT * .5));
+		waveText.layoutXProperty().bind(waveText.widthProperty().multiply(.5).negate().add(ScaledImageLayer.DEFAULT_WIDTH * .5));
+		waveText.layoutYProperty().bind(waveText.heightProperty().multiply(.5).negate().add(ScaledImageLayer.DEFAULT_HEIGHT * .5));
 		waveText.setVisible(false);
 		getChildren().addAll(waveText, winBox);
 	}

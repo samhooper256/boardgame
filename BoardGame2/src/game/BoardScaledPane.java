@@ -11,7 +11,7 @@ import medals.*;
 import players.Player;
 import tiles.*;
 
-public class BoardScaledPane extends AbstractScaledPane implements Updatable {
+public class BoardScaledPane extends AbstractScaledImageLayer implements Updatable {
 
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/

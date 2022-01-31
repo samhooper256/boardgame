@@ -1,6 +1,6 @@
 package game;
 
-import base.panes.ScaledPane;
+import base.panes.ScaledImageLayer;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.util.Duration;
@@ -23,9 +23,9 @@ public final class BoardAnimations {
 		KeyValue[] startKeyValues = new KeyValue[Die.FACES * 2], endKeyValues = new KeyValue[Die.FACES * 2];
 		for(int i = 1; i <= Die.FACES; i++) {
 			FixedDie d = FixedDie.showing(i);
-			ScaledPane.center(d);
-			startKeyValues[i - 1] = new KeyValue(d.idealXProperty(), ScaledPane.CENTER_X - d.getIdealWidth() / 2);
-			startKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), ScaledPane.CENTER_Y - d.getIdealHeight() / 2);
+			ScaledImageLayer.center(d);
+			startKeyValues[i - 1] = new KeyValue(d.idealXProperty(), ScaledImageLayer.CENTER_X - d.getIdealWidth() / 2);
+			startKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), ScaledImageLayer.CENTER_Y - d.getIdealHeight() / 2);
 			endKeyValues[i - 1] = new KeyValue(d.idealXProperty(), d.choiceX());
 			endKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), d.choiceY());
 		}
@@ -50,8 +50,8 @@ public final class BoardAnimations {
 			FixedDie d = FixedDie.showing(i);
 			startKeyValues[i - 1] = new KeyValue(d.idealXProperty(), d.getIdealX());
 			startKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), d.getIdealY());
-			endKeyValues[i - 1] = new KeyValue(d.idealXProperty(), ScaledPane.CENTER_X - d.getIdealWidth() / 2);
-			endKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), ScaledPane.CENTER_Y - d.getIdealHeight() / 2);
+			endKeyValues[i - 1] = new KeyValue(d.idealXProperty(), ScaledImageLayer.CENTER_X - d.getIdealWidth() / 2);
+			endKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), ScaledImageLayer.CENTER_Y - d.getIdealHeight() / 2);
 		}
 		KeyFrame start = new KeyFrame(Duration.ZERO, startKeyValues);
 		KeyFrame end = new KeyFrame(TRANSITION_TO_RANDOM_ROLL_DURATION, buildTransitionToRandomRollFinish(finishAction),
