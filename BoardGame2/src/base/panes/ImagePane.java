@@ -1,6 +1,7 @@
 package base.panes;
 
 import fxutils.*;
+import game.MainScene;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
@@ -8,9 +9,9 @@ import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-/** <p>A JavaFX {@link Node} used for displaying an {@link Image} in a {@link ScaledImageLayer}. All
+/** <p>A JavaFX {@link Node} used for displaying an {@link Image} in a {@link ImageLayer}. All
  * {@link ImagePane ImagePanes} have {@link #getIdealCoords() ideal} coordinates that assume a screen width of
- * {@link ScaledImageLayer#DEFAULT_WIDTH} and a screen height of {@link ScaledImageLayer#DEFAULT_HEIGHT} with {@code (0, 0)} at the
+ * {@link ImageLayer#DEFAULT_WIDTH} and a screen height of {@link ImageLayer#DEFAULT_HEIGHT} with {@code (0, 0)} at the
  * top-left corner.</p>
  * 
  * <p>A separate "ideal" coordinate system allows {@link ImagePane ImagePanes} to be laid out independent of how the
@@ -36,7 +37,7 @@ public class ImagePane extends StackPane {
 		this.idealWidth = new SimpleDoubleProperty(idealWidth);
 		this.idealHeight = new SimpleDoubleProperty(idealHeight);
 		ChangeListener<? super Number> sizeListener = (o, ov, nv) -> {
-			ScaledImageLayer sp = getScaledPane();
+			ImageLayer sp = getScaledPane();
 			if(sp != null)
 				sp.updateImageSize(this);
 		};
@@ -45,7 +46,7 @@ public class ImagePane extends StackPane {
 		this.idealX = new SimpleDoubleProperty(idealX);
 		this.idealY = new SimpleDoubleProperty(idealY);
 		ChangeListener<? super Number> coordListener = (o, ov, nv) -> {
-			ScaledImageLayer sp = getScaledPane();
+			ImageLayer sp = getScaledPane();
 			if(sp != null)
 				sp.updateImageLayoutCoords(this);
 		};
@@ -149,11 +150,6 @@ public class ImagePane extends StackPane {
     	setIdealCoords(idealCoords.getX(), idealCoords.getY());
     }
  
-    public boolean isOffscreen() {
-    	return 	getIdealX() < -getIdealWidth() || getIdealX() > ScaledImageLayer.DEFAULT_WIDTH ||
-    			getIdealY() < -getIdealHeight() || getIdealY() > ScaledImageLayer.DEFAULT_HEIGHT;
-    }
-    
     public ResizableImage rimage() {
     	return rimage;
     }
@@ -166,13 +162,13 @@ public class ImagePane extends StackPane {
     	rimage().setImage(image);
     }
     
-    /** Returns the {@link ScaledImageLayer} that this {@link ImagePane} is contained within. Returns {@code null} if this
-     * {@link ImagePane} is not currently within a {@link ScaledImageLayer}.*/
-    public ScaledImageLayer getScaledPane() {
+    /** Returns the {@link ImageLayer} that this {@link ImagePane} is contained within. Returns {@code null} if this
+     * {@link ImagePane} is not currently within a {@link ImageLayer}.*/
+    public ImageLayer getScaledPane() {
     	Parent p = getParent();
-    	while(p != null && !(p instanceof ScaledImageLayer))
+    	while(p != null && !(p instanceof ImageLayer))
     		p = p.getParent();
-    	return (ScaledImageLayer) p;
+    	return (ImageLayer) p;
     }
     
 }

@@ -4,6 +4,7 @@ import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.geometry.Point2D;
+import utils.Screen;
 
 public class Arrow extends ImagePane implements Updatable {
 	
@@ -46,7 +47,7 @@ public class Arrow extends ImagePane implements Updatable {
 		double newY = getIdealY() + yvel * sec;
 		setIdealX(newX);
 		setIdealY(newY);
-		if(isOffscreen()) {
+		if(Screen.isEntirelyOffscreen(this)) {
 			ArcheryMinigame.sp().trash(this);
 			ArcheryMinigame.sp().addEndOfUpdateAction(() -> ArcheryMinigame.get().arrowLeftScreen(this));
 		}

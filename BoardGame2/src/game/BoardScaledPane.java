@@ -11,7 +11,7 @@ import medals.*;
 import players.Player;
 import tiles.*;
 
-public class BoardScaledPane extends AbstractScaledImageLayer implements Updatable {
+public class BoardScaledPane extends AbstractImageLayer implements Updatable {
 
 	/** The delay between when a player lands on a minigame tile and when
 	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
@@ -29,7 +29,7 @@ public class BoardScaledPane extends AbstractScaledImageLayer implements Updatab
 	
 	void init() {
 		RollableDie die = RollableDie.get();
-		die.setIdealCoords(DEFAULT_WIDTH / 2 - die.getIdealWidth() / 2, DEFAULT_HEIGHT / 2 - die.getIdealHeight() / 2);
+		die.setIdealCenter(MainScene.CENTER_X, MainScene.CENTER_Y);
 		tileOrder = generateTileOrder();
 		add(new ImagePane(Images.BACKGROUND));
 		placeTiles();

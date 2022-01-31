@@ -1,14 +1,14 @@
 package minigames.archery.fx;
 
-import base.panes.ScaledImageLayer;
+import game.MainScene;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
 
 public class WinBox extends StackPane {
 
 	private static final double
-			WIDTH = ScaledImageLayer.DEFAULT_WIDTH * .5,
-			HEIGHT = ScaledImageLayer.DEFAULT_HEIGHT * .5,
+			WIDTH = MainScene.CENTER_X,
+			HEIGHT = MainScene.CENTER_Y,
 			VBOX_SPACING = 8,
 			VBOX_TOP_PADDING = 100;
 	

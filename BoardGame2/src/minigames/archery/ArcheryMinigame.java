@@ -24,7 +24,7 @@ public class ArcheryMinigame extends Minigame {
 		return INSTANCE;
 	}
 	
-	public static ArcheryScaledPane sp() {
+	public static ArcheryImageLayer sp() {
 		return get().imageLayer();
 	}
 	
@@ -40,7 +40,7 @@ public class ArcheryMinigame extends Minigame {
 	private Target currentTarget;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
-		super(new ArcheryScaledPane(), new ArcheryFXLayer());
+		super(new ArcheryImageLayer(), new ArcheryFXLayer());
 		this.waveGenerator = waveGenerator;
 		archerMap = new HashMap<>();
 		medalOrder = new ArrayDeque<>();
@@ -237,8 +237,8 @@ public class ArcheryMinigame extends Minigame {
 	}
 	
 	@Override
-	public ArcheryScaledPane imageLayer() {
-		return (ArcheryScaledPane) super.imageLayer();
+	public ArcheryImageLayer imageLayer() {
+		return (ArcheryImageLayer) super.imageLayer();
 	}
 	
 	@Override

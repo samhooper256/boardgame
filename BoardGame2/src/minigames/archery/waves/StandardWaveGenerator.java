@@ -2,7 +2,7 @@ package minigames.archery.waves;
 
 import java.util.*;
 
-import base.panes.ScaledImageLayer;
+import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import minigames.archery.TargetPath;
@@ -15,8 +15,8 @@ final class StandardWaveGenerator implements WaveGenerator {
 			STARTING_SPEED = 100,
 			TARGET_Y = 100;
 	private static final Point2D[] POINTS = {
-			new Point2D(ScaledImageLayer.DEFAULT_WIDTH * .1, TARGET_Y),
-			new Point2D(ScaledImageLayer.DEFAULT_WIDTH * .9, TARGET_Y)
+			new Point2D(MainScene.DEFAULT_WIDTH * .1, TARGET_Y),
+			new Point2D(MainScene.DEFAULT_WIDTH * .9, TARGET_Y)
 	};
 
 	private final Map<Integer, ArcheryWave> waveMap;

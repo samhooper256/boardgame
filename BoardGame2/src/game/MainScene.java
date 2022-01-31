@@ -14,6 +14,12 @@ import minigames.*;
 
 public class MainScene extends Scene implements Updatable {
 
+	public static final double
+			DEFAULT_WIDTH = 1920,
+			DEFAULT_HEIGHT = 1080,
+			CENTER_X = DEFAULT_WIDTH * .5,
+			CENTER_Y = DEFAULT_HEIGHT * .5;
+	
 	private static final MainScene INSTANCE = new MainScene();
 	
 	static {
@@ -33,8 +39,8 @@ public class MainScene extends Scene implements Updatable {
 	private MainScene() {
 		super(new StackPane());
 		root = (StackPane) getRoot();
-		hscaleBinding = root.heightProperty().divide(ScaledImageLayer.DEFAULT_HEIGHT);
-		wscaleBinding = root.widthProperty().divide(ScaledImageLayer.DEFAULT_WIDTH);
+		hscaleBinding = root.heightProperty().divide(DEFAULT_HEIGHT);
+		wscaleBinding = root.widthProperty().divide(DEFAULT_WIDTH);
 		timer = new Timer(this::update);
 		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
 	}

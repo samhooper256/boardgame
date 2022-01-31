@@ -3,7 +3,9 @@ package mainmenu;
 import base.panes.*;
 import fxutils.Images;
 
-public class MainMenuScaledPane extends AbstractScaledImageLayer {
+import static game.MainScene.DEFAULT_WIDTH;
+import static game.MainScene.DEFAULT_HEIGHT;
+public class MainMenuScaledPane extends AbstractImageLayer {
 
 	private final PlayButton playButton;
 	private final QuitButton quitButton;

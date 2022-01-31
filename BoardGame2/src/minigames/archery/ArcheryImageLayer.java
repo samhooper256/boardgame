@@ -10,7 +10,10 @@ import javafx.scene.input.*;
 import javafx.util.Duration;
 import utils.Intersections;
 
-public class ArcheryScaledPane extends AbstractScaledImageLayer implements AcceptsInput {
+import static game.MainScene.DEFAULT_HEIGHT;
+import static game.MainScene.DEFAULT_WIDTH;
+
+public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInput {
 
 	private static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
 	
@@ -18,7 +21,7 @@ public class ArcheryScaledPane extends AbstractScaledImageLayer implements Accep
 	private final Fence fence;
 	private final ImagePane winBackground, winner;
 	
-	public ArcheryScaledPane() {
+	public ArcheryImageLayer() {
 		super();
 		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS);
 		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);

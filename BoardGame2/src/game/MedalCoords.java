@@ -5,8 +5,8 @@ import medals.Medal;
 import players.Player;
 import utils.Points;
 
-import static base.panes.ScaledImageLayer.DEFAULT_WIDTH;
-import static base.panes.ScaledImageLayer.DEFAULT_HEIGHT;
+import static game.MainScene.DEFAULT_WIDTH;
+import static game.MainScene.DEFAULT_HEIGHT;
 import static medals.Medal.*;
 
 /** All {@link Point2D points} are centers. */
