@@ -2,7 +2,8 @@ package game;
 
 import base.*;
 import base.input.GameInput;
-import base.panes.GamePane;
+import base.panes.*;
+import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.scene.*;
 import javafx.scene.input.*;
@@ -15,9 +16,15 @@ public class MainScene extends Scene implements Updatable {
 
 	private static final MainScene INSTANCE = new MainScene();
 	
+	static {
+		INSTANCE.init();
+	}
+	
+	private final DoubleBinding hscaleBinding, wscaleBinding;
 	private final StackPane root;
-	private final FadeLayer fadeLayer;
 	private final Timer timer;
+	
+	private FadeLayer fadeLayer; //can't be final for initialization reasons...
 	
 	public static MainScene get() {
 		return INSTANCE;
@@ -26,6 +33,13 @@ public class MainScene extends Scene implements Updatable {
 	private MainScene() {
 		super(new StackPane());
 		root = (StackPane) getRoot();
+		hscaleBinding = root.heightProperty().divide(ScaledPane.DEFAULT_HEIGHT);
+		wscaleBinding = root.widthProperty().divide(ScaledPane.DEFAULT_WIDTH);
+		timer = new Timer(this::update);
+		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
+	}
+	
+	private void init() {
 		fadeLayer = new FadeLayer();
 		setContent(MainMenuPane.get());
 		this.setOnKeyPressed(this::keyPressed);
@@ -33,8 +47,6 @@ public class MainScene extends Scene implements Updatable {
 		this.setOnMouseClicked(this::mouseClicked);
 		this.setOnMousePressed(this::mousePressed);
 		this.setOnMouseReleased(this::mouseReleased);
-		timer = new Timer(this::update);
-		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
 		timer.start();
 	}
 	
@@ -127,6 +139,22 @@ public class MainScene extends Scene implements Updatable {
 	
 	public GamePane content() {
 		return (GamePane) root.getChildren().get(0);
+	}
+	
+	public DoubleBinding hscaleBinding() {
+		return hscaleBinding;
+	}
+	
+	public DoubleBinding wscaleBinding() {
+		return wscaleBinding;
+	}
+
+	public double hscale() {
+		return hscaleBinding().get();
+	}
+
+	public double wscale() {
+		return wscaleBinding().get();
 	}
 	
 }

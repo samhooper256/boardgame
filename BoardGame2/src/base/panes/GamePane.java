@@ -1,7 +1,6 @@
 package base.panes;
 
 import base.AcceptsInput;
-import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 
@@ -29,15 +28,6 @@ public abstract class GamePane extends StackPane implements AcceptsInput {
 	
 	public FXLayer fxLayer() {
 		return fxLayer;
-	}
-	
-	public DoubleBinding hscaleBinding() {
-		return imageLayer().hscaleBinding();
-	}
-	
-	/** WIDTH (x) scale binding. */
-	public DoubleBinding wscaleBinding() {
-		return imageLayer().wscaleBinding();
 	}
 	
 }

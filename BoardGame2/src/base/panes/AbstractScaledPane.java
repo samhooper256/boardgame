@@ -3,9 +3,9 @@ package base.panes;
 import java.util.*;
 
 import fxutils.Nodes;
-import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.*;
 import javafx.scene.layout.Pane;
+import utils.Screen;
 
 public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 
@@ -14,7 +14,6 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	
 	private final List<ImagePane> trash;
 	private final List<Runnable> endOfUpdateActions;
-	private final DoubleBinding hscaleBinding, wscaleBinding;
 	
 	/** The {@link #gamePane()} must be set after construction. */
 	protected AbstractScaledPane() {
@@ -25,8 +24,6 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 		images = new ArrayList<>();
 		trash = new ArrayList<>();
 		endOfUpdateActions = new ArrayList<>();
-		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
-		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
 		this.gamePane = gamePane;
 	}
 	
@@ -106,13 +103,13 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	
 	@Override
 	public void updateImageSize(ImagePane ip) {
-		Nodes.setMaxSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
-		Nodes.setMinSize(ip, wscale() * ip.getIdealWidth(), hscale() * ip.getIdealHeight());
+		Nodes.setMaxSize(ip, Screen.wscale() * ip.getIdealWidth(), Screen.hscale() * ip.getIdealHeight());
+		Nodes.setMinSize(ip, Screen.wscale() * ip.getIdealWidth(), Screen.hscale() * ip.getIdealHeight());
 	}
 	
 	@Override
 	public void updateImageLayoutCoords(ImagePane ip) {
-		Nodes.setLayout(ip, wscale() * ip.getIdealX(), hscale() * ip.getIdealY());
+		Nodes.setLayout(ip, Screen.wscale() * ip.getIdealX(), Screen.hscale() * ip.getIdealY());
 	}
 	
 	public Point2D idealToLocal(Point2D ideal) {
@@ -124,11 +121,11 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	}
 
 	public double idealXToLocal(double idealX) {
-		return idealX * wscale();
+		return idealX * Screen.wscale();
 	}
 	
 	public double idealYToLocal(double idealY) {
-		return idealY * hscale();
+		return idealY * Screen.hscale();
 	}
 	
 	public Point2D localToIdeal(Point2D local) {
@@ -140,21 +137,11 @@ public abstract class AbstractScaledPane extends Pane implements ScaledPane {
 	}
 
 	public double localXToIdeal(double localX) {
-		return localX / wscale();
+		return localX / Screen.wscale();
 	}
 
 	public double localYToIdeal(double localY) {
-		return localY / hscale();
-	}
-
-	@Override
-	public DoubleBinding hscaleBinding() {
-		return hscaleBinding;
-	}
-
-	@Override
-	public DoubleBinding wscaleBinding() {
-		return wscaleBinding;
+		return localY / Screen.hscale();
 	}
 
 	@Override

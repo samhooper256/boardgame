@@ -2,6 +2,7 @@ package base.panes;
 
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
+import utils.Screen;
 
 /** {@link FXLayer FXLayers} are {@link #isMouseTransparent() mouse transparent} by default. */
 public class FXLayer extends Pane {
@@ -23,8 +24,8 @@ public class FXLayer extends Pane {
 	
 	void addScaleTransform() {
 		Scale s = new Scale(1, 1, 0, 0);
-		s.xProperty().bind(gamePane().wscaleBinding());
-		s.yProperty().bind(gamePane().hscaleBinding());
+		s.xProperty().bind(Screen.wscaleBinding());
+		s.yProperty().bind(Screen.hscaleBinding());
 		getTransforms().add(s);
 	}
 	

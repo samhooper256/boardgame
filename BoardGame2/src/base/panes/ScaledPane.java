@@ -3,7 +3,6 @@ package base.panes;
 import java.util.*;
 
 import base.Updatable;
-import javafx.beans.binding.DoubleBinding;
 import javafx.scene.layout.Pane;
 
 /**<p>{@link ScaledPane ScaledPanes} allow for {@link ImagePane ImagePanes} to be properly displayed on the screen. See
@@ -64,18 +63,6 @@ public interface ScaledPane extends Updatable {
 	double getWidth();
 	
 	double getHeight();
-	
-	DoubleBinding hscaleBinding();
-	
-	DoubleBinding wscaleBinding();
-	
-	default double hscale() {
-		return hscaleBinding().get();
-	}
-
-	default double wscale() {
-		return wscaleBinding().get();
-	}
 	
 	void setGamePane(GamePane gp);
 	
