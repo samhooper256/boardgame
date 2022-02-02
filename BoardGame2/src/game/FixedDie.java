@@ -28,13 +28,13 @@ public final class FixedDie extends ImagePane implements Die {
 	private final int face;
 	/** The coordinates of this {@link FixedDie} when the {@link Board} is showing a {@link RollType#CHOOSE choose}
 	 * roll. */
-	private final double choiceX, choiceY;
+	private final double destXCenter, destYCenter;
 	
-	private FixedDie(int face, double choiceXCenter, double choiceYCenter) {
+	private FixedDie(int face, double destXCenter, double destYCenter) {
 		super(Images.die(face));
 		this.face = face;
-		this.choiceX = choiceXCenter;
-		this.choiceY = choiceYCenter;
+		this.destXCenter = destXCenter;
+		this.destYCenter = destYCenter;
 		setOnMouseClicked(eh -> clickAction());
 	}
 	
@@ -49,12 +49,12 @@ public final class FixedDie extends ImagePane implements Die {
 			Board.get().executeTurn(face);
 	}
 	
-	public double choiceX() {
-		return choiceX - getIdealWidth() / 2;
+	public double destX() {
+		return destXCenter - getIdealWidth() / 2;
 	}
 	
-	public double choiceY() {
-		return choiceY - getIdealHeight() / 2;
+	public double destY() {
+		return destYCenter - getIdealHeight() / 2;
 	}
 	
 }

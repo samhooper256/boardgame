@@ -44,7 +44,7 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private MainScene() {
-		super(new StackPane(), DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+		super(new StackPane(), DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .5);
 		pauseLayer = new PauseLayer();
 		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		paused = false;

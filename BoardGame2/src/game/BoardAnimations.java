@@ -26,8 +26,8 @@ public final class BoardAnimations {
 			Screen.center(d);
 			startKeyValues[i - 1] = new KeyValue(d.idealXProperty(), MainScene.CENTER_X - d.getIdealWidth() / 2);
 			startKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), MainScene.CENTER_Y - d.getIdealHeight() / 2);
-			endKeyValues[i - 1] = new KeyValue(d.idealXProperty(), d.choiceX());
-			endKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), d.choiceY());
+			endKeyValues[i - 1] = new KeyValue(d.idealXProperty(), d.destX());
+			endKeyValues[i - 1 + Die.FACES] = new KeyValue(d.idealYProperty(), d.destY());
 		}
 		KeyFrame start = new KeyFrame(Duration.ZERO, startKeyValues);
 		KeyFrame end = new KeyFrame(TRANSITION_TO_CHOOSE_ROLL_DURATION, eh -> finishAction.run(), endKeyValues);
