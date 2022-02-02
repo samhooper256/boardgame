@@ -3,6 +3,7 @@ package game;
 import base.*;
 import base.input.GameInput;
 import base.panes.*;
+import fxutils.Nodes;
 import game.pause.PauseLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
@@ -32,9 +33,9 @@ public class MainScene extends Scene implements Updatable {
 	//The contentLayer contains the content and (at times) the FadeLayer.
 	private final StackPane root, contentLayer;
 	private final Timer timer;
-	private final PauseLayer pauseLayer;
 	
-	private StackBasedFXLayer glassLayer; //can't be final for initialization reasons...
+	private PauseLayer pauseLayer;
+	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
 	private FadeLayer fadeLayer; //""
 	private boolean paused;
 	
@@ -47,7 +48,6 @@ public class MainScene extends Scene implements Updatable {
 		paused = false;
 		root = (StackPane) getRoot();
 		contentLayer = new StackPane();
-		pauseLayer = new PauseLayer();
 		root.getChildren().addAll(contentLayer);
 		hscaleBinding = root.heightProperty().divide(DEFAULT_HEIGHT);
 		wscaleBinding = root.widthProperty().divide(DEFAULT_WIDTH);
@@ -56,11 +56,10 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void init() {
-		glassLayer = new StackBasedFXLayer();
-		StackPane base = new StackPane();
-		base.prefWidthProperty().bind(glassLayer.widthProperty());
-		base.prefHeightProperty().bind(glassLayer.heightProperty());
-		glassLayer.base().getChildren().add(pauseLayer);
+		pauseLayer = new PauseLayer();
+		glassLayer = new UnaffiliatedFXLayer();
+		glassLayer.getChildren().add(pauseLayer);
+		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		root.getChildren().add(glassLayer);
 		fadeLayer = new FadeLayer();
 		setContent(MainMenuPane.get());
@@ -87,8 +86,12 @@ public class MainScene extends Scene implements Updatable {
 		KeyCode kc = ke.getCode();
 		if(GameInput.isPressed(kc))
 			return;
-		GameInput.keysPressed().add(kc);
-		content().keyPressed(kc);
+		if(kc == KeyCode.F11)
+			Main.stage().setFullScreen(!Main.stage().isFullScreen());
+		else {
+			GameInput.keysPressed().add(kc);
+			content().keyPressed(kc);
+		}
 	}
 	
 	private void keyReleased(KeyEvent ke) {

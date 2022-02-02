@@ -3,6 +3,7 @@ package utils;
 import base.panes.ImagePane;
 import game.MainScene;
 import javafx.beans.binding.DoubleBinding;
+import javafx.scene.transform.Scale;
 
 public final class Screen {
 
@@ -34,6 +35,14 @@ public final class Screen {
 	
 	public static void center(ImagePane ip) {
 		ip.setIdealCenter(MainScene.DEFAULT_WIDTH / 2, MainScene.DEFAULT_HEIGHT / 2);
+	}
+	
+	/** Returns a {@link Scale} that will scale to the screen. */
+	public static Scale getScale() {
+		Scale s = new Scale(1, 1, 0, 0);
+		s.xProperty().bind(Screen.wscaleBinding());
+		s.yProperty().bind(Screen.hscaleBinding());
+		return s;
 	}
 	
 }

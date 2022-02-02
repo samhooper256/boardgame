@@ -99,7 +99,7 @@ public class Player extends ImagePane {
 	}
 	
 	public void reset() {
-		setRollType(RollType.RANDOM);
+		setRollType(RollType.CHOOSE); //TODO to RANDOM
 		medalCounter().reset();
 		passives.clear();
 		current = StartTile.get();
