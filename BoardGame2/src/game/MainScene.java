@@ -33,8 +33,8 @@ public class MainScene extends Scene implements Updatable {
 	//The contentLayer contains the content and (at times) the FadeLayer.
 	private final StackPane root, contentLayer;
 	private final Timer timer;
+	private final PauseLayer pauseLayer;
 	
-	private PauseLayer pauseLayer;
 	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
 	private FadeLayer fadeLayer; //""
 	private boolean paused;
@@ -45,6 +45,8 @@ public class MainScene extends Scene implements Updatable {
 	
 	private MainScene() {
 		super(new StackPane(), DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+		pauseLayer = new PauseLayer();
+		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		paused = false;
 		root = (StackPane) getRoot();
 		contentLayer = new StackPane();
@@ -56,10 +58,8 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void init() {
-		pauseLayer = new PauseLayer();
 		glassLayer = new UnaffiliatedFXLayer();
 		glassLayer.getChildren().add(pauseLayer);
-		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		root.getChildren().add(glassLayer);
 		fadeLayer = new FadeLayer();
 		setContent(MainMenuPane.get());
@@ -140,9 +140,9 @@ public class MainScene extends Scene implements Updatable {
 				Board.get().update(diff);
 		}
 	}
-
-	public void startGame() {
-		Board.get().start();
+	
+	public void startGame(int playerCount) {
+		Board.get().start(playerCount);
 		setContent(Board.get());
 	}
 

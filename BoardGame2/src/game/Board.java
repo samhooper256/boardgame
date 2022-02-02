@@ -17,9 +17,8 @@ public class Board extends GamePane implements Updatable {
 	public static final int TILE_COUNT = 36;
 	public static final Duration FADE_IN_DURATION = Duration.millis(500), FADE_OUT_DURATION = FADE_IN_DURATION;
 	private static final int MAX_PLAYER_COUNT = 4;
-	private static final int PLAYER_COUNT = 4; //TODO remove later - user can pick how many players.
 	
-	private static final Board INSTANCE = new Board(PLAYER_COUNT);
+	private static final Board INSTANCE = new Board();
 	
 	static {
 		INSTANCE.init();
@@ -49,14 +48,10 @@ public class Board extends GamePane implements Updatable {
 	private RollType lastRollType;
 	private boolean readyToRoll;
 	
-	private Board(int playerCount) {
+	private Board() {
 		super(new BoardImageLayer(), new BoardFXLayer());
 		imageLayer().setGamePane(this);
 		fxLayer().setGamePane(this);
-		this.playerCount = playerCount;
-		turn = 1;
-		readyToRoll = false;
-		lastRollType = RollType.RANDOM;
 	}
 	
 	private void init() {
@@ -65,7 +60,8 @@ public class Board extends GamePane implements Updatable {
 	}
 	
 	/** Called immediately before this {@link Board} is shown to the player. */
-	public void start() {
+	public void start(int playerCount) {
+		this.playerCount = playerCount;
 		turn = 1;
 		lastRollType = RollType.RANDOM;
 		readyToRoll = false;
