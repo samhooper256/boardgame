@@ -46,7 +46,7 @@ public final class Images {
 			FENCE2 = get("fence2.png"),
 			ARROW = get("arrow.png"),
 			TARGET = get("Target.png"),
-			ARCHERY_BACKGROUND = get("archerybackground.png"),
+			ARCHERY_BACKGROUND = get("Sand.png"),
 			BACKGROUND = get("BoardBackground.png");
 	
 	/** row is the player, index is the sprite for that player. */
