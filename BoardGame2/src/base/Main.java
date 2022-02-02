@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
-// - block mouse clicks when paused (e.g. in archery minigame)
-// - prevent pausing on main menu.
-// - fix pause screen size
 // - maybe make the FadeLayer (over Board) run on update(long) calls so you can pause while it's playing?
 // - user can select how many players.
 // - add a "back to main menu" button to the pause menu.

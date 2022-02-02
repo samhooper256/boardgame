@@ -58,6 +58,8 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());
+		bringToFront(instructions);
+		bringToFront(pressSpace);
 	}
 	
 	@Override
