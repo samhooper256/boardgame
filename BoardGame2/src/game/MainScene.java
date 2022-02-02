@@ -44,7 +44,7 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private MainScene() {
-		super(new StackPane());
+		super(new StackPane(), DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
 		paused = false;
 		root = (StackPane) getRoot();
 		contentLayer = new StackPane();

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
-// - Screen is super big when you turn off fullscreen.
 // - block mouse clicks when paused (e.g. in archery minigame)
 // - prevent pausing on main menu.
 // - fix pause screen size
