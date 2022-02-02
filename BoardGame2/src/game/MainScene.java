@@ -86,23 +86,24 @@ public class MainScene extends Scene implements Updatable {
 		KeyCode kc = ke.getCode();
 		if(GameInput.isPressed(kc))
 			return;
-		if(kc == KeyCode.F11)
-			Main.stage().setFullScreen(!Main.stage().isFullScreen());
-		else {
-			GameInput.keysPressed().add(kc);
-			content().keyPressed(kc);
-		}
+		GameInput.keysPressed().add(kc);
+		content().keyPressed(kc);
 	}
 	
 	private void keyReleased(KeyEvent ke) {
 		KeyCode kc = ke.getCode();
 		GameInput.keysPressed().remove(kc);
-		if(kc == GameInput.controls().pause()) {
-			if(paused)
-				unpause();
-			else
-				pause();
-			paused = !paused;
+		if(kc == KeyCode.F11) {
+			Main.stage().setFullScreen(!Main.stage().isFullScreen());
+		}
+		else if(kc == GameInput.controls().pause()) {
+			if(ingame()) {
+				if(paused)
+					unpause();
+				else
+					pause();
+				paused = !paused;
+			}
 		}
 		else {
 			content().keyReleased(kc);
@@ -110,16 +111,22 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void mouseClicked(MouseEvent me) {
+		if(paused)
+			return;
 		if(isPlayingMinigame())
 			currentMinigame().mouseClicked(me);
 	}
 	
 	private void mousePressed(MouseEvent me) {
+		if(paused)
+			return;
 		if(isPlayingMinigame())
 			currentMinigame().mousePressed(me);
 	}
 	
 	private void mouseReleased(MouseEvent me) {
+		if(paused)
+			return;
 		if(isPlayingMinigame())
 			currentMinigame().mouseReleased(me);
 	}
@@ -163,7 +170,7 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	public boolean isPlayingMinigame() {
-		return !contentLayer.getChildren().isEmpty() && contentLayer.getChildren().get(0) instanceof Minigame;
+		return !contentLayer.getChildren().isEmpty() && content() instanceof Minigame;
 	}
 	
 	/** If a {@link Minigame} is not {@link #isPlayingMinigame() playing}, returns {@code null}. */
@@ -171,6 +178,11 @@ public class MainScene extends Scene implements Updatable {
 		if(isPlayingMinigame())
 			return (Minigame) content();
 		return null;
+	}
+	
+	/** Returns {@code true} if the player is in the game. (In other words, if the main menu isn't showing). */
+	public boolean ingame() {
+		return content() != MainMenuPane.get();
 	}
 	
 	public GamePane content() {
