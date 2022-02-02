@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
+// - fix pause screen size
 // - maybe make the FadeLayer (over Board) run on update(long) calls so you can pause while it's playing?
 // - user can select how many players.
 // - add a "back to main menu" button to the pause menu.

@@ -2,6 +2,7 @@ package fxutils;
 
 import base.Main;
 import javafx.scene.image.*;
+import players.Player;
 
 /**
  * Utility class for creating {@link javafx.scene.image.Image} objects from resource files and working with
@@ -10,6 +11,8 @@ import javafx.scene.image.*;
  *
  */
 public final class Images {
+	
+	private static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
 	
 	public static final Image
 			EVENT_TILE = get("MedicalTile.png"),
@@ -27,10 +30,10 @@ public final class Images {
 			BRONZE_MEDAL = get("Bronze Medal.png"),
 			WARRIOR_SELECT = get("Warrior Select.png"),
 			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
-			TREE = get("TreePlayer.png"),
-			LYRE = get("LyrePlayer.png"),
-			WARRIOR = get("SwordPlayer.png"),
-			WINGS = get("WingsPlayer.png"),
+			TREE = get("TreePlayer.png"), // player 1
+			LYRE = get("LyrePlayer.png"), //player 2
+			WARRIOR = get("SwordPlayer.png"), //player 3
+			WINGS = get("WingsPlayer.png"), //player 4
 			RING = get("PlayerRing.png"),
 			ARCHERY = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
@@ -43,8 +46,21 @@ public final class Images {
 			FENCE2 = get("fence2.png"),
 			ARROW = get("arrow.png"),
 			TARGET = get("Target.png"),
-			ARCHERY_BACKGROUND = get("Sand.png"),
+			ARCHERY_BACKGROUND = get("archerybackground.png"),
 			BACKGROUND = get("BoardBackground.png");
+	
+	/** row is the player, index is the sprite for that player. */
+	private static final Image[][] MINIGAME_SPRITES = {
+		null,
+		{TREE, TREE, TREE, TREE},
+		{LYRE, LYRE, LYRE, LYRE},
+		{	getSprite("WarriorSprite1.png"),
+			getSprite("WarriorSprite2.png"),
+			getSprite("WarriorSprite3.png"),
+			getSprite("WarriorSprite4.png")
+		},
+		{WINGS, WINGS, WINGS, WINGS}
+	};
 	
 	public static final double PLAYER_IDEAL_SIZE = TREE.getWidth();
 	
@@ -74,14 +90,16 @@ public final class Images {
 		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
 	}
 	
-	public static Image sprite1(int n) { //just returns the player image for players 1, 2, 4
-		switch(n) {
-			case 1: return TREE;
-			case 2: return LYRE;
-			case 3: return WARRIOR_SPRITE1;
-			case 4: return WINGS;
-		}
-		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
+	/** Returns sprite {@code n} for the given player. {@code n} must be between {@code 0} and {@code 3} (inclusive). */
+	public static Image sprite(int player, int n) { 
+		Player.validate(player);
+		return MINIGAME_SPRITES[player][n];
+	}
+	
+	public static Image stillSprite(int player) {
+		if(player == 3)
+			return sprite(3, 3);
+		return player(player);
 	}
 	
 	/**
@@ -106,6 +124,10 @@ public final class Images {
 								boolean preserveRatio,
 								boolean smooth) {
 		return new Image(Main.getResourceStream(filename), requestedWidth, requestedHeight, preserveRatio, smooth);
+	}
+	
+	private static Image getSprite(String filename) {
+		return get(filename, SPRITE_WIDTH, SPRITE_HEIGHT, true, true);
 	}
 	
 	/**

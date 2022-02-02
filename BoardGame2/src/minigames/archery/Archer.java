@@ -11,15 +11,22 @@ import utils.Intersections;
 
 public class Archer extends ImagePane implements Updatable {
 	
+	/** In nanoseconds. */
+	private static final long CYCLE_TIME = (long) .5e9;
 	private static final double SPEED = 250;
+	
+	private final int player;
 	
 	private double xvel, yvel;
 	private boolean active;
+	private long cycleProgress;
 	
 	public Archer(int player) {
-		super(Images.sprite1(player));
-		this.xvel = this.yvel = 0;
-		this.active = true;
+		super(Images.stillSprite(player));
+		this.player = player;
+		xvel = yvel = 0;
+		active = true;
+		cycleProgress = 0;
 	}
 	
 	public void keyPressed(KeyCode code) {
@@ -71,8 +78,16 @@ public class Archer extends ImagePane implements Updatable {
 		if(!isMobile()) {
 			xvel = 0;
 			yvel = 0;
+			setImage(Images.stillSprite(player));
 			return;
 		}
+		cycleProgress += diff;
+		if(cycleProgress >= CYCLE_TIME)
+			cycleProgress %= (long) CYCLE_TIME;
+		if(xvel == 0 && yvel == 0)
+			setImage(Images.stillSprite(player));
+		else
+			setImage(Images.sprite(player, (int) (cycleProgress / (CYCLE_TIME / 4))));
 		double sec = diff / 1e9;
 		double oldX = getIdealX();
 		double newX = oldX + xvel * sec;
