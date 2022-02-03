@@ -31,11 +31,14 @@ public final class Images {
 			GOLD_MEDAL = get("Gold Medal.png"),
 			SILVER_MEDAL = get("Silver Medal.png"),
 			BRONZE_MEDAL = get("Bronze Medal.png"),
+			TREE_SELECT = get("Tree Select.png"),
+			LYRE_SELECT = get("Lyre Select.png"),
 			WARRIOR_SELECT = get("Warrior Select.png"),
+			WINGS_SELECT = get("Wings Select.png"),
 			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
 			TREE = get("TreePlayer.png"), // player 1
 			LYRE = get("LyrePlayer.png"), //player 2
-			WARRIOR = get("SwordPlayer.png"), //player 3
+			WARRIOR = get("WarriorPlayer.png"), //player 3
 			WINGS = get("WingsPlayer.png"), //player 4
 			RING = get("PlayerRing.png"),
 			ARCHERY = get("Archerytile.png"),
@@ -105,7 +108,7 @@ public final class Images {
 		return player(player);
 	}
 	
-	public static Image playerSelect(int playerCount) {
+	public static Image playerCountIcon(int playerCount) {
 		switch(playerCount) {
 			case 2: return SELECT_2;
 			case 3: return SELECT_3;

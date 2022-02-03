@@ -14,7 +14,7 @@ public class SelectIcon extends ImagePane {
 	private final int playerCount;
 	
 	private SelectIcon(int playerCount) {
-		super(Images.playerSelect(playerCount));
+		super(Images.playerCountIcon(playerCount));
 		this.playerCount = playerCount;
 		setOnMouseClicked(eh -> onClick());
 	}
