@@ -31,10 +31,10 @@ public final class Images {
 			GOLD_MEDAL = get("Gold Medal.png"),
 			SILVER_MEDAL = get("Silver Medal.png"),
 			BRONZE_MEDAL = get("Bronze Medal.png"),
-			TREE_SELECT = get("Tree Select.png"),
-			LYRE_SELECT = get("Lyre Select.png"),
-			WARRIOR_SELECT = get("Warrior Select.png"),
-			WINGS_SELECT = get("Wings Select.png"),
+			TREE_AVATAR = get("Tree Avatar.png"),
+			LYRE_AVATAR = get("Lyre Avatar.png"),
+			WARRIOR_AVATAR = get("Warrior Avatar.png"),
+			WINGS_AVATAR = get("Wings Avatar.png"),
 			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
 			TREE = get("TreePlayer.png"), // player 1
 			LYRE = get("LyrePlayer.png"), //player 2
@@ -92,6 +92,17 @@ public final class Images {
 			case 2: return LYRE;
 			case 3: return WARRIOR;
 			case 4: return WINGS;
+		}
+		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
+	}
+	
+	/** Assumes {@code n} between {@code 1} and {@code 4} (inclusive). */
+	public static Image avatar(int n) {
+		switch(n) {
+			case 1: return TREE_AVATAR;
+			case 2: return LYRE_AVATAR;
+			case 3: return WARRIOR_AVATAR;
+			case 4: return WINGS_AVATAR;
 		}
 		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
 	}

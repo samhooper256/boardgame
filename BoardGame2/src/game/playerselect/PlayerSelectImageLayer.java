@@ -3,7 +3,7 @@ package game.playerselect;
 import base.panes.AbstractImageLayer;
 import game.MainScene;
 
-import static game.playerselect.SelectIcon.*;
+import static game.playerselect.CountSelect.*;
 import static game.MainScene.*;
 
 public class PlayerSelectImageLayer extends AbstractImageLayer {

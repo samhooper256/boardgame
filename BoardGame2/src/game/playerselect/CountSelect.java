@@ -4,16 +4,16 @@ import base.panes.ImagePane;
 import fxutils.Images;
 import game.MainScene;
 
-public class SelectIcon extends ImagePane {
+public class CountSelect extends ImagePane {
 
-	public static final SelectIcon
-			SELECT2 = new SelectIcon(2),
-			SELECT3 = new SelectIcon(3),
-			SELECT4 = new SelectIcon(4);
+	public static final CountSelect
+			SELECT2 = new CountSelect(2),
+			SELECT3 = new CountSelect(3),
+			SELECT4 = new CountSelect(4);
 	
 	private final int playerCount;
 	
-	private SelectIcon(int playerCount) {
+	private CountSelect(int playerCount) {
 		super(Images.playerCountIcon(playerCount));
 		this.playerCount = playerCount;
 		setOnMouseClicked(eh -> onClick());
