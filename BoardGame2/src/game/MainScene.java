@@ -22,6 +22,8 @@ public class MainScene extends Scene implements Updatable {
 			CENTER_X = DEFAULT_WIDTH * .5,
 			CENTER_Y = DEFAULT_HEIGHT * .5;
 	
+	private static final double SELECT_LAYER_HIDDEN_Y = 1e6;
+	
 	private static final MainScene INSTANCE = new MainScene();
 	
 	static {
@@ -61,6 +63,7 @@ public class MainScene extends Scene implements Updatable {
 		contentLayer.prefHeightProperty().bind(heightProperty());
 		selectLayer.prefWidthProperty().bind(widthProperty());
 		selectLayer.prefHeightProperty().bind(heightProperty());
+		selectLayer.setLayoutY(SELECT_LAYER_HIDDEN_Y);
 		selectLayer.setVisible(false);
 		root.getChildren().addAll(contentLayer, selectLayer);
 		tpsAnimation = new ToPlayerSelectAnimation();

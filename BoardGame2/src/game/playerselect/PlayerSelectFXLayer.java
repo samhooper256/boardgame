@@ -13,7 +13,7 @@ public class PlayerSelectFXLayer extends FXLayer {
 		playerLabel = new PlayerLabel();
 		playerLabel.layoutXProperty().bind(playerLabel.widthProperty().divide(-2).add(MainScene.CENTER_X));
 		playerLabel.setLayoutY(PLAYER_LABEL_Y);
-		getChildren().add(playerLabel);
+		getChildren().addAll(playerLabel);
 	}
 	
 }

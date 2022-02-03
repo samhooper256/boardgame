@@ -35,6 +35,9 @@ public final class Images {
 			LYRE_AVATAR = get("Lyre Avatar.png"),
 			WARRIOR_AVATAR = get("Warrior Avatar.png"),
 			WINGS_AVATAR = get("Wings Avatar.png"),
+			AVATAR_ACTIVE_BORDER = get("avatar_active_border.png"),
+			AVATAR_INACTIVE_BORDER = get("avatar_inactive_border.png"),
+			COUNT_SELECT_HOVER = get("count_select_hover.png"),
 			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
 			TREE = get("TreePlayer.png"), // player 1
 			LYRE = get("LyrePlayer.png"), //player 2
