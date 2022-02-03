@@ -1,7 +1,6 @@
 package game.board.fx;
 
 import base.panes.*;
-import game.*;
 import game.board.*;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.StackPane;
