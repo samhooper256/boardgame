@@ -105,6 +105,15 @@ public final class Images {
 		return player(player);
 	}
 	
+	public static Image playerSelect(int playerCount) {
+		switch(playerCount) {
+			case 2: return SELECT_2;
+			case 3: return SELECT_3;
+			case 4: return SELECT_4;
+		}
+		throw new IllegalArgumentException(String.format("playerCount = %d", playerCount));
+	}
+	
 	/**
 	 * Returns the image given by {@code filename} by invoking {@link Image#Image(java.io.InputStream)} with
 	 * the appropriate {@link InputStream}. The file indicated by {@code filename} must be in the "resources"

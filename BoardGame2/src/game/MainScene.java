@@ -7,6 +7,7 @@ import fxutils.*;
 import game.board.*;
 import game.mainmenu.MainMenu;
 import game.pause.PauseLayer;
+import game.playerselect.PlayerSelect;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.*;
 import javafx.scene.input.*;
@@ -28,13 +29,15 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private final DoubleBinding hscaleBinding, wscaleBinding;
-	//The root contains the glassLayer (top) and the contentLayer (bottom).
-	//The contentLayer contains the content and (at times) the FadeLayer.
+	//The root contains the selectLayer (0), contentLayer (1), and glassLayer (2).
+	//The contentLayer contains at the bottom either the MainMenu, the Board, or a Minigame. It contains the
+	//BoardFadeLayer on top. The selectLayer contains the PlayerSelect.
 	private final Pane root;
-	private final StackPane contentLayer;
+	private final StackPane contentLayer, selectLayer;
 	private final Timer timer;
 	private final PauseLayer pauseLayer;
 	private final BoardFadeLayer boardFadeLayer; //can't be final for initialization reasons...
+	private final ToPlayerSelectAnimation tpsAnimation;
 	
 	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
 	private boolean paused;
@@ -45,19 +48,24 @@ public class MainScene extends Scene implements Updatable {
 	
 	private MainScene() {
 		super(new Pane(), DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .5);
+		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
+		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
 		pauseLayer = new PauseLayer();
 		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		paused = false;
 		root = (Pane) getRoot();
 		boardFadeLayer = new BoardFadeLayer();
+		selectLayer = new StackPane();
 		contentLayer = new StackPane();
-		root.getChildren().addAll(contentLayer);
 		contentLayer.prefWidthProperty().bind(widthProperty());
 		contentLayer.prefHeightProperty().bind(heightProperty());
-		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
-		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
-		timer = new Timer(this::update);
+		selectLayer.prefWidthProperty().bind(widthProperty());
+		selectLayer.prefHeightProperty().bind(heightProperty());
+		selectLayer.setVisible(false);
+		root.getChildren().addAll(contentLayer, selectLayer);
+		tpsAnimation = new ToPlayerSelectAnimation();
 		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
+		timer = new Timer(this::update);
 	}
 	
 	private void init() {
@@ -65,6 +73,7 @@ public class MainScene extends Scene implements Updatable {
 		glassLayer.getChildren().add(pauseLayer);
 		root.getChildren().add(glassLayer);
 		contentLayer.getChildren().addAll(MainMenu.get(), boardFadeLayer);
+		selectLayer.getChildren().add(PlayerSelect.get());
 		this.setOnKeyPressed(this::keyPressed);
 		this.setOnKeyReleased(this::keyReleased);
 		this.setOnMouseClicked(this::mouseClicked);
@@ -136,9 +145,19 @@ public class MainScene extends Scene implements Updatable {
 		}
 	}
 	
+	public void animateToPlayerSelect() {
+		tpsAnimation.playFromStart();
+	}
+	
+	private void showContentLayer() {
+		selectLayer.setVisible(false);
+		Nodes.setLayout(contentLayer, 0, 0);
+	}
+	
 	public void startGame(int playerCount) {
 		Board.get().start(playerCount);
 		setBaseContent(Board.get());
+		showContentLayer();
 	}
 
 	public void startMinigame(Minigame minigame) {
@@ -201,6 +220,14 @@ public class MainScene extends Scene implements Updatable {
 	public void unpause() {
 		glassLayer.setMouseTransparent(true);
 		pauseLayer().fader().fadeOutAndHide();
+	}
+	
+	StackPane selectLayer() {
+		return selectLayer;
+	}
+	
+	StackPane contentLayer() {
+		return contentLayer;
 	}
 	
 }
