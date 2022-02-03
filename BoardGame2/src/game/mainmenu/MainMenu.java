@@ -1,6 +1,8 @@
 package game.mainmenu;
 
 import base.panes.*;
+import fxutils.Backgrounds;
+import javafx.scene.paint.Color;
 
 public class MainMenu extends GamePane {
 
@@ -12,7 +14,7 @@ public class MainMenu extends GamePane {
 	
 	public MainMenu() {
 		super(new MainMenuImageLayer(), new MainMenuFXLayer());
-		imageLayer().setGamePane(this);
+		setBackground(Backgrounds.of(Color.BURLYWOOD));
 	}
 	
 	@Override

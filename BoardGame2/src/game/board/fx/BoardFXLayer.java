@@ -3,7 +3,6 @@ package game.board.fx;
 import base.panes.*;
 import game.board.*;
 import javafx.geometry.Point2D;
-import javafx.scene.layout.StackPane;
 import medals.*;
 import players.Player;
 
@@ -11,7 +10,6 @@ public class BoardFXLayer extends FXLayer {
 	
 	/** row=medal, col=player*/
 	private final MedalLabel[][] medals = new MedalLabel[Medal.count()][Player.maxCount() + 1];
-	private final StackPane stack;
 	
 	public BoardFXLayer() {
 		for(int mindex = 0; mindex < medals.length; mindex++) {
@@ -35,10 +33,6 @@ public class BoardFXLayer extends FXLayer {
 			};
 			c.addChangeListener(changeListener);
 		}
-		stack = new StackPane();
-		stack.prefWidthProperty().bind(widthProperty());
-		stack.prefHeightProperty().bind(heightProperty());
-		getChildren().addAll(stack);
 	}
 	
 	public void start() {

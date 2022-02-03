@@ -9,13 +9,13 @@ import static game.MainScene.*;
 public class PlayerSelectImageLayer extends AbstractImageLayer {
 
 	private static final double
-			SELECT_HEIGHT = MainScene.DEFAULT_HEIGHT * .55,
+			SELECT_Y = MainScene.DEFAULT_HEIGHT * .55,
 			SELECT_SEPARATION = 128 + 32;
 	
 	public PlayerSelectImageLayer() {
-		SELECT2.setIdealCenter(CENTER_X - SELECT_SEPARATION, SELECT_HEIGHT);
-		SELECT3.setIdealCenter(CENTER_X, SELECT_HEIGHT);
-		SELECT4.setIdealCenter(CENTER_X + SELECT_SEPARATION, SELECT_HEIGHT);
+		SELECT2.setIdealCenter(CENTER_X - SELECT_SEPARATION, SELECT_Y);
+		SELECT3.setIdealCenter(CENTER_X, SELECT_Y);
+		SELECT4.setIdealCenter(CENTER_X + SELECT_SEPARATION, SELECT_Y);
 		addAll(SELECT2, SELECT3, SELECT4);
 	}
 	
