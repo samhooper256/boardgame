@@ -1,8 +1,8 @@
-package mainmenu;
+package game.mainmenu;
 
-import base.MainScene;
 import base.panes.ImagePane;
 import fxutils.Images;
+import game.MainScene;
 
 public class PlayButton extends ImagePane {
 

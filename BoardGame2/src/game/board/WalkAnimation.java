@@ -1,4 +1,4 @@
-package game;
+package game.board;
 
 import javafx.animation.*;
 import javafx.animation.Animation.Status;

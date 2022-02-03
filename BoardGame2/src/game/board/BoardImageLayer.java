@@ -1,10 +1,11 @@
-package game;
+package game.board;
 
 import java.util.*;
 
 import base.*;
 import base.panes.*;
 import fxutils.*;
+import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import medals.*;

@@ -1,4 +1,4 @@
-package mainmenu;
+package game.mainmenu;
 
 import base.Main;
 import base.panes.ImagePane;

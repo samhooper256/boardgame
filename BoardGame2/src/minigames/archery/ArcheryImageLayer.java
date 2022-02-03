@@ -1,13 +1,14 @@
 package minigames.archery;
 
-import static base.MainScene.DEFAULT_HEIGHT;
-import static base.MainScene.DEFAULT_WIDTH;
+import static game.MainScene.DEFAULT_HEIGHT;
+import static game.MainScene.DEFAULT_WIDTH;
 
 import java.util.Collection;
 
 import base.*;
 import base.panes.*;
 import fxutils.Images;
+import game.MainScene;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import utils.Intersections;

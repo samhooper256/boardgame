@@ -1,6 +1,6 @@
 package events;
 
-import game.Board;
+import game.board.Board;
 import players.*;
 
 public class AthenasBlessingEvent implements Event {

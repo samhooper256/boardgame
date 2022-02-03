@@ -17,7 +17,8 @@ public abstract class GamePane extends StackPane implements AcceptsInput {
 	public GamePane(ImageLayer imageLayer, FXLayer fxLayer) {
 		this.imageLayer = imageLayer;
 		this.fxLayer = fxLayer;
-		fxLayer.setGamePane(this);
+		imageLayer().setGamePane(this);
+		fxLayer().setGamePane(this);
 		getChildren().addAll((Node) imageLayer, fxLayer);
 	}
 	

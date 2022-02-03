@@ -3,6 +3,7 @@ package base;
 import java.io.*;
 import java.util.*;
 
+import game.MainScene;
 import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCombination;

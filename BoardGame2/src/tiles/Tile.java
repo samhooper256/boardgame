@@ -3,7 +3,7 @@ package tiles;
 import java.util.*;
 
 import base.panes.ImagePane;
-import game.Board;
+import game.board.Board;
 import javafx.scene.image.Image;
 import players.Player;
 

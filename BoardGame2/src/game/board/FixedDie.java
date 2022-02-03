@@ -1,8 +1,8 @@
-package game;
+package game.board;
 
-import base.MainScene;
 import base.panes.*;
 import fxutils.Images;
+import game.MainScene;
 import players.RollType;
 
 public final class FixedDie extends ImagePane implements Die {

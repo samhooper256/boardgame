@@ -4,6 +4,7 @@ import java.util.*;
 
 import fxutils.Fader;
 import game.*;
+import game.board.Board;
 import javafx.animation.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;

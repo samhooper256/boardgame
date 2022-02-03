@@ -1,4 +1,4 @@
-package game.fx;
+package game.board.fx;
 
 import fxutils.Fonts;
 import javafx.scene.control.Label;

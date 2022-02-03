@@ -1,7 +1,7 @@
-package game;
+package game.board;
 
-import base.MainScene;
 import fxutils.*;
+import game.MainScene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;

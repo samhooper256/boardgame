@@ -1,7 +1,7 @@
 package minigames.archery.fx;
 
-import base.MainScene;
 import base.panes.*;
+import game.MainScene;
 import minigames.archery.ArcheryMinigame;
 
 public class ArcheryFXLayer extends FXLayer {

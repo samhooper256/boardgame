@@ -1,6 +1,6 @@
 package minigames.archery.fx;
 
-import base.MainScene;
+import game.MainScene;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
 

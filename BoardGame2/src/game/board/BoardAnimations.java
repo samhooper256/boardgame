@@ -1,6 +1,6 @@
-package game;
+package game.board;
 
-import base.MainScene;
+import game.MainScene;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.util.Duration;

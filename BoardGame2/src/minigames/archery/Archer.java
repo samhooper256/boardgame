@@ -4,6 +4,7 @@ import base.*;
 import base.input.*;
 import base.panes.*;
 import fxutils.Images;
+import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import utils.Intersections;

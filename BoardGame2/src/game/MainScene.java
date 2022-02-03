@@ -1,16 +1,16 @@
-package base;
+package game;
 
+import base.*;
 import base.input.GameInput;
 import base.panes.*;
 import fxutils.*;
-import game.*;
+import game.board.*;
+import game.mainmenu.MainMenu;
 import game.pause.PauseLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import mainmenu.*;
 import minigames.*;
 
 public class MainScene extends Scene implements Updatable {
@@ -51,7 +51,6 @@ public class MainScene extends Scene implements Updatable {
 		root = (Pane) getRoot();
 		boardFadeLayer = new BoardFadeLayer();
 		contentLayer = new StackPane();
-		contentLayer.setBackground(Backgrounds.of(Color.GREEN));
 		root.getChildren().addAll(contentLayer);
 		contentLayer.prefWidthProperty().bind(widthProperty());
 		contentLayer.prefHeightProperty().bind(heightProperty());
