@@ -2,15 +2,15 @@ package mainmenu;
 
 import base.panes.*;
 
-public class MainMenuPane extends GamePane {
+public class MainMenu extends GamePane {
 
-	private static final MainMenuPane INSTANCE = new MainMenuPane();
+	private static final MainMenu INSTANCE = new MainMenu();
 	
-	public static MainMenuPane get() {
+	public static MainMenu get() {
 		return INSTANCE;
 	}
 	
-	public MainMenuPane() {
+	public MainMenu() {
 		super(new MainMenuImageLayer(), new MainMenuFXLayer());
 		imageLayer().setGamePane(this);
 	}

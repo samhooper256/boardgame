@@ -5,8 +5,8 @@ import base.panes.*;
 public class MainMenuFXLayer extends FXLayer {
 	
 	@Override
-	public MainMenuPane gamePane() {
-		return (MainMenuPane) super.gamePane();
+	public MainMenu gamePane() {
+		return (MainMenu) super.gamePane();
 	}
 	
 }

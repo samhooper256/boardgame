@@ -3,12 +3,13 @@ package game;
 import base.*;
 import base.input.GameInput;
 import base.panes.*;
-import fxutils.Nodes;
+import fxutils.*;
 import game.pause.PauseLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import mainmenu.*;
 import minigames.*;
 
@@ -50,6 +51,7 @@ public class MainScene extends Scene implements Updatable {
 		root = (Pane) getRoot();
 		boardFadeLayer = new BoardFadeLayer();
 		contentLayer = new StackPane();
+		contentLayer.setBackground(Backgrounds.of(Color.GREEN));
 		root.getChildren().addAll(contentLayer);
 		contentLayer.prefWidthProperty().bind(widthProperty());
 		contentLayer.prefHeightProperty().bind(heightProperty());
@@ -63,7 +65,7 @@ public class MainScene extends Scene implements Updatable {
 		glassLayer = new UnaffiliatedFXLayer();
 		glassLayer.getChildren().add(pauseLayer);
 		root.getChildren().add(glassLayer);
-		contentLayer.getChildren().addAll(MainMenuPane.get(), boardFadeLayer);
+		contentLayer.getChildren().addAll(MainMenu.get(), boardFadeLayer);
 		this.setOnKeyPressed(this::keyPressed);
 		this.setOnKeyReleased(this::keyReleased);
 		this.setOnMouseClicked(this::mouseClicked);
@@ -165,7 +167,7 @@ public class MainScene extends Scene implements Updatable {
 	
 	/** Returns {@code true} if the player is in the game. (In other words, if the main menu isn't showing). */
 	public boolean ingame() {
-		return baseContent() != MainMenuPane.get();
+		return baseContent() != MainMenu.get();
 	}
 	
 	public GamePane baseContent() {
