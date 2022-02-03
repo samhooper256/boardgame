@@ -1,5 +1,6 @@
 package game;
 
+import base.MainScene;
 import fxutils.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;

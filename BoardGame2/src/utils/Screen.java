@@ -1,7 +1,7 @@
 package utils;
 
+import base.MainScene;
 import base.panes.ImagePane;
-import game.MainScene;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.transform.Scale;
 

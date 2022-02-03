@@ -1,9 +1,9 @@
 package utils;
 
-import javafx.geometry.Point2D;
+import static base.MainScene.DEFAULT_HEIGHT;
+import static base.MainScene.DEFAULT_WIDTH;
 
-import static game.MainScene.DEFAULT_WIDTH;
-import static game.MainScene.DEFAULT_HEIGHT;
+import javafx.geometry.Point2D;
 
 public final class Points {
 

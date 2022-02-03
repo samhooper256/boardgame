@@ -1,9 +1,9 @@
-package game;
+package base;
 
-import base.*;
 import base.input.GameInput;
 import base.panes.*;
 import fxutils.*;
+import game.*;
 import game.pause.PauseLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.*;

@@ -1,5 +1,6 @@
 package game;
 
+import base.MainScene;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.util.Duration;
