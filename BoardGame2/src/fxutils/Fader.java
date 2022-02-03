@@ -13,13 +13,15 @@ public final class Fader {
 	private final FadeTransition in, out;
 	
 	private Runnable fadeOutFinishedAction;
+	private Runnable fadeInFinishedAction;
 	
 	public Fader(Node node) {
-		this(node, null);
+		this(node, null, null);
 	}	
 	
-	public Fader(Node node, Runnable fadeOutFinishedAction) {
+	public Fader(Node node, Runnable fadeInFinishedAction, Runnable fadeOutFinishedAction) {
 		this.node = node;
+		this.fadeInFinishedAction = fadeInFinishedAction;
 		this.fadeOutFinishedAction = fadeOutFinishedAction;
 		out = new FadeTransition(Duration.ZERO, node);
 		out.setFromValue(1);
@@ -32,6 +34,10 @@ public final class Fader {
 		in = new FadeTransition(Duration.ZERO, node);
 		in.setFromValue(0);
 		in.setToValue(1);
+		in.setOnFinished(eh -> {
+			//node is already visible and opacity is 1.
+			run(fadeInFinishedAction());
+		});
 	}
 	
 	public Node node() {
@@ -59,15 +65,17 @@ public final class Fader {
 	/** Fades out the {@link #node()}, then sets its {@link #visibleProperty() visibility} to {@code false}, sets its
 	 * {@link #opacityProperty()} to {@code 1}, and runs the {@link #fadeOutFinishedAction()}. */
 	public void fadeOutAndHide() {
+		stop();
 		node.setOpacity(1);
 		node.setVisible(true);
 		out.playFromStart();
 	}
 	
-	public void appear() {
+	public void fadeIn() {
 		stop();
-		node.setOpacity(1);
+		node.setOpacity(0);
 		node.setVisible(true);
+		in.playFromStart();
 	}
 	
 	public void disappear() {
@@ -76,11 +84,10 @@ public final class Fader {
 		node.setOpacity(1);
 	}
 	
-	public void fadeIn() {
+	public void appear() {
 		stop();
-		node.setOpacity(0);
+		node.setOpacity(1);
 		node.setVisible(true);
-		in.playFromStart();
 	}
 	
 	public void stop() {
@@ -97,8 +104,21 @@ public final class Fader {
 		return fadeOutFinishedAction;
 	}
 	
+	public Fader setFadeInFinishedAction(Runnable fadeInFinishedAction) {
+		this.fadeInFinishedAction = fadeInFinishedAction;
+		return this;
+	}
+	
+	public Runnable fadeInFinishedAction() {
+		return fadeInFinishedAction;
+	}
+	
 	public boolean isFadingOut() {
 		return out.getStatus() == Status.RUNNING;
+	}
+	
+	public boolean isFadingIn() {
+		return in.getStatus() == Status.RUNNING;
 	}
 	
 	/** Returns the equivalent of {@code (node().isVisible() && node().getOpacity() > 0)}. In other words, returns

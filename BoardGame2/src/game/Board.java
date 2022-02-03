@@ -7,7 +7,7 @@ import base.panes.*;
 import events.Event;
 import game.fx.BoardFXLayer;
 import javafx.scene.input.KeyCode;
-import javafx.util.Duration;
+import medals.MedalReward;
 import minigames.MinigameResult;
 import players.*;
 import tiles.Tile;
@@ -15,7 +15,7 @@ import tiles.Tile;
 public class Board extends GamePane implements Updatable {
 
 	public static final int TILE_COUNT = 36;
-	public static final Duration FADE_IN_DURATION = Duration.millis(500), FADE_OUT_DURATION = FADE_IN_DURATION;
+	
 	private static final int MAX_PLAYER_COUNT = 4;
 	
 	private static final Board INSTANCE = new Board();
@@ -56,7 +56,6 @@ public class Board extends GamePane implements Updatable {
 	
 	private void init() {
 		imageLayer().init();
-		fxLayer().init();
 	}
 	
 	/** Called immediately before this {@link Board} is shown to the player. */
@@ -68,6 +67,7 @@ public class Board extends GamePane implements Updatable {
 		Player.resetAll();
 		setupDie();
 		imageLayer().start();
+		fxLayer().start();
 	}
 	
 	public int turn() {
@@ -139,7 +139,10 @@ public class Board extends GamePane implements Updatable {
 		readyToRoll = true;
 	}
 	
+	/** Called immediately after the {@link BoardFadeLayer} disappears and the user is looking at the {@link Board}. */
 	public void minigameFinished(MinigameResult mr) {
+		for(MedalReward reward : mr.rewards())
+			reward.apply();
 		incrementTurn();
 	}
 	

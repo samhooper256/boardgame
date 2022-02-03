@@ -41,9 +41,9 @@ public class BoardFXLayer extends FXLayer {
 		getChildren().addAll(stack);
 	}
 	
-	public void init() {
+	public void start() {
 		for(int mindex = 0; mindex < medals.length; mindex++)
-			for(int player = 1; player <= Board.get().playerCount(); player++)
+			for(int player = 1; player <= gamePane().playerCount(); player++)
 				medals[mindex][player].setVisible(true);
 	}
 	

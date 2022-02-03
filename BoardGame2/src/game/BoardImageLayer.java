@@ -18,6 +18,10 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);
 	
 	private final Ring[] rings; //index i is the ring for player i;
+
+	/** Maps each player number to a {@link List} of all the {@link ImagePane} that make up that player's medal area.
+	 * (Specifically, each list will contain four images: three medals and a player icon).*/
+	private final Map<Integer, List<ImagePane>> medalAreaImages;
 	
 	private List<Tile> tileOrder;
 	
@@ -25,6 +29,8 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		this.rings = new Ring[Board.maxPlayerCount() + 1];
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i] = new Ring();
+		medalAreaImages = new HashMap<>();
+		createMedalAreas();
 	}
 	
 	void init() {
@@ -37,7 +43,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			add(rings[i]);
 		addPlayers();
 		movePlayersToStart();
-		addMedalAreas();
 		add(die);
 		rings[1].lockCoordinatesTo(Player.get(1));
 	}
@@ -81,8 +86,8 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		return order;
 	}
 	
-	private void addMedalAreas() {
-		for(int i = 1; i <= Board.get().playerCount(); i++) {
+	private void createMedalAreas() {
+		for(int i = 1; i <= Board.maxPlayerCount(); i++) {
 			MedalCoords coords = MedalCoords.forPlayer(i);
 			ImagePane p = new ImagePane(Images.player(i));
 			MedalDisplay gold = new MedalDisplay(Medal.GOLD, .25);
@@ -92,7 +97,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			gold.setIdealCenter(coords.gold());
 			silver.setIdealCenter(coords.silver());
 			bronze.setIdealCenter(coords.bronze());
-			addAll(p, gold, silver, bronze);
+			medalAreaImages.put(i, Arrays.asList(p, gold, silver, bronze));
 		}
 	}
 	
@@ -100,9 +105,21 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		removePlayers();
 		addPlayers();
 		movePlayersToStart();
+		removeMedalAreas();
+		addMedalAreas();
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].fader().disappear();
 		rings[1].fader().fadeIn();
+	}
+	
+	private void removeMedalAreas() {
+		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+			removeAll(medalAreaImages.get(i));
+	}
+	
+	private void addMedalAreas() {
+		for(int i = 1; i <= gamePane().playerCount(); i++)
+			addAll(medalAreaImages.get(i));
 	}
 	
 	@Override

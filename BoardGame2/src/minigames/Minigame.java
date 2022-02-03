@@ -2,7 +2,7 @@ package minigames;
 
 import base.*;
 import base.panes.*;
-import game.MainScene;
+import game.*;
 
 public abstract class Minigame extends GamePane implements Updatable {
 	
@@ -12,8 +12,9 @@ public abstract class Minigame extends GamePane implements Updatable {
 		fxLayer.setGamePane(this);
 	}
 	
-	/** Assumes this {@link Minigame} has already been set as the
-	 * {@link MainScene#setRootBase(javafx.scene.layout.Pane) base of the MainScene root}.*/
+	/** Assumes this {@link Minigame} has already been set as the {@link MainScene#baseContent()}. This method is
+	 * called at the "peak" of the {@link BoardFadeLayer BoardFadeLayer's} transition (that is, when the player cannot
+	 * see the minigame or the board). */
 	public abstract void start();
 	
 }

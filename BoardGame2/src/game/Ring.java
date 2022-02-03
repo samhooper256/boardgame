@@ -1,6 +1,6 @@
 package game;
 
-import base.Updatable;
+import base.*;
 import base.panes.*;
 import fxutils.Images;
 import javafx.util.Duration;
@@ -12,8 +12,8 @@ public class Ring extends FadeableImagePane implements Updatable {
 	private static final double ANGULAR_VELOCITY = 15; //degrees/sec
 	
 	private static final Duration
-			FADE_OUT_DURATION = Board.FADE_OUT_DURATION,
-			FADE_IN_DURATION = Board.FADE_IN_DURATION;
+			FADE_OUT_DURATION = BoardFadeLayer.FADE_OUT_DURATION,
+			FADE_IN_DURATION = BoardFadeLayer.FADE_IN_DURATION;
 	
 	public Ring() {
 		super(Images.RING, Images.RING.getWidth() * 1.5, Images.RING.getHeight() * 1.5);
