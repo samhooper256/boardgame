@@ -3,7 +3,6 @@ package minigames.archery;
 import java.util.*;
 
 import fxutils.Fader;
-import game.*;
 import game.board.Board;
 import javafx.animation.*;
 import javafx.scene.input.*;
