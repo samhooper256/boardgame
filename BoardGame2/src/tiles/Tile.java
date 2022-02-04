@@ -17,7 +17,7 @@ public abstract class Tile extends ImagePane {
 	}
 	
 	public int index() {
-		return Board.sp().tileIndex(this);
+		return Board.il().tileIndex(this);
 	}
 
 	/** The returned {@link Set} is modifiable. */

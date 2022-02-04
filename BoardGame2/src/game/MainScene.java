@@ -54,7 +54,7 @@ public class MainScene extends Scene implements Updatable {
 		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
 		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
 		pauseLayer = new PauseLayer();
-		pauseLayer.fader().setFadeOutFinishedAction(() -> {paused = false; });
+		pauseLayer.fader().setFadeOutFinishedAction(this::unpauseFinished);
 		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		paused = false;
 		root = (Pane) getRoot();
@@ -193,6 +193,15 @@ public class MainScene extends Scene implements Updatable {
 		return null;
 	}
 	
+	/** @throws IllegalStateException if not {@link #ingame()}. */
+	public void returnToMainMenu() {
+		if(!ingame())
+			throw new IllegalStateException("Already on the main menu");
+		if(paused)
+			unpauseInstantly();
+		setBaseContent(MainMenu.get());
+	}
+	
 	/** Returns {@code true} if the player is in the game. (In other words, if the main menu isn't showing). */
 	public boolean ingame() {
 		return baseContent() != MainMenu.get();
@@ -234,8 +243,17 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	public void unpause() {
+		pauseLayer().fader().fadeOutAndHide(); //the fade out finished action will call unpauseFinished()
+	}
+	
+	private void unpauseFinished() {
 		glassLayer.setMouseTransparent(true);
-		pauseLayer().fader().fadeOutAndHide();
+		paused = false;
+	}
+	
+	public void unpauseInstantly() {
+		pauseLayer().fader().disappear();
+		unpauseFinished();
 	}
 	
 	StackPane selectLayer() {

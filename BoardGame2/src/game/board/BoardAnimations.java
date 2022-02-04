@@ -17,6 +17,32 @@ public final class BoardAnimations {
 		
 	}
 	
+	/** Does not do any animations.  */
+	public static void setupFirstDie(RollType rollType) {
+		removeAllDice();
+		setupWithoutAnimation(rollType);
+	}
+	
+	private static void removeAllDice() {
+		Board.il().remove(RollableDie.get());
+		removeFixedDice();
+	}
+	
+	private static void removeFixedDice() {
+		for(int i = 1; i <= Die.FACES; i++)
+			Board.il().remove(FixedDie.showing(i));
+	}
+	
+	private static void addFixedDice() {
+		for(int i = 1; i <= Die.FACES; i++)
+			Board.il().add(FixedDie.showing(i));
+	}
+
+	private static void setFixedDieToDestPositions() {
+		for(int i = 1; i <= Die.FACES; i++)
+			FixedDie.showing(i).moveToDest();
+	}
+	
 	/** Assumes that the last roll was {@link RollType#RANDOM}. */
 	public static void transitionToChooseRoll(Runnable finishAction) {
 		int topFace = RollableDie.get().face();
@@ -33,18 +59,18 @@ public final class BoardAnimations {
 		KeyFrame start = new KeyFrame(Duration.ZERO, startKeyValues);
 		KeyFrame end = new KeyFrame(TRANSITION_TO_CHOOSE_ROLL_DURATION, eh -> finishAction.run(), endKeyValues);
 		timeline.getKeyFrames().addAll(start, end);
-		Board.sp().remove(RollableDie.get());
+		Board.il().remove(RollableDie.get());
 		for(int i = 1; i <= Die.FACES; i++)
 			if(i != topFace)
-				Board.sp().add(FixedDie.showing(i));
-		Board.sp().add(FixedDie.showing(topFace));
+				Board.il().add(FixedDie.showing(i));
+		Board.il().add(FixedDie.showing(topFace));
 		timeline.playFromStart();
 	}
 	
 	/** Assumes that the last roll was {@link RollType#CHOOSE}. */
 	public static void transitionToRandomRoll(Runnable finishAction) {
 		RollableDie.get().setFace(1);
-		Board.sp().bringToFront(FixedDie.showing(1));
+		Board.il().bringToFront(FixedDie.showing(1));
 		Timeline timeline = new Timeline();
 		KeyValue[] startKeyValues = new KeyValue[Die.FACES * 2], endKeyValues = new KeyValue[Die.FACES * 2];
 		for(int i = 1; i <= Die.FACES; i++) {
@@ -63,10 +89,25 @@ public final class BoardAnimations {
 	
 	private static EventHandler<ActionEvent> buildTransitionToRandomRollFinish(Runnable finishAction) {
 		return eh -> {
-			Board.sp().add(RollableDie.get());
-			for(int i = 1; i <= Die.FACES; i++)
-				Board.sp().remove(FixedDie.showing(i));
+			Board.il().add(RollableDie.get());
+			removeFixedDice();
 			finishAction.run();
 		};
 	}
+	
+	/** Assumes there are no die already on the screen. */
+	private static void setupWithoutAnimation(RollType rollType) {
+		switch(rollType) {
+			case RANDOM:
+				Board.il().add(RollableDie.get());
+				break;
+			case CHOOSE:
+				setFixedDieToDestPositions();
+				addFixedDice();
+				break;
+			default: throw new UnsupportedOperationException(String.format("RollType: %s", rollType));
+		}
+	}
+	
+
 }

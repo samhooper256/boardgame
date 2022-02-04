@@ -31,7 +31,7 @@ public class Board extends GamePane implements Updatable {
 		return INSTANCE;
 	}
 	
-	public static BoardImageLayer sp() {
+	public static BoardImageLayer il() {
 		return get().imageLayer();
 	}
 	
@@ -65,11 +65,10 @@ public class Board extends GamePane implements Updatable {
 	public void start(int playerCount) {
 		this.playerCount = playerCount;
 		turn = 1;
-		lastRollType = RollType.RANDOM;
 		readyToRoll = false;
 		currentEvent = null;
 		Player.resetAll();
-		setupDie();
+		setupFirstDie();
 		imageLayer().start();
 		fxLayer().start();
 	}
@@ -101,6 +100,13 @@ public class Board extends GamePane implements Updatable {
 			turn++;
 		imageLayer().turnIncrementedTo(turn());
 		setupDie();
+	}
+	
+	private void setupFirstDie() {
+		RollType firstRollType = currentPlayer().rollType();
+		BoardAnimations.setupFirstDie(firstRollType);
+		lastRollType = firstRollType;
+		readyToRoll = true;
 	}
 	
 	private void setupDie() {

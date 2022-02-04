@@ -75,4 +75,14 @@ public final class RollableDie extends ImagePane implements Die {
 		return currentFace;
 	}
 	
+	@Override
+	public void setIdealX(double idealX) {
+		super.setIdealX(idealX);
+	}
+	
+	@Override
+	public void setIdealY(double idealY) {
+		super.setIdealY(idealY);
+	}
+	
 }

@@ -39,15 +39,18 @@ public final class FixedDie extends ImagePane implements Die {
 		setOnMouseClicked(eh -> clickAction());
 	}
 	
-	/** Returns {@code 0} for the base die. */
-	@Override
-	public int face() {
-		return face;
-	}
-
 	public void clickAction() {
 		if(Board.get().readyToRoll())
 			Board.get().executeTurn(face);
+	}
+
+	public void moveToDest() {
+		setIdealCoords(destX(), destY());
+	}
+	
+	@Override
+	public int face() {
+		return face;
 	}
 	
 	public double destX() {
@@ -57,5 +60,5 @@ public final class FixedDie extends ImagePane implements Die {
 	public double destY() {
 		return destYCenter - getIdealHeight() / 2;
 	}
-	
+
 }

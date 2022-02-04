@@ -12,6 +12,7 @@ import javafx.util.Duration;
 import medals.*;
 import players.Player;
 import tiles.*;
+import utils.Screen;
 
 public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 
@@ -37,7 +38,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	
 	void init() {
 		RollableDie die = RollableDie.get();
-		die.setIdealCenter(MainScene.CENTER_X, MainScene.CENTER_Y);
+		Screen.center(die);
 		tileOrder = generateTileOrder();
 		add(new ImagePane(Images.BACKGROUND));
 		placeTiles();
@@ -45,7 +46,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			add(rings[i]);
 		addPlayers();
 		movePlayersToStart();
-		add(die);
 		rings[1].lockCoordinatesTo(Player.get(1));
 	}
 	
