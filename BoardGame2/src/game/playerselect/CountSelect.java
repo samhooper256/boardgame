@@ -41,7 +41,7 @@ public class CountSelect extends ImagePane {
 	}
 	
 	private void onClick() {
-		MainScene.get().transitionToNewGame(playerCount);
+		MainScene.get().requestTransitionToNewGame(playerCount);
 	}
 
 	private void mouseEntered() {

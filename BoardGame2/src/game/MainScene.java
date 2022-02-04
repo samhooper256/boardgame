@@ -164,7 +164,12 @@ public class MainScene extends Scene implements Updatable {
 		selectLayer.setLayoutY(SELECT_LAYER_HIDDEN_Y);
 	}
 	
-	public void transitionToNewGame(int playerCount) {
+	public void requestTransitionToNewGame(int playerCount) {
+		if(!playerSelectFade.fader().isFading())
+			transitionToNewGame(playerCount);
+	}
+	
+	private void transitionToNewGame(int playerCount) {
 		playerSelectFade.transitionToNewGame(playerCount);
 	}
 	
