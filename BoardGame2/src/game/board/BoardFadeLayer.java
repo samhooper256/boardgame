@@ -1,30 +1,22 @@
 package game.board;
 
+import base.panes.FadeLayer;
 import fxutils.*;
 import game.MainScene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import minigames.*;
 
-public class BoardFadeLayer extends StackPane implements Fadeable {
+public class BoardFadeLayer extends FadeLayer implements Fadeable {
 	
 	public static final Duration FADE_IN_DURATION = Duration.millis(500), FADE_OUT_DURATION = FADE_IN_DURATION;
-	
-	private final Fader fader;
 	
 	private Minigame minigame;
 	private MinigameResult result;
 	private boolean toMinigame;
 	
 	public BoardFadeLayer() {
-		fader = new Fader(this).setInDuration(FADE_IN_DURATION).setOutDuration(FADE_OUT_DURATION)
-				.setFadeInFinishedAction(this::peakAction).setFadeOutFinishedAction(this::endAction);
-		setMouseTransparent(true);
-		setBackground(Backgrounds.of(Color.WHITE));
-		Nodes.setPrefSize(this, Double.MAX_VALUE);
+		super(FADE_IN_DURATION, FADE_OUT_DURATION);
 		toMinigame = true;
-		fader().disappear();
 	}
 	
 	/** Returns {@code this}. */
@@ -33,7 +25,8 @@ public class BoardFadeLayer extends StackPane implements Fadeable {
 		return this;
 	}
 	
-	private void peakAction() {
+	@Override
+	public void peakAction() {
 		if(toMinigame) {
 			minigame.start();
 			MainScene.get().setBaseContent(minigame);
@@ -41,17 +34,12 @@ public class BoardFadeLayer extends StackPane implements Fadeable {
 		else {
 			MainScene.get().setBaseContent(Board.get());
 		}
-		fader().fadeOutAndHide();
-	}
-	
-	private void endAction() {
-		if(!toMinigame)
-			Board.get().minigameFinished(result);
 	}
 	
 	@Override
-	public Fader fader() {
-		return fader;
+	public void endAction() {
+		if(!toMinigame)
+			Board.get().minigameFinished(result);
 	}
 	
 	public void toMinigame(Minigame minigame) {
