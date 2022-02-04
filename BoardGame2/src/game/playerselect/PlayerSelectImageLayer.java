@@ -1,7 +1,7 @@
 package game.playerselect;
 
 import base.panes.AbstractImageLayer;
-import players.Player;
+import players.*;
 
 import static game.playerselect.CountSelect.*;
 import static game.MainScene.*;
@@ -13,6 +13,7 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 			AVATAR_X_DIST = DEFAULT_WIDTH * .35;
 	
 	private final CountSelectHover[] hovers;
+	private final PlayerIcon[] icons;
 	
 	public PlayerSelectImageLayer() {
 		Avatar.forPlayer(1).setIdealCenter(CENTER_X - AVATAR_X_DIST, CENTER_Y - AVATAR_Y_DIST);
@@ -26,10 +27,16 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 			hovers[i] = new CountSelectHover();
 		for(int count = 2; count <= Player.maxCount(); count++)
 			hover(count).setIdealCenter(CountSelect.forCount(count).getIdealCenter());
+		icons = new PlayerIcon[Player.maxCount()];
+		for(int i = 1; i <= Player.maxCount(); i++) {
+			icons[i - 1] = new PlayerIcon(i);
+			icons[i - 1].setIdealCoords(Avatar.forPlayer(i).getIdealCoords());
+		}
 		addAll(hovers);
 		addAll(SELECT2, SELECT3, SELECT4);
 		addAll(AvatarBorder.LIST);
 		addAll(Avatar.LIST);
+		addAll(icons);
 		
 	}
 	
