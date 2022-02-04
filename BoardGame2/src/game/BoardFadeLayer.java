@@ -1,8 +1,8 @@
-package game.board;
+package game;
 
 import base.panes.FadeLayer;
 import fxutils.*;
-import game.MainScene;
+import game.board.Board;
 import javafx.util.Duration;
 import minigames.*;
 

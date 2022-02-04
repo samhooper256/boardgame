@@ -3,7 +3,6 @@ package minigames;
 import base.*;
 import base.panes.*;
 import game.*;
-import game.board.BoardFadeLayer;
 
 public abstract class Minigame extends GamePane implements Updatable {
 	

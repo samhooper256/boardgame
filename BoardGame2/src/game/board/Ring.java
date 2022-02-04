@@ -3,6 +3,7 @@ package game.board;
 import base.*;
 import base.panes.*;
 import fxutils.Images;
+import game.BoardFadeLayer;
 import javafx.util.Duration;
 import players.Player;
 

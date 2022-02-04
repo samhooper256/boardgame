@@ -5,6 +5,7 @@ import java.util.stream.*;
 import base.Updatable;
 import base.panes.*;
 import events.Event;
+import game.BoardFadeLayer;
 import game.board.fx.BoardFXLayer;
 import javafx.scene.input.KeyCode;
 import medals.MedalReward;
