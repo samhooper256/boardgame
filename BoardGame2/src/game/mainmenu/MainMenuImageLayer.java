@@ -1,9 +1,6 @@
 package game.mainmenu;
 
-import static game.MainScene.CENTER_X;
-import static game.MainScene.CENTER_Y;
-import static game.MainScene.DEFAULT_HEIGHT;
-import static game.MainScene.DEFAULT_WIDTH;
+import static game.MainScene.*;
 
 import base.panes.*;
 import fxutils.Images;
