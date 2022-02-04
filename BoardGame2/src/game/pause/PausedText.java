@@ -1,6 +1,6 @@
 package game.pause;
 
-import fxutils.Fonts;
+import fxutils.*;
 import javafx.scene.control.Label;
 
 public final class PausedText extends Label {

@@ -77,6 +77,10 @@ public class Main extends Application {
 		return stage;
 	}
 	
+	public static void quitGame() {
+		stage().close();
+	}
+	
 	/**
 	 * Produces an {@link Optional} of the {@link InputStream} for a resource in the "resources" folder.
 	 * If the resource could not be located, the returned {@code Optional} will be empty. Otherwise, it

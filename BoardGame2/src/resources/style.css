@@ -10,3 +10,12 @@
 	-fx-stroke: #888888;
 	-fx-stroke-width: 1px;
 }
+
+.pause-button {
+	-fx-background-color: #888888;
+	-fx-background-radius: 3;
+}
+
+.pause-button:hover {
+	-fx-background-color: #999999;
+}

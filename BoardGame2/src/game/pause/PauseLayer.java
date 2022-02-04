@@ -15,19 +15,15 @@ public class PauseLayer extends StackPane implements Fadeable {
 	
 	private final Fader fader;
 	private final VBox vBox;
-	private final PausedText pausedText;
-	private final ToMainMenu toMainMenu;
 	
 	public PauseLayer() {
 		super();
 		fader = new Fader(this).setInDuration(FADE_IN).setOutDuration(FADE_OUT);
-		pausedText = new PausedText();
-		toMainMenu = new ToMainMenu();
-		vBox = new VBox(pausedText, toMainMenu);
+		vBox = new VBox(new PausedText(), new  ButtonBox());
 		vBox.setAlignment(Pos.CENTER);
 		getChildren().add(vBox);
 		setBackground(Backgrounds.of(Color.rgb(0, 0, 0, OPACITY)));
-		this.setMouseTransparent(false);
+		setMouseTransparent(false);
 		setVisible(false);
 	}
 	
