@@ -2,12 +2,10 @@ package players;
 
 import java.util.*;
 
-import base.panes.ImagePane;
-import fxutils.Images;
 import medals.MedalCounter;
 import tiles.*;
 
-public class Player extends ImagePane {
+public class Player extends PlayerIcon {
 
 	private static final int MAX_COUNT = 4;
 	
@@ -40,7 +38,6 @@ public class Player extends ImagePane {
 			get(i).reset();
 	}
 	
-	private final int number;
 	private final List<Passive> passives;
 	private final MedalCounter medalCounter;
 	
@@ -48,8 +45,7 @@ public class Player extends ImagePane {
 	private RollType rollType;
 	
 	private Player(int number) {
-		super(Images.player(number));
-		this.number = number;
+		super(number);
 		medalCounter = new MedalCounter();
 		passives = new ArrayList<>();
 		reset();
@@ -80,10 +76,6 @@ public class Player extends ImagePane {
 	
 	public void setTile(Tile newTile) {
 		current = newTile;
-	}
-	
-	public int number() {
-		return number;
 	}
 	
 	public RollType rollType() {
