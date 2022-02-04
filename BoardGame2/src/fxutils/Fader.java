@@ -62,6 +62,12 @@ public final class Fader {
 		return this;
 	}
 	
+	public Fader setDurations(Duration duration) {
+		in.setDuration(duration);
+		out.setDuration(duration);
+		return this;
+	}
+	
 	/** Fades out the {@link #node()}, then sets its {@link #visibleProperty() visibility} to {@code false}, sets its
 	 * {@link #opacityProperty()} to {@code 1}, and runs the {@link #fadeOutFinishedAction()}. */
 	public void fadeOutAndHide() {

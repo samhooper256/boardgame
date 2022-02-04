@@ -4,6 +4,7 @@ import java.util.*;
 
 import base.*;
 import base.panes.*;
+import events.SimpleTextEvent;
 import fxutils.*;
 import game.MainScene;
 import javafx.geometry.Point2D;
@@ -19,7 +20,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);
 	
 	private final Ring[] rings; //index i is the ring for player i;
-
+	
 	/** Maps each player number to a {@link List} of all the {@link ImagePane} that make up that player's medal area.
 	 * (Specifically, each list will contain four images: three medals and a player icon).*/
 	private final Map<Integer, List<ImagePane>> medalAreaImages;
@@ -108,6 +109,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		movePlayersToStart();
 		removeMedalAreas();
 		addMedalAreas();
+		addIfAbsent(EventBackground.get());
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].fader().disappear();
 		rings[1].fader().fadeIn();
@@ -123,14 +125,21 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			addAll(medalAreaImages.get(i));
 	}
 	
-	@Override
-	public Board gamePane() {
-		return (Board) super.gamePane();
-	}
-	
 	public void clearAllImages() {
 		getChildren().clear();
 		images.clear();
+	}
+	
+	public void showSimpleTextEvent(SimpleTextEvent event) {
+		EventBackground.get().fader().fadeIn();
+	}
+	
+	public boolean requestEventFinish() {
+		Fader f = EventBackground.get().fader();
+		if(f.isFadingIn() || f.isFadingOut())
+			return false;
+		f.fadeOutAndHide();
+		return true;
 	}
 	
 	/** The {@link Tile} at the given 0-based index, where the tile at index 0 is the start tile. */
@@ -168,11 +177,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		});
 	}
 	
-	public void playerLanded(Player p, Tile tile) {
-		if(tile instanceof MinigameTile)
-			rings[p.number()].fader().fadeOutAndHide();
-	}
-	
 	/** Called to notify this {@link BoardImageLayer} that the turn has been incremented. */
 	public void turnIncrementedTo(int turn) {
 		rings[Board.prevTurn(turn)].fader().fadeOutAndHide();
@@ -180,6 +184,11 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		ring.lockCoordinatesTo(Player.get(turn));
 		if(!ring.fader().isShowing())
 			ring.fader().fadeIn();
+	}
+	
+	@Override
+	public Board gamePane() {
+		return (Board) super.gamePane();
 	}
 	
 }

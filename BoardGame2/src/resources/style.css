@@ -2,6 +2,6 @@
 	src: url("fonts/DYONISIUS.TTF"); /* DYONISIUS */
 }
 
-.wave-text {
+.wave-text, .event-title {
 	-fx-font: 36 "DYONISIUS";
 }

@@ -1,14 +1,24 @@
 package events;
 
-import game.board.Board;
 import players.*;
 
-public class AthenasBlessingEvent implements Event {
+public class AthenasBlessingEvent implements SimpleTextEvent {
+
+	private static final String NAME = "Athena's Blessing", DESCRIPTION = "Choose your next roll.";
+	
+	@Override
+	public void actOn(Player p) {
+		p.acquirePassive(new AthenasBlessing(p));
+	}
 
 	@Override
-	public void play(Player p) {
-		p.acquirePassive(new AthenasBlessing(p));
-		Board.get().eventFinished(this);
+	public String name() {
+		return NAME;
+	}
+
+	@Override
+	public String description() {
+		return DESCRIPTION;
 	}
 	
 }

@@ -4,10 +4,11 @@ import java.util.stream.*;
 
 import base.Updatable;
 import base.panes.*;
-import events.Event;
+import events.*;
 import game.BoardFade;
 import game.board.fx.BoardFXLayer;
 import javafx.scene.input.KeyCode;
+import javafx.util.Duration;
 import medals.MedalReward;
 import minigames.MinigameResult;
 import players.*;
@@ -16,6 +17,7 @@ import tiles.Tile;
 public class Board extends GamePane implements Updatable {
 
 	public static final int TILE_COUNT = 36;
+	public static final Duration EVENT_FADE_DURATION = Duration.millis(500);
 	
 	private static final int MAX_PLAYER_COUNT = 4;
 	
@@ -48,6 +50,8 @@ public class Board extends GamePane implements Updatable {
 	private int playerCount, turn;
 	private RollType lastRollType;
 	private boolean readyToRoll;
+	/** {@code true} as soon as the text popup starts fading in, {@code false} as soon as it starts fading out. */
+	private Event currentEvent;
 	
 	private Board() {
 		super(new BoardImageLayer(), new BoardFXLayer());
@@ -63,6 +67,7 @@ public class Board extends GamePane implements Updatable {
 		turn = 1;
 		lastRollType = RollType.RANDOM;
 		readyToRoll = false;
+		currentEvent = null;
 		Player.resetAll();
 		setupDie();
 		imageLayer().start();
@@ -85,7 +90,6 @@ public class Board extends GamePane implements Updatable {
 	}
 	
 	public void playerLanded(Tile tile) {
-		imageLayer().playerLanded(currentPlayer(), tile);
 		tile.land(currentPlayer());
 	}
 	
@@ -131,7 +135,7 @@ public class Board extends GamePane implements Updatable {
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
-		//nothing
+		tryRequestEventFinish();
 	}
 	
 	private void rollTransitionFinished() {
@@ -145,8 +149,31 @@ public class Board extends GamePane implements Updatable {
 		incrementTurn();
 	}
 	
-	public void eventFinished(Event event) {
+	public void showSimpleTextEvent(SimpleTextEvent event) {
+		readyToRoll = false;
+		imageLayer().showSimpleTextEvent(event);
+		fxLayer().showSimpleTextEvent(event);
+		currentEvent = event;
+	}
+	
+	public void tryRequestEventFinish() {
+		if(currentEvent != null)
+			requestEventFinish();
+	}
+	
+	public boolean requestEventFinish() {
+		boolean result = imageLayer().requestEventFinish();
+		if(result)
+			fxLayer().demandEventFinish();
+		return result;
+	}
+	
+	/** In the case of a {@link SimpleTextEvent}, this should be called as soon as the event popup completely finishes
+	 * fading out. */
+	public void eventFinished() {
 		incrementTurn();
+		currentEvent = null;
+		readyToRoll = true;
 	}
 	
 	public Player currentPlayer() {

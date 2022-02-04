@@ -14,6 +14,14 @@ public interface ImageLayer extends Updatable {
 	/** Returns {@code true} if the {@link ImagePane} was successfully added, {@code false} otherwise. */
 	boolean add(ImagePane ip);
 	
+	/** Returns {@code true} iff the {@link ImagePane} was absent. If the {@link ImagePane} is present, it is moved to
+	 * the front. */
+	default boolean addIfAbsent(ImagePane ip) {
+		boolean result = remove(ip);
+		add(ip);
+		return result;
+	}
+	
 	default void addAll(ImagePane... ips) {
 		for(ImagePane ip : ips)
 			add(ip);

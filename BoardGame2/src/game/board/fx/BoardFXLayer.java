@@ -1,6 +1,7 @@
 package game.board.fx;
 
 import base.panes.*;
+import events.SimpleTextEvent;
 import game.board.*;
 import javafx.geometry.Point2D;
 import medals.*;
@@ -10,6 +11,9 @@ public class BoardFXLayer extends FXLayer {
 	
 	/** row=medal, col=player*/
 	private final MedalLabel[][] medals = new MedalLabel[Medal.count()][Player.maxCount() + 1];
+	private final EventTitle eventTitle;
+	private final EventDescription eventDescription;
+	private final PressAnyKey pressAnyKey;
 	
 	public BoardFXLayer() {
 		for(int mindex = 0; mindex < medals.length; mindex++) {
@@ -33,12 +37,31 @@ public class BoardFXLayer extends FXLayer {
 			};
 			c.addChangeListener(changeListener);
 		}
+		eventTitle = new EventTitle();
+		eventDescription = new EventDescription();
+		pressAnyKey = new PressAnyKey();
+		getChildren().addAll(eventTitle, eventDescription, pressAnyKey);
 	}
 	
 	public void start() {
 		for(int mindex = 0; mindex < medals.length; mindex++)
 			for(int player = 1; player <= gamePane().playerCount(); player++)
 				medals[mindex][player].setVisible(true);
+	}
+	
+	public void showSimpleTextEvent(SimpleTextEvent event) {
+		eventTitle.setText(event.name());
+		eventDescription.setText(event.description());
+		eventTitle.fader().fadeIn();
+		eventDescription.fader().fadeIn();
+		pressAnyKey.fader().fadeIn();
+	}
+	
+	/** Begins fading out the {@link SimpleTextEvent}-related materials. */
+	public void demandEventFinish() {
+		eventTitle.fader().fadeOutAndHide();
+		eventDescription.fader().fadeOutAndHide();
+		pressAnyKey.fader().fadeOutAndHide();
 	}
 	
 	@Override

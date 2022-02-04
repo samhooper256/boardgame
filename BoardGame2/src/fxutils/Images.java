@@ -8,7 +8,6 @@ import players.Player;
  * Utility class for creating {@link javafx.scene.image.Image} objects from resource files and working with
  * {@link ImageView ImageViews}.
  * @author Sam Hooper
- *
  */
 public final class Images {
 	
