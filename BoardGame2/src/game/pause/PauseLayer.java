@@ -13,6 +13,7 @@ import javafx.util.Duration;
 public class PauseLayer extends StackPane implements Fadeable {
 	
 	private static final Duration FADE_IN = Duration.millis(500), FADE_OUT = FADE_IN;
+	private static final double OPACITY = .5;
 	
 	private final Fader fader;
 	private final VBox vBox;
@@ -28,7 +29,7 @@ public class PauseLayer extends StackPane implements Fadeable {
 		vBox = new VBox(pausedText, quit);
 		vBox.setAlignment(Pos.CENTER);
 		getChildren().add(vBox);
-		setBackground(Backgrounds.of(Color.rgb(0, 0, 0, 0.25)));
+		setBackground(Backgrounds.of(Color.rgb(0, 0, 0, OPACITY)));
 		this.setMouseTransparent(false);
 		setVisible(false);
 	}
