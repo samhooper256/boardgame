@@ -20,9 +20,7 @@ public class MainMenuImageLayer extends AbstractImageLayer {
 		playButton.setIdealCenter(CENTER_X, DEFAULT_HEIGHT * .55);
 		quitButton = new QuitButton();
 		quitButton.setIdealCenter(CENTER_X, DEFAULT_HEIGHT * .7);
-		ImagePane warrior = new ImagePane(Images.WARRIOR_AVATAR);
-		warrior.setIdealCenter(DEFAULT_WIDTH * .2, DEFAULT_HEIGHT * .3);
-		addAll(mainImage, playButton, quitButton, warrior);
+		addAll(mainImage, playButton, quitButton);
 	}
 
 	@Override
