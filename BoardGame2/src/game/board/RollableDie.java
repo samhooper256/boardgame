@@ -1,55 +1,71 @@
 package game.board;
 
+import java.util.*;
 import java.util.function.*;
 
+import base.Updatable;
 import base.panes.ImagePane;
 import fxutils.Images;
-import javafx.animation.*;
-import javafx.animation.Animation.Status;
-import javafx.util.Duration;
-import utils.RNG;
+import utils.*;
 
-public final class RollableDie extends ImagePane implements Die {
+public final class RollableDie extends ImagePane implements Die, Updatable {
 	
 	private static final int DEFAULT_FACE = 1;
-	private static final Duration ROLL_DURATION = Duration.millis(3000);
+	private static final long ROLL_DURATION = (long) 3e9;
 	/** The number of different faces to show while the die is rolling. */
 	private static final int FACE_COUNT = 10;
-	private static final IntFunction<Duration> DURATION_FUNCTION = i -> {
-		return Duration.millis((ROLL_DURATION.toMillis()  / (FACE_COUNT * FACE_COUNT)) * (i * i));
-	};
+	private static final IntToLongFunction DURATION_FUNCTION = i -> 
+		(ROLL_DURATION  / (FACE_COUNT * FACE_COUNT)) * (i * i);
+	private static final List<Long> SWITCH_TIMES = Collections.unmodifiableList(generateSwitchTimes()); 
 	private static final RollableDie INSTANCE = new RollableDie();
 	
 	public static RollableDie get() {
 		return INSTANCE;
 	}
 	
-	private final Timeline timeline;
+	private static List<Long> generateSwitchTimes() {
+		List<Long> times = new ArrayList<>();
+		for(int i = 0; i < FACE_COUNT; i++) {
+			long duration = DURATION_FUNCTION.applyAsLong(i);
+			times.add(duration);
+		}
+		return times;
+	}
 	
-	private int currentFace;
+	private int currentFace, nextSwitchIndex;
+	private long rollElapsed;
 	
 	private RollableDie() {
 		super(Images.die(DEFAULT_FACE));
 		currentFace = DEFAULT_FACE;
-		timeline = new Timeline();
-		for(int i = 0; i < FACE_COUNT; i++) {
-			Duration duration = DURATION_FUNCTION.apply(i);
-			timeline.getKeyFrames().add(new KeyFrame(duration, eh -> {
-				setFace(differentFace());
-			}));
-		}
-		Duration last = DURATION_FUNCTION.apply(FACE_COUNT - 1);
-		timeline.getKeyFrames().add(new KeyFrame(last.add(Duration.seconds(1)), eh -> Board.get().executeTurn(face())));
+		rollElapsed = -1;
+		Screen.center(this);
 		this.setOnMouseClicked(eh -> tryRoll());
 	}
 	
 	public void tryRoll() {
-		if(Board.get().readyToRoll())
-			roll();
+		if(Board.get().readyToRoll() && !isRolling())
+			startRoll();
 	}
 	
-	private void roll() {
-		timeline.playFromStart();
+	private void startRoll() {
+		rollElapsed = 0;
+		nextSwitchIndex = 1;
+	}
+	
+	@Override
+	public void update(long diff) {
+		if(rollElapsed >= ROLL_DURATION) {
+			rollElapsed = -1;
+			Board.get().executeTurn(face());
+		}
+		else if(isRolling()) {
+			rollElapsed += diff;
+			if(nextSwitchIndex < SWITCH_TIMES.size() && rollElapsed >= SWITCH_TIMES.get(nextSwitchIndex)) {
+				setFace(differentFace());
+				nextSwitchIndex++;
+			}
+		}
 	}
 	
 	/** Accepts an {@code int} from {@code 1} to {@code 6} (inclusive). */
@@ -67,7 +83,7 @@ public final class RollableDie extends ImagePane implements Die {
 	}
 	
 	public boolean isRolling() {
-		return timeline.getStatus() == Status.RUNNING;
+		return rollElapsed >= 0;
 	}
 
 	@Override

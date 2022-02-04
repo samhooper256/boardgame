@@ -47,6 +47,9 @@ public class BoardFXLayer extends FXLayer {
 		for(int mindex = 0; mindex < medals.length; mindex++)
 			for(int player = 1; player <= gamePane().playerCount(); player++)
 				medals[mindex][player].setVisible(true);
+		eventTitle.fader().disappear();
+		eventDescription.fader().disappear();
+		pressAnyKey.fader().disappear();
 	}
 	
 	public void showSimpleTextEvent(SimpleTextEvent event) {

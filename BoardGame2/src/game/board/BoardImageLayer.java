@@ -12,7 +12,6 @@ import javafx.util.Duration;
 import medals.*;
 import players.Player;
 import tiles.*;
-import utils.Screen;
 
 public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 
@@ -37,8 +36,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	}
 	
 	void init() {
-		RollableDie die = RollableDie.get();
-		Screen.center(die);
 		tileOrder = generateTileOrder();
 		add(new ImagePane(Images.BACKGROUND));
 		placeTiles();
@@ -53,6 +50,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	public void updatePane(long diff) {
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].update(diff);
+		RollableDie.get().update(diff);
 	}
 	
 	private void placeTiles() {
@@ -109,6 +107,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		movePlayersToStart();
 		removeMedalAreas();
 		addMedalAreas();
+		EventBackground.get().fader().disappear();
 		addIfAbsent(EventBackground.get());
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].fader().disappear();

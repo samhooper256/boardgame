@@ -101,26 +101,24 @@ public class MainScene extends Scene implements Updatable {
 		if(GameInput.isPressed(kc))
 			return;
 		GameInput.keysPressed().add(kc);
+		if(kc == GameInput.controls().pause())
+			return;
 		baseContent().keyPressed(kc);
 	}
 	
 	private void keyReleased(KeyEvent ke) {
 		KeyCode kc = ke.getCode();
 		GameInput.keysPressed().remove(kc);
-		if(kc == KeyCode.F11) {
+		if(kc == KeyCode.F11)
 			Main.stage().setFullScreen(!Main.stage().isFullScreen());
-		}
-		else if(kc == GameInput.controls().pause()) {
-			if(ingame()) {
+		else if(kc == GameInput.controls().pause())
+			if(ingame())
 				if(paused)
 					requestUnpause();
 				else
 					pause();
-			}
-		}
-		else {
+		else
 			baseContent().keyReleased(kc);
-		}
 	}
 	
 	private void mouseClicked(MouseEvent me) {
