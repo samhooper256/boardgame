@@ -127,6 +127,10 @@ public final class Fader {
 		return in.getStatus() == Status.RUNNING;
 	}
 	
+	public boolean isFading() {
+		return isFadingIn() || isFadingOut();
+	}
+	
 	/** Returns the equivalent of {@code (node().isVisible() && node().getOpacity() > 0)}. In other words, returns
 	 * {@code true} iff the {@link #node()} is showing to the user, even if it is in the process of fading in/out. */
 	public boolean isShowing() {

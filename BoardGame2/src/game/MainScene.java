@@ -54,6 +54,7 @@ public class MainScene extends Scene implements Updatable {
 		hscaleBinding = heightProperty().divide(DEFAULT_HEIGHT);
 		wscaleBinding = widthProperty().divide(DEFAULT_WIDTH);
 		pauseLayer = new PauseLayer();
+		pauseLayer.fader().setFadeOutFinishedAction(() -> {paused = false; });
 		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		paused = false;
 		root = (Pane) getRoot();
@@ -112,10 +113,9 @@ public class MainScene extends Scene implements Updatable {
 		else if(kc == GameInput.controls().pause()) {
 			if(ingame()) {
 				if(paused)
-					unpause();
+					requestUnpause();
 				else
 					pause();
-				paused = !paused;
 			}
 		}
 		else {
@@ -224,7 +224,13 @@ public class MainScene extends Scene implements Updatable {
 	
 	public void pause() {
 		glassLayer.setMouseTransparent(false);
-		pauseLayer().fader().fadeIn(); //TODO
+		pauseLayer().fader().fadeIn();
+		paused = true;
+	}
+	
+	private void requestUnpause() {
+		if(!pauseLayer().fader().isFading())
+			unpause();
 	}
 	
 	public void unpause() {
