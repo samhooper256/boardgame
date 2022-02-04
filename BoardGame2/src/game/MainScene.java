@@ -38,7 +38,8 @@ public class MainScene extends Scene implements Updatable {
 	private final StackPane contentLayer, selectLayer;
 	private final Timer timer;
 	private final PauseLayer pauseLayer;
-	private final BoardFadeLayer boardFadeLayer; //can't be final for initialization reasons...
+	private final BoardFade boardFade;
+	private final PlayerSelectFade playerSelectFade;
 	private final ToPlayerSelectAnimation tpsAnimation;
 	
 	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
@@ -56,7 +57,8 @@ public class MainScene extends Scene implements Updatable {
 		Nodes.setPrefSize(pauseLayer, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		paused = false;
 		root = (Pane) getRoot();
-		boardFadeLayer = new BoardFadeLayer();
+		boardFade = new BoardFade();
+		playerSelectFade = new PlayerSelectFade();
 		selectLayer = new StackPane();
 		contentLayer = new StackPane();
 		contentLayer.prefWidthProperty().bind(widthProperty());
@@ -68,6 +70,11 @@ public class MainScene extends Scene implements Updatable {
 		root.getChildren().addAll(contentLayer, selectLayer);
 		tpsAnimation = new ToPlayerSelectAnimation();
 		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
+		setOnKeyPressed(this::keyPressed);
+		setOnKeyReleased(this::keyReleased);
+		setOnMouseClicked(this::mouseClicked);
+		setOnMousePressed(this::mousePressed);
+		setOnMouseReleased(this::mouseReleased);
 		timer = new Timer(this::update);
 	}
 	
@@ -75,13 +82,8 @@ public class MainScene extends Scene implements Updatable {
 		glassLayer = new UnaffiliatedFXLayer();
 		glassLayer.getChildren().add(pauseLayer);
 		root.getChildren().add(glassLayer);
-		contentLayer.getChildren().addAll(MainMenu.get(), boardFadeLayer);
-		selectLayer.getChildren().add(PlayerSelect.get());
-		this.setOnKeyPressed(this::keyPressed);
-		this.setOnKeyReleased(this::keyReleased);
-		this.setOnMouseClicked(this::mouseClicked);
-		this.setOnMousePressed(this::mousePressed);
-		this.setOnMouseReleased(this::mouseReleased);
+		contentLayer.getChildren().addAll(MainMenu.get(), boardFade);
+		selectLayer.getChildren().addAll(PlayerSelect.get(), playerSelectFade);
 		timer.start();
 	}
 	
@@ -153,8 +155,9 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void showContentLayer() {
-		selectLayer.setVisible(false);
 		Nodes.setLayout(contentLayer, 0, 0);
+		selectLayer.setVisible(false);
+		selectLayer.setLayoutY(SELECT_LAYER_HIDDEN_Y);
 	}
 	
 	public void startGame(int playerCount) {
@@ -164,15 +167,15 @@ public class MainScene extends Scene implements Updatable {
 	}
 
 	public void startMinigame(Minigame minigame) {
-		boardFadeLayer.toMinigame(minigame);
+		boardFade.toMinigame(minigame);
 	}
 	
 	public void fadeBackFromMinigame(MinigameResult result) {
-		boardFadeLayer.toBoard(result);
+		boardFade.toBoard(result);
 	}
 	
 	public void removeFadeLayer() {
-		contentLayer.getChildren().remove(boardFadeLayer);
+		contentLayer.getChildren().remove(boardFade);
 	}
 	
 	public boolean isPlayingMinigame() {

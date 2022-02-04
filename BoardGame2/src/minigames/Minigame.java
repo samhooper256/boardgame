@@ -13,7 +13,7 @@ public abstract class Minigame extends GamePane implements Updatable {
 	}
 	
 	/** Assumes this {@link Minigame} has already been set as the {@link MainScene#baseContent()}. This method is
-	 * called at the "peak" of the {@link BoardFadeLayer BoardFadeLayer's} transition (that is, when the player cannot
+	 * called at the "peak" of the {@link BoardFade BoardFadeLayer's} transition (that is, when the player cannot
 	 * see the minigame or the board). */
 	public abstract void start();
 	

@@ -5,7 +5,7 @@ import java.util.stream.*;
 import base.Updatable;
 import base.panes.*;
 import events.Event;
-import game.BoardFadeLayer;
+import game.BoardFade;
 import game.board.fx.BoardFXLayer;
 import javafx.scene.input.KeyCode;
 import medals.MedalReward;
@@ -138,7 +138,7 @@ public class Board extends GamePane implements Updatable {
 		readyToRoll = true;
 	}
 	
-	/** Called immediately after the {@link BoardFadeLayer} disappears and the user is looking at the {@link Board}. */
+	/** Called immediately after the {@link BoardFade} disappears and the user is looking at the {@link Board}. */
 	public void minigameFinished(MinigameResult mr) {
 		for(MedalReward reward : mr.rewards())
 			reward.apply();
