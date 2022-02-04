@@ -22,7 +22,7 @@ public class MainMenuImageLayer extends AbstractImageLayer {
 
 	@Override
 	public void updatePane(long diff) {
-		
+		// nothing
 	}
 	
 	public PlayButton playButton() {
