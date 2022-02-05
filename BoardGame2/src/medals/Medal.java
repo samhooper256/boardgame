@@ -5,7 +5,7 @@ import java.util.*;
 import fxutils.Images;
 import javafx.scene.image.Image;
 
-public final class Medal {
+public final class Medal implements Comparable<Medal> {
 
 	private static final Medal[] MEDALS = {
 			new Medal("Gold", 0, 3, Images.GOLD_MEDAL),
@@ -69,6 +69,12 @@ public final class Medal {
 		if(this == BRONZE)
 			return null;
 		return withIndex(index() + 1);
+	}
+	
+	/** Medals are compared by their {@link #index()}. The order is {@link #GOLD}, {@link #SILVER}, {@link #BRONZE}. */
+	@Override
+	public int compareTo(Medal o) {
+		return Integer.compare(index, o.index);
 	}
 	
 	@Override

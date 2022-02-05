@@ -3,6 +3,7 @@ package utils;
 import base.panes.ImagePane;
 import game.MainScene;
 import javafx.beans.binding.DoubleBinding;
+import javafx.scene.layout.Region;
 import javafx.scene.transform.Scale;
 
 public final class Screen {
@@ -43,6 +44,11 @@ public final class Screen {
 		s.xProperty().bind(Screen.wscaleBinding());
 		s.yProperty().bind(Screen.hscaleBinding());
 		return s;
+	}
+
+	public static <T extends Region> T centerX(T r) {
+		r.layoutXProperty().bind(r.widthProperty().multiply(-.5).add(MainScene.CENTER_X));
+		return r;
 	}
 	
 }

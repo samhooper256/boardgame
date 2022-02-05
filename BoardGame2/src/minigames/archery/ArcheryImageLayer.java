@@ -19,7 +19,6 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 	
 	private final FadeableImagePane instructions, pressSpace;
 	private final Fence fence;
-	private final ImagePane winBackground, winner;
 	
 	public ArcheryImageLayer() {
 		super();
@@ -31,10 +30,6 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		pressSpace.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .8);
 		fence = new Fence();
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
-		winBackground = new ImagePane(Images.MINIGAME_WIN_BACKGROUND);
-		winBackground.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
-		winner = new ImagePane(Images.TREE, 100, 100);
-		winner.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .45);
 	}
 	
 	void init() {
@@ -55,7 +50,6 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 	void start() {
 		instructions.fader().appear();
 		pressSpace.fader().appear();
-		removeAll(winner, winBackground);
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());

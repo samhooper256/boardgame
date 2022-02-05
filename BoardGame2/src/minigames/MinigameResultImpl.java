@@ -10,33 +10,42 @@ final class MinigameResultImpl implements MinigameResult {
 	/** Unmodifiable. */
 	private final Set<MedalReward> rewards;
 	/** Unmodifiable. */
-	private final Set<Medal> medals;
+	private final SortedMap<Medal, Set<MedalReward>> groups;
 	
 	public MinigameResultImpl(MedalReward... rewards) {
 		Set<MedalReward> set = new HashSet<>();
 		Collections.addAll(set, rewards);
 		this.rewards = Collections.unmodifiableSet(set);
-		medals = getMedals();
+		groups = getGroups();
 	}
 	
 	/** The given {@link Collection} is defensively copied, and duplicates are removed. */
 	public MinigameResultImpl(Collection<MedalReward> rewards) {
 		this.rewards = Collections.unmodifiableSet(new HashSet<>(rewards));
-		medals = getMedals();
+		groups = getGroups();
 	}
 	
-	private Set<Medal> getMedals() {
-		return Collections.unmodifiableSet(this.rewards.stream().map(MedalReward::medal).collect(Collectors.toSet()));
+	private SortedMap<Medal, Set<MedalReward>> getGroups() {
+		return Collections.unmodifiableSortedMap(
+			rewards.stream().collect(Collectors.groupingBy(
+				MedalReward::medal,
+				() -> new TreeMap<>(), //does not compile as a method reference :(
+				Collectors.collectingAndThen(
+					Collectors.toSet(),
+					Collections::unmodifiableSet
+				)
+			))
+		);
 	}
 	
 	@Override
 	public Set<MedalReward> rewards() {
 		return rewards;
 	}
-	
+
 	@Override
-	public Set<Medal> medals() {
-		return medals;
+	public SortedMap<Medal, Set<MedalReward>> groups() {
+		return groups;
 	}
 	
 }

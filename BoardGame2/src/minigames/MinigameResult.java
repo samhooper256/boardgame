@@ -7,6 +7,7 @@ import static medals.Medal.*;
 import static medals.MedalReward.to;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public interface MinigameResult {
 
@@ -35,6 +36,13 @@ public interface MinigameResult {
 	
 	/** Returns a {@link Set} of all the different {@link Medal Medals} that are used in the {@link #rewards()} of this
 	 * {@link MinigameResult}. The returned {@link Set} is unmodifiable. */
-	Set<Medal> medals();
+	default Set<Medal> medals() {
+		return groups().keySet();
+	}
+	
+	/** The {@link #rewards() rewards} of this {@link MinigameResult}
+	 * {@link Collectors#groupingBy(java.util.function.Function) grouped by} their {@link MedalReward#medal() medal}.
+	 * The keys are sorted by the natural order of {@link Medal}. */
+	SortedMap<Medal, Set<MedalReward>> groups();
 	
 }

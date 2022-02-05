@@ -48,7 +48,6 @@ public final class Images {
 			PLAY_BUTTON = get("PlayButton.png"),
 			QUIT_BUTTON = get("quit_button.png"),
 			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
-			MINIGAME_WIN_BACKGROUND = get("minigame_win_background.png"),
 			REWARDS_BACKGROUND = get("rewards_background.png"),
 			PRESS_SPACE = get("pressspace.png"),
 			EVENT_BACKGROUND = get("event_background.png"),

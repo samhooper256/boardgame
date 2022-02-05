@@ -2,15 +2,17 @@ package minigames.rewards;
 
 import base.panes.ImagePane;
 import fxutils.*;
+import utils.Screen;
 
 /** {@link #isVisible() Visible} by default. */
-public final class RewardsBackground extends ImagePane implements Fadeable {
+final class Background extends ImagePane implements Fadeable {
 
 	public final Fader fader;
 	
-	public RewardsBackground() {
+	public Background() {
 		super(Images.REWARDS_BACKGROUND);
 		fader = new Fader(this).setDurations(RewardsDisplay.FADE_TIME);
+		Screen.center(this);
 	}
 
 	@Override

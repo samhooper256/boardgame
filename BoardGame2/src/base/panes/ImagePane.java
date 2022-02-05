@@ -129,11 +129,11 @@ public class ImagePane extends StackPane {
     }
     
     public double getIdealCenterX() {
-    	return getIdealX() + getIdealWidth() / 2;
+    	return getIdealX() + getIdealWidth() * .5;
     }
     
     public double getIdealCenterY() {
-    	return getIdealY() + getIdealHeight() / 2;
+    	return getIdealY() + getIdealHeight() * .5;
     }
     
     public void setIdealCenter(Point2D idealCenter) {
@@ -141,7 +141,16 @@ public class ImagePane extends StackPane {
     }
     
     public void setIdealCenter(double idealXCenter, double idealYCenter) {
-    	setIdealCoords(idealXCenter - getIdealWidth() / 2, idealYCenter - getIdealHeight() / 2);
+    	setIdealCenterX(idealXCenter);
+    	setIdealCenterY(idealYCenter);
+    }
+
+    public void setIdealCenterX(double idealXCenter) {
+    	setIdealX(idealXCenter - getIdealWidth() * .5);
+    }
+    
+    public void setIdealCenterY(double idealYCenter) {
+    	setIdealY(idealYCenter - getIdealHeight() * .5);
     }
     
     /** The x coordinate is set before the y coordinate. */

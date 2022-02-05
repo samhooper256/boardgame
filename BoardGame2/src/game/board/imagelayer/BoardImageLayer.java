@@ -103,9 +103,9 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		for(int i = 1; i <= Board.maxPlayerCount(); i++) {
 			MedalCoords coords = MedalCoords.forPlayer(i);
 			ImagePane p = new ImagePane(Images.player(i));
-			MedalDisplay gold = new MedalDisplay(Medal.GOLD, .25);
-			MedalDisplay silver = new MedalDisplay(Medal.SILVER, .25);
-			MedalDisplay bronze = new MedalDisplay(Medal.BRONZE, .25);
+			MedalIcon gold = new MedalIcon(Medal.GOLD, .25);
+			MedalIcon silver = new MedalIcon(Medal.SILVER, .25);
+			MedalIcon bronze = new MedalIcon(Medal.BRONZE, .25);
 			p.setIdealCenter(coords.player());
 			gold.setIdealCenter(coords.gold());
 			silver.setIdealCenter(coords.silver());

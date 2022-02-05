@@ -61,6 +61,7 @@ public class ArcheryMinigame extends Minigame {
 		rewardsDisplay = new RewardsDisplay();
 		imageLayer().init();
 		imageLayer().instructions().fader().setFadeOutFinishedAction(() -> startFirstWave());
+		fxLayer().init();
 	}
 	
 	@Override
