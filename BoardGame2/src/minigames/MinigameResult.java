@@ -1,17 +1,22 @@
 package minigames;
 
-import java.util.Set;
-
 import medals.*;
 import players.Player;
 
 import static medals.Medal.*;
 import static medals.MedalReward.to;
 
+import java.util.*;
+
 public interface MinigameResult {
 
 	/** Duplicate {@link MedalReward MedalRewards} will be removed. */
 	static MinigameResult of(MedalReward... rewards) {
+		return new MinigameResultImpl(rewards);
+	}
+	
+	/** Duplicate {@link MedalReward MedalRewards} will be removed. */
+	static MinigameResult of(Collection<MedalReward> rewards) {
 		return new MinigameResultImpl(rewards);
 	}
 	
@@ -27,5 +32,9 @@ public interface MinigameResult {
 	
 	/** The returned {@link Set} is unmodifiable. */
 	Set<MedalReward> rewards();
+	
+	/** Returns a {@link Set} of all the different {@link Medal Medals} that are used in the {@link #rewards()} of this
+	 * {@link MinigameResult}. The returned {@link Set} is unmodifiable. */
+	Set<Medal> medals();
 	
 }

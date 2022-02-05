@@ -7,10 +7,13 @@ import javafx.scene.image.Image;
 
 public final class Medal {
 
-	public static final Medal
-			GOLD = new Medal("Gold", 0, 3, Images.GOLD_MEDAL),
-			SILVER = new Medal("Silver", 1, 2, Images.SILVER_MEDAL),
-			BRONZE = new Medal("Bronze", 2, 1, Images.BRONZE_MEDAL);
+	private static final Medal[] MEDALS = {
+			new Medal("Gold", 0, 3, Images.GOLD_MEDAL),
+			new Medal("Silver", 1, 2, Images.SILVER_MEDAL),
+			new Medal("Bronze", 2, 1, Images.BRONZE_MEDAL)
+	};
+	
+	public static final Medal GOLD = MEDALS[0], SILVER = MEDALS[1], BRONZE = MEDALS[2];
 	
 	public static final List<Medal> LIST = Collections.unmodifiableList(Arrays.asList(GOLD, SILVER, BRONZE));
 	
@@ -21,6 +24,10 @@ public final class Medal {
 			case "bronze": return BRONZE;
 		}
 		throw new IllegalArgumentException(String.format("Invalid medal type: %s", type));
+	}
+	
+	public static Medal withIndex(int index) {
+		return MEDALS[index];
 	}
 	
 	/** Returns the number of different kinds of {@link Medal Medals}. */
@@ -54,6 +61,14 @@ public final class Medal {
 	
 	public Image image() {
 		return image;
+	}
+	
+	/** Returns the next {@link Medal} down in value (e.g. {@code Medal.GOLD.down()} returns {@link #SILVER}).
+	 * Returns {@code null} if {@code this} is {@link #BRONZE}. */
+	public Medal down() {
+		if(this == BRONZE)
+			return null;
+		return withIndex(index() + 1);
 	}
 	
 	@Override

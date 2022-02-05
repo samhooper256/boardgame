@@ -1,15 +1,18 @@
 package minigames.archery;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import fxutils.Fader;
 import game.board.Board;
 import javafx.animation.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
+import medals.*;
 import minigames.*;
 import minigames.archery.fx.ArcheryFXLayer;
 import minigames.archery.waves.*;
+import minigames.rewards.RewardsDisplay;
 import players.Player;
 
 /** The {@link ArcheryMinigame} consists of a series of {@link ArcheryWave waves}. All players take turns beating the
@@ -31,55 +34,46 @@ public class ArcheryMinigame extends Minigame {
 	private final WaveGenerator waveGenerator;
 	private final Map<Player, Archer> archerMap;
 	private final Set<Archer> movableArchers;
+	private final SortedSet<Survival> survivals;
 	private final boolean[] alive;
-	private final Deque<Integer> medalOrder;
-	private final Timeline waveTimeline;
+	private final Timeline waveTimeline; //TODO make this use update(long) ? 
+	private final RewardsDisplay rewardsDisplay;
 	
-	private boolean arrowFired;
-	private int waveIndex, turn, winner;
+	private boolean arrowFired, finished;
+	private int waveIndex, turn, aliveCount;
 	private Target currentTarget;
 	
 	private ArcheryMinigame(WaveGenerator waveGenerator) {
 		super(new ArcheryImageLayer(), new ArcheryFXLayer());
 		this.waveGenerator = waveGenerator;
 		archerMap = new HashMap<>();
-		medalOrder = new ArrayDeque<>();
-		Board.get().players().forEachOrdered(p -> {
-			archerMap.put(p, new Archer(p.number()));
-		});
+		Board.get().players().forEachOrdered(p -> archerMap.put(p, new Archer(p.number())));
 		waveIndex = 1;
 		turn = 1;
-		winner = 0; //no winner
+		aliveCount = Board.get().playerCount();
 		alive = new boolean[Board.maxPlayerCount() + 1];
-		for(int i = 1; i <= Board.get().playerCount(); i++)
-			alive[i] = true;
+		survivals = new TreeSet<>();
 		movableArchers = new HashSet<>();
-		arrowFired = false;
+		arrowFired = finished = false;
 		currentTarget = null;
 		Fader wtfader = fxLayer().waveText().fader();
-		waveTimeline = new Timeline(
-			new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide())
-		);
-		initMovableArchers();
+		waveTimeline = new Timeline(new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide()));
+		rewardsDisplay = new RewardsDisplay();
 		imageLayer().init();
 		imageLayer().instructions().fader().setFadeOutFinishedAction(() -> startFirstWave());
-	}
-
-	private void initMovableArchers() {
-		movableArchers.add(archer(1));
 	}
 	
 	@Override
 	public void start() {
 		waveIndex = 0;
 		turn = 1;
-		winner = 0; //no winner
-		for(int i = 1; i <= Board.get().playerCount(); i++)
-			alive[i] = true;
-		arrowFired = false;
+		aliveCount = Board.get().playerCount();
+		Arrays.fill(alive, 1, aliveCount + 1, true);
+		survivals.clear();
+		arrowFired = finished = false;
 		currentTarget = null;
+		rewardsDisplay().hide();
 		updateControls(turn);
-		medalOrder.clear();
 		imageLayer().start();
 		fxLayer().start();
 	}
@@ -94,9 +88,10 @@ public class ArcheryMinigame extends Minigame {
 	/** Also {@link #incrementWave() increments the wave} if necessary. */
 	public void incrementTurn() {
 		int oldTurn = turn;
-		updateControls(turn = nextTurn(turn));
-		if(turn < oldTurn) {
-			startNextWave();
+		turn = nextTurn(turn);
+		updateControls(turn);
+		if(turn <= oldTurn) {
+			startNextWaveOrEndGame();
 		}
 		else {
 			createNextTarget();
@@ -107,11 +102,18 @@ public class ArcheryMinigame extends Minigame {
 	private void startFirstWave() {
 		if(waveIndex != 0)
 			throw new IllegalStateException("Cannot start first wave");
-		startNextWave();
+		startNextWaveOrEndGame();
+	}
+	
+	private void startNextWaveOrEndGame() {
+		waveIndex++;
+		if(aliveCount == 1)
+			finish();
+		else
+			startNextWave();
 	}
 	
 	private void startNextWave() {
-		waveIndex++;
 		fxLayer().startWave(waveIndex);
 		createNextTarget();
 		arrowFired = false;
@@ -126,17 +128,17 @@ public class ArcheryMinigame extends Minigame {
 	public void arrowLeftScreen(Arrow a) {
 		imageLayer().remove(currentTarget);
 		kill(turn);
-		int playersRemaining = playersRemaining();
-		if(playersRemaining > 1)
-			incrementTurn();
+		if(aliveCount == 0)
+			finish();
 		else
-			win(getOnlyPlayerAlive());
+			incrementTurn();
 	}
 	
 	private void kill(int player) {
 		imageLayer().remove(archer(player));
+		survivals.add(new Survival(player, waveIndex));
 		alive[player] = false;
-		medalOrder.addFirst(player);
+		aliveCount--;
 	}
 	
 	private int nextTurn(int turn) {
@@ -147,15 +149,9 @@ public class ArcheryMinigame extends Minigame {
 		return turn;
 	}
 	
-	private void updateControls(int player) {
+	private void updateControls(int player) { //TODO fix this. This should not be a method; just keep track of the single archer who can move.
 		movableArchers.clear();
 		movableArchers.add(archer(player));
-	}
-	
-	private void win(int player) {
-		winner = player;
-		imageLayer().win(player);
-		fxLayer().showWinner(player);
 	}
 	
 	public Archer archer(int player) {
@@ -164,6 +160,13 @@ public class ArcheryMinigame extends Minigame {
 	
 	public ArcheryWave currentWave() {
 		return waveGenerator.get(waveIndex);
+	}
+	
+	private void finish() {
+		finished = true;
+		if(aliveCount == 1)
+			survivals.add(new Survival(getOnlyPlayerAlive(), waveIndex));
+		rewardsDisplay.show(getResult());
 	}
 	
 	@Override
@@ -215,25 +218,45 @@ public class ArcheryMinigame extends Minigame {
 	
 	/** @throws IllegalStateException if there is more than one player alive. */
 	public int getOnlyPlayerAlive() {
-		int p = 0;
+		if(aliveCount != 1)
+			throw new IllegalStateException("Multiple players are still alive");
 		for(int i = 1; i < alive.length; i++)
 			if(alive[i])
-				if(p == 0)
-					p = i;
-				else
-					throw new IllegalStateException("Multiple players are still alive.");
-		return p;
-	}
-	
-	public boolean hasWinner() {
-		return winner > 0;
+				return i;
+		throw new IllegalStateException("Should not happen");
 	}
 	
 	public MinigameResult getResult() {
-		if(!hasWinner())
-			throw new IllegalStateException("No winner");
-		medalOrder.addFirst(getOnlyPlayerAlive());
-		return MinigameResult.simple(medalOrder.stream().mapToInt(x -> x).toArray());
+		if(!isFinished())
+			throw new IllegalStateException("No winner yet");
+		//maps each wave that a player died on to the list (sorted ascending) of all players who survived to that wave.
+		//The keys in the map are in descending order.
+		SortedMap<Integer, List<Integer>> groups = survivals.stream().collect(Collectors.groupingBy(
+				Survival::wave,
+				() -> new TreeMap<>(Comparator.reverseOrder()),
+				Collectors.collectingAndThen(
+					Collectors.mapping(Survival::player, Collectors.toCollection(TreeSet::new)),
+					treeSet -> Collections.unmodifiableList(new ArrayList<>(treeSet))
+				)
+		));
+		List<MedalReward> rewards = new ArrayList<>();
+		Medal medal = Medal.GOLD;
+		for(Map.Entry<Integer, List<Integer>> e : groups.entrySet()) {
+			for(int player : e.getValue())
+				rewards.add(MedalReward.to(medal, player));
+			medal = medal.down();
+			if(medal == null)
+				break;
+		}
+		return MinigameResult.of(rewards);
+	}
+	
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public RewardsDisplay rewardsDisplay() {
+		return rewardsDisplay;
 	}
 	
 	@Override

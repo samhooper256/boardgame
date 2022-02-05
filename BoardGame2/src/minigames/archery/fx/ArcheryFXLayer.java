@@ -22,11 +22,6 @@ public class ArcheryFXLayer extends FXLayer {
 		waveText.setVisible(false);
 		getChildren().addAll(waveText, winBox);
 	}
-
-	public void showWinner(int player) {
-		winBox.setWinner(player);
-		winBox.setVisible(true);
-	}
 	
 	public void start() {
 		winBox.setVisible(false);

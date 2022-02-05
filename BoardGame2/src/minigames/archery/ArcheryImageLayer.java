@@ -42,6 +42,7 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		addAll(fence);
 		addAll(gamePane().archers());
 		addAll(instructions, pressSpace);
+		addAll(gamePane().rewardsDisplay().imagePanes());
 	}
 
 	public void putArchersInPosition() {
@@ -95,7 +96,7 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 			}
 		}
 		else {
-			if(gamePane().hasWinner()) {
+			if(gamePane().isFinished()) {
 				if(kc == KeyCode.SPACE)
 					MainScene.get().fadeBackFromMinigame(gamePane().getResult());
 			}
@@ -122,11 +123,6 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 				if(ip instanceof Updatable)
 					((Updatable) ip).update(diff);
 		}
-	}
-	
-	public void win(int player) {
-		winner.setImage(Images.player(player));
-		addAll(winBackground, winner);
 	}
 	
 	public Fence fence() {
