@@ -1,42 +1,44 @@
 package game.board.imagelayer;
 
+import base.Updatable;
 import game.board.Board;
-import javafx.animation.*;
-import javafx.animation.Animation.Status;
-import javafx.util.Duration;
 import players.Player;
 
-public final class WalkAnimation {
+public final class WalkAnimation implements Updatable {
 
-	private static final Duration STEP_DURATION = Duration.millis(200);
+	private static final long STEP_DURATION = (long) .2e9;
 	
-	private final Timeline timeline;
 	private final Player player;
-	private final int pStartIndex, destIndex;
+	private final int destIndex;
+	
+	private long elapsed;
 	
 	public WalkAnimation(Player player, int distance) {
 		this.player = player;
-		this.pStartIndex = player.tile().index();
-		this.destIndex = pStartIndex + distance;
-		timeline = new Timeline();
-		for(int i = 1; i <= distance; i++) {
-			int iCopy = i; //for lambda below.
-			timeline.getKeyFrames().add(new KeyFrame(STEP_DURATION.multiply(i), eh -> {
-				Board.il().movePlayer(player, pStartIndex + iCopy);
-				if(iCopy == distance)
-					Board.il().walkFinished(this);
-			}));
+		this.destIndex = pIndex() + distance;
+	}
+	
+	@Override
+	public void update(long diff) {
+		if(!isFinished()) {
+			elapsed += diff;
+			if(elapsed > STEP_DURATION) {
+				Board.il().movePlayer(player, pIndex() + 1);
+				elapsed %= STEP_DURATION;
+			}
+			if(isFinished())
+				Board.il().walkFinished();
 		}
 	}
 	
-	public void playFromStart() {
-		timeline.playFromStart();
-	}
-	
-	public boolean isRunning() {
-		return timeline.getStatus() == Status.RUNNING;
+	public boolean isFinished() {
+		return pIndex() == destIndex;
 	}
 
+	private int pIndex() {
+		return player().tile().index();
+	}
+	
 	public Player player() {
 		return player;
 	}

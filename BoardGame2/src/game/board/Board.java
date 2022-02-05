@@ -80,13 +80,7 @@ public class Board extends GamePane implements Updatable {
 	
 	public void executeTurn(int diceRoll) {
 		readyToRoll = false;
-		walk(Player.get(turn), diceRoll);
-	}
-	
-	/** Updates the given {@link Player Player's} {@link Player#tile() current tile}. */
-	private void walk(Player p, int distance) {
-		WalkAnimation wa = new WalkAnimation(p, distance);
-		wa.playFromStart();
+		imageLayer().walk(Player.get(turn), diceRoll);
 	}
 	
 	public void playerLanded(Tile tile) {

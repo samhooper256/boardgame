@@ -111,12 +111,13 @@ public class MainScene extends Scene implements Updatable {
 		GameInput.keysPressed().remove(kc);
 		if(kc == KeyCode.F11)
 			Main.stage().setFullScreen(!Main.stage().isFullScreen());
-		else if(kc == GameInput.controls().pause())
+		else if(kc == GameInput.controls().pause()) {
 			if(ingame())
 				if(paused)
 					requestUnpause();
 				else
 					pause();
+		}
 		else
 			baseContent().keyReleased(kc);
 	}
