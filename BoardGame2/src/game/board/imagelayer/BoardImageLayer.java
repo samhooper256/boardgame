@@ -6,20 +6,14 @@ import base.*;
 import base.panes.*;
 import events.SimpleTextEvent;
 import fxutils.*;
-import game.MainScene;
 import game.board.*;
 import javafx.geometry.Point2D;
-import javafx.util.Duration;
 import medals.*;
 import players.Player;
 import tiles.*;
 
 public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 
-	/** The delay between when a player lands on a minigame tile and when
-	 * {@link MainScene#startMinigame(minigames.Minigame)} is called.*/
-	private static final Duration LAND_DELAY_TO_MINIGAME = Duration.millis(500);
-	
 	private final Ring[] rings; //index i is the ring for player i;
 	
 	/** Maps each player number to a {@link List} of all the {@link ImagePane} that make up that player's medal area.
@@ -180,11 +174,9 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	/** Called by {@link WalkAnimation} to notify this {@link Board} that the animation has finished. */
 	public void walkFinished() {
 		Tile destTile = tileAt(currentWalk.destTileIndex());
-		Timing.doAfterDelay(LAND_DELAY_TO_MINIGAME, () -> {
-			Board.get().playerLanded(destTile); //calls playerLanded in this class.
-			if(destTile instanceof SafeTile) //TODO this is not how this should be done.
-				gamePane().incrementTurn(); //Minigames and events will call this when they finish.
-		});
+		Board.get().playerLanded(destTile); //calls playerLanded in this class.
+		if(destTile instanceof SafeTile) //TODO this is not how this should be done.
+			gamePane().incrementTurn(); //Minigames and events will call this when they finish.
 		currentWalk = null;
 	}
 	
