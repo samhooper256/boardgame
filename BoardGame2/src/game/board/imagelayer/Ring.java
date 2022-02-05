@@ -1,4 +1,4 @@
-package game.board;
+package game.board.imagelayer;
 
 import base.*;
 import base.panes.*;

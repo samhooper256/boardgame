@@ -1,8 +1,9 @@
-package game.board;
+package game.board.imagelayer;
 
 import base.panes.ImagePane;
 import fxutils.*;
 import game.MainScene;
+import game.board.Board;
 
 public class EventBackground extends ImagePane implements Fadeable {
 
