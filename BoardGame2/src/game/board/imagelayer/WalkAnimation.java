@@ -1,11 +1,12 @@
-package game.board;
+package game.board.imagelayer;
 
+import game.board.Board;
 import javafx.animation.*;
 import javafx.animation.Animation.Status;
 import javafx.util.Duration;
 import players.Player;
 
-final class WalkAnimation {
+public final class WalkAnimation {
 
 	private static final Duration STEP_DURATION = Duration.millis(200);
 	

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
-// - add a "back to main menu" button to the pause menu.
+// - should minigame tiles get disabled after their first use so they can't be used again?
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";

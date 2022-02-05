@@ -1,4 +1,4 @@
-package game.board;
+package game.board.imagelayer;
 
 import java.util.*;
 
@@ -7,6 +7,7 @@ import base.panes.*;
 import events.SimpleTextEvent;
 import fxutils.*;
 import game.MainScene;
+import game.board.*;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import medals.*;
@@ -35,7 +36,8 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		createMedalAreas();
 	}
 	
-	void init() {
+	/** Should only be called once. */
+	public void init() {
 		tileOrder = generateTileOrder();
 		add(new ImagePane(Images.BACKGROUND));
 		placeTiles();

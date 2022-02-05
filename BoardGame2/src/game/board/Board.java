@@ -7,6 +7,7 @@ import base.panes.*;
 import events.*;
 import game.BoardFade;
 import game.board.fx.BoardFXLayer;
+import game.board.imagelayer.*;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import medals.MedalReward;
