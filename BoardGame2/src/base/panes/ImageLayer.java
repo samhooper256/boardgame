@@ -26,7 +26,7 @@ public interface ImageLayer extends Updatable {
 	 * Returns {@code true} if the {@link ImagePane} was successfully added, {@code false} otherwise. The call
 	 * {@code add(x)} is equivalent to {@code add(x, 0)}. */
 	default boolean add(ImagePane image) {
-		return add(image, 0);
+		return add(0, image);
 	}
 	
 	/** Adds the given {@link ImagePane} to the bottom packet if it is absent. Returns {@code true} iff the
@@ -53,7 +53,12 @@ public interface ImageLayer extends Updatable {
 	 * <p>If {@code (index >= packetsUnmodifiable().size())}, a new packet will be created with the given index as well
 	 * as for all indices {@code i}, {@code packetsUnmodifiable().size() <= i < index}. The size of
 	 * {@link #packetsUnmodifiable()} will thus be equal to {@code index + 1} after this method returns.</p> */
-	boolean add(ImagePane image, int packetIndex);
+	boolean add(int packetIndex, ImagePane image);
+	
+	default void addAll(int packetIndex, ImagePane... images) {
+		for(ImagePane image : images)
+			add(packetIndex, image);
+	}
 	
 	/** Attempts to remove the given {@link ImagePane}, which may be in any {@link Packet}.
 	 * Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */

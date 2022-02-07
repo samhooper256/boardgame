@@ -87,7 +87,7 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	}
 	
 	@Override
-	public boolean add(ImagePane image, int packetIndex) {
+	public boolean add(int packetIndex, ImagePane image) {
 		PacketImpl packet = generateOrGetPacket(packetIndex);
 		if(getChildren().subList(packet.low(), packet.high()).add(image)) {
 			packet.setHigh(packet.high() + 1);
@@ -100,7 +100,7 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	public boolean remove(ImagePane image) {
 		for(int i = 0; i < packets.size(); i++) {
 			if(tryRemove(image, packets.get(i))) {
-				for(int k = i + 1; k < packets.size(); i++)
+				for(int k = i + 1; k < packets.size(); k++)
 					packets.get(k).shift(-1);
 				return true;
 			}

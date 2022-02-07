@@ -36,8 +36,8 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(fence);
 		addAll(gamePane().archers());
-		addAll(instructions, pressSpace);
 		addAll(gamePane().rewardsDisplay().imagePanes());
+		addAll(1, instructions, pressSpace);
 	}
 
 	public void putArchersInPosition() {
@@ -48,13 +48,11 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 	}
 	
 	void start() {
-		instructions.fader().appear();
-		pressSpace.fader().appear();
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());
-		bringToFrontOfPacket(instructions);
-		bringToFrontOfPacket(pressSpace);
+		instructions.fader().appear();
+		pressSpace.fader().appear();
 	}
 	
 	@Override
