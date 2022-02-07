@@ -79,6 +79,7 @@ public final class Images {
 	public static Image tileImage(MiniTag tag) {
 		switch(tag) {
 			case ARCHERY: return Images.ARCHERY_TILE;
+			case HURDLES: return Images.HURDLES_TILE;
 			default: throw new UnsupportedOperationException(String.format("tile image for %s", tag));
 		}
 	}
