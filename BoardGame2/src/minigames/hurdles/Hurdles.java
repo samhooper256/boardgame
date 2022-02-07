@@ -1,6 +1,6 @@
 package minigames.hurdles;
 
-import minigames.Minigame;
+import minigames.*;
 import minigames.hurdles.fx.HurdlesFXLayer;
 import minigames.hurdles.imagelayer.HurdlesImageLayer;
 
@@ -13,7 +13,7 @@ public class Hurdles extends Minigame {
 	}
 	
 	private Hurdles() {
-		super(new HurdlesImageLayer(), new HurdlesFXLayer());
+		super(MiniTag.HURDLES, new HurdlesImageLayer(), new HurdlesFXLayer());
 	}
 	
 	@Override

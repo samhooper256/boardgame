@@ -49,7 +49,8 @@ public final class Images {
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
 			QUIT_BUTTON = get("quit_button.png"),
-			MINIGAME_INSTRUCTIONS = get("minigame_instructions.png"),
+			ARCHERY_INSTRUCTIONS = get("archery_instructions.png"),
+			HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
 			REWARDS_BACKGROUND = get("rewards_background.png"),
 			PRESS_SPACE = get("pressspace.png"),
 			EVENT_BACKGROUND = get("event_background.png"),
@@ -78,9 +79,17 @@ public final class Images {
 
 	public static Image tileImage(MiniTag tag) {
 		switch(tag) {
-			case ARCHERY: return Images.ARCHERY_TILE;
-			case HURDLES: return Images.HURDLES_TILE;
+			case ARCHERY: return ARCHERY_TILE;
+			case HURDLES: return HURDLES_TILE;
 			default: throw new UnsupportedOperationException(String.format("tile image for %s", tag));
+		}
+	}
+	
+	public static Image instructions(MiniTag tag) {
+		switch(tag) {
+			case ARCHERY: return ARCHERY_INSTRUCTIONS;
+			case HURDLES: return HURDLES_INSTRUCTIONS;
+			default: throw new UnsupportedOperationException(String.format("instructions for %s", tag));
 		}
 	}
 	

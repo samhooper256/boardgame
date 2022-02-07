@@ -45,7 +45,7 @@ public class Archery extends Minigame {
 	private Target currentTarget;
 	
 	private Archery(WaveGenerator waveGenerator) {
-		super(new ArcheryImageLayer(), new ArcheryFXLayer());
+		super(MiniTag.ARCHERY, new ArcheryImageLayer(), new ArcheryFXLayer());
 		this.waveGenerator = waveGenerator;
 		archerMap = new HashMap<>();
 		Board.get().players().forEachOrdered(p -> archerMap.put(p, new Archer(p.number())));

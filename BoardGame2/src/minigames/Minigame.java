@@ -6,8 +6,11 @@ import game.*;
 
 public abstract class Minigame extends GamePane implements Updatable {
 	
-	public Minigame(ImageLayer imageLayer, FXLayer fxLayer) {
+	private final MiniTag tag;
+	
+	public Minigame(MiniTag tag, ImageLayer imageLayer, FXLayer fxLayer) {
 		super(imageLayer, fxLayer);
+		this.tag = tag;
 		imageLayer.setGamePane(this);
 		fxLayer.setGamePane(this);
 	}
@@ -16,5 +19,9 @@ public abstract class Minigame extends GamePane implements Updatable {
 	 * called at the "peak" of the {@link BoardFade BoardFadeLayer's} transition (that is, when the player cannot
 	 * see the minigame or the board). */
 	public abstract void start();
+	
+	public MiniTag tag() {
+		return tag;
+	}
 	
 }

@@ -1,36 +1,25 @@
 package minigames.archery.imagelayer;
 
-import static game.MainScene.DEFAULT_HEIGHT;
-import static game.MainScene.DEFAULT_WIDTH;
-
 import java.util.Collection;
 
 import base.*;
+import base.input.GameInput;
 import base.panes.*;
 import fxutils.Images;
 import game.MainScene;
 import javafx.scene.input.*;
-import javafx.util.Duration;
+import minigames.*;
 import minigames.archery.*;
 import utils.Intersections;
 
-public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInput {
-
-	private static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
+public class ArcheryImageLayer extends MinigameImageLayer {
 	
-	private final FadeableImagePane instructions, pressSpace;
 	private final Fence fence;
 	
 	public ArcheryImageLayer() {
-		super();
-		instructions = new FadeableImagePane(Images.MINIGAME_INSTRUCTIONS);
-		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
-		instructions.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
-		pressSpace = new FadeableImagePane(Images.PRESS_SPACE);
-		pressSpace.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
-		pressSpace.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .8);
+		super(MiniTag.ARCHERY);
 		fence = new Fence();
-		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
+		fence.setIdealCenter(MainScene.CENTER_X, MainScene.DEFAULT_HEIGHT * .75);
 	}
 	
 	/** Must only be called once. */
@@ -39,22 +28,21 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		addAll(fence);
 		addAll(gamePane().archers());
 		addAll(gamePane().rewardsDisplay().imagePanes());
-		addAll(1, instructions, pressSpace);
+		
 	}
 
 	public void putArchersInPosition() {
 		int archer = 1;
 		Collection<Archer> archers = gamePane().archers();
 		for(Archer a : archers)
-			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
+			a.setIdealCenter(MainScene.DEFAULT_WIDTH / (archers.size() + 1) * archer++, MainScene.DEFAULT_HEIGHT * .85);
 	}
 	
 	public void start() {
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());
-		instructions.fader().appear();
-		pressSpace.fader().appear();
+		showInstructions();
 	}
 	
 	@Override
@@ -75,35 +63,21 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		return null;
 	}
 	
-	/** {@code true} if the instructions are showing, even if they are in the process of fading out. */
-	public boolean instructionsShowing() {
-		return instructions.isVisible() && instructions.getOpacity() > 0;
-	}
-	
-	
 	@Override
-	public void keyPressed(KeyCode kc) {
-		if(instructionsShowing()) {
-			if(kc == KeyCode.SPACE && !instructions.fader().isFadingOut()) {
-				instructions.fader().fadeOutAndHide();
-				pressSpace.fader().fadeOutAndHide();
-			}
+	public void keyPressedIngame(KeyCode kc) {
+		if(gamePane().isFinished()) {
+			if(kc == GameInput.controls().next())
+				MainScene.get().fadeBackFromMinigame(gamePane().getResult());
 		}
 		else {
-			if(gamePane().isFinished()) {
-				if(kc == KeyCode.SPACE)
-					MainScene.get().fadeBackFromMinigame(gamePane().getResult());
-			}
-			else {
-				for(Archer a : gamePane().archers())
-					if(gamePane().isMobile(a))
-						a.keyPressed(kc);
-			}
+			for(Archer a : gamePane().archers())
+				if(gamePane().isMobile(a))
+					a.keyPressed(kc);
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyCode kc) {
+	public void keyReleasedIngame(KeyCode kc) {
 		if(!instructionsShowing())
 			for(Archer a : gamePane().archers())
 				if(gamePane().isMobile(a))
@@ -111,20 +85,14 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 	}
 
 	@Override
-	public void updatePane(long diff) {
-		if(!instructionsShowing()) {
-			for(ImagePane ip : imagesUnmodifiable())
-				if(ip instanceof Updatable)
-					((Updatable) ip).update(diff);
-		}
+	public void updateIngame(long diff) {
+		for(ImagePane ip : imagesUnmodifiable())
+			if(ip instanceof Updatable)
+				((Updatable) ip).update(diff);
 	}
 	
 	public Fence fence() {
 		return fence;
-	}
-	
-	public FadeableImagePane instructions() {
-		return instructions;
 	}
 	
 }
