@@ -44,7 +44,8 @@ public final class Images {
 			WARRIOR = get("WarriorPlayer.png"), //player 3
 			WINGS = get("WingsPlayer.png"), //player 4
 			RING = get("PlayerRing.png"),
-			ARCHERY_TILE = get("Archerytile.png"),
+			ARCHERY_TILE = get("ArcheryTile.png"),
+			HURDLES_TILE = get("HurdlesTile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
 			QUIT_BUTTON = get("quit_button.png"),
