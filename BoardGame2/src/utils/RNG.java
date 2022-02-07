@@ -10,6 +10,11 @@ public final class RNG {
 	
 	public static final Random SOURCE = new Random();
 	
+	/** From {@code 0} (inclusive) to {@code highExclusive}. */
+	public static int intExclusive(int highExclusive) {
+		return intExclusive(0, highExclusive);
+	}
+	
 	public static int intExclusive(int a, int b) {
 		if(a >= b)
 			throw new IllegalArgumentException("a <= b");

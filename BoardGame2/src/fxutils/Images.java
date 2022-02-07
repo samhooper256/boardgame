@@ -2,6 +2,7 @@ package fxutils;
 
 import base.Main;
 import javafx.scene.image.*;
+import minigames.MiniTag;
 import players.Player;
 
 /**
@@ -43,7 +44,7 @@ public final class Images {
 			WARRIOR = get("WarriorPlayer.png"), //player 3
 			WINGS = get("WingsPlayer.png"), //player 4
 			RING = get("PlayerRing.png"),
-			ARCHERY = get("Archerytile.png"),
+			ARCHERY_TILE = get("Archerytile.png"),
 			MAIN_MENU = get("main_menu.png"),
 			PLAY_BUTTON = get("PlayButton.png"),
 			QUIT_BUTTON = get("quit_button.png"),
@@ -74,6 +75,13 @@ public final class Images {
 	
 	private Images() {}
 
+	public static Image tileImage(MiniTag tag) {
+		switch(tag) {
+			case ARCHERY: return Images.ARCHERY_TILE;
+			default: throw new UnsupportedOperationException(String.format("tile image for %s", tag));
+		}
+	}
+	
 	public static Image die(int face) {
 		switch(face) {
 			case 0: return DIE0;

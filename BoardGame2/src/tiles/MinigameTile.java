@@ -1,19 +1,30 @@
 package tiles;
 
-import fxutils.Images;
 import game.MainScene;
-import minigames.archery.ArcheryMinigame;
+import minigames.MiniTag;
 import players.Player;
 
 public class MinigameTile extends Tile {
 	
+	private final MiniTag tag;
+	
+	/** Generates a new {@link MinigameTile} with a random minigame. */
 	public MinigameTile() {
-		super(Images.ARCHERY);
+		this(MiniTag.random());
 	}
 
+	public MinigameTile(MiniTag tag) {
+		super(tag.tileImage());
+		this.tag = tag;
+	}
+	
 	@Override
 	public void land(Player p) {
-		MainScene.get().startMinigame(ArcheryMinigame.get()); //TODO - other minigames
+		MainScene.get().startMinigame(tag.minigame());
+	}
+	
+	public MiniTag tag() {
+		return tag;
 	}
 	
 }
