@@ -3,7 +3,6 @@ package minigames.archery.imagelayer;
 import java.util.Collection;
 
 import base.*;
-import base.input.GameInput;
 import base.panes.*;
 import fxutils.Images;
 import game.MainScene;
@@ -38,11 +37,11 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 			a.setIdealCenter(MainScene.DEFAULT_WIDTH / (archers.size() + 1) * archer++, MainScene.DEFAULT_HEIGHT * .85);
 	}
 	
-	public void start() {
+	@Override
+	public void startMinigame() {
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());
-		showInstructions();
 	}
 	
 	@Override
@@ -65,23 +64,16 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 	
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
-		if(gamePane().isFinished()) {
-			if(kc == GameInput.controls().next())
-				MainScene.get().fadeBackFromMinigame(gamePane().getResult());
-		}
-		else {
-			for(Archer a : gamePane().archers())
-				if(gamePane().isMobile(a))
-					a.keyPressed(kc);
-		}
+		for(Archer a : gamePane().archers())
+			if(gamePane().isMobile(a))
+				a.keyPressed(kc);
 	}
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
-		if(!instructionsShowing())
-			for(Archer a : gamePane().archers())
-				if(gamePane().isMobile(a))
-					a.keyReleased(kc);
+		for(Archer a : gamePane().archers())
+			if(gamePane().isMobile(a))
+				a.keyReleased(kc);
 	}
 
 	@Override

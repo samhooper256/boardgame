@@ -13,7 +13,7 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	public static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
 	
 	protected final FadeableImagePane instructions, pressSpace;
-
+	
 	protected MinigameImageLayer(MiniTag tag) {
 		instructions = new FadeableImagePane(tag.instructions());
 		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
@@ -24,6 +24,14 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 		pressSpace.setIdealCenter(MainScene.CENTER_X, MainScene.DEFAULT_HEIGHT * .8);
 		addAll(1, instructions, pressSpace);
 	}
+	
+	/** Calls {@link #startMinigame()} then {@link #showInstructions()}. */
+	public final void start() {
+		startMinigame();
+		showInstructions();
+	}
+	
+	public abstract void startMinigame();
 	
 	public void showInstructions() {
 		instructions().fader().appear();
@@ -40,19 +48,15 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 		return instructions().isVisible() && instructions().getOpacity() > 0;
 	}
 	
-	public FadeableImagePane instructions() {
-		return instructions;
-	}
-	
-	public FadeableImagePane pressSpace() {
-		return pressSpace;
-	}
-	
 	@Override
 	public final void keyPressed(KeyCode kc) {
 		if(instructionsShowing()) {
 			if(kc == GameInput.controls().next() && !instructions.fader().isFadingOut())
 				fadeOutInstructions();
+		}
+		else if(gamePane().isFinished()) {
+			if(kc == GameInput.controls().next())
+				MainScene.get().fadeBackFromMinigame(gamePane().getResult());
 		}
 		else {
 			keyPressedIngame(kc);
@@ -80,6 +84,14 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	@Override
 	public Minigame gamePane() {
 		return (Minigame) super.gamePane();
+	}
+	
+	public FadeableImagePane instructions() {
+		return instructions;
+	}
+	
+	public FadeableImagePane pressSpace() {
+		return pressSpace;
 	}
 	
 }

@@ -33,9 +33,20 @@ public class Hurdles extends Minigame {
 	}
 
 	@Override
-	public void start() {
+	public void startMinigame() {
+		imageLayer().start();
+	}
+
+	@Override
+	public boolean isFinished() {
 		// TODO Auto-generated method stub
-		
+		return false;
+	}
+
+	@Override
+	protected MinigameResult computeResult() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -12,8 +12,8 @@ import players.Player;
 
 //TODO:
 // - should minigame tiles get disabled after their first use so they can't be used again?
-// - fix SimpleTextEvent popup so it's above FixedDies.
 // - generate a new map if the player starts a new game.
+// - make Minigame use keyPressedIngame stuff.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";

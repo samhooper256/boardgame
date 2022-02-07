@@ -13,7 +13,6 @@ import minigames.*;
 import minigames.archery.fx.ArcheryFXLayer;
 import minigames.archery.imagelayer.*;
 import minigames.archery.waves.*;
-import minigames.rewards.RewardsDisplay;
 import players.Player;
 
 /** The {@link Archery} {@link Minigame }consists of a series of {@link ArcheryWave waves}. All players take turns
@@ -38,7 +37,6 @@ public class Archery extends Minigame {
 	private final SortedSet<Survival> survivals;
 	private final boolean[] alive;
 	private final Timeline waveTimeline; //TODO make this use update(long) ? 
-	private final RewardsDisplay rewardsDisplay;
 	
 	private boolean arrowFired, finished;
 	private int waveIndex, turn, aliveCount;
@@ -59,13 +57,12 @@ public class Archery extends Minigame {
 		currentTarget = null;
 		Fader wtfader = fxLayer().waveText().fader();
 		waveTimeline = new Timeline(new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide()));
-		rewardsDisplay = new RewardsDisplay();
 		imageLayer().init();
 		fxLayer().init();
 	}
 	
 	@Override
-	public void start() {
+	public void startMinigame() {
 		waveIndex = 0;
 		turn = 1;
 		aliveCount = Board.get().playerCount();
@@ -73,7 +70,6 @@ public class Archery extends Minigame {
 		survivals.clear();
 		arrowFired = finished = false;
 		currentTarget = null;
-		rewardsDisplay().hide();
 		updateControls(turn);
 		imageLayer().start();
 		fxLayer().start();
@@ -168,7 +164,7 @@ public class Archery extends Minigame {
 		finished = true;
 		if(aliveCount == 1)
 			survivals.add(new Survival(getOnlyPlayerAlive(), waveIndex));
-		rewardsDisplay.show(getResult());
+		rewardsDisplay().show(getResult());
 	}
 	
 	@Override
@@ -228,9 +224,8 @@ public class Archery extends Minigame {
 		throw new IllegalStateException("Should not happen");
 	}
 	
-	public MinigameResult getResult() {
-		if(!isFinished())
-			throw new IllegalStateException("No winner yet");
+	@Override
+	protected MinigameResult computeResult() {
 		//maps each wave that a player died on to the list (sorted ascending) of all players who survived to that wave.
 		//The keys in the map are in descending order.
 		SortedMap<Integer, List<Integer>> groups = survivals.stream().collect(Collectors.groupingBy(
@@ -253,12 +248,9 @@ public class Archery extends Minigame {
 		return MinigameResult.of(rewards);
 	}
 	
+	@Override
 	public boolean isFinished() {
 		return finished;
-	}
-	
-	public RewardsDisplay rewardsDisplay() {
-		return rewardsDisplay;
 	}
 	
 	@Override
