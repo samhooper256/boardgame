@@ -16,9 +16,9 @@ import minigames.archery.waves.*;
 import minigames.rewards.RewardsDisplay;
 import players.Player;
 
-/** The {@link Archery} consists of a series of {@link ArcheryWave waves}. All players take turns beating the
- * wave. If a player misses the target at any point, they are out for the rest of the game.
- * The minigame ends when there is one player remaining. */
+/** The {@link Archery} {@link Minigame }consists of a series of {@link ArcheryWave waves}. All players take turns
+ * beating shooting at the target; when all players have taken a shot, the remaining players move to the next wave. As
+ * soon as a player misses, they are out for the rest of the minigame. */
 public class Archery extends Minigame {
 
 	private static final Duration WAVE_POPUP_DURATION = Duration.millis(1000); //Does not include time spent fading out.
