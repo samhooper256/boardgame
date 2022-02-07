@@ -69,7 +69,7 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 	/** Returns one of the {@link Arrow Arrows} that is currently intersecting the given {@link ImagePane}. Returns
 	 * {@code null} if no {@link Arrow} is currently intersecting the {@link ImagePane}. */
 	public Arrow getIntersectingArrow(ImagePane ip) {
-		for(ImagePane a : images)
+		for(ImagePane a : imagesUnmodifiable())
 			if(a instanceof Arrow && Intersections.test(a, ip))
 				return (Arrow) a;
 		return null;

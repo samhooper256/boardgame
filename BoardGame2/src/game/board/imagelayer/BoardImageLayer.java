@@ -124,11 +124,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			addAll(medalAreaImages.get(i));
 	}
 	
-	public void clearAllImages() {
-		getChildren().clear();
-		images.clear();
-	}
-	
 	public void showSimpleTextEvent(SimpleTextEvent event) {
 		EventBackground.get().fader().fadeIn();
 	}

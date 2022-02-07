@@ -11,15 +11,27 @@ import javafx.scene.layout.Pane;
  * <p>Implementing classes must also be a subclasses of {@link Pane}.</p>*/
 public interface ImageLayer extends Updatable {
 
-	/** Returns {@code true} if the {@link ImagePane} was successfully added, {@code false} otherwise. */
+	/** A packet of {@link ImagePane}. If one packet is above another, all of its images will be rendered on top of
+	 * those from the lower packet. */
+	interface Packet {
+		
+		/** The returned {@link List} is unmodifiable. */
+		List<ImagePane> images();
+		
+		int index();
+		
+	}
+	
+	/** Adds the given {@link ImagePane} to the bottom packet.
+	 * Returns {@code true} if the {@link ImagePane} was successfully added, {@code false} otherwise. */
 	boolean add(ImagePane ip);
 	
-	/** Returns {@code true} iff the {@link ImagePane} was absent. If the {@link ImagePane} is present, it is moved to
-	 * the front. */
+	/** Adds the given {@link ImagePane} to the bottom packet if it is absent. Returns {@code true} iff the
+	 * {@link ImagePane} was absent. If the {@link ImagePane} is present, it is moved to the front. */
 	default boolean addIfAbsent(ImagePane ip) {
-		boolean result = remove(ip);
+		boolean present = remove(ip);
 		add(ip);
-		return result;
+		return !present;
 	}
 	
 	default void addAll(ImagePane... ips) {
@@ -32,7 +44,8 @@ public interface ImageLayer extends Updatable {
 			add(ip);
 	}
 	
-	/** Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
+	/** Attempts to remove the given {@link ImagePane}, which may be in any {@link Packet}.
+	 * Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
 	boolean remove(ImagePane ip);
 	
 	default void removeAll(ImagePane... ips) {
@@ -44,6 +57,13 @@ public interface ImageLayer extends Updatable {
 		for(ImagePane ip : ips)
 			remove(ip);
 	}
+	
+	void clearAllImages();
+	
+	/** Returns the {@link Packet} with the given index. */
+	Packet getPacket(int index);
+	
+	List<Packet> packetsUnmodifiable();
 	
 	List<ImagePane> imagesUnmodifiable();
 	

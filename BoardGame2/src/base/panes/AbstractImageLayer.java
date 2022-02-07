@@ -4,16 +4,73 @@ import java.util.*;
 
 import fxutils.Nodes;
 import javafx.geometry.*;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import utils.Screen;
 
+/** It is crucial that {@code getChildren().add(...)} never be used to add any {@link Node Nodes}, even
+ * {@link ImagePane ImagePanes}, to this {@link AbstractImageLayer} or heap pollution may occur.
+ * The {@link #add(ImagePane)} method must be used instead. */
 public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 
-	protected final List<ImagePane> images;
-	protected GamePane gamePane;
+	private final class PacketImpl implements Packet {
+
+		private final int index;
+		
+		private int low, high;
+		
+		public PacketImpl(int index) {
+			this.index = index;
+			low = high = 0;
+		}
+		
+		@Override
+		public List<ImagePane> images() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int index() {
+			return index;
+		}
+		
+		/** Inclusive. */
+		public int low() {
+			return low;
+		}
+		
+		/** Exclusive. */
+		public int high() {
+			return high;
+		}
+		
+		public void setLow(int low) {
+			this.low = low;
+		}
+		
+		public void setHigh(int high) {
+			this.high = high;
+		}
+		
+		public void set(int low, int high) {
+			setLow(low);
+			setHigh(high);
+		}
+	
+		public void shift(int distance) {
+			setLow(low() + distance);
+			setHigh(high() + distance);
+		}
+		
+	}
+	
+	private final List<PacketImpl> packets;
 	
 	private final List<ImagePane> trash;
 	private final List<Runnable> endOfUpdateActions;
+	
+	private GamePane gamePane;
 	
 	/** The {@link #gamePane()} must be set after construction. */
 	protected AbstractImageLayer() {
@@ -21,7 +78,8 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	}
 	
 	public AbstractImageLayer(GamePane gamePane) {
-		images = new ArrayList<>();
+		packets = new ArrayList<>();
+		packets.add(new PacketImpl(0));
 		trash = new ArrayList<>();
 		endOfUpdateActions = new ArrayList<>();
 		this.gamePane = gamePane;
@@ -29,8 +87,9 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	
 	@Override
 	public boolean add(ImagePane image) {
-		if(getChildren().add(image)) {
-			images.add(image);
+		PacketImpl bottom = getPacket(0);
+		if(getChildren().subList(bottom.low(), bottom.high()).add(image)) {
+			bottom.setHigh(bottom.high() + 1);
 			return true;
 		}
 		return false;
@@ -38,16 +97,45 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	
 	@Override
 	public boolean remove(ImagePane image) {
-		if(getChildren().remove(image)) {
-			images.remove(image);
+		for(int i = 0; i < packets.size(); i++) {
+			if(tryRemove(image, packets.get(i))) {
+				for(int k = i + 1; k < packets.size(); i++)
+					packets.get(k).shift(-1);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean tryRemove(ImagePane image, PacketImpl packet) {
+		if(getChildren().subList(packet.low(), packet.high()).remove(image)) {
+			packet.setHigh(packet.high() - 1);
 			return true;
 		}
 		return false;
 	}
 	
 	@Override
+	public void clearAllImages() {
+		getChildren().clear();
+		for(PacketImpl p : packets)
+			p.set(0, 0);
+	}
+	
+	@Override
+	public PacketImpl getPacket(int index) {
+		return packets.get(index);
+	}
+	
+	@Override
+	public List<Packet> packetsUnmodifiable() {
+		return Collections.unmodifiableList(packets);
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<ImagePane> imagesUnmodifiable() {
-		return Collections.unmodifiableList(images);
+		return Collections.unmodifiableList((List<ImagePane>) (List<?>) getChildren());
 	}
 	
 	/** {@link ImagePane ImagePanes} put in the trash will be {@link #remove(ImagePane) removed} at the end of this
@@ -80,7 +168,8 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	}
 	
 	private void relayout() {
-		for(ImagePane ip : images) {
+		for(Node n : getChildren()) {
+			ImagePane ip = (ImagePane) n;
 			updateImageSize(ip);
 			updateImageLayoutCoords(ip);
 		}
