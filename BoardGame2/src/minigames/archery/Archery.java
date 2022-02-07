@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import medals.*;
 import minigames.*;
 import minigames.archery.fx.ArcheryFXLayer;
+import minigames.archery.imagelayer.*;
 import minigames.archery.waves.*;
 import minigames.rewards.RewardsDisplay;
 import players.Player;

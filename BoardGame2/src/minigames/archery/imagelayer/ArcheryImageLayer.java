@@ -1,4 +1,4 @@
-package minigames.archery;
+package minigames.archery.imagelayer;
 
 import static game.MainScene.DEFAULT_HEIGHT;
 import static game.MainScene.DEFAULT_WIDTH;
@@ -11,6 +11,7 @@ import fxutils.Images;
 import game.MainScene;
 import javafx.scene.input.*;
 import javafx.util.Duration;
+import minigames.archery.*;
 import utils.Intersections;
 
 public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInput {
@@ -32,7 +33,8 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 		fence.setIdealCenter(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT * .75);
 	}
 	
-	void init() {
+	/** Must only be called once. */
+	public void init() {
 		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(fence);
 		addAll(gamePane().archers());
@@ -47,7 +49,7 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 			a.setIdealCenter(DEFAULT_WIDTH / (archers.size() + 1) * archer++, DEFAULT_HEIGHT * .85);
 	}
 	
-	void start() {
+	public void start() {
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());

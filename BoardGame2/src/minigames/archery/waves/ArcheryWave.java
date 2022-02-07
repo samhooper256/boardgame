@@ -1,6 +1,7 @@
 package minigames.archery.waves;
 
 import minigames.archery.*;
+import minigames.archery.imagelayer.Target;
 
 public interface ArcheryWave {
 

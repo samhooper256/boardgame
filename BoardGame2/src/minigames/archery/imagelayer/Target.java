@@ -1,9 +1,10 @@
-package minigames.archery;
+package minigames.archery.imagelayer;
 
 import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.geometry.Point2D;
+import minigames.archery.*;
 
 /** @see HitAction */
 public class Target extends ImagePane implements Updatable {

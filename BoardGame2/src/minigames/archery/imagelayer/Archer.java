@@ -1,4 +1,4 @@
-package minigames.archery;
+package minigames.archery.imagelayer;
 
 import base.*;
 import base.input.*;
@@ -7,6 +7,7 @@ import fxutils.Images;
 import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.scene.input.*;
+import minigames.archery.Archery;
 import utils.Intersections;
 
 public class Archer extends ImagePane implements Updatable {
