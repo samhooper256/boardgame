@@ -61,7 +61,6 @@ public class Archery extends Minigame {
 		waveTimeline = new Timeline(new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide()));
 		rewardsDisplay = new RewardsDisplay();
 		imageLayer().init();
-		imageLayer().instructions().fader().setFadeOutFinishedAction(() -> startFirstWave());
 		fxLayer().init();
 	}
 	
@@ -101,7 +100,8 @@ public class Archery extends Minigame {
 		}
 	}
 	
-	private void startFirstWave() {
+	@Override
+	public void ingameStarted() {
 		if(waveIndex != 0)
 			throw new IllegalStateException("Cannot start first wave");
 		startNextWaveOrEndGame();

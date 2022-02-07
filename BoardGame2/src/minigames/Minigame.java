@@ -20,6 +20,12 @@ public abstract class Minigame extends GamePane implements Updatable {
 	 * see the minigame or the board). */
 	public abstract void start();
 	
+	/** Called when the instructions fully disappear and this {@link Minigame} starts being playable. No-op by
+	 * default. */
+	public void ingameStarted() {
+		
+	}
+	
 	public MiniTag tag() {
 		return tag;
 	}
