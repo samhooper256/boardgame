@@ -2,7 +2,7 @@ package minigames.archery.fx;
 
 import base.panes.*;
 import game.MainScene;
-import minigames.archery.ArcheryMinigame;
+import minigames.archery.Archery;
 
 public class ArcheryFXLayer extends FXLayer {
 	
@@ -35,8 +35,8 @@ public class ArcheryFXLayer extends FXLayer {
 	}
 	
 	@Override
-	public ArcheryMinigame gamePane() {
-		return (ArcheryMinigame) super.gamePane();
+	public Archery gamePane() {
+		return (Archery) super.gamePane();
 	}
 	
 }

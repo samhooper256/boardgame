@@ -4,13 +4,13 @@ import java.util.*;
 
 import fxutils.Images;
 import javafx.scene.image.Image;
-import minigames.archery.ArcheryMinigame;
+import minigames.archery.Archery;
 import utils.RNG;
 
 /** Contains an enum constant corresponding to each kind of {@link Minigame}. Each instance provides access to that
  * the corresponding {@link Minigame} object and some related images. */
 public enum MiniTag {
-	ARCHERY(ArcheryMinigame.get());
+	ARCHERY(Archery.get());
 	
 	public static final EnumSet<MiniTag> ENABLED = EnumSet.allOf(MiniTag.class);
 	

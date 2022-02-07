@@ -15,15 +15,15 @@ import minigames.archery.waves.*;
 import minigames.rewards.RewardsDisplay;
 import players.Player;
 
-/** The {@link ArcheryMinigame} consists of a series of {@link ArcheryWave waves}. All players take turns beating the
+/** The {@link Archery} consists of a series of {@link ArcheryWave waves}. All players take turns beating the
  * wave. If a player misses the target at any point, they are out for the rest of the game.
  * The minigame ends when there is one player remaining. */
-public class ArcheryMinigame extends Minigame {
+public class Archery extends Minigame {
 
 	private static final Duration WAVE_POPUP_DURATION = Duration.millis(1000); //Does not include time spent fading out.
-	private static final ArcheryMinigame INSTANCE = new ArcheryMinigame(WaveGenerator.STANDARD);
+	private static final Archery INSTANCE = new Archery(WaveGenerator.STANDARD);
 	
-	public static ArcheryMinigame get() {
+	public static Archery get() {
 		return INSTANCE;
 	}
 	
@@ -43,7 +43,7 @@ public class ArcheryMinigame extends Minigame {
 	private int waveIndex, turn, aliveCount;
 	private Target currentTarget;
 	
-	private ArcheryMinigame(WaveGenerator waveGenerator) {
+	private Archery(WaveGenerator waveGenerator) {
 		super(new ArcheryImageLayer(), new ArcheryFXLayer());
 		this.waveGenerator = waveGenerator;
 		archerMap = new HashMap<>();

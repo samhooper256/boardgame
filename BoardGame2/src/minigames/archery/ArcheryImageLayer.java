@@ -56,8 +56,8 @@ public class ArcheryImageLayer extends AbstractImageLayer implements AcceptsInpu
 	}
 	
 	@Override
-	public ArcheryMinigame gamePane() {
-		return (ArcheryMinigame) super.gamePane();
+	public Archery gamePane() {
+		return (Archery) super.gamePane();
 	}
 
 	public void addArrow(Arrow a) {
