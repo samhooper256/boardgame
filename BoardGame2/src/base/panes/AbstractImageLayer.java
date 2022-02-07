@@ -60,8 +60,7 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 		}
 	
 		public void shift(int distance) {
-			setLow(low() + distance);
-			setHigh(high() + distance);
+			set(low() + distance, high() + distance);
 		}
 		
 	}
@@ -91,6 +90,8 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 		PacketImpl packet = generateOrGetPacket(packetIndex);
 		if(getChildren().subList(packet.low(), packet.high()).add(image)) {
 			packet.setHigh(packet.high() + 1);
+			for(int i = packetIndex + 1; i < packets.size(); i++)
+				packets.get(i).shift(1);
 			return true;
 		}
 		return false;

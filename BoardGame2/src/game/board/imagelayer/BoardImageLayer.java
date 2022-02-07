@@ -40,6 +40,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			add(rings[i]);
 		addPlayers();
 		movePlayersToStart();
+		add(1, EventBackground.get());
 		rings[1].lockCoordinatesTo(Player.get(1));
 	}
 	
@@ -50,7 +51,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		removeMedalAreas();
 		addMedalAreas();
 		EventBackground.get().fader().disappear();
-		addIfAbsent(EventBackground.get());
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].fader().disappear();
 		rings[1].fader().fadeIn();

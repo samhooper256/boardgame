@@ -20,6 +20,14 @@ public interface ImageLayer extends Updatable {
 		
 		int index();
 		
+		/** Inclusive. The lower bound of the {@link List#subList(int, int) subList} of
+		 * {@link ImageLayer#imagesUnmodifiable()} that this {@link Packet} corresponds to. */
+		int low();
+		
+		/** Exclusive. The upper bound of the {@link List#subList(int, int) subList} of
+		 * {@link ImageLayer#imagesUnmodifiable()} that this {@link Packet} corresponds to. */		
+		int high();
+		
 	}
 	
 	/** Adds the given {@link ImagePane} to the bottom packet.
