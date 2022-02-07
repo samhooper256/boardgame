@@ -70,7 +70,7 @@ public final class BoardAnimations {
 	/** Assumes that the last roll was {@link RollType#CHOOSE}. */
 	public static void transitionToRandomRoll(Runnable finishAction) {
 		RollableDie.get().setFace(1);
-		Board.il().bringToFront(FixedDie.showing(1));
+		Board.il().bringToFrontOfPacket(FixedDie.showing(1));
 		Timeline timeline = new Timeline();
 		KeyValue[] startKeyValues = new KeyValue[Die.FACES * 2], endKeyValues = new KeyValue[Die.FACES * 2];
 		for(int i = 1; i <= Die.FACES; i++) {

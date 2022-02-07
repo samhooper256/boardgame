@@ -52,9 +52,11 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 			this.high = high;
 		}
 		
-		public void set(int low, int high) {
+		/** Returns {@code this}. */
+		public PacketImpl set(int low, int high) {
 			setLow(low);
 			setHigh(high);
+			return this;
 		}
 	
 		public void shift(int distance) {
@@ -85,10 +87,10 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	}
 	
 	@Override
-	public boolean add(ImagePane image) {
-		PacketImpl bottom = getPacket(0);
-		if(getChildren().subList(bottom.low(), bottom.high()).add(image)) {
-			bottom.setHigh(bottom.high() + 1);
+	public boolean add(ImagePane image, int packetIndex) {
+		PacketImpl packet = generateOrGetPacket(packetIndex);
+		if(getChildren().subList(packet.low(), packet.high()).add(image)) {
+			packet.setHigh(packet.high() + 1);
 			return true;
 		}
 		return false;
@@ -124,6 +126,39 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	@Override
 	public PacketImpl getPacket(int index) {
 		return packets.get(index);
+	}
+	
+	private PacketImpl generateOrGetPacket(int index) {
+		if(packets.size() <= index) {
+			PacketImpl last = getPacket(packets.size() - 1);
+			while(packets.size() <= index)
+				packets.add(new PacketImpl(packets.size()).set(last.high(), last.high()));
+		}
+		return getPacket(index);
+	}
+
+	@Override
+	public void bringToFrontOfPacket(ImagePane image) {
+		int packetIndex = getIndexOfPacketContaining(image);
+		if(packetIndex < 0)
+			throw new IllegalStateException("The given image is not in this ImageLayer.");
+		PacketImpl p = getPacket(packetIndex);
+		List<Node> subList = getChildren().subList(p.low(), p.high());
+		if(!subList.remove(image) || !subList.add(image))
+			throw new IllegalStateException("Should not happen");
+	}
+	
+	@Override
+	public int getIndexOfPacketContaining(ImagePane image) {
+		int index = getChildren().indexOf(image);
+		if(index == -1)
+			return index;
+		for(int pi = 0; pi < packets.size(); pi++) {
+			PacketImpl p = packets.get(pi);
+			if(p.low() <= index && index < p.high())
+				return pi;
+		}
+		throw new IllegalStateException("Should not happen.");
 	}
 	
 	@Override
