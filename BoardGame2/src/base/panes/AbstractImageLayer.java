@@ -35,11 +35,13 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 		}
 		
 		/** Inclusive. */
+		@Override
 		public int low() {
 			return low;
 		}
 		
 		/** Exclusive. */
+		@Override
 		public int high() {
 			return high;
 		}
