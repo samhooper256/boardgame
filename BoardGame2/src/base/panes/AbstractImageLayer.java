@@ -26,8 +26,7 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 		
 		@Override
 		public List<ImagePane> images() {
-			// TODO Auto-generated method stub
-			return null;
+			return imagesUnmodifiable().subList(low(), high());
 		}
 
 		@Override
