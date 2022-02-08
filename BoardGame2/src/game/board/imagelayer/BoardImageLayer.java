@@ -20,7 +20,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	 * (Specifically, each list will contain four images: three medals and a player icon).*/
 	private final Map<Integer, List<ImagePane>> medalAreaImages;
 	
-	private List<Tile> tileOrder;
+	private List<Tile> tiles;
 	private WalkAnimation currentWalk;
 	
 	public BoardImageLayer() {
@@ -29,28 +29,31 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			rings[i] = new Ring();
 		medalAreaImages = new HashMap<>();
 		createMedalAreas();
+		tiles = Collections.emptyList();
 	}
 	
 	/** Should only be called once. */
 	public void init() {
-		tileOrder = generateTileOrder();
 		add(new ImagePane(Images.BOARD_BACKGROUND));
-		placeTiles();
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			add(rings[i]);
-		addPlayers();
-		movePlayersToStart();
 		add(1, EventBackground.get());
-		rings[1].lockCoordinatesTo(Player.get(1));
+		for(int i = 1; i <= Player.maxCount(); i++)
+			rings[i].lockCoordinatesTo(Player.get(i));
 	}
 	
 	public void start() {
+		removeAll(tiles);
+		tiles = generateTiles();
+		placeTiles();
 		removePlayers();
 		addPlayers();
 		movePlayersToStart();
 		removeMedalAreas();
 		addMedalAreas();
 		EventBackground.get().fader().disappear();
+		removeRings();
+		addRings();
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].fader().disappear();
 		rings[1].fader().fadeIn();
@@ -68,7 +71,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	
 	private void placeTiles() {
 		for(int i = 0; i < Board.TILE_COUNT; i++) {
-			Tile t = tileOrder.get(i);
+			Tile t = tiles.get(i);
 			Point2D point = Main.POINTS.get(i);
 			t.setIdealCoords(point);
 			add(t);
@@ -90,13 +93,22 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			movePlayer(Player.get(i), tileAt(0));
 	}
 	
-
-	private List<Tile> generateTileOrder() {
+	private List<Tile> generateTiles() {
 		List<Tile> order = new ArrayList<>(Board.TILE_COUNT);
 		order.add(StartTile.get());
 		for(TileSection section : TileSection.ORDER)
 			order.addAll(section.randomOrder());
 		return order;
+	}
+
+	private void removeRings() {
+		for(int i = 1; i <= Player.maxCount(); i++)
+			remove(rings[i]);
+	}
+	
+	private void addRings() {
+		for(int i = 1; i <= Player.maxCount(); i++)
+			add(rings[i]);
 	}
 	
 	private void createMedalAreas() {
@@ -138,11 +150,11 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	
 	/** The {@link Tile} at the given 0-based index, where the tile at index 0 is the start tile. */
 	public Tile tileAt(int index) {
-		return tileOrder.get(index);
+		return tiles.get(index);
 	}
 
 	public int tileIndex(Tile tile) {
-		return tileOrder.indexOf(tile);
+		return tiles.indexOf(tile);
 	}
 	
 	/** Moves the given {@link Player} to the given {@link Tile}.*/
@@ -178,10 +190,8 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	/** Called to notify this {@link BoardImageLayer} that the turn has been incremented. */
 	public void turnIncrementedTo(int turn) {
 		rings[Board.prevTurn(turn)].fader().fadeOutAndHide();
-		Ring ring = rings[turn];
-		ring.lockCoordinatesTo(Player.get(turn));
-		if(!ring.fader().isShowing())
-			ring.fader().fadeIn();
+		if(!rings[turn].fader().isShowing())
+			rings[turn].fader().fadeIn();
 	}
 	
 	@Override
