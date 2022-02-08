@@ -1,7 +1,5 @@
 package minigames.hurdles.imagelayer;
 
-import base.panes.*;
-import fxutils.Images;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.hurdles.Hurdles;
@@ -10,7 +8,6 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 
 	public HurdlesImageLayer() {
 		super(MiniTag.HURDLES);
-		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 	}
 	
 	@Override

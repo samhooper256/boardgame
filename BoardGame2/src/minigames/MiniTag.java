@@ -41,4 +41,8 @@ public enum MiniTag {
 		return Images.instructions(this);
 	}
 	
+	public Image background() {
+		return Images.background(this);
+	}
+	
 }

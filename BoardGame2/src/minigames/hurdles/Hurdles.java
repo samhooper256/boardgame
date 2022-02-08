@@ -1,5 +1,6 @@
 package minigames.hurdles;
 
+import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.hurdles.fx.HurdlesFXLayer;
 import minigames.hurdles.imagelayer.HurdlesImageLayer;
@@ -36,6 +37,12 @@ public class Hurdles extends Minigame {
 	public void startMinigame() {
 		imageLayer().start();
 	}
+	
+	@Override
+	public void ingameStarted() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public boolean isFinished() {
@@ -47,6 +54,18 @@ public class Hurdles extends Minigame {
 	protected MinigameResult computeResult() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void keyPressedIngame(KeyCode kc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleasedIngame(KeyCode kc) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

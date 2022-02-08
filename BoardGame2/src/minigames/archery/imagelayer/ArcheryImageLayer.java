@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import base.*;
 import base.panes.*;
-import fxutils.Images;
 import game.MainScene;
 import javafx.scene.input.*;
 import minigames.*;
@@ -23,7 +22,6 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 	
 	/** Must only be called once. */
 	public void init() {
-		add(new ImagePane(Images.ARCHERY_BACKGROUND));
 		addAll(fence);
 		addAll(gamePane().archers());
 		addAll(gamePane().rewardsDisplay().imagePanes());
@@ -71,6 +69,7 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
+		System.out.printf("\tArcheryImageLayer.keyReleasedIngame(%s)%n", kc);
 		for(Archer a : gamePane().archers())
 			if(gamePane().isMobile(a))
 				a.keyReleased(kc);

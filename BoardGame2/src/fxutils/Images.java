@@ -15,50 +15,63 @@ public final class Images {
 	private static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
 	
 	public static final Image
-			EVENT_TILE = get("MedicalTile.png"),
-			SAFE_TILE = get("SafeTile.png"),
-			START_TILE = get("StarterTile.png"),
-			DIE0 = get("DiceBase.png"),
-			DIE1 = get("Dice1.png"),
-			DIE2 = get("Dice2.png"),
-			DIE3 = get("Dice3.png"),
-			DIE4 = get("Dice4.png"),
-			DIE5 = get("Dice5.png"),
-			DIE6 = get("Dice6.png"),
-			SELECT_2 = get("select2.png"),
-			SELECT_3 = get("select3.png"),
-			SELECT_4 = get("select4.png"),
-			GOLD_MEDAL = get("Gold Medal.png"),
-			SILVER_MEDAL = get("Silver Medal.png"),
-			BRONZE_MEDAL = get("Bronze Medal.png"),
-			TREE_AVATAR = get("Tree Avatar.png"),
-			LYRE_AVATAR = get("Lyre Avatar.png"),
-			WARRIOR_AVATAR = get("Warrior Avatar.png"),
-			WINGS_AVATAR = get("Wings Avatar.png"),
-			AVATAR_ACTIVE_BORDER = get("avatar_active_border.png"),
-			AVATAR_INACTIVE_BORDER = get("avatar_inactive_border.png"),
-			COUNT_SELECT_HOVER = get("count_select_hover.png"),
-			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
-			TREE = get("TreePlayer.png"), // player 1
-			LYRE = get("LyrePlayer.png"), //player 2
-			WARRIOR = get("WarriorPlayer.png"), //player 3
-			WINGS = get("WingsPlayer.png"), //player 4
-			RING = get("PlayerRing.png"),
-			ARCHERY_TILE = get("ArcheryTile.png"),
-			HURDLES_TILE = get("HurdlesTile.png"),
-			MAIN_MENU = get("main_menu.png"),
-			PLAY_BUTTON = get("PlayButton.png"),
-			QUIT_BUTTON = get("quit_button.png"),
-			ARCHERY_INSTRUCTIONS = get("archery_instructions.png"),
-			HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
-			REWARDS_BACKGROUND = get("rewards_background.png"),
-			PRESS_SPACE = get("pressspace.png"),
-			EVENT_BACKGROUND = get("event_background.png"),
-			FENCE = get("fence.png"),
-			ARROW = get("arrow.png"),
-			TARGET = get("Target.png"),
-			ARCHERY_BACKGROUND = get("Sand.png"),
-			BACKGROUND = get("BoardBackground.png");
+		//main menu stuff
+		MAIN_MENU = get("main_menu.png"),
+		PLAY_BUTTON = get("PlayButton.png"),
+		QUIT_BUTTON = get("quit_button.png"),
+		//player select stuff
+		SELECT_2 = get("select2.png"),
+		SELECT_3 = get("select3.png"),
+		SELECT_4 = get("select4.png"),
+		COUNT_SELECT_HOVER = get("count_select_hover.png"),
+		//avatars
+		TREE_AVATAR = get("Tree Avatar.png"),
+		LYRE_AVATAR = get("Lyre Avatar.png"),
+		WARRIOR_AVATAR = get("Warrior Avatar.png"),
+		WINGS_AVATAR = get("Wings Avatar.png"),
+		AVATAR_ACTIVE_BORDER = get("avatar_active_border.png"),
+		AVATAR_INACTIVE_BORDER = get("avatar_inactive_border.png"),
+		//player icons
+		TREE = get("TreePlayer.png"), // player 1
+		LYRE = get("LyrePlayer.png"), //player 2
+		WARRIOR = get("WarriorPlayer.png"), //player 3
+		WINGS = get("WingsPlayer.png"), //player 4
+		//die
+		DIE0 = get("DiceBase.png"),
+		DIE1 = get("Dice1.png"),
+		DIE2 = get("Dice2.png"),
+		DIE3 = get("Dice3.png"),
+		DIE4 = get("Dice4.png"),
+		DIE5 = get("Dice5.png"),
+		DIE6 = get("Dice6.png"),
+		//tiles
+		EVENT_TILE = get("MedicalTile.png"),
+		SAFE_TILE = get("SafeTile.png"),
+		START_TILE = get("StarterTile.png"),
+		ARCHERY_TILE = get("ArcheryTile.png"),
+		HURDLES_TILE = get("HurdlesTile.png"),
+		//medals
+		GOLD_MEDAL = get("Gold Medal.png"),
+		SILVER_MEDAL = get("Silver Medal.png"),
+		BRONZE_MEDAL = get("Bronze Medal.png"),
+		//board stuff
+		RING = get("PlayerRing.png"),
+		BOARD_BACKGROUND = get("BoardBackground.png"),
+		EVENT_BACKGROUND = get("event_background.png"),
+		//general minigame stuff
+		PRESS_SPACE = get("pressspace.png"),
+		//archery
+		ARCHERY_INSTRUCTIONS = get("archery_instructions.png"),
+		REWARDS_BACKGROUND = get("rewards_background.png"),
+		FENCE = get("fence.png"),
+		ARROW = get("arrow.png"),
+		TARGET = get("Target.png"),
+		ARCHERY_BACKGROUND = get("Sand.png"),
+		//hurdles
+		HURDLES_BACKGROUND = get("Sky.png"),
+		HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
+		HURDLES_GROUND = get("hurdles_ground.png");
+			
 	
 	/** row is the player, index is the sprite for that player. */
 	private static final Image[][] MINIGAME_SPRITES = {
@@ -90,6 +103,14 @@ public final class Images {
 			case ARCHERY: return ARCHERY_INSTRUCTIONS;
 			case HURDLES: return HURDLES_INSTRUCTIONS;
 			default: throw new UnsupportedOperationException(String.format("instructions for %s", tag));
+		}
+	}
+	
+	public static Image background(MiniTag tag) {
+		switch(tag) {
+			case ARCHERY: return ARCHERY_BACKGROUND;
+			case HURDLES: return HURDLES_BACKGROUND;
+			default: throw new UnsupportedOperationException(String.format("background for %s", tag));
 		}
 	}
 	

@@ -34,7 +34,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	/** Should only be called once. */
 	public void init() {
 		tileOrder = generateTileOrder();
-		add(new ImagePane(Images.BACKGROUND));
+		add(new ImagePane(Images.BOARD_BACKGROUND));
 		placeTiles();
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			add(rings[i]);

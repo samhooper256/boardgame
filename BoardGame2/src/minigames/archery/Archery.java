@@ -173,13 +173,13 @@ public class Archery extends Minigame {
 	}
 	
 	@Override
-	public void keyPressed(KeyCode kc) {
-		imageLayer().keyPressed(kc);
+	public void keyPressedIngame(KeyCode kc) {
+		imageLayer().keyPressedIngame(kc);
 	}
 	
 	@Override
-	public void keyReleased(KeyCode kc) {
-		imageLayer().keyReleased(kc);
+	public void keyReleasedIngame(KeyCode kc) {
+		imageLayer().keyReleasedIngame(kc);
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package minigames;
 
 import base.AcceptsInput;
-import base.input.GameInput;
 import base.panes.*;
 import fxutils.Images;
 import game.MainScene;
@@ -15,6 +14,7 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	protected final FadeableImagePane instructions, pressSpace;
 	
 	protected MinigameImageLayer(MiniTag tag) {
+		add(new ImagePane(tag.background()));
 		instructions = new FadeableImagePane(tag.instructions());
 		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(MainScene.CENTER_X, MainScene.CENTER_Y);
@@ -50,32 +50,25 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	
 	@Override
 	public final void keyPressed(KeyCode kc) {
-		if(instructionsShowing()) {
-			if(kc == GameInput.controls().next() && !instructions.fader().isFadingOut())
-				fadeOutInstructions();
-		}
-		else if(gamePane().isFinished()) {
-			if(kc == GameInput.controls().next())
-				MainScene.get().fadeBackFromMinigame(gamePane().getResult());
-		}
-		else {
-			keyPressedIngame(kc);
-		}
+		keyPressedIngame(kc);
+	}
+
+	public boolean instructionsReadyToBeHidden() {
+		return instructionsShowing() && !instructions.fader().isFadingOut();
 	}
 	
 	public abstract void keyPressedIngame(KeyCode kc);
 	
 	@Override
 	public final void keyReleased(KeyCode kc) {
-		if(!instructionsShowing())
-			keyReleasedIngame(kc);
+		keyReleasedIngame(kc);
 	}
 	
 	public abstract void keyReleasedIngame(KeyCode kc);
 	
 	@Override
 	public final void updatePane(long diff) {
-		if(!instructionsShowing())
+		if(gamePane().isIngame())
 			updateIngame(diff);
 	}
 	

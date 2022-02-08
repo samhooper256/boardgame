@@ -1,8 +1,10 @@
 package minigames;
 
 import base.*;
+import base.input.GameInput;
 import base.panes.*;
 import game.*;
+import javafx.scene.input.KeyCode;
 import minigames.rewards.RewardsDisplay;
 
 public abstract class Minigame extends GamePane implements Updatable {
@@ -12,7 +14,7 @@ public abstract class Minigame extends GamePane implements Updatable {
 	
 	private MinigameResult result;
 	
-	public Minigame(MiniTag tag, ImageLayer imageLayer, FXLayer fxLayer) {
+	public Minigame(MiniTag tag, MinigameImageLayer imageLayer, FXLayer fxLayer) {
 		super(imageLayer, fxLayer);
 		this.tag = tag;
 		rewardsDisplay = new RewardsDisplay();
@@ -53,8 +55,36 @@ public abstract class Minigame extends GamePane implements Updatable {
 	
 	/** Called when the instructions fully disappear and this {@link Minigame} starts being playable. No-op by
 	 * default. */
-	public void ingameStarted() {
-		
+	public abstract void ingameStarted();
+	
+	@Override
+	public final void keyPressed(KeyCode kc) {
+		if(imageLayer().instructionsShowing()) {
+			if(kc == GameInput.controls().next() && imageLayer().instructionsReadyToBeHidden())
+				imageLayer().fadeOutInstructions();
+		}
+		else if(isFinished()) {
+			if(kc == GameInput.controls().next())
+				MainScene.get().fadeBackFromMinigame(getResult());
+		}
+		else {
+			keyPressedIngame(kc);
+		}
+	}
+	
+	public abstract void keyPressedIngame(KeyCode kc);
+	
+	@Override
+	public final void keyReleased(KeyCode kc) {
+		if(isIngame())
+			keyReleasedIngame(kc);
+	}
+	
+	public abstract void keyReleasedIngame(KeyCode kc);
+	
+	
+	public boolean isIngame() {
+		return !imageLayer().instructionsShowing() && !isFinished();
 	}
 	
 	public MiniTag tag() {
@@ -63,6 +93,11 @@ public abstract class Minigame extends GamePane implements Updatable {
 	
 	public RewardsDisplay rewardsDisplay() {
 		return rewardsDisplay;
+	}
+	
+	@Override
+	public MinigameImageLayer imageLayer() {
+		return (MinigameImageLayer) super.imageLayer();
 	}
 	
 }
