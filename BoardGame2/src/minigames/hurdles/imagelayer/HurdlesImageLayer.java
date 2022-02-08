@@ -1,13 +1,23 @@
 package minigames.hurdles.imagelayer;
 
+import base.panes.ImagePane;
+import fxutils.Images;
+import game.MainScene;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.hurdles.Hurdles;
 
 public class HurdlesImageLayer extends MinigameImageLayer {
 
+	public static final double GROUND_HEIGHT = Images.HURDLES_GROUND.getHeight();
+	
+	private final ImagePane ground;
+	
 	public HurdlesImageLayer() {
 		super(MiniTag.HURDLES);
+		ground = new ImagePane(Images.HURDLES_GROUND);
+		ground.setIdealY(MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT);
+		add(ground);
 	}
 	
 	@Override
