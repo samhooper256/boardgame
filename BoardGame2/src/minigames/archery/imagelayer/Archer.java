@@ -10,7 +10,7 @@ import javafx.scene.input.*;
 import minigames.archery.Archery;
 import utils.Intersections;
 
-public class Archer extends ImagePane implements Updatable {
+public class Archer extends ImagePane implements Updatable, AcceptsInput {
 	
 	/** In nanoseconds. */
 	private static final long CYCLE_TIME = (long) .5e9;
@@ -30,11 +30,13 @@ public class Archer extends ImagePane implements Updatable {
 		cycleProgress = 0;
 	}
 	
+	@Override
 	public void keyPressed(KeyCode code) {
 		updateMovement();
 		updateOrientation();
 	}
 	
+	@Override
 	public void keyReleased(KeyCode code) {
 		updateMovement();
 		updateOrientation();
@@ -103,7 +105,7 @@ public class Archer extends ImagePane implements Updatable {
 			setIdealX(newX);
 		setIdealY(newY);
 		if(newY > MainScene.DEFAULT_HEIGHT - getIdealHeight() ||
-				Intersections.test(this, Archery.sp().fence())) {
+				Intersections.test(this, Archery.il().fence())) {
 			setIdealY(oldY);
 			yvel = 0;
 		}
@@ -114,9 +116,9 @@ public class Archer extends ImagePane implements Updatable {
 		if(me.getButton() == MouseButton.PRIMARY) {
 			Point2D local = new Point2D(me.getSceneX(), me.getSceneY());
 			Point2D archerCenter = getIdealCenter();
-			Arrow arrow = new Arrow(archerCenter, Archery.sp().localToIdeal(local));
+			Arrow arrow = new Arrow(archerCenter, Archery.il().localToIdeal(local));
 			arrow.setIdealCenter(archerCenter);
-			Archery.sp().addArrow(arrow);
+			Archery.il().addArrow(arrow);
 		}
 	}
 	

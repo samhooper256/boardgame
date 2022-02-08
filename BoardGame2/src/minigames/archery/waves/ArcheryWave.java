@@ -18,8 +18,8 @@ public interface ArcheryWave {
 	default Target createTarget(HitAction hitAction) {
 		Target t = new Target(path(), null);
 		HitAction hitActionInternal = (arrow, target) -> {
-			Archery.sp().trash(t);
-			Archery.sp().addEndOfUpdateAction(() -> hitAction.accept(arrow, target));
+			Archery.il().trash(t);
+			Archery.il().addEndOfUpdateAction(() -> hitAction.accept(arrow, target));
 		};
 		t.setHitAction(hitActionInternal);
 		return t;

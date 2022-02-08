@@ -13,6 +13,10 @@ public class Hurdles extends Minigame {
 		return INSTANCE;
 	}
 	
+	public static HurdlesImageLayer il() {
+		return get().imageLayer();
+	}
+	
 	private Hurdles() {
 		super(MiniTag.HURDLES, new HurdlesImageLayer(), new HurdlesFXLayer());
 	}
@@ -29,8 +33,7 @@ public class Hurdles extends Minigame {
 
 	@Override
 	public void update(long diff) {
-		// TODO Auto-generated method stub
-		
+		imageLayer().update(diff);
 	}
 
 	@Override
@@ -58,8 +61,7 @@ public class Hurdles extends Minigame {
 
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		imageLayer().keyPressedIngame(kc);
 	}
 
 	@Override

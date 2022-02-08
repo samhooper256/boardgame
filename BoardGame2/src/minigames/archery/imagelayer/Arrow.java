@@ -49,8 +49,8 @@ public class Arrow extends ImagePane implements Updatable {
 		setIdealX(newX);
 		setIdealY(newY);
 		if(Screen.isEntirelyOffscreen(this)) {
-			Archery.sp().trash(this);
-			Archery.sp().addEndOfUpdateAction(() -> Archery.get().arrowLeftScreen(this));
+			Archery.il().trash(this);
+			Archery.il().addEndOfUpdateAction(() -> Archery.get().arrowLeftScreen(this));
 		}
 	}
 	

@@ -28,7 +28,7 @@ public class Archery extends Minigame {
 		return INSTANCE;
 	}
 	
-	public static ArcheryImageLayer sp() {
+	public static ArcheryImageLayer il() {
 		return get().imageLayer();
 	}
 	
