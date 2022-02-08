@@ -69,7 +69,6 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
-		System.out.printf("\tArcheryImageLayer.keyReleasedIngame(%s)%n", kc);
 		for(Archer a : gamePane().archers())
 			if(gamePane().isMobile(a))
 				a.keyReleased(kc);
