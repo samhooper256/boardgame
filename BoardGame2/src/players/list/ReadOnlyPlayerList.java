@@ -6,6 +6,17 @@ public interface ReadOnlyPlayerList extends Iterable<Integer> {
 
 	Integer get(int index);
 	
+	int indexOf(Integer p);
+	
+	/** Starts at the smallest index {@code i} such that {@code (get(i) > player)}. If there is no such index
+	 * {@code i}, returns {@code get(0)}. If there is such an index, returns {@code get(i)}.*/
+	default Integer smallestGreaterWrapping(int player) {
+		for(int i = 0; i < size(); i++)
+			if(get(i) > player)
+				return get(i);
+		return get(0);
+	}
+	
 	boolean contains(Object o);
 	
 	Object[] toArray();

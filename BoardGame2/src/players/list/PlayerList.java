@@ -51,8 +51,6 @@ public class PlayerList implements Collection<Integer>, ReadOnlyPlayerList {
 	
 	private final List<Integer> list;
 	
-	private ReadOnlyPlayerList readOnly;
-	
 	private PlayerList() {
 		list = new ArrayList<>(Player.maxCount());
 	}
@@ -144,10 +142,9 @@ public class PlayerList implements Collection<Integer>, ReadOnlyPlayerList {
 		return list.get(index);
 	}
 	
-	public ReadOnlyPlayerList readOnly() {
-		if(readOnly == null)
-			readOnly = new ReadOnlyPlayerListImpl(this);
-		return readOnly;
+	@Override
+	public int indexOf(Integer p) {
+		return list.indexOf(p);
 	}
 	
 	@Override
@@ -158,6 +155,11 @@ public class PlayerList implements Collection<Integer>, ReadOnlyPlayerList {
 	@Override
 	public ImmutablePlayerList frozen() {
 		return ListBackedImmutablePlayerList.fromCopyAssumedValid(list);
+	}
+	
+	@Override
+	public String toString() {
+		return list.toString();
 	}
 	
 }

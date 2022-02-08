@@ -32,6 +32,11 @@ final class ListBackedImmutablePlayerList implements ImmutablePlayerList {
 	}
 
 	@Override
+	public int indexOf(Integer p) {
+		return list.indexOf(p);
+	}
+	
+	@Override
 	public boolean contains(Object o) {
 		return list.contains(o);
 	}

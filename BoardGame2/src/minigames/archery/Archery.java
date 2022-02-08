@@ -138,11 +138,7 @@ public class Archery extends Minigame {
 	}
 	
 	private int nextTurn(int turn) {
-		do {
-			turn = turn == Board.get().playerCount() ? 1 : turn + 1;
-		}
-		while(!playersRemaining().contains(turn));
-		return turn;
+		return playersRemaining().smallestGreaterWrapping(turn);
 	}
 	
 	private void updateControls(int player) { //TODO fix this. This should not be a method; just keep track of the single archer who can move.
