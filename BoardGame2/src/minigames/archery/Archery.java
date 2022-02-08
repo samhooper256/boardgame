@@ -14,6 +14,7 @@ import minigames.archery.fx.ArcheryFXLayer;
 import minigames.archery.imagelayer.*;
 import minigames.archery.waves.*;
 import players.Player;
+import players.list.PlayerList;
 
 /** The {@link Archery} {@link Minigame }consists of a series of {@link ArcheryWave waves}. All players take turns
  * beating shooting at the target; when all players have taken a shot, the remaining players move to the next wave. As
@@ -35,11 +36,10 @@ public class Archery extends Minigame {
 	private final Map<Player, Archer> archerMap;
 	private final Set<Archer> movableArchers;
 	private final SortedSet<Survival> survivals;
-	private final boolean[] alive;
 	private final Timeline waveTimeline; //TODO make this use update(long) ? 
 	
 	private boolean arrowFired, finished;
-	private int waveIndex, turn, aliveCount;
+	private int waveIndex, turn;
 	private Target currentTarget;
 	
 	private Archery(WaveGenerator waveGenerator) {
@@ -49,8 +49,6 @@ public class Archery extends Minigame {
 		Board.get().players().forEachOrdered(p -> archerMap.put(p, new Archer(p.number())));
 		waveIndex = 1;
 		turn = 1;
-		aliveCount = Board.get().playerCount();
-		alive = new boolean[Board.maxPlayerCount() + 1];
 		survivals = new TreeSet<>();
 		movableArchers = new HashSet<>();
 		arrowFired = finished = false;
@@ -63,10 +61,10 @@ public class Archery extends Minigame {
 	
 	@Override
 	public void startMinigame() {
+		playersRemaining = PlayerList.upTo(Board.get().playerCount());
+		players = playersRemaining.frozen();
 		waveIndex = 0;
 		turn = 1;
-		aliveCount = Board.get().playerCount();
-		Arrays.fill(alive, 1, aliveCount + 1, true);
 		survivals.clear();
 		arrowFired = finished = false;
 		currentTarget = null;
@@ -105,7 +103,7 @@ public class Archery extends Minigame {
 	
 	private void startNextWaveOrEndGame() {
 		waveIndex++;
-		if(aliveCount == 1)
+		if(playersRemaining().size() == 1)
 			finish();
 		else
 			startNextWave();
@@ -126,24 +124,24 @@ public class Archery extends Minigame {
 	public void arrowLeftScreen(Arrow a) {
 		imageLayer().remove(currentTarget);
 		kill(turn);
-		if(aliveCount == 0)
+		if(playersRemaining.size() == 0)
 			finish();
 		else
 			incrementTurn();
 	}
-	
+
+	/** Assumes the given player is alive. */
 	private void kill(int player) {
 		imageLayer().remove(archer(player));
 		survivals.add(new Survival(player, waveIndex));
-		alive[player] = false;
-		aliveCount--;
+		playersRemaining().remove(player);
 	}
 	
 	private int nextTurn(int turn) {
 		do {
 			turn = turn == Board.get().playerCount() ? 1 : turn + 1;
 		}
-		while(!alive[turn]);
+		while(!playersRemaining().contains(turn));
 		return turn;
 	}
 	
@@ -162,8 +160,8 @@ public class Archery extends Minigame {
 	
 	private void finish() {
 		finished = true;
-		if(aliveCount == 1)
-			survivals.add(new Survival(getOnlyPlayerAlive(), waveIndex));
+		if(playersRemaining().size() == 1)
+			survivals.add(new Survival(getOnlyPlayerRemaining(), waveIndex));
 		rewardsDisplay().show(getResult());
 	}
 	
@@ -206,24 +204,6 @@ public class Archery extends Minigame {
 		return currentTarget;
 	}
 	
-	public int playersRemaining() {
-		int players = 0;
-		for(int i = 1; i < alive.length; i++)
-			if(alive[i])
-				players++;
-		return players;
-	}
-	
-	/** @throws IllegalStateException if there is more than one player alive. */
-	public int getOnlyPlayerAlive() {
-		if(aliveCount != 1)
-			throw new IllegalStateException("Multiple players are still alive");
-		for(int i = 1; i < alive.length; i++)
-			if(alive[i])
-				return i;
-		throw new IllegalStateException("Should not happen");
-	}
-	
 	@Override
 	protected MinigameResult computeResult() {
 		//maps each wave that a player died on to the list (sorted ascending) of all players who survived to that wave.
@@ -252,7 +232,7 @@ public class Archery extends Minigame {
 	public boolean isFinished() {
 		return finished;
 	}
-	
+
 	@Override
 	public ArcheryImageLayer imageLayer() {
 		return (ArcheryImageLayer) super.imageLayer();

@@ -6,8 +6,12 @@ import base.panes.*;
 import game.*;
 import javafx.scene.input.KeyCode;
 import minigames.rewards.RewardsDisplay;
+import players.list.*;
 
 public abstract class Minigame extends GamePane implements Updatable {
+	
+	protected ReadOnlyPlayerList players;
+	protected PlayerList playersRemaining;
 	
 	private final MiniTag tag;
 	private final RewardsDisplay rewardsDisplay;
@@ -98,6 +102,21 @@ public abstract class Minigame extends GamePane implements Updatable {
 	@Override
 	public MinigameImageLayer imageLayer() {
 		return (MinigameImageLayer) super.imageLayer();
+	}
+	
+	public ReadOnlyPlayerList players() {
+		return players;
+	}
+	
+	public PlayerList playersRemaining() {
+		return playersRemaining;
+	}
+
+	/** @throws IllegalStateException if there is more than one player alive. */
+	public int getOnlyPlayerRemaining() {
+		if(playersRemaining().size() != 1)
+			throw new IllegalStateException("Multiple players are still alive");
+		return playersRemaining().get(0);
 	}
 	
 }

@@ -41,8 +41,10 @@ public class Archer extends ImagePane implements Updatable {
 	}
 	
 	private void updateMovement() {
-		boolean up = GameInput.isPressed(controls().up()), down = GameInput.isPressed(controls().down()),
-				left = GameInput.isPressed(controls().left()), right = GameInput.isPressed(controls().right());
+		boolean up = GameInput.isPressed(GameInput.controls().up()),
+				down = GameInput.isPressed(GameInput.controls().down()),
+				left = GameInput.isPressed(GameInput.controls().left()),
+				right = GameInput.isPressed(GameInput.controls().right());
 		if(up == down)
 			yvel = 0;
 		else if(up)
@@ -58,7 +60,8 @@ public class Archer extends ImagePane implements Updatable {
 	}
 	
 	private void updateOrientation() {
-		boolean left = GameInput.isPressed(controls().left()), right = GameInput.isPressed(controls().right());
+		boolean left = GameInput.isPressed(GameInput.controls().left()),
+				right = GameInput.isPressed(GameInput.controls().right());
 		if(left)
 			setScaleX(-1);
 		else if(right)
@@ -115,10 +118,6 @@ public class Archer extends ImagePane implements Updatable {
 			arrow.setIdealCenter(archerCenter);
 			Archery.sp().addArrow(arrow);
 		}
-	}
-	
-	private DirectionalControls controls() {
-		return GameInput.controls();
 	}
 	
 	public boolean isMobile() {
