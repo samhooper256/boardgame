@@ -26,15 +26,14 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 			jumpers.put(p, new Jumper(p));
 		}
 		Jumper one = jumpers.get(1);
-		add(one);
-		one.setIdealCenter(200, 600);
 		add(ground);
+		one.setIdealCenterX(200);
+		add(one);
 	}
 	
 	@Override
 	public void startMinigame() {
-		// TODO Auto-generated method stub
-		
+		jumpers.get(1).fixToGroundLevel();
 	}
 
 	@Override

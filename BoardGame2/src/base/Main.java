@@ -12,6 +12,8 @@ import players.Player;
 
 //TODO:
 // - should minigame tiles get disabled after their first use so they can't be used again?
+// - new map gen isn't truly random; tile sections are only generated once and so always have the same minigames (just
+// diff order)
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
