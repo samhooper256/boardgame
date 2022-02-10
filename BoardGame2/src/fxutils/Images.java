@@ -70,7 +70,8 @@ public final class Images {
 		//hurdles
 		HURDLES_BACKGROUND = get("Sky.png"),
 		HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
-		HURDLES_GROUND = get("hurdles_ground.png");
+		HURDLES_GROUND = get("hurdles_ground.png"),
+		JUMP_BAR = get("jump_bar.png");
 			
 	
 	/** row is the player, index is the sprite for that player. */

@@ -1,22 +1,32 @@
 package minigames.hurdles.imagelayer;
 
+import java.util.*;
+
 import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.KeyCode;
 import minigames.hurdles.Hurdles;
+import players.Player;
 import utils.Intersections;
 
 public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 
 	private static final double ACCEL = 850, JUMP_VEL = -1000; //positive is down.
 	
+	public static final List<Jumper> LIST = Collections.unmodifiableList(Arrays.asList(
+			new Jumper(1), new Jumper(2), new Jumper(3), new Jumper(4)));
+	
+	public static Jumper get(int player) {
+		return LIST.get(Player.validate(player) - 1);
+	}
+	
 	private final int number;
 	
 	private double yvel;
 	private boolean onGround = true;
 	
-	public Jumper(int number) {
+	private Jumper(int number) {
 		super(Images.stillSprite(3));
 		this.number = number;
 	}

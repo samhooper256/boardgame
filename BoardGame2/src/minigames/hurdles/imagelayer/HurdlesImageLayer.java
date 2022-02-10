@@ -1,44 +1,38 @@
 package minigames.hurdles.imagelayer;
 
-import java.util.*;
-
 import base.panes.ImagePane;
 import fxutils.Images;
 import game.MainScene;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.hurdles.Hurdles;
-import players.Player;
 
 public class HurdlesImageLayer extends MinigameImageLayer {
 
 	public static final double GROUND_HEIGHT = Images.HURDLES_GROUND.getHeight();
 	
 	private final ImagePane ground;
-	private final Map<Integer, Jumper> jumpers;
 	
 	public HurdlesImageLayer() {
 		super(MiniTag.HURDLES);
 		ground = new ImagePane(Images.HURDLES_GROUND);
 		ground.setIdealY(MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT);
-		jumpers = new LinkedHashMap<>();
-		for(int p = 1; p <= Player.maxCount(); p++) {
-			jumpers.put(p, new Jumper(p));
-		}
-		Jumper one = jumpers.get(1);
+		Jumper one = Jumper.get(1);
 		add(ground);
 		one.setIdealCenterX(200);
 		add(one);
+		JumpBar.get(1).setIdealCoords(20, MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT + 20);
+		add(JumpBar.get(1));
 	}
 	
 	@Override
 	public void startMinigame() {
-		jumpers.get(1).fixToGroundLevel();
+		Jumper.get(1).fixToGroundLevel();
 	}
 
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
-		for(Jumper j : jumpers.values())
+		for(Jumper j : Jumper.LIST)
 			j.keyPressed(kc);
 	}
 
@@ -50,7 +44,7 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 
 	@Override
 	public void updateIngame(long diff) {
-		for(Jumper j : jumpers.values())
+		for(Jumper j : Jumper.LIST)
 			j.update(diff);
 	}
 
