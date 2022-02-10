@@ -66,7 +66,7 @@ public final class Images {
 		FENCE = get("fence.png"),
 		ARROW = get("arrow.png"),
 		TARGET = get("Target.png"),
-		ARCHERY_BACKGROUND = get("Sand.png"),
+		ARCHERY_BACKGROUND = get("archery_background.png"),
 		//hurdles
 		HURDLES_BACKGROUND = get("Sky.png"),
 		HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
