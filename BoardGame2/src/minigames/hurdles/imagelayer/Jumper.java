@@ -3,6 +3,7 @@ package minigames.hurdles.imagelayer;
 import java.util.*;
 
 import base.*;
+import base.input.GameInput;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.KeyCode;
@@ -47,9 +48,10 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
-		if(kc == KeyCode.SPACE && onGround) {
-			yvel = JUMP_VEL;
-			onGround = false;
+		if(kc == GameInput.controls().single(number) && onGround) {
+//			yvel = JUMP_VEL;
+//			onGround = false;
+			JumpBar.get(number).startCharging();
 		}
 	}
 	

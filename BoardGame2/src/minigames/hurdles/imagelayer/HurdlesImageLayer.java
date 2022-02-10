@@ -21,8 +21,9 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		add(ground);
 		one.setIdealCenterX(200);
 		add(one);
-		JumpBar.get(1).setIdealCoords(20, MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT + 20);
-		add(JumpBar.get(1));
+		addAll(JumpBar.get(3).background(), JumpBar.get(3));
+		JumpBar.get(3).setIdealCoords(20, MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT + 20);
+		JumpBar.get(3).background().setIdealCoords(20, MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT + 20);
 	}
 	
 	@Override
@@ -46,6 +47,8 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	public void updateIngame(long diff) {
 		for(Jumper j : Jumper.LIST)
 			j.update(diff);
+		for(JumpBar jb : JumpBar.LIST)
+			jb.update(diff);
 	}
 
 	public ImagePane ground() {
