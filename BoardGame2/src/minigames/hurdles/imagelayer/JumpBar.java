@@ -13,7 +13,9 @@ import players.Player;
 
 public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 
-	public static final double Y = MainScene.DEFAULT_HEIGHT - HurdlesImageLayer.GROUND_HEIGHT + 20;
+	public static final double
+		Y = MainScene.DEFAULT_HEIGHT - HurdlesImageLayer.GROUND_HEIGHT + 20,
+		HEIGHT = Images.JUMP_BAR.getHeight();
 	
 	private static final double MAX_CLIP_HEIGHT = Images.JUMP_BAR.getHeight();
 	/** in nanoseconds. */

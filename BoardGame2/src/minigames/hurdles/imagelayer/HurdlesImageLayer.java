@@ -22,6 +22,7 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		addAll(Jumper.LIST);
 		addAll(JumpBarBackground.LIST);
 		addAll(JumpBar.LIST);
+		addAll(JumpBarTick.LIST);
 	}
 	
 	@Override
