@@ -8,7 +8,6 @@ import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import minigames.archery.Archery;
-import utils.Intersections;
 
 public class Archer extends ImagePane implements Updatable, AcceptsInput {
 	
@@ -105,7 +104,7 @@ public class Archer extends ImagePane implements Updatable, AcceptsInput {
 			setIdealX(newX);
 		setIdealY(newY);
 		if(newY > MainScene.DEFAULT_HEIGHT - getIdealHeight() ||
-				Intersections.test(this, Archery.il().fence())) {
+				getIdealY() < ArcheryImageLayer.FENCE_BOTTOM_Y) {
 			setIdealY(oldY);
 			yvel = 0;
 		}

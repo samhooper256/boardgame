@@ -12,17 +12,17 @@ import utils.Intersections;
 
 public class ArcheryImageLayer extends MinigameImageLayer {
 	
-	private final Fence fence;
+	public static final double
+		FENCE_TOP_Y = MainScene.DEFAULT_HEIGHT * .675,
+		FENCE_HEIGHT = 60,
+		FENCE_BOTTOM_Y = FENCE_TOP_Y + FENCE_HEIGHT;
 	
 	public ArcheryImageLayer() {
 		super(MiniTag.ARCHERY);
-		fence = new Fence();
-		fence.setIdealCenter(MainScene.CENTER_X, MainScene.DEFAULT_HEIGHT * .75);
 	}
 	
 	/** Must only be called once. */
 	public void init() {
-		addAll(fence);
 		addAll(gamePane().archers());
 		addAll(gamePane().rewardsDisplay().imagePanes());
 		
@@ -79,10 +79,6 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 		for(ImagePane ip : imagesUnmodifiable())
 			if(ip instanceof Updatable)
 				((Updatable) ip).update(diff);
-	}
-	
-	public Fence fence() {
-		return fence;
 	}
 	
 }
