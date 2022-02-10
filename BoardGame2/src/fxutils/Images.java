@@ -2,84 +2,58 @@ package fxutils;
 
 import base.Main;
 import javafx.scene.image.*;
-import minigames.MiniTag;
 import players.Player;
 
 /**
  * Utility class for creating {@link javafx.scene.image.Image} objects from resource files and working with
  * {@link ImageView ImageViews}.
  * @author Sam Hooper
+ *
  */
 public final class Images {
 	
 	private static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
 	
 	public static final Image
-		//main menu stuff
-		MAIN_MENU = get("main_menu.png"),
-		PLAY_BUTTON = get("PlayButton.png"),
-		QUIT_BUTTON = get("quit_button.png"),
-		//player select stuff
-		SELECT_2 = get("select2.png"),
-		SELECT_3 = get("select3.png"),
-		SELECT_4 = get("select4.png"),
-		COUNT_SELECT_HOVER = get("count_select_hover.png"),
-		//avatars
-		TREE_AVATAR = get("Tree Avatar.png"),
-		LYRE_AVATAR = get("Lyre Avatar.png"),
-		WARRIOR_AVATAR = get("Warrior Avatar.png"),
-		WINGS_AVATAR = get("Wings Avatar.png"),
-		AVATAR_ACTIVE_BORDER = get("avatar_active_border.png"),
-		AVATAR_INACTIVE_BORDER = get("avatar_inactive_border.png"),
-		//player icons
-		TREE = get("TreePlayer.png"), // player 1
-		LYRE = get("LyrePlayer.png"), //player 2
-		WARRIOR = get("WarriorPlayer.png"), //player 3
-		WINGS = get("WingsPlayer.png"), //player 4
-		//die
-		DIE0 = get("DiceBase.png"),
-		DIE1 = get("Dice1.png"),
-		DIE2 = get("Dice2.png"),
-		DIE3 = get("Dice3.png"),
-		DIE4 = get("Dice4.png"),
-		DIE5 = get("Dice5.png"),
-		DIE6 = get("Dice6.png"),
-		//tiles
-		EVENT_TILE = get("MedicalTile.png"),
-		SAFE_TILE = get("SafeTile.png"),
-		START_TILE = get("StarterTile.png"),
-		ARCHERY_TILE = get("ArcheryTile.png"),
-		HURDLES_TILE = get("HurdlesTile.png"),
-		//medals
-		GOLD_MEDAL = get("Gold Medal.png"),
-		SILVER_MEDAL = get("Silver Medal.png"),
-		BRONZE_MEDAL = get("Bronze Medal.png"),
-		//board stuff
-		RING = get("PlayerRing.png"),
-		BOARD_BACKGROUND = get("BoardBackground.png"),
-		EVENT_BACKGROUND = get("event_background.png"),
-		//general minigame stuff
-		PRESS_SPACE = get("pressspace.png"),
-		//archery
-		ARCHERY_INSTRUCTIONS = get("archery_instructions.png"),
-		REWARDS_BACKGROUND = get("rewards_background.png"),
-		FENCE = get("fence.png"),
-		ARROW = get("arrow.png"),
-		TARGET = get("Target.png"),
-		ARCHERY_BACKGROUND = get("Sand.png"),
-		//hurdles
-		HURDLES_BACKGROUND = get("Sky.png"),
-		HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
-		HURDLES_GROUND = get("hurdles_ground.png");
-			
+			EVENT_TILE = get("MedicalTile.png"),
+			SAFE_TILE = get("SafeTile.png"),
+			START_TILE = get("StarterTile.png"),
+			DIE0 = get("DiceBase.png"),
+			DIE1 = get("Dice1.png"),
+			DIE2 = get("Dice2.png"),
+			DIE3 = get("Dice3.png"),
+			DIE4 = get("Dice4.png"),
+			DIE5 = get("Dice5.png"),
+			DIE6 = get("Dice6.png"),
+			GOLD_MEDAL = get("Gold Medal.png"),
+			SILVER_MEDAL = get("Silver Medal.png"),
+			BRONZE_MEDAL = get("Bronze Medal.png"),
+			WARRIOR_SELECT = get("Warrior Avatar.png"),
+			WARRIOR_SPRITE1 = get("WarriorSprite1.png"),
+			TREE = get("TreePlayer.png"), // player 1
+			LYRE = get("LyrePlayer.png"), //player 2
+			WARRIOR = get("WarriorPlayer.png"), //player 3
+			WINGS = get("WingsPlayer.png"), //player 4
+			RING = get("PlayerRing.png"),
+			ARCHERY = get("Archerytile.png"),
+			MAIN_MENU = get("main_menu.png"),
+			PLAY_BUTTON = get("PlayButton.png"),
+			QUIT_BUTTON = get("quit_button.png"),
+			MINIGAME_INSTRUCTIONS = get("archery_instructions.png"),
+			MINIGAME_WIN_BACKGROUND = get("rewards_background.png"),
+			PRESS_SPACE = get("pressspace.png"),
+			FENCE = get("wall.png"),
+			ARROW = get("arrow.png"),
+			TARGET = get("Target.png"),
+			ARCHERY_BACKGROUND = get("archery_background"),
+			BACKGROUND = get("BoardBackground.png");
 	
 	/** row is the player, index is the sprite for that player. */
 	private static final Image[][] MINIGAME_SPRITES = {
 		null,
 		{TREE, TREE, TREE, TREE},
 		{LYRE, LYRE, LYRE, LYRE},
-		{
-			getSprite("WarriorSprite1.png"),
+		{	getSprite("WarriorSprite1.png"),
 			getSprite("WarriorSprite2.png"),
 			getSprite("WarriorSprite3.png"),
 			getSprite("WarriorSprite4.png")
@@ -91,30 +65,6 @@ public final class Images {
 	
 	private Images() {}
 
-	public static Image tileImage(MiniTag tag) {
-		switch(tag) {
-			case ARCHERY: return ARCHERY_TILE;
-			case HURDLES: return HURDLES_TILE;
-			default: throw new UnsupportedOperationException(String.format("tile image for %s", tag));
-		}
-	}
-	
-	public static Image instructions(MiniTag tag) {
-		switch(tag) {
-			case ARCHERY: return ARCHERY_INSTRUCTIONS;
-			case HURDLES: return HURDLES_INSTRUCTIONS;
-			default: throw new UnsupportedOperationException(String.format("instructions for %s", tag));
-		}
-	}
-	
-	public static Image background(MiniTag tag) {
-		switch(tag) {
-			case ARCHERY: return ARCHERY_BACKGROUND;
-			case HURDLES: return HURDLES_BACKGROUND;
-			default: throw new UnsupportedOperationException(String.format("background for %s", tag));
-		}
-	}
-	
 	public static Image die(int face) {
 		switch(face) {
 			case 0: return DIE0;
@@ -139,17 +89,6 @@ public final class Images {
 		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
 	}
 	
-	/** Assumes {@code n} between {@code 1} and {@code 4} (inclusive). */
-	public static Image avatar(int n) {
-		switch(n) {
-			case 1: return TREE_AVATAR;
-			case 2: return LYRE_AVATAR;
-			case 3: return WARRIOR_AVATAR;
-			case 4: return WINGS_AVATAR;
-		}
-		throw new IllegalArgumentException(String.format("Invalid player number: %d", n));
-	}
-	
 	/** Returns sprite {@code n} for the given player. {@code n} must be between {@code 0} and {@code 3} (inclusive). */
 	public static Image sprite(int player, int n) { 
 		Player.validate(player);
@@ -160,15 +99,6 @@ public final class Images {
 		if(player == 3)
 			return sprite(3, 3);
 		return player(player);
-	}
-	
-	public static Image playerCountIcon(int playerCount) {
-		switch(playerCount) {
-			case 2: return SELECT_2;
-			case 3: return SELECT_3;
-			case 4: return SELECT_4;
-		}
-		throw new IllegalArgumentException(String.format("playerCount = %d", playerCount));
 	}
 	
 	/**
