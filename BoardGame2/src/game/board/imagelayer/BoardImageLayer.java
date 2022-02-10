@@ -96,7 +96,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	private List<Tile> generateTiles() {
 		List<Tile> order = new ArrayList<>(Board.TILE_COUNT);
 		order.add(StartTile.get());
-		for(TileSection section : TileSection.ORDER)
+		for(TileSection section : TileSection.createSectionList())
 			order.addAll(section.randomOrder());
 		return order;
 	}

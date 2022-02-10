@@ -25,7 +25,6 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 	public void init() {
 		addAll(gamePane().archers());
 		addAll(gamePane().rewardsDisplay().imagePanes());
-		
 	}
 
 	public void putArchersInPosition() {
