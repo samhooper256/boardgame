@@ -66,8 +66,7 @@ public class Hurdles extends Minigame {
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		imageLayer().keyReleasedIngame(kc);
 	}
 	
 }

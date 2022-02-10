@@ -19,6 +19,8 @@ public class JumpBarBackground extends ImagePane {
 	
 	public JumpBarBackground(int number) {
 		super(Images.JUMP_BAR_BACKGROUND);
+		setIdealCenterX(Coords.get().xCenter(number));
+		setIdealY(JumpBar.Y);
 		this.number = number;
 	}
 	

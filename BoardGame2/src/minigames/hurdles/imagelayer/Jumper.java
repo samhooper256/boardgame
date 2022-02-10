@@ -3,7 +3,6 @@ package minigames.hurdles.imagelayer;
 import java.util.*;
 
 import base.*;
-import base.input.GameInput;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.KeyCode;
@@ -30,6 +29,8 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	private Jumper(int number) {
 		super(Images.stillSprite(3));
 		this.number = number;
+		setIdealCenterX(Coords.get().xCenter(number));
+		fixToGroundLevel();
 	}
 	
 	@Override
@@ -48,11 +49,18 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
-		if(kc == GameInput.controls().single(number) && onGround) {
-//			yvel = JUMP_VEL;
-//			onGround = false;
-			JumpBar.get(number).startCharging();
-		}
+		if(kc == KeyCode.J)
+			tryJump(1);
+	}
+	
+	/** Tries to jump. Not that this {@link Jumper} cannot jump if it is not on the ground. Returns silently if cannot
+	 * jump.
+	 * @param charge {@code 0.0} to {@code 1.0}.*/
+	public void tryJump(double charge) {
+		if(!onGround)
+			return;
+		onGround = false;
+		yvel = JUMP_VEL * charge;
 	}
 	
 	public int number() {
@@ -60,7 +68,12 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	}
 	
 	public void fixToGroundLevel() {
-		setIdealY(Hurdles.il().ground().getIdealY() - getIdealHeight());
+		setIdealY(HurdlesImageLayer.GROUND_Y - getIdealHeight());
 	}
+	
+	public boolean onGround() {
+		return onGround;
+	}
+	
 	
 }

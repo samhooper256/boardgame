@@ -10,37 +10,40 @@ import minigames.hurdles.Hurdles;
 public class HurdlesImageLayer extends MinigameImageLayer {
 
 	public static final double GROUND_HEIGHT = Images.HURDLES_GROUND.getHeight();
-	
+	public static final double GROUND_Y = MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT;
+			
 	private final ImagePane ground;
 	
 	public HurdlesImageLayer() {
 		super(MiniTag.HURDLES);
 		ground = new ImagePane(Images.HURDLES_GROUND);
-		ground.setIdealY(MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT);
-		Jumper one = Jumper.get(1);
+		ground.setIdealY(GROUND_Y);
 		add(ground);
-		one.setIdealCenterX(200);
-		add(one);
-		addAll(JumpBar.get(3).background(), JumpBar.get(3));
-		JumpBar.get(3).setIdealCoords(20, MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT + 20);
-		JumpBar.get(3).background().setIdealCoords(20, MainScene.DEFAULT_HEIGHT - GROUND_HEIGHT + 20);
+		addAll(Jumper.LIST);
+		addAll(JumpBarBackground.LIST);
+		addAll(JumpBar.LIST);
 	}
 	
 	@Override
 	public void startMinigame() {
-		Jumper.get(1).fixToGroundLevel();
+		for(Jumper j : Jumper.LIST)
+			j.fixToGroundLevel();
 	}
 
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
 		for(Jumper j : Jumper.LIST)
 			j.keyPressed(kc);
+		for(JumpBar jb : JumpBar.LIST)
+			jb.keyPressed(kc);
 	}
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		for(Jumper j : Jumper.LIST)
+			j.keyPressed(kc);
+		for(JumpBar jb : JumpBar.LIST)
+			jb.keyReleased(kc);
 	}
 
 	@Override

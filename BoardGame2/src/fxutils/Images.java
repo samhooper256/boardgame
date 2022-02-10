@@ -12,7 +12,7 @@ import players.Player;
  */
 public final class Images {
 	
-	private static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
+	public static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
 	
 	public static final Image
 		//main menu stuff
