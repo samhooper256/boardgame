@@ -16,10 +16,12 @@ public final class SpriteAnimator implements Updatable {
 	private long cycleProgress;
 	private boolean running;
 	
+	/** {@link #isRunning() running} by default. */
 	public SpriteAnimator(ImagePane imagePane, int number) {
 		this.imagePane = imagePane;
 		this.number = number;
 		cycleProgress = 0;
+		running = true;
 	}
 	
 	@Override
@@ -48,6 +50,11 @@ public final class SpriteAnimator implements Updatable {
 	/** {@link #pauseTo(Image) pauses to} the {@link #stillSprite()}. */
 	public void pauseToStill() {
 		pauseTo(stillSprite());
+	}
+	
+	/** {@link #pauseTo(Image) pauses to} the {@link #airSprite()}. */
+	public void pauseToAir() {
+		pauseTo(airSprite());
 	}
 	
 	/** If the {@link SpriteAnimator} {@link #isRunning()}, it will still be running after this method is called.
@@ -85,6 +92,16 @@ public final class SpriteAnimator implements Updatable {
 		update(diff);
 	}
 	
+	public void playFromSprite(int n) {
+		running = true;
+		cycleProgress = cycleProgressForSprite(n);
+		imagePane().setImage(sprite(n));
+	}
+	
+	public void playFromAirSprite() {
+		playFromSprite(airSpriteIndex());
+	}
+	
 	/** Equivalent to {@link #resetProgress()} but ensures {@link #isRunning()} is {@code true} when the method
 	 * returns. */
 	public void restart() {
@@ -100,8 +117,21 @@ public final class SpriteAnimator implements Updatable {
 		return Images.sprite(number, n);
 	}
 	
+	public int stillSpriteIndex() {
+		return Images.stillSpriteIndex(number);
+	}
+	
 	public Image stillSprite() {
 		return Images.stillSprite(number);
+	}
+	
+	public int airSpriteIndex() {
+		return Images.airSpriteIndex(number);
+	}
+	
+	/** A sprite to be used when the player is in the air. */
+	public Image airSprite() {
+		return Images.airSprite(number);
 	}
 	
 	public int spriteIndex() {
@@ -120,6 +150,14 @@ public final class SpriteAnimator implements Updatable {
 	 * animation loop. */
 	public long cycleProgress() {
 		return cycleProgress;
+	}
+	
+	/** The {@link #cycleProgress()} when the {@link #sprite(int) sprite} with the given {@link #spriteIndex() index}
+	 * starts. */
+	public long cycleProgressForSprite(int n) {
+		if(n < 0 || n >= Images.SPRITES)
+			throw new IllegalArgumentException(String.format("Invalid sprite index: %d", n));
+		return n * (CYCLE_TIME / 4);
 	}
 	
 }

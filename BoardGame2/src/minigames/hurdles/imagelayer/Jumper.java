@@ -6,11 +6,12 @@ import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.KeyCode;
+import minigames.*;
 import minigames.hurdles.Hurdles;
 import players.Player;
 import utils.Intersections;
 
-public class Jumper extends ImagePane implements Updatable, AcceptsInput {
+public class Jumper extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated {
 
 	private static final double ACCEL = 850, JUMP_VEL = -1000; //positive is down.
 	
@@ -22,6 +23,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	}
 	
 	private final int number;
+	private final SpriteAnimator animator;
 	
 	private double yvel;
 	private boolean onGround = true;
@@ -29,13 +31,17 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	private Jumper(int number) {
 		super(Images.stillSprite(3));
 		this.number = number;
+		animator = new SpriteAnimator(this, number);
 		setIdealCenterX(Coords.get().xCenter(number));
 		fixToGroundLevel();
 	}
 	
 	@Override
 	public void update(long diff) {
-		if(!onGround) {
+		if(onGround) {
+			animator().update(diff);
+		}
+		else {
 			double sec = diff / 1e9;
 			yvel += sec * ACCEL;
 			setIdealY(getIdealY() + yvel * sec);
@@ -43,8 +49,19 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 				fixToGroundLevel();
 				onGround = true;
 				yvel = 0;
+				notifyLanded();
 			}
 		}
+	}
+	
+	/** Called when this {@link Jumper} lands. {@link #onGround()} is {@code true} before this method is called. */
+	private void notifyLanded() {
+		animator().playFromAirSprite();
+	}
+	
+	/** Called when this {@link Jumper} lands. {@link #onGround()} is {@code false} before this method is called. */
+	private void notifyJumped() {
+		animator().pauseToAir();
 	}
 	
 	@Override
@@ -63,6 +80,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 		double mult = (-Math.abs(charge - p) + p) / p;
 		onGround = false;
 		yvel = JUMP_VEL * mult;
+		notifyJumped();
 	}
 	
 	public int number() {
@@ -76,6 +94,10 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput {
 	public boolean onGround() {
 		return onGround;
 	}
-	
+
+	@Override
+	public SpriteAnimator animator() {
+		return animator;
+	}
 	
 }

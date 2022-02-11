@@ -13,6 +13,7 @@ import players.Player;
 public final class Images {
 	
 	public static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
+	public static final int SPRITES = 4;
 	
 	public static final Image
 		//main menu stuff
@@ -159,10 +160,25 @@ public final class Images {
 		return MINIGAME_SPRITES[player][n];
 	}
 	
+	public static int stillSpriteIndex(int player) {
+		switch(player) {
+			case 3: return 3;
+			default: return 0;
+		}
+	}
 	public static Image stillSprite(int player) {
-		if(player == 3)
-			return sprite(3, 3);
-		return player(player);
+		return sprite(player, stillSpriteIndex(player));
+	}
+	
+	public static int airSpriteIndex(int player) {
+		switch(player) {
+			case 3: return 1;
+			default: return 0;
+		}
+	}
+	
+	public static Image airSprite(int player) {
+		return sprite(player, airSpriteIndex(player));
 	}
 	
 	public static Image playerCountIcon(int playerCount) {
