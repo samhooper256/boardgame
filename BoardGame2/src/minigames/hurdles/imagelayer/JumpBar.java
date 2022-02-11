@@ -6,17 +6,12 @@ import base.*;
 import base.input.GameInput;
 import base.panes.ImagePane;
 import fxutils.Images;
-import game.MainScene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 import players.Player;
 
 public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 
-	public static final double
-		Y = MainScene.DEFAULT_HEIGHT - HurdlesImageLayer.GROUND_HEIGHT + 20,
-		HEIGHT = Images.JUMP_BAR.getHeight();
-	
 	private static final double MAX_CLIP_HEIGHT = Images.JUMP_BAR.getHeight();
 	/** in nanoseconds. */
 	private static final long CHARGE_TIME = (long) 2e9;
@@ -37,7 +32,7 @@ public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 		super(Images.JUMP_BAR);
 		this.number = number;
 		setIdealCenterX(Coords.get().xCenter(number));
-		setIdealY(Y);
+		setIdealY(Coords.get().jumpBarY());
 		clip = new Rectangle(Images.JUMP_BAR.getWidth(), 0);
 		resetClip();
 		setClip(clip);

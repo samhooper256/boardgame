@@ -1,6 +1,7 @@
 package minigames.hurdles.imagelayer;
 
 import fxutils.Images;
+import game.MainScene;
 import players.Player;
 
 public final class Coords {
@@ -23,6 +24,23 @@ public final class Coords {
 
 	public double xCenter(int player) {
 		return xCenters[player - 1];
+	}
+	
+	public double jumpBarY() {
+		return MainScene.DEFAULT_HEIGHT - HurdlesImageLayer.GROUND_HEIGHT + 20;
+	}
+	
+	public double jumpBarHeight() {
+		return Images.JUMP_BAR.getHeight();
+	}
+	
+	public double tickCenterY() {
+		return jumpBarY() + jumpBarHeight() * .2;
+	}
+	
+	/** */
+	public double tickPercent() {
+		return (tickCenterY() - jumpBarY()) / jumpBarHeight();
 	}
 	
 }
