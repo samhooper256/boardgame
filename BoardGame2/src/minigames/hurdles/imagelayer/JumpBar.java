@@ -47,8 +47,9 @@ public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 	public void update(long diff) {
 		if(isCharging()) {
 			chargingElapsed += diff;
-			double h = charge() * MAX_CLIP_HEIGHT;
-			double y = MAX_CLIP_HEIGHT - h;
+			double h = charge() * getHeight();
+			double y = getHeight() - h;
+//			double y = 0;
 			clip.setHeight(h);
 			clip.setLayoutY(y);
 		}
