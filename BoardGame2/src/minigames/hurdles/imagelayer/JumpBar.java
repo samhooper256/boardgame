@@ -95,6 +95,10 @@ public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 		return Math.min(1, (double) chargingElapsed / CHARGE_TIME);
 	}
 	
+	public double optimalCharge() {
+		return Coords.get().tickPercent();
+	}
+	
 	public JumpBarBackground background() {
 		return JumpBarBackground.get(number);
 	}

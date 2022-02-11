@@ -7,26 +7,25 @@ import fxutils.Images;
 import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.scene.input.*;
+import minigames.*;
 import minigames.archery.Archery;
 
-public class Archer extends ImagePane implements Updatable, AcceptsInput {
+public class Archer extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated {
 	
-	/** In nanoseconds. */
-	private static final long CYCLE_TIME = (long) .5e9;
 	private static final double SPEED = 250;
 	
 	private final int player;
 	
 	private double xvel, yvel;
 	private boolean active;
-	private long cycleProgress;
+	private final SpriteAnimator animator;
 	
-	public Archer(int player) {
-		super(Images.stillSprite(player));
-		this.player = player;
+	public Archer(int number) {
+		super(Images.stillSprite(number));
+		this.player = number;
 		xvel = yvel = 0;
 		active = true;
-		cycleProgress = 0;
+		animator = new SpriteAnimator(this, number);
 	}
 	
 	@Override
@@ -86,13 +85,10 @@ public class Archer extends ImagePane implements Updatable, AcceptsInput {
 			setImage(Images.stillSprite(player));
 			return;
 		}
-		cycleProgress += diff;
-		if(cycleProgress >= CYCLE_TIME)
-			cycleProgress %= (long) CYCLE_TIME;
 		if(xvel == 0 && yvel == 0)
-			setImage(Images.stillSprite(player));
+			animator().pauseToStill();
 		else
-			setImage(Images.sprite(player, (int) (cycleProgress / (CYCLE_TIME / 4))));
+			animator().playAndUpdate(diff);
 		double sec = diff / 1e9;
 		double oldX = getIdealX();
 		double newX = oldX + xvel * sec;
@@ -123,6 +119,11 @@ public class Archer extends ImagePane implements Updatable, AcceptsInput {
 	
 	public boolean isMobile() {
 		return Archery.get().isMobile(this);
+	}
+	
+	@Override
+	public SpriteAnimator animator() {
+		return animator;
 	}
 	
 }
