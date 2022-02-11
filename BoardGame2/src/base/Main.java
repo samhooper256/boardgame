@@ -13,6 +13,7 @@ import players.Player;
 //TODO:
 // - should minigame tiles get disabled after their first use so they can't be used again?
 // - make jump v0 be proportional to distance to tick.
+// - make clips work if window resized.
 public class Main extends Application {
 
 	public static final String TITLE = "greek olympics and stuff";
