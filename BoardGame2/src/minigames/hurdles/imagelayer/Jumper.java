@@ -88,7 +88,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	}
 	
 	public void fixToGroundLevel() {
-		setIdealY(HurdlesImageLayer.GROUND_Y - getIdealHeight());
+		setIdealY(Coords.get().groundY() - getIdealHeight());
 	}
 	
 	public boolean onGround() {

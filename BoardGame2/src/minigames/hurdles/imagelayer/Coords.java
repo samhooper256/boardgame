@@ -27,7 +27,7 @@ public final class Coords {
 	}
 	
 	public double jumpBarY() {
-		return MainScene.DEFAULT_HEIGHT - HurdlesImageLayer.GROUND_HEIGHT + 20;
+		return MainScene.DEFAULT_HEIGHT - groundHeight() + 20;
 	}
 	
 	public double jumpBarHeight() {
@@ -41,6 +41,13 @@ public final class Coords {
 	/** the percent of the way the {@link JumpBarTick} is up from the bottom of the {@link JumpBar}. */
 	public double tickPercent() {
 		return 1 - (tickCenterY() - jumpBarY()) / jumpBarHeight();
+	}
+	
+	public double groundHeight() {
+		return Images.HURDLES_GROUND.getHeight();
+	}
+	public double groundY() {
+		return MainScene.DEFAULT_HEIGHT - groundHeight();
 	}
 	
 }
