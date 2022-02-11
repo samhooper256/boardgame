@@ -38,9 +38,9 @@ public final class Coords {
 		return jumpBarY() + jumpBarHeight() * .2;
 	}
 	
-	/** */
+	/** the percent of the way the {@link JumpBarTick} is up from the bottom of the {@link JumpBar}. */
 	public double tickPercent() {
-		return (tickCenterY() - jumpBarY()) / jumpBarHeight();
+		return 1 - (tickCenterY() - jumpBarY()) / jumpBarHeight();
 	}
 	
 }
