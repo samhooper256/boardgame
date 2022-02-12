@@ -172,6 +172,10 @@ public final class Images {
 		return sprite(player, stillSpriteIndex(player));
 	}
 	
+	public static int nextSpriteIndex(int index) {
+		return (index + 1) % MINIGAME_SPRITES[1].length;
+	}
+	
 	public static int airSpriteIndex(int player) {
 		switch(player) {
 			case 3: return 1;

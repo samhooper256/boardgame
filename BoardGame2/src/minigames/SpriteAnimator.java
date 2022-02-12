@@ -98,10 +98,6 @@ public final class SpriteAnimator implements Updatable {
 		imagePane().setImage(sprite(n));
 	}
 	
-	public void playFromAirSprite() {
-		playFromSprite(airSpriteIndex());
-	}
-	
 	/** Equivalent to {@link #resetProgress()} but ensures {@link #isRunning()} is {@code true} when the method
 	 * returns. */
 	public void restart() {

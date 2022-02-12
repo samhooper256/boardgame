@@ -56,7 +56,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	/** Called when this {@link Jumper} lands. {@link #onGround()} is {@code true} before this method is called. */
 	private void notifyLanded() {
-		animator().playFromAirSprite();
+		animator().playFromSprite(Images.nextSpriteIndex(animator().airSpriteIndex()));
 	}
 	
 	/** Called when this {@link Jumper} lands. {@link #onGround()} is {@code false} before this method is called. */
