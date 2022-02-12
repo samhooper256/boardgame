@@ -13,9 +13,9 @@ public final class Intersections {
 	public static boolean test(ImagePane ip1, ImagePane ip2) {
 		return rect(
 				ip1.getIdealX(), ip1.getIdealY(),
-				ip1.getIdealX() + ip1.getIdealWidth(), ip1.getIdealY() + ip1.getIdealHeight(),
+				ip1.getIdealRightX(), ip1.getIdealBottomY(),
 				ip2.getIdealX(), ip2.getIdealY(),
-				ip2.getIdealX() + ip2.getIdealWidth(), ip2.getIdealY() + ip2.getIdealHeight()
+				ip2.getIdealRightX(), ip2.getIdealBottomY()
 		);
 	}
 	
