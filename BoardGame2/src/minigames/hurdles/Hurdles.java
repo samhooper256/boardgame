@@ -1,9 +1,11 @@
 package minigames.hurdles;
 
+import game.board.Board;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.hurdles.fx.HurdlesFXLayer;
-import minigames.hurdles.imagelayer.HurdlesImageLayer;
+import minigames.hurdles.imagelayer.*;
+import players.list.PlayerList;
 
 public class Hurdles extends Minigame {
 
@@ -38,6 +40,7 @@ public class Hurdles extends Minigame {
 
 	@Override
 	public void startMinigame() {
+		playersRemaining = PlayerList.upTo(Board.get().playerCount());
 		imageLayer().start();
 	}
 	
@@ -59,6 +62,11 @@ public class Hurdles extends Minigame {
 		return null;
 	}
 
+	public void kill(Jumper j) {
+		imageLayer().kill(j);
+		playersRemaining().remove(j.number());
+	}
+	
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
 		imageLayer().keyPressedIngame(kc);

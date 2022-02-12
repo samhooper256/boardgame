@@ -26,11 +26,13 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	private final SpriteAnimator animator;
 	
 	private double yvel;
-	private boolean onGround = true;
+	private boolean onGround, inDeathSequence;
 	
 	private Jumper(int number) {
 		super(Images.stillSprite(3));
 		this.number = number;
+		onGround = true;
+		inDeathSequence = false;
 		animator = new SpriteAnimator(this, number);
 		setIdealCenterX(Coords.get().xCenter(number));
 		fixToGroundLevel();
@@ -38,18 +40,31 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	@Override
 	public void update(long diff) {
-		if(onGround) {
-			animator().update(diff);
+		double sec = diff / 1e9;
+		if(inDeathSequence()) {
+			setIdealX(getIdealX() + Hurdle.VELOCITY * sec);
+			if(getIdealRightX() < 0)
+				Hurdles.get().kill(this);
 		}
 		else {
-			double sec = diff / 1e9;
-			yvel += sec * ACCEL;
-			setIdealY(getIdealY() + yvel * sec);
-			if(Intersections.test(this, Hurdles.il().ground())) {
-				fixToGroundLevel();
-				onGround = true;
-				yvel = 0;
-				notifyLanded();
+			if(onGround()) {
+				animator().update(diff);
+			}
+			else {
+				yvel += sec * ACCEL;
+				setIdealY(getIdealY() + yvel * sec);
+				if(Intersections.test(this, Hurdles.il().ground())) {
+					fixToGroundLevel();
+					onGround = true;
+					yvel = 0;
+					notifyLanded();
+				}
+			}
+			for(Hurdle h : Hurdles.il().hurdles()) {
+				if(h.intersects(this)) {
+					inDeathSequence = true;
+					break;
+				}
 			}
 		}
 	}
@@ -66,6 +81,8 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
+		if(inDeathSequence())
+			return;
 		if(kc == KeyCode.J)
 			tryJump(1);
 	}
@@ -93,6 +110,10 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	public boolean onGround() {
 		return onGround;
+	}
+	
+	public boolean inDeathSequence() {
+		return inDeathSequence;
 	}
 
 	@Override

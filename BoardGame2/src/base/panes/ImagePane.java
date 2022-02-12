@@ -158,6 +158,14 @@ public class ImagePane extends StackPane {
     	setIdealCoords(idealCoords.getX(), idealCoords.getY());
     }
  
+    public double getIdealRightX() {
+    	return getIdealX() + getIdealWidth();
+    }
+    
+    public double getIdealBottomY() {
+    	return getIdealY() + getIdealHeight();
+    }
+    
     public ResizableImage rimage() {
     	return rimage;
     }
