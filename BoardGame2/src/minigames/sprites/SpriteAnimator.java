@@ -1,4 +1,4 @@
-package minigames;
+package minigames.sprites;
 
 import base.Updatable;
 import base.panes.ImagePane;

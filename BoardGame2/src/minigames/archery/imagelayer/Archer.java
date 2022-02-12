@@ -7,8 +7,8 @@ import fxutils.Images;
 import game.MainScene;
 import javafx.geometry.Point2D;
 import javafx.scene.input.*;
-import minigames.*;
 import minigames.archery.Archery;
+import minigames.sprites.*;
 
 public class Archer extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated {
 	

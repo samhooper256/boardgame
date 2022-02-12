@@ -1,4 +1,4 @@
-package minigames;
+package minigames.sprites;
 
 public interface SpriteAnimated {
 

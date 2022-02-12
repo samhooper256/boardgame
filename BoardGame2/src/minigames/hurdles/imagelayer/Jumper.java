@@ -6,8 +6,8 @@ import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.KeyCode;
-import minigames.*;
 import minigames.hurdles.Hurdles;
+import minigames.sprites.*;
 import players.Player;
 import utils.Intersections;
 
