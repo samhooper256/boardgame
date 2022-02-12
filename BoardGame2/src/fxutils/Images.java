@@ -85,10 +85,10 @@ public final class Images {
 		{TREE, TREE, TREE, TREE},
 		{LYRE, LYRE, LYRE, LYRE},
 		{
+			getSprite("WarriorSprite0.png"),
 			getSprite("WarriorSprite1.png"),
 			getSprite("WarriorSprite2.png"),
-			getSprite("WarriorSprite3.png"),
-			getSprite("WarriorSprite4.png")
+			getSprite("WarriorSprite3.png")
 		},
 		{WINGS, WINGS, WINGS, WINGS}
 	};
