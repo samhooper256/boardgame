@@ -9,20 +9,21 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import minigames.archery.Archery;
 import minigames.sprites.*;
+import players.PlayerRepresentation;
 
-public class Archer extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated {
+public class Archer extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, PlayerRepresentation {
 	
 	private static final double SPEED = 250;
 	
-	private final int player;
+	private final SpriteAnimator animator;
+	private final int number;
 	
 	private double xvel, yvel;
 	private boolean active;
-	private final SpriteAnimator animator;
 	
 	public Archer(int number) {
 		super(Images.stillSprite(number));
-		this.player = number;
+		this.number = number;
 		xvel = yvel = 0;
 		active = true;
 		animator = new SpriteAnimator(this, number);
@@ -82,7 +83,7 @@ public class Archer extends ImagePane implements Updatable, AcceptsInput, Sprite
 		if(!isMobile()) {
 			xvel = 0;
 			yvel = 0;
-			setImage(Images.stillSprite(player));
+			setImage(Images.stillSprite(number));
 			return;
 		}
 		if(xvel == 0 && yvel == 0)
@@ -125,5 +126,11 @@ public class Archer extends ImagePane implements Updatable, AcceptsInput, Sprite
 	public SpriteAnimator animator() {
 		return animator;
 	}
+
+	@Override
+	public int number() {
+		return number;
+	}
+	
 	
 }

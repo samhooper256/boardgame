@@ -11,7 +11,7 @@ import minigames.sprites.*;
 import players.Player;
 import utils.Intersections;
 
-public class Jumper extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated {
+public class Jumper extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, HitRegioned {
 
 	private static final double ACCEL = 850, JUMP_VEL = -1000; //positive is down.
 	
@@ -24,6 +24,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	private final int number;
 	private final SpriteAnimator animator;
+	private final HitRegion hitRegion;
 	
 	private double yvel;
 	private boolean onGround, inDeathSequence;
@@ -34,6 +35,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 		onGround = true;
 		inDeathSequence = false;
 		animator = new SpriteAnimator(this, number);
+		hitRegion = SpriteRegions.forImagePane(this);
 		setIdealCenterX(Coords.get().xCenter(number));
 		fixToGroundLevel();
 	}
@@ -100,6 +102,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 		notifyJumped();
 	}
 	
+	@Override
 	public int number() {
 		return number;
 	}
@@ -114,6 +117,11 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	public boolean inDeathSequence() {
 		return inDeathSequence;
+	}
+
+	@Override
+	public HitRegion hitRegion() {
+		return hitRegion;
 	}
 
 	@Override

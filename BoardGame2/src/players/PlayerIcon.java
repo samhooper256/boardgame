@@ -3,7 +3,7 @@ package players;
 import base.panes.ImagePane;
 import fxutils.Images;
 
-public class PlayerIcon extends ImagePane {
+public class PlayerIcon extends ImagePane implements PlayerRepresentation {
 
 	private final int number;
 	
@@ -12,6 +12,7 @@ public class PlayerIcon extends ImagePane {
 		this.number = number;
 	}
 	
+	@Override
 	public int number() {
 		return number;
 	}

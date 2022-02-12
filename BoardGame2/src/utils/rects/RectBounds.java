@@ -66,7 +66,7 @@ public interface RectBounds {
 	}
 	
 	default double bottomY() {
-		return y() + width();
+		return y() + height();
 	}
 	
 	default double width() {
