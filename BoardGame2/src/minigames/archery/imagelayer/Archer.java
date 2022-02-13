@@ -9,9 +9,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.*;
 import minigames.archery.Archery;
 import minigames.sprites.*;
-import players.PlayerRepresentation;
+import players.PlayerNumbered;
 
-public class Archer extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, PlayerRepresentation {
+public class Archer extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, PlayerNumbered {
 	
 	private static final double SPEED = 250;
 	

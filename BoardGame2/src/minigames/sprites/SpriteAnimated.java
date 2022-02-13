@@ -1,8 +1,8 @@
 package minigames.sprites;
 
-import players.PlayerRepresentation;
+import players.PlayerNumbered;
 
-public interface SpriteAnimated extends PlayerRepresentation {
+public interface SpriteAnimated extends PlayerNumbered {
 
 	SpriteAnimator animator();
 	

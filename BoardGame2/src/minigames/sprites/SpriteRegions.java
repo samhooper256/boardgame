@@ -3,7 +3,7 @@ package minigames.sprites;
 import base.HitRegion;
 import base.panes.ImagePane;
 import fxutils.Images;
-import players.PlayerRepresentation;
+import players.PlayerNumbered;
 import utils.rects.RectBounds;
 
 public final class SpriteRegions {
@@ -12,7 +12,7 @@ public final class SpriteRegions {
 		
 	}
 	
-	public static <T extends ImagePane & PlayerRepresentation> HitRegion forImagePane(T ip) {
+	public static <T extends ImagePane & PlayerNumbered> HitRegion forImagePane(T ip) {
 		switch(ip.number()) {
 			case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 			case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));

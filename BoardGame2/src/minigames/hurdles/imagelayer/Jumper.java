@@ -58,7 +58,6 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 				animator().update(diff);
 			}
 			else {
-				System.out.printf("\telse%n");
 				yvel += sec * ACCEL;
 				setIdealY(getIdealY() + yvel * sec);
 				if(Intersections.test(this, Hurdles.il().ground())) {

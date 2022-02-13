@@ -1,6 +1,6 @@
 package players;
 
-public interface PlayerRepresentation {
+public interface PlayerNumbered {
 
 	int number();
 	

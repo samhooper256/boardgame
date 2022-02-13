@@ -45,6 +45,9 @@ public final class Images {
 		DIE4 = get("Dice4.png"),
 		DIE5 = get("Dice5.png"),
 		DIE6 = get("Dice6.png"),
+		//keys
+		KEY_M = get("M.png"),
+		KEY_1 = get("1.png"),
 		//tiles
 		EVENT_TILE = get("MedicalTile.png"),
 		SAFE_TILE = get("SafeTile.png"),
@@ -82,7 +85,12 @@ public final class Images {
 	/** row is the player, index is the sprite for that player. */
 	private static final Image[][] MINIGAME_SPRITES = {
 		null,
-		{TREE, TREE, TREE, TREE},
+		{
+			getSprite("TreeSprite0.png"),
+			getSprite("TreeSprite1.png"),
+			getSprite("TreeSprite2.png"),
+			getSprite("TreeSprite3.png")
+		},
 		{LYRE, LYRE, LYRE, LYRE},
 		{
 			getSprite("WarriorSprite0.png"),
@@ -164,6 +172,7 @@ public final class Images {
 	
 	public static int stillSpriteIndex(int player) {
 		switch(player) {
+			case 1: return 3;
 			case 3: return 3;
 			default: return 0;
 		}
@@ -178,6 +187,7 @@ public final class Images {
 	
 	public static int airSpriteIndex(int player) {
 		switch(player) {
+			case 1: return 1;
 			case 3: return 1;
 			default: return 0;
 		}
@@ -222,6 +232,16 @@ public final class Images {
 	
 	private static Image getSprite(String filename) {
 		return get(filename, SPRITE_WIDTH, SPRITE_HEIGHT, true, true);
+	}
+	
+	public static Image singleKeyImage(int number) {
+		switch(number) {
+			case 1: return KEY_1;
+			case 2: return KEY_M;
+			case 3: return KEY_M;
+			case 4: return KEY_M;
+			default: throw new IllegalArgumentException(String.format("number: %d", number));
+		}
 	}
 	
 	/**

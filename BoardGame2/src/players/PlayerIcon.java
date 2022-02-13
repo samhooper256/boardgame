@@ -3,7 +3,7 @@ package players;
 import base.panes.ImagePane;
 import fxutils.Images;
 
-public class PlayerIcon extends ImagePane implements PlayerRepresentation {
+public class PlayerIcon extends ImagePane implements PlayerNumbered {
 
 	private final int number;
 	

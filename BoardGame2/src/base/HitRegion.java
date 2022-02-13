@@ -1,7 +1,5 @@
 package base;
 
-import java.util.Arrays;
-
 import base.panes.ImagePane;
 import utils.rects.RectBounds;
 
@@ -28,7 +26,6 @@ public final class HitRegion {
 			regions[j + 2] = b.rightX();
 			regions[j + 3] = b.bottomY();
 		}
-		System.out.printf("%s%n", Arrays.toString(regions));
 	}
 	
 	/** Returns the raw {@code double} values used to represent this {@link HitRegion}.
