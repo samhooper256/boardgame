@@ -50,12 +50,26 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		addAll(hurdles.getFirst().imagePanes());
 		for(int i = 0; i < 7; i++)
 			generateHurdle();
-		removeAll(Jumper.LIST);
-		addAll(Jumper.LIST);
-		for(Jumper j : Jumper.LIST)
-			j.start();
+		removeAllPlayerImages();
+		for(int n : gamePane().playersRemaining())
+			addAllPlayerImages(n);
+		for(int n : gamePane().playersRemaining())
+			Jumper.get(n).start();
 	}
 
+	private void removeAllPlayerImages() {
+		removeAll(Jumper.LIST);
+		removeAll(JumpBarBackground.LIST);
+		removeAll(JumpBar.LIST);
+		removeAll(JumpBarTick.LIST);
+		removeAll(KeyIcon.LIST);
+	}
+	
+	private void addAllPlayerImages(int number) {
+		addAll(Jumper.get(number), JumpBarBackground.get(number), JumpBar.get(number), JumpBarTick.get(number),
+				KeyIcon.get(number));
+	}
+	
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
 		for(Jumper j : Jumper.LIST)

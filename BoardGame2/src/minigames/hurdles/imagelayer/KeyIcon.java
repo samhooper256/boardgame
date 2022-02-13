@@ -5,7 +5,7 @@ import java.util.*;
 import base.panes.ImagePane;
 import fxutils.Images;
 import game.MainScene;
-import players.PlayerNumbered;
+import players.*;
 
 public final class KeyIcon extends ImagePane implements PlayerNumbered {
 
@@ -13,6 +13,10 @@ public final class KeyIcon extends ImagePane implements PlayerNumbered {
 	
 	public static final List<KeyIcon> LIST = Collections.unmodifiableList(Arrays.asList(
 			new KeyIcon(1), new KeyIcon(2), new KeyIcon(3), new KeyIcon(4)));
+	
+	public static KeyIcon get(int number) {
+		return LIST.get(Player.validate(number) - 1);
+	}
 	
 	private final int number;
 	
