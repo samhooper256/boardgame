@@ -15,6 +15,8 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 
 	private static final double ACCEL = 850, JUMP_VEL = -1000; //positive is down.
 	
+	private static final long DEATH_FLASH_CYCLE = (long) .2e9; //in nanoseconds.
+	
 	public static final List<Jumper> LIST = Collections.unmodifiableList(Arrays.asList(
 			new Jumper(1), new Jumper(2), new Jumper(3), new Jumper(4)));
 	
@@ -27,7 +29,8 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	private final HitRegion hitRegion;
 	
 	private double yvel;
-	private boolean onGround, inDeathSequence;
+	private long deathSequenceElapsed;
+	private boolean onGround;
 	
 	private Jumper(int number) {
 		super(Images.stillSprite(number));
@@ -39,7 +42,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	public void start() {
 		setImage(Images.stillSprite(number));
 		onGround = true;
-		inDeathSequence = false;
+		deathSequenceElapsed = -1;
 		setIdealCenterX(Coords.get().xCenter(number));		
 		fixToGroundLevel();
 		animator.restart();
@@ -49,9 +52,12 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	public void update(long diff) {
 		double sec = diff / 1e9;
 		if(inDeathSequence()) {
+			deathSequenceElapsed += diff;
 			setIdealX(getIdealX() + Hurdle.VELOCITY * sec);
 			if(getIdealRightX() < 0)
 				Hurdles.get().kill(this);
+			else
+				setVisible(deathSequenceElapsed / DEATH_FLASH_CYCLE % 2 != 0);
 		}
 		else {
 			if(onGround()) {
@@ -69,7 +75,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 			}
 			for(Hurdle h : Hurdles.il().hurdles()) {
 				if(h.intersects(this)) {
-					inDeathSequence = true;
+					deathSequenceElapsed = 0;
 					break;
 				}
 			}
@@ -121,7 +127,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	}
 	
 	public boolean inDeathSequence() {
-		return inDeathSequence;
+		return deathSequenceElapsed >= 0;
 	}
 
 	@Override
