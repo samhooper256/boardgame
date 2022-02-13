@@ -1,6 +1,7 @@
 package fxutils;
 
 import base.Main;
+import base.input.GameInput;
 import javafx.scene.image.*;
 import minigames.MiniTag;
 import players.Player;
@@ -47,7 +48,9 @@ public final class Images {
 		DIE6 = get("Dice6.png"),
 		//keys
 		KEY_M = get("M.png"),
+		KEY_X = get("X.png"),
 		KEY_1 = get("1.png"),
+		KEY_EQUALS = get("=.png"),
 		//tiles
 		EVENT_TILE = get("MedicalTile.png"),
 		SAFE_TILE = get("SafeTile.png"),
@@ -235,11 +238,11 @@ public final class Images {
 	}
 	
 	public static Image singleKeyImage(int number) {
-		switch(number) {
-			case 1: return KEY_1;
-			case 2: return KEY_M;
-			case 3: return KEY_M;
-			case 4: return KEY_M;
+		switch(GameInput.controls().single(number)) {
+			case DIGIT1: return KEY_1;
+			case X: return KEY_X;
+			case M: return KEY_M;
+			case EQUALS: return KEY_EQUALS;
 			default: throw new IllegalArgumentException(String.format("number: %d", number));
 		}
 	}
