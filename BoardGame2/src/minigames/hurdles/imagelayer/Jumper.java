@@ -31,18 +31,21 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	private double yvel;
 	private long deathSequenceElapsed;
 	private boolean onGround;
+	private Hurdle lethalHurdle;
 	
 	private Jumper(int number) {
 		super(Images.stillSprite(number));
 		this.number = number;
 		animator = new SpriteAnimator(this, number);
 		hitRegion = SpriteRegions.forImagePane(this);
+		lethalHurdle = null;
 	}
 	
 	public void start() {
 		setImage(Images.stillSprite(number));
 		onGround = true;
 		deathSequenceElapsed = -1;
+		setVisible(true);
 		setIdealCenterX(Coords.get().xCenter(number));		
 		fixToGroundLevel();
 		animator.restart();
@@ -76,6 +79,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 			for(Hurdle h : Hurdles.il().hurdles()) {
 				if(h.intersects(this)) {
 					deathSequenceElapsed = 0;
+					lethalHurdle = h;
 					break;
 				}
 			}
@@ -129,7 +133,17 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	public boolean inDeathSequence() {
 		return deathSequenceElapsed >= 0;
 	}
+	
+	/** Returns the {@link Hurdle} that this {@link Jumper} hit or {@code null} if it has not yet hit one. */
+	public Hurdle lethalHurdle() {
+		return lethalHurdle;
+	}
 
+	@Override
+	public String toString() {
+		return String.format("Jumper[%d]", number());
+	}
+	
 	@Override
 	public HitRegion hitRegion() {
 		return hitRegion;

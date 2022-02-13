@@ -1,10 +1,10 @@
 package minigames.archery.fx;
 
-import base.panes.*;
 import game.MainScene;
+import minigames.MinigameFXLayer;
 import minigames.archery.Archery;
 
-public class ArcheryFXLayer extends FXLayer {
+public class ArcheryFXLayer extends MinigameFXLayer {
 	
 	private final WaveText waveText;
 	
@@ -15,10 +15,6 @@ public class ArcheryFXLayer extends FXLayer {
 		waveText.layoutYProperty().bind(waveText.heightProperty().multiply(.5).negate().add(MainScene.DEFAULT_HEIGHT * .5));
 		waveText.setVisible(false);
 		getChildren().addAll(waveText);
-	}
-	
-	public void init() {
-		getChildren().addAll(gamePane().rewardsDisplay().fxNodes());
 	}
 	
 	public void start() {

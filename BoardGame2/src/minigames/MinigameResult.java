@@ -21,6 +21,29 @@ public interface MinigameResult {
 		return new MinigameResultImpl(rewards);
 	}
 	
+	public static MinigameResult from(Set<Survival> survivals) {
+		//maps each wave that a player died on to the unmodifiable set (sorted ascending) of all players who survived to
+		//that wave. The keys in the map are in descending order.
+		SortedMap<Integer, SortedSet<Integer>> groups = survivals.stream().collect(Collectors.groupingBy(
+			Survival::dist,
+			() -> new TreeMap<>(Comparator.reverseOrder()),
+			Collectors.collectingAndThen(
+				Collectors.mapping(Survival::number, Collectors.toCollection(TreeSet::new)),
+				Collections::unmodifiableSortedSet
+			)
+		));
+		List<MedalReward> rewards = new ArrayList<>();
+		Medal medal = Medal.GOLD;
+		for(Map.Entry<Integer, SortedSet<Integer>> e : groups.entrySet()) {
+			for(int player : e.getValue())
+				rewards.add(MedalReward.to(medal, player));
+			medal = medal.down();
+			if(medal == null)
+				break;
+		}
+		return of(rewards);
+	}
+	
 	/** {@code players.length} must be between 2 and {@link Player#maxCount()} (inclusive). Gives the first player
 	 * a {@link Medal#GOLD}, the second a {@link Medal#SILVER}, and the third a {@link Medal#BRONZE}. */
 	static MinigameResult simple(int... players) {

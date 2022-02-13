@@ -1,9 +1,9 @@
 package minigames.hurdles.fx;
 
-import base.panes.*;
+import minigames.MinigameFXLayer;
 import minigames.hurdles.Hurdles;
 
-public class HurdlesFXLayer extends FXLayer {
+public class HurdlesFXLayer extends MinigameFXLayer {
 
 	@Override
 	public Hurdles gamePane() {

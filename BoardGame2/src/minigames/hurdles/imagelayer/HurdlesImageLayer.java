@@ -22,6 +22,7 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	private final ImagePane ground;
 	
 	private double nextHurdleSpacing, nextHurdleHeight;
+	private int nextHurdleIndex;
 	private LinkedList<Hurdle> hurdles;
 	
 	public HurdlesImageLayer() {
@@ -44,7 +45,8 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		hurdles.clear();
 		nextHurdleSpacing = MAX_HURDLE_SPACING;
 		nextHurdleHeight = MIN_HURDLE_HEIGHT;
-		hurdles.add(new Hurdle(MIN_HURDLE_HEIGHT, FIRST_HURDLE_X));
+		nextHurdleIndex = 1;
+		hurdles.add(new Hurdle(0, MIN_HURDLE_HEIGHT, FIRST_HURDLE_X));
 		addAll(hurdles.getFirst().imagePanes());
 		for(int i = 0; i < 7; i++)
 			generateHurdle();
@@ -73,7 +75,8 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	@Override
 	public void updateIngame(long diff) {
 		for(Jumper j : Jumper.LIST)
-			j.update(diff);
+			if(gamePane().playersRemaining().contains(j.number()))
+				j.update(diff);
 		for(JumpBar jb : JumpBar.LIST)
 			jb.update(diff);
 		for(Hurdle h : hurdles)
@@ -86,13 +89,13 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	}
 
 	private void generateHurdle() {
-		Hurdle last = hurdles.getLast();
-		double newX = last.getX() + nextHurdleSpacing;
+		double newX = hurdles.getLast().getX() + nextHurdleSpacing;
+		Hurdle h = new Hurdle(nextHurdleIndex, nextHurdleHeight, newX);
 		if(nextHurdleSpacing - HURDLE_SPACING_DIFF >= MIN_HURDLE_SPACING)
 			nextHurdleSpacing -= HURDLE_SPACING_DIFF;
 		if(nextHurdleHeight + HURDLE_HEIGHT_DIFF <= MAX_HURDLE_HEIGHT)
 			nextHurdleHeight += HURDLE_HEIGHT_DIFF;
-		Hurdle h = new Hurdle(nextHurdleHeight, newX);
+		nextHurdleIndex++;
 		hurdles.add(h);
 		addAll(h.imagePanes());
 	}

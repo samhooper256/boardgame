@@ -1,5 +1,7 @@
 package minigames.hurdles;
 
+import java.util.*;
+
 import game.board.Board;
 import javafx.scene.input.KeyCode;
 import minigames.*;
@@ -19,28 +21,23 @@ public class Hurdles extends Minigame {
 		return get().imageLayer();
 	}
 	
+	private final Set<Survival> survivals;
+	
 	private Hurdles() {
 		super(MiniTag.HURDLES, new HurdlesImageLayer(), new HurdlesFXLayer());
+		survivals = new TreeSet<>();
 	}
 	
-	@Override
-	public HurdlesImageLayer imageLayer() {
-		return (HurdlesImageLayer) super.imageLayer();
-	}
-	
-	@Override
-	public HurdlesFXLayer fxLayer() {
-		return (HurdlesFXLayer) super.fxLayer();
-	}
-
 	@Override
 	public void update(long diff) {
-		imageLayer().update(diff);
+		if(!isFinished())
+			imageLayer().update(diff);
 	}
 
 	@Override
 	public void startMinigame() {
 		playersRemaining = PlayerList.upTo(Board.get().playerCount());
+		survivals.clear();
 		imageLayer().start();
 	}
 	
@@ -52,19 +49,24 @@ public class Hurdles extends Minigame {
 
 	@Override
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+		return playersRemaining().size() == 0;
 	}
 
 	@Override
 	protected MinigameResult computeResult() {
-		// TODO Auto-generated method stub
-		return null;
+		return MinigameResult.from(survivals);
 	}
 
 	public void kill(Jumper j) {
 		imageLayer().kill(j);
+		survivals.add(new Survival(j.number(), j.lethalHurdle().index()));
 		playersRemaining().remove(j.number());
+		if(isFinished())
+			finish();
+	}
+	
+	private void finish() {
+		rewardsDisplay().show(getResult());
 	}
 	
 	@Override
@@ -75,6 +77,16 @@ public class Hurdles extends Minigame {
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
 		imageLayer().keyReleasedIngame(kc);
+	}
+	
+	@Override
+	public HurdlesImageLayer imageLayer() {
+		return (HurdlesImageLayer) super.imageLayer();
+	}
+	
+	@Override
+	public HurdlesFXLayer fxLayer() {
+		return (HurdlesFXLayer) super.fxLayer();
 	}
 	
 }

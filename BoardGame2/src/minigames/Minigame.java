@@ -25,6 +25,8 @@ public abstract class Minigame extends GamePane implements Updatable {
 		result = null;
 		imageLayer.setGamePane(this);
 		fxLayer.setGamePane(this);
+		imageLayer().initRewardsDisplay();
+		fxLayer().initRewardsDisplay();
 	}
 	
 	/** <p>Assumes this {@link Minigame} has already been set as the {@link MainScene#baseContent()}. This method is
@@ -102,6 +104,11 @@ public abstract class Minigame extends GamePane implements Updatable {
 	@Override
 	public MinigameImageLayer imageLayer() {
 		return (MinigameImageLayer) super.imageLayer();
+	}
+	
+	@Override
+	public MinigameFXLayer fxLayer() {
+		return (MinigameFXLayer) super.fxLayer();
 	}
 	
 	public ReadOnlyPlayerList players() {

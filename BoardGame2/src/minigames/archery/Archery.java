@@ -1,14 +1,12 @@
 package minigames.archery;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import fxutils.Fader;
 import game.board.Board;
 import javafx.animation.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
-import medals.*;
 import minigames.*;
 import minigames.archery.fx.ArcheryFXLayer;
 import minigames.archery.imagelayer.*;
@@ -56,7 +54,6 @@ public class Archery extends Minigame {
 		Fader wtfader = fxLayer().waveText().fader();
 		waveTimeline = new Timeline(new KeyFrame(WAVE_POPUP_DURATION, eh -> wtfader.fadeOutAndHide()));
 		imageLayer().init();
-		fxLayer().init();
 	}
 	
 	@Override
@@ -202,26 +199,7 @@ public class Archery extends Minigame {
 	
 	@Override
 	protected MinigameResult computeResult() {
-		//maps each wave that a player died on to the list (sorted ascending) of all players who survived to that wave.
-		//The keys in the map are in descending order.
-		SortedMap<Integer, List<Integer>> groups = survivals.stream().collect(Collectors.groupingBy(
-				Survival::wave,
-				() -> new TreeMap<>(Comparator.reverseOrder()),
-				Collectors.collectingAndThen(
-					Collectors.mapping(Survival::player, Collectors.toCollection(TreeSet::new)),
-					treeSet -> Collections.unmodifiableList(new ArrayList<>(treeSet))
-				)
-		));
-		List<MedalReward> rewards = new ArrayList<>();
-		Medal medal = Medal.GOLD;
-		for(Map.Entry<Integer, List<Integer>> e : groups.entrySet()) {
-			for(int player : e.getValue())
-				rewards.add(MedalReward.to(medal, player));
-			medal = medal.down();
-			if(medal == null)
-				break;
-		}
-		return MinigameResult.of(rewards);
+		return MinigameResult.from(survivals);
 	}
 	
 	@Override

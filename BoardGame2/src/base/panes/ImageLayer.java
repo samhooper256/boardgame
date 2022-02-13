@@ -68,6 +68,11 @@ public interface ImageLayer extends Updatable {
 			add(packetIndex, image);
 	}
 	
+	default void addAll(int packetIndex, Collection<? extends ImagePane> images) {
+		for(ImagePane image : images)
+			add(packetIndex, image);
+	}
+	
 	/** Attempts to remove the given {@link ImagePane}, which may be in any {@link Packet}.
 	 * Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
 	boolean remove(ImagePane image);

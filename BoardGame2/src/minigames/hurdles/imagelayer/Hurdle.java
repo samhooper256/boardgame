@@ -15,14 +15,16 @@ public final class Hurdle implements Updatable {
 	
 	private final ImagePane head, legs;
 	private final double velocity;
+	private final int index;
 	
-	public Hurdle(double height) {
-		this(height, 0);
+	public Hurdle(int index, double height) {
+		this(index, height, 0);
 	}
 	
-	public Hurdle(double height, double x) {
+	public Hurdle(int index, double height, double x) {
 		if(height <= 0)
 			throw new IllegalArgumentException(String.format("Height: %f", height));
+		this.index = index;
 		head = new ImagePane(Images.HURDLE_HEAD);
 		legs = new ImagePane(Images.HURDLE_LEGS);
 		head.setIdealY(Coords.get().groundY() - height);
@@ -30,18 +32,6 @@ public final class Hurdle implements Updatable {
 		legs.setIdealY(Coords.get().groundY() - height);
 		setX(x);
 		velocity = VELOCITY;
-	}
-	
-	public ImagePane head() {
-		return head;
-	}
-	
-	public ImagePane legs() {
-		return legs;
-	}
-	
-	public List<ImagePane> imagePanes() {
-		return Arrays.asList(legs(), head());
 	}
 	
 	public void setX(double idealX) {
@@ -71,4 +61,19 @@ public final class Hurdle implements Updatable {
 		legs().setIdealX(nx);
 	}
 	
+	public ImagePane head() {
+		return head;
+	}
+	
+	public ImagePane legs() {
+		return legs;
+	}
+	
+	public int index() {
+		return index;
+	}
+	
+	public List<ImagePane> imagePanes() {
+		return Arrays.asList(legs(), head());
+	}
 }

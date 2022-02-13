@@ -6,7 +6,12 @@ import fxutils.Images;
 import game.MainScene;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
+import minigames.rewards.RewardsDisplay;
 
+/** <p>{@link #initRewardsDisplay()} must be called after construction.</p>
+ * <p>The background is at the bottom of packet {@code 0}. The instructions occupy
+ * {@link ImageLayer#packetsUnmodifiable() packet} {@code 1}. The {@link RewardsDisplay}
+ * {@link RewardsDisplay#imagePanes() image panes} are in packet {@code 2}.</p>*/
 public abstract class MinigameImageLayer extends AbstractImageLayer implements AcceptsInput {
 
 	public static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
@@ -23,6 +28,10 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 		pressSpace.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		pressSpace.setIdealCenter(MainScene.CENTER_X, MainScene.DEFAULT_HEIGHT * .8);
 		addAll(1, instructions, pressSpace);
+	}
+	
+	final void initRewardsDisplay() {
+		addAll(2, gamePane().rewardsDisplay().imagePanes());
 	}
 	
 	/** Calls {@link #startMinigame()} then {@link #showInstructions()}. */
