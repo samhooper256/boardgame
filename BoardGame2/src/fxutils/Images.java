@@ -68,7 +68,7 @@ public final class Images {
 		//general minigame stuff
 		PRESS_SPACE = get("pressspace.png"),
 		//archery
-		ARCHERY_INSTRUCTIONS = get("archery_instructions.png"),
+		ARCHERY_INSTRUCTIONS = get("ArcheryInstructions.png"),
 		REWARDS_BACKGROUND = get("rewards_background.png"),
 		FENCE = get("fence.png"),
 		ARROW = get("arrow.png"),
