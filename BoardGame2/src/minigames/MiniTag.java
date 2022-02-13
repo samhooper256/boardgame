@@ -14,7 +14,8 @@ import utils.RNG;
 public enum MiniTag {
 	ARCHERY(Archery::get), HURDLES(Hurdles::get);
 	
-	public static final EnumSet<MiniTag> ENABLED = EnumSet.allOf(MiniTag.class);
+//	public static final EnumSet<MiniTag> ENABLED = EnumSet.allOf(MiniTag.class);
+	public static final EnumSet<MiniTag> ENABLED = EnumSet.of(HURDLES);
 	
 	private static final List<MiniTag> ENABLED_AS_LIST = new ArrayList<>(ENABLED); //so we can choose a random one.
 	

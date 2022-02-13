@@ -47,8 +47,10 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		addAll(hurdles.getFirst().imagePanes());
 		for(int i = 0; i < 7; i++)
 			generateHurdle();
+		removeAll(Jumper.LIST);
+		addAll(Jumper.LIST);
 		for(Jumper j : Jumper.LIST)
-			j.fixToGroundLevel();
+			j.start();
 	}
 
 	@Override

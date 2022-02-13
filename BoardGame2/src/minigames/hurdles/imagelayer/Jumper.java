@@ -30,14 +30,19 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	private boolean onGround, inDeathSequence;
 	
 	private Jumper(int number) {
-		super(Images.stillSprite(3));
+		super(Images.stillSprite(number));
 		this.number = number;
-		onGround = true;
-		inDeathSequence = false;
 		animator = new SpriteAnimator(this, number);
 		hitRegion = SpriteRegions.forImagePane(this);
-		setIdealCenterX(Coords.get().xCenter(number));
+	}
+	
+	public void start() {
+		setImage(Images.stillSprite(number));
+		onGround = true;
+		inDeathSequence = false;
+		setIdealCenterX(Coords.get().xCenter(number));		
 		fixToGroundLevel();
+		animator.restart();
 	}
 	
 	@Override
@@ -53,6 +58,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 				animator().update(diff);
 			}
 			else {
+				System.out.printf("\telse%n");
 				yvel += sec * ACCEL;
 				setIdealY(getIdealY() + yvel * sec);
 				if(Intersections.test(this, Hurdles.il().ground())) {

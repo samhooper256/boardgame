@@ -1,5 +1,7 @@
 package base;
 
+import java.util.Arrays;
+
 import base.panes.ImagePane;
 import utils.rects.RectBounds;
 
@@ -19,13 +21,14 @@ public final class HitRegion {
 	public HitRegion(ImagePane imagePane, RectBounds... bounds) {
 		this.imagePane = imagePane;
 		regions = new double[bounds.length * 4];
-		for(int i = 0; i < bounds.length; i++) {
+		for(int i = 0, j = 0; i < bounds.length; i++, j += 4) {
 			RectBounds b = bounds[i];
-			regions[i] = b.x();
-			regions[i + 1] = b.y();
-			regions[i + 2] = b.rightX();
-			regions[i + 3] = b.bottomY();
+			regions[j] = b.x();
+			regions[j + 1] = b.y();
+			regions[j + 2] = b.rightX();
+			regions[j + 3] = b.bottomY();
 		}
+		System.out.printf("%s%n", Arrays.toString(regions));
 	}
 	
 	/** Returns the raw {@code double} values used to represent this {@link HitRegion}.
