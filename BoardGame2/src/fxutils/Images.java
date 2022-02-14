@@ -94,14 +94,24 @@ public final class Images {
 			getSprite("TreeSprite2.png"),
 			getSprite("TreeSprite3.png")
 		},
-		{LYRE, LYRE, LYRE, LYRE},
+		{
+			getSprite("LyreSprite0.png"),
+			getSprite("LyreSprite1.png"),
+			getSprite("LyreSprite2.png"),
+			getSprite("LyreSprite3.png")
+		},
 		{
 			getSprite("WarriorSprite0.png"),
 			getSprite("WarriorSprite1.png"),
 			getSprite("WarriorSprite2.png"),
 			getSprite("WarriorSprite3.png")
 		},
-		{WINGS, WINGS, WINGS, WINGS}
+		{
+			getSprite("WingsSprite0.png"),
+			getSprite("WingsSprite1.png"),
+			getSprite("WingsSprite2.png"),
+			getSprite("WingsSprite3.png")
+		}
 	};
 	
 	public static final double PLAYER_IDEAL_SIZE = TREE.getWidth();
