@@ -40,8 +40,15 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		
 	}
 	
-	private CountSelectHover hover(int index) {
-		return hovers[index - 2];
+	void notifyAnimationToPlayerSelectStarted() {
+		for(AvatarBorder ab : AvatarBorder.LIST)
+			ab.setActive(false);
+		for(CountSelectHover csh : hovers)
+			csh.setVisible(false);
+	}
+	
+	private CountSelectHover hover(int player) {
+		return hovers[player - 2];
 	}
 	
 	void hoverEntered(int playerCount) {

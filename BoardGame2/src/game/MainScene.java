@@ -155,6 +155,7 @@ public class MainScene extends Scene implements Updatable {
 	
 	public void animateToPlayerSelect() {
 		tpsAnimation.playFromStart();
+		PlayerSelect.get().notifyAnimationToPlayerSelectStarted();
 	}
 	
 	private void showContentLayer() {

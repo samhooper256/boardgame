@@ -17,6 +17,10 @@ public class PlayerSelect extends GamePane {
 		setBackground(Backgrounds.of(Color.BURLYWOOD));
 	}
 	
+	public void notifyAnimationToPlayerSelectStarted() {
+		imageLayer().notifyAnimationToPlayerSelectStarted();
+	}
+	
 	@Override
 	public PlayerSelectImageLayer imageLayer() {
 		return (PlayerSelectImageLayer) super.imageLayer();
