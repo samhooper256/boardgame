@@ -186,8 +186,10 @@ public final class Images {
 	public static int stillSpriteIndex(int player) {
 		switch(player) {
 			case 1: return 3;
+			case 2: return 3;
 			case 3: return 3;
-			default: return 0;
+			case 4: return 3;
+			default: throw new IllegalArgumentException(String.format("Player: %d", player));
 		}
 	}
 	public static Image stillSprite(int player) {
@@ -201,8 +203,10 @@ public final class Images {
 	public static int airSpriteIndex(int player) {
 		switch(player) {
 			case 1: return 1;
+			case 2: return 1;
 			case 3: return 1;
-			default: return 0;
+			case 4: return 1;
+			default: throw new IllegalArgumentException(String.format("Player: %d", player));
 		}
 	}
 	
