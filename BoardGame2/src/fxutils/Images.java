@@ -82,7 +82,9 @@ public final class Images {
 		JUMP_BAR_BACKGROUND = get("jump_bar_background.png"),
 		JUMP_BAR_TICK = get("jump_bar_tick.png"),
 		HURDLE_HEAD = get("hurdle_head.png"),
-		HURDLE_LEGS = get("hurdle_legs.png");
+		HURDLE_LEGS = get("hurdle_legs.png"),
+		//misc
+		HELPER = get("Helper.png");
 			
 	
 	/** row is the player, index is the sprite for that player. */

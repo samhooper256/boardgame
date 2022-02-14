@@ -3,7 +3,7 @@ package minigames;
 import base.AcceptsInput;
 import base.panes.*;
 import fxutils.Images;
-import game.MainScene;
+import game.*;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import minigames.rewards.RewardsDisplay;
@@ -11,15 +11,19 @@ import minigames.rewards.RewardsDisplay;
 /** <p>{@link #initRewardsDisplay()} must be called after construction.</p>
  * <p>The background is at the bottom of packet {@code 0}. The instructions occupy
  * {@link ImageLayer#packetsUnmodifiable() packet} {@code 1}. The {@link RewardsDisplay}
- * {@link RewardsDisplay#imagePanes() image panes} are in packet {@code 2}.</p>*/
+ * {@link RewardsDisplay#imagePanes() image panes} are in packet {@code 2}. The {@link Helper} is in packet {@code 3}.
+ * </p>*/
 public abstract class MinigameImageLayer extends AbstractImageLayer implements AcceptsInput {
 
 	public static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
 	
 	protected final FadeableImagePane instructions, pressSpace;
 	
+	private final Helper helper;
+	
 	protected MinigameImageLayer(MiniTag tag) {
 		add(new ImagePane(tag.background()));
+		helper = new Helper();
 		instructions = new FadeableImagePane(tag.instructions());
 		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(MainScene.CENTER_X, MainScene.CENTER_Y);
@@ -28,6 +32,7 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 		pressSpace.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		pressSpace.setIdealCenter(MainScene.CENTER_X, MainScene.DEFAULT_HEIGHT * .8);
 		addAll(1, instructions, pressSpace);
+		add(3, helper());
 	}
 	
 	final void initRewardsDisplay() {
@@ -86,6 +91,10 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	@Override
 	public Minigame gamePane() {
 		return (Minigame) super.gamePane();
+	}
+	
+	protected Helper helper() {
+		return helper;
 	}
 	
 	public FadeableImagePane instructions() {

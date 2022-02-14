@@ -6,15 +6,18 @@ import base.*;
 import base.panes.*;
 import events.SimpleTextEvent;
 import fxutils.*;
+import game.Helper;
 import game.board.*;
 import javafx.geometry.Point2D;
 import medals.*;
 import players.Player;
 import tiles.*;
 
+//uses packets 0, 1, and 2.
 public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 
 	private final Ring[] rings; //index i is the ring for player i;
+	private final Helper helper;
 	
 	/** Maps each player number to a {@link List} of all the {@link ImagePane} that make up that player's medal area.
 	 * (Specifically, each list will contain four images: three medals and a player icon).*/
@@ -24,6 +27,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	private WalkAnimation currentWalk;
 	
 	public BoardImageLayer() {
+		helper = new Helper();
 		this.rings = new Ring[Board.maxPlayerCount() + 1];
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i] = new Ring();
@@ -40,6 +44,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		add(1, EventBackground.get());
 		for(int i = 1; i <= Player.maxCount(); i++)
 			rings[i].lockCoordinatesTo(Player.get(i));
+		add(2, helper);
 	}
 	
 	public void start() {
@@ -135,6 +140,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	
 	@Override
 	public void updatePane(long diff) {
+		helper.update(diff);
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].update(diff);
 		RollableDie.get().update(diff);
