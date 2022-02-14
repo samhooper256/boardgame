@@ -46,6 +46,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		removeAll(tiles);
 		tiles = generateTiles();
 		placeTiles();
+		clearTileReferencesToPlayers();
 		removePlayers();
 		addPlayers();
 		movePlayersToStart();
@@ -60,15 +61,6 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		currentWalk = null;
 	}
 	
-	@Override
-	public void updatePane(long diff) {
-		for(int i = 1; i <= Board.maxPlayerCount(); i++)
-			rings[i].update(diff);
-		RollableDie.get().update(diff);
-		if(currentWalk != null)
-			currentWalk.update(diff);
-	}
-	
 	private void placeTiles() {
 		for(int i = 0; i < Board.TILE_COUNT; i++) {
 			Tile t = tiles.get(i);
@@ -76,6 +68,11 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			t.setIdealCoords(point);
 			add(t);
 		}
+	}
+	
+	private void clearTileReferencesToPlayers() {
+		for(Tile t : tiles)
+			t.players().clear();
 	}
 
 	private void addPlayers() {
@@ -134,6 +131,15 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	private void addMedalAreas() {
 		for(int i = 1; i <= gamePane().playerCount(); i++)
 			addAll(medalAreaImages.get(i));
+	}
+	
+	@Override
+	public void updatePane(long diff) {
+		for(int i = 1; i <= Board.maxPlayerCount(); i++)
+			rings[i].update(diff);
+		RollableDie.get().update(diff);
+		if(currentWalk != null)
+			currentWalk.update(diff);
 	}
 	
 	public void showSimpleTextEvent(SimpleTextEvent event) {
