@@ -66,7 +66,7 @@ public final class Images {
 		BOARD_BACKGROUND = get("BoardBackground.png"),
 		EVENT_BACKGROUND = get("event_background.png"),
 		//general minigame stuff
-		PRESS_SPACE = get("pressspace.png"),
+		PRESS_SPACE = get("PressSpace.png"),
 		//archery
 		ARCHERY_INSTRUCTIONS = get("ArcheryInstructions.png"),
 		REWARDS_BACKGROUND = get("rewards_background.png"),
