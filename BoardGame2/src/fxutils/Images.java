@@ -83,6 +83,9 @@ public final class Images {
 		JUMP_BAR_TICK = get("jump_bar_tick.png"),
 		HURDLE_HEAD = get("hurdle_head.png"),
 		HURDLE_LEGS = get("hurdle_legs.png"),
+		//running
+		RUNNING_TILE = get("RunningTile.png"),
+		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),
 		//misc
 		HELPER = get("Helper.png");
 			
@@ -124,6 +127,7 @@ public final class Images {
 		switch(tag) {
 			case ARCHERY: return ARCHERY_TILE;
 			case HURDLES: return HURDLES_TILE;
+			case RUNNING: return RUNNING_TILE;
 			default: throw new UnsupportedOperationException(String.format("tile image for %s", tag));
 		}
 	}
@@ -132,6 +136,7 @@ public final class Images {
 		switch(tag) {
 			case ARCHERY: return ARCHERY_INSTRUCTIONS;
 			case HURDLES: return HURDLES_INSTRUCTIONS;
+			case RUNNING: return RUNNING_INSTRUCTIONS;
 			default: throw new UnsupportedOperationException(String.format("instructions for %s", tag));
 		}
 	}
@@ -140,6 +145,7 @@ public final class Images {
 		switch(tag) {
 			case ARCHERY: return ARCHERY_BACKGROUND;
 			case HURDLES: return HURDLES_BACKGROUND;
+			case RUNNING: return null;
 			default: throw new UnsupportedOperationException(String.format("background for %s", tag));
 		}
 	}

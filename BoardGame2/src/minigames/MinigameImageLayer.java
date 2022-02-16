@@ -22,7 +22,8 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	private final Helper helper;
 	
 	protected MinigameImageLayer(MiniTag tag) {
-		add(new ImagePane(tag.background()));
+		if(tag.hasBackground())
+			add(new ImagePane(tag.background()));
 		helper = new Helper();
 		instructions = new FadeableImagePane(tag.instructions());
 		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
