@@ -17,6 +17,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 	public void startMinigame() {
 		setupFromList(Sky.LIST);
 		setupFromList(Ground.LIST);
+		setupFromList(Runner.LIST);
 	}
 
 	private <T extends ImagePane & Alignable> void setupFromList(List<T> list) {
@@ -41,8 +42,8 @@ public class RunningImageLayer extends MinigameImageLayer {
 
 	@Override
 	public void updateIngame(long diff) {
-		// TODO Auto-generated method stub
-		
+		for(int r = 1; r <= gamePane().playersRemaining().size(); r++)
+			Runner.get(r).update(diff);
 	}
 	
 	@Override

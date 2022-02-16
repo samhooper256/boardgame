@@ -4,6 +4,7 @@ import base.Updatable;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.image.Image;
+import players.PlayerNumbered;
 
 public final class SpriteAnimator implements Updatable {
 	
@@ -17,7 +18,12 @@ public final class SpriteAnimator implements Updatable {
 	private boolean running;
 	
 	/** {@link #isRunning() running} by default. */
-	public SpriteAnimator(ImagePane imagePane, int number) {
+	public <T extends ImagePane & PlayerNumbered> SpriteAnimator(T imagePane) {
+		this(imagePane, imagePane.number());
+	}
+	
+	/** {@link #isRunning() running} by default. */
+	private SpriteAnimator(ImagePane imagePane, int number) {
 		this.imagePane = imagePane;
 		this.number = number;
 		cycleProgress = 0;

@@ -35,6 +35,14 @@ final class Coords {
 		return top(zone + 1) - 1;
 	}
 	
+	public double groundY(int zone) {
+		return bottom(zone) - Ground.HEIGHT;
+	}
+	
+	public double playerBottomY(int zone) {
+		return groundY(zone); //don't subtract 1
+	}
+	
 	public double zoneHeight() {
 		return MainScene.DEFAULT_HEIGHT / playerCount;
 	}

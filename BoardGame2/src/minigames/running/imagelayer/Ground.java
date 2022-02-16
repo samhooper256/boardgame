@@ -11,6 +11,8 @@ final class Ground extends ImagePane implements PlayerNumbered, Alignable {
 	public static final List<Ground> LIST =
 			Collections.unmodifiableList(Arrays.asList(new Ground(1), new Ground(2), new Ground(3), new Ground(4)));
 	
+	public static final double HEIGHT = Images.RUNNING_GROUND.getHeight();
+	
 	public static Ground get(int number) {
 		return LIST.get(Player.validate(number) - 1);
 	}
@@ -27,7 +29,7 @@ final class Ground extends ImagePane implements PlayerNumbered, Alignable {
 		if(number() > playerCount)
 			throw new IllegalArgumentException(String.format("number() > playerCount (%d > %d)", number(), playerCount));
 		Coords c = Coords.p(playerCount);
-		setIdealBottomY(c.bottom(number()));
+		setIdealY(c.groundY(number));
 	}	
 	
 	@Override

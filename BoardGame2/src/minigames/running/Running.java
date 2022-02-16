@@ -21,8 +21,8 @@ public class Running extends Minigame {
 
 	@Override
 	public void update(long diff) {
-		// TODO Auto-generated method stub
-		
+		if(!isFinished())
+			imageLayer().update(diff); //only lets update through if ingame, so we don't need to verify that instructions aren't showing.
 	}
 
 	@Override

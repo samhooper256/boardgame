@@ -26,7 +26,7 @@ public class Archer extends ImagePane implements Updatable, AcceptsInput, Sprite
 		this.number = number;
 		xvel = yvel = 0;
 		active = true;
-		animator = new SpriteAnimator(this, number);
+		animator = new SpriteAnimator(this);
 	}
 	
 	@Override

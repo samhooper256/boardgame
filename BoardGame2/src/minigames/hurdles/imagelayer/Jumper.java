@@ -8,7 +8,7 @@ import fxutils.Images;
 import javafx.scene.input.KeyCode;
 import minigames.hurdles.Hurdles;
 import minigames.sprites.*;
-import players.Player;
+import players.*;
 import utils.Intersections;
 
 public class Jumper extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, HitRegioned {
@@ -36,7 +36,7 @@ public class Jumper extends ImagePane implements Updatable, AcceptsInput, Sprite
 	private Jumper(int number) {
 		super(Images.stillSprite(number));
 		this.number = number;
-		animator = new SpriteAnimator(this, number);
+		animator = new SpriteAnimator(this);
 		hitRegion = SpriteRegions.forImagePane(this);
 		lethalHurdle = null;
 	}
