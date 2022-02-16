@@ -36,7 +36,7 @@ public class Hurdles extends Minigame {
 
 	@Override
 	public void startMinigame() {
-		playersRemaining = PlayerList.upTo(Board.get().playerCount());
+		setPlayersRemaining(PlayerList.upTo(Board.get().playerCount()));
 		survivals.clear();
 		imageLayer().start();
 	}

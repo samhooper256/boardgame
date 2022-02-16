@@ -41,6 +41,12 @@ public abstract class Minigame extends GamePane implements Updatable {
 		startMinigame();
 	}
 	
+	/** Also assigns {@link #players} to {@code playersRemaining.frozen()}. */
+	protected void setPlayersRemaining(PlayerList playersRemaining) {
+		this.playersRemaining = playersRemaining;
+		this.players = playersRemaining.frozen();
+	}
+	
 	/** Called by {@link #start()}. This method must call {@link MinigameImageLayer#start()}. */
 	public abstract void startMinigame();
 	

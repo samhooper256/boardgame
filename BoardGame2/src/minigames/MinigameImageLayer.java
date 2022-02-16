@@ -40,12 +40,14 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 		addAll(2, gamePane().rewardsDisplay().imagePanes());
 	}
 	
-	/** Calls {@link #startMinigame()} then {@link #showInstructions()}. */
+	/** Calls {@link #startMinigame()} then {@link #showInstructions()}.
+	 * Must be called by {@link Minigame#startMinigame()}.*/
 	public final void start() {
 		startMinigame();
 		showInstructions();
 	}
 	
+	/** Called by {@link #start()}. */
 	public abstract void startMinigame();
 	
 	public void showInstructions() {

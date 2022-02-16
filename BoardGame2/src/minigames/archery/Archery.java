@@ -58,8 +58,7 @@ public class Archery extends Minigame {
 	
 	@Override
 	public void startMinigame() {
-		playersRemaining = PlayerList.upTo(Board.get().playerCount());
-		players = playersRemaining.frozen();
+		setPlayersRemaining(PlayerList.upTo(Board.get().playerCount()));
 		waveIndex = 0;
 		turn = 1;
 		survivals.clear();

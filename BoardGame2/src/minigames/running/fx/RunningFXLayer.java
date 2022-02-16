@@ -1,6 +1,7 @@
-package minigames.running;
+package minigames.running.fx;
 
 import minigames.*;
+import minigames.running.Running;
 
 public class RunningFXLayer extends MinigameFXLayer {
 

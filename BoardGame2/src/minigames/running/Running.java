@@ -1,7 +1,11 @@
 package minigames.running;
 
+import game.board.Board;
 import javafx.scene.input.KeyCode;
 import minigames.*;
+import minigames.running.fx.RunningFXLayer;
+import minigames.running.imagelayer.RunningImageLayer;
+import players.list.PlayerList;
 
 public class Running extends Minigame {
 
@@ -23,8 +27,8 @@ public class Running extends Minigame {
 
 	@Override
 	public void startMinigame() {
-		// TODO Auto-generated method stub
-		
+		setPlayersRemaining(PlayerList.upTo(Board.get().playerCount()));
+		imageLayer().start();
 	}
 
 	@Override

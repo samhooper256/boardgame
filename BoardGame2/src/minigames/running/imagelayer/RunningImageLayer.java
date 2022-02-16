@@ -1,20 +1,29 @@
-package minigames.running;
+package minigames.running.imagelayer;
 
 import javafx.scene.input.KeyCode;
 import minigames.*;
+import minigames.running.Running;
 
 public class RunningImageLayer extends MinigameImageLayer {
-
+	
 	public RunningImageLayer() {
 		super(MiniTag.RUNNING);
 	}
 	
 	@Override
 	public void startMinigame() {
-		// TODO Auto-generated method stub
-		
+		setupSkies();
 	}
 
+	private void setupSkies() {
+		removeAll(Sky.LIST);
+		int playerCount = gamePane().players().size();
+		for(int i = 1; i <= playerCount; i++) {
+			Sky.get(i).alignFor(playerCount);
+			add(Sky.get(i));
+		}
+	}
+	
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
 		// TODO Auto-generated method stub
@@ -32,7 +41,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public Running gamePane() {
 		return (Running) super.gamePane();
