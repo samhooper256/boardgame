@@ -110,8 +110,16 @@ public class ImagePane extends StackPane {
     	idealXProperty().set(idealX);
     }
     
+    public void setIdealRightX(double idealRightX) {
+    	setIdealX(idealRightX - getIdealWidth());
+    }
+    
     public void setIdealY(double idealY) {
     	idealYProperty().set(idealY);
+    }
+
+    public void setIdealBottomY(double idealBottomY) {
+    	setIdealY(idealBottomY - getIdealHeight());
     }
     
     /** The x coordinate is set before the y coordinate. */

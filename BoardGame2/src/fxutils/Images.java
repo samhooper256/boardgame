@@ -87,6 +87,7 @@ public final class Images {
 		RUNNING_TILE = get("RunningTile.png"),
 		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),
 		RUNNING_SKY = get("RunningSky.png"),
+		RUNNING_GROUND = get("RunningGround.png"),
 		//misc
 		HELPER = get("Helper.png");
 			

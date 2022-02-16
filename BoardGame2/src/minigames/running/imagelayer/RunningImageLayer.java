@@ -1,5 +1,8 @@
 package minigames.running.imagelayer;
 
+import java.util.List;
+
+import base.panes.ImagePane;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.running.Running;
@@ -12,15 +15,15 @@ public class RunningImageLayer extends MinigameImageLayer {
 	
 	@Override
 	public void startMinigame() {
-		setupSkies();
+		setupFromList(Sky.LIST);
+		setupFromList(Ground.LIST);
 	}
 
-	private void setupSkies() {
-		removeAll(Sky.LIST);
-		int playerCount = gamePane().players().size();
-		for(int i = 1; i <= playerCount; i++) {
-			Sky.get(i).alignFor(playerCount);
-			add(Sky.get(i));
+	private <T extends ImagePane & Alignable> void setupFromList(List<T> list) {
+		removeAll(list);
+		for(int i = 0, playerCount = gamePane().players().size(); i < playerCount; i++) {
+			list.get(i).alignFor(playerCount);
+			add(list.get(i));
 		}
 	}
 	
