@@ -30,14 +30,14 @@ public class RunningImageLayer extends MinigameImageLayer {
 	
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		for(Runner r : Runner.LIST)
+			r.keyPressed(kc);
 	}
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		for(Runner r : Runner.LIST)
+			r.keyReleased(kc);
 	}
 
 	@Override

@@ -51,14 +51,12 @@ public class Running extends Minigame {
 
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		imageLayer().keyPressedIngame(kc);
 	}
 
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
-		// TODO Auto-generated method stub
-		
+		imageLayer().keyReleasedIngame(kc);
 	}
 	
 }

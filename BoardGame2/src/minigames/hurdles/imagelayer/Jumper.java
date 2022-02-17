@@ -11,7 +11,7 @@ import minigames.sprites.*;
 import players.*;
 import utils.Intersections;
 
-public class Jumper extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, HitRegioned {
+public final class Jumper extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, HitRegioned {
 
 	private static final double ACCEL = 850, JUMP_VEL = -1000; //positive is down.
 	
