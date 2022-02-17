@@ -106,7 +106,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	private void alignForTrusted(int playerCount) {
 		Coords c = Coords.p(playerCount);
-		setIdealBottomY(c.playerBottomY(number));
+		setIdealBottomY(c.playerBottomY(number()));
 	}
 
 	private void fixToGroundLevel() {

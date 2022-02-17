@@ -6,7 +6,7 @@ import minigames.running.Running;
 /** The screen for the {@link Running} minigame is divided into zones based on the number of players. To get coordinate
  * information for a given number of players, use {@link Coords#p(int)}. There is a zone for each player; zones are
  * numbered starting at {@code 1}. */
-final class Coords {
+public final class Coords {
 
 	private static final Coords P2 = new Coords(2), P3 = new Coords(3), P4 = new Coords(4);
 	

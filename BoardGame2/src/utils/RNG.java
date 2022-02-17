@@ -1,6 +1,6 @@
 package utils;
 
-import java.util.Random;
+import java.util.*;
 
 public final class RNG {
 
@@ -23,6 +23,12 @@ public final class RNG {
 	
 	public static int intInclusive(int a, int b) {
 		return intExclusive(a, b + 1);
+	}
+	
+	public static <T> T pick(List<? extends T> list) {
+		if(list.isEmpty())
+			throw new IllegalArgumentException("List is empty");
+		return list.get(intExclusive(list.size()));
 	}
 	
 }

@@ -9,6 +9,8 @@ import players.list.PlayerList;
 
 public class Running extends Minigame {
 
+	public static final double STARTING_GAME_VELOCITY = -200;
+	
 	private static final Running INSTANCE = new Running();
 	
 	public static final Running get() {
