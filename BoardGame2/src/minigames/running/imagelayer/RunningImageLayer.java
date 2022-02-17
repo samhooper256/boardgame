@@ -27,10 +27,16 @@ public class RunningImageLayer extends MinigameImageLayer {
 		setupFromList(Sky.LIST);
 		setupFromList(Ground.LIST);
 		setupFromList(Runner.LIST);
+		for(Runner r : Runner.LIST)
+			r.reset();
 		int playerCount = gamePane().players().size();
+		for(List<Obstacle> o : obstacles) {
+			removeAll(o);
+			o.clear();
+		}
 		ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
 		for(int p : gamePane().players()) {
-			Obstacle o = g.create(p);
+			Obstacle o = g.create(p, 1);
 			o.setIdealX(1000);
 			o.alignFor(playerCount);
 			obstaclesFor(p).add(o);
@@ -60,15 +66,20 @@ public class RunningImageLayer extends MinigameImageLayer {
 
 	@Override
 	public void updateIngame(long diff) {
-		for(int r : gamePane().playersRemaining()) {
+		for(int i = gamePane().playersRemaining().size() - 1; i >= 0; i--) {
+			int r = gamePane().playersRemaining().get(i);
 			Runner.get(r).update(diff);
 			for(Obstacle o : obstaclesFor(r))
 				o.update(diff);
 		}
 	}
 	
+	public void kill(Runner r) {
+		trash(r);
+	}
+	
 	/** Not {@link Player#validate(int) validated}. */
-	private List<Obstacle> obstaclesFor(int player) {
+	public List<Obstacle> obstaclesFor(int player) {
 		return obstacles[player - 1];
 	}
 	

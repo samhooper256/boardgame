@@ -7,8 +7,11 @@ import base.input.GameInput;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.*;
+import minigames.running.Running;
+import minigames.running.imagelayer.obstacles.Obstacle;
 import minigames.sprites.*;
 import players.Player;
+import utils.Intersections;
 
 public class Runner extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, Alignable {
 
@@ -32,20 +35,30 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 	private long jumpChargeElapsed;
 	private double yvel;
 	private boolean onGround;
+	private Obstacle lethalObstacle;
 	
 	private Runner(int number) {
 		super(Images.stillSprite(number));
 		this.number = number;
 		this.animator = new SpriteAnimator(this);
-		jumpChargeElapsed = -1;
-		yvel = 0;
+		reset();
+	}
+	
+	public void reset() {
+		fixToGroundLevel();
 		onGround = true;
+		yvel = 0;
+		jumpChargeElapsed = -1;
+		lethalObstacle = null;
 		setIdealX(X);
+		animator().stopAndReset();
+		animator().play();
 	}
 	
 	@Override
 	public void update(long diff) {
 		if(onGround()) {
+			animator().play();
 			if(jumpChargeElapsed >= 0)
 				jumpChargeElapsed += diff;
 			if(jumpChargeElapsed >= MAX_JUMP_CHARGE_TIME)
@@ -54,6 +67,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 				animator().update(diff);
 		}
 		else {
+			animator().pauseToStill();
 			double sec = diff / 1e9, newY = getIdealY() + sec * yvel;
 			if(newY + getHeight() >= ground().getIdealY()) {
 				fixToGroundLevel();
@@ -63,6 +77,13 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 			else {
 				setIdealY(newY);
 				yvel += sec * ACCEL;
+			}
+		}
+		for(Obstacle o : obstacles()) {
+			if(Intersections.test(this, o)) {
+				lethalObstacle = o;
+				Running.get().kill(this);
+				return;
 			}
 		}
 	}
@@ -111,6 +132,19 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 
 	private void fixToGroundLevel() {
 		setIdealBottomY(ground().getIdealY());
+	}
+	
+	private List<Obstacle> obstacles() {
+		return Running.il().obstaclesFor(number());
+	}
+	
+	public boolean isAlive() {
+		return Running.get().isAlive(number());
+	}
+	
+	/** {@code null} if {@code this} {@link #isAlive()}. */
+	public Obstacle lethalObstacle() {
+		return lethalObstacle;
 	}
 	
 	@Override

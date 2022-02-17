@@ -9,12 +9,13 @@ import players.PlayerNumbered;
 
 public abstract class Obstacle extends ImagePane implements Updatable, PlayerNumbered, Alignable {
 
-	private final int number;
+	private final int number, index;
 	private double velocity;
 	
-	protected Obstacle(Image image, int number) {
+	protected Obstacle(Image image, int number, int index) {
 		super(image);
 		this.number = number;
+		this.index = index;
 		setVelocity(Running.STARTING_GAME_VELOCITY);
 	}
 
@@ -35,6 +36,10 @@ public abstract class Obstacle extends ImagePane implements Updatable, PlayerNum
 	@Override
 	public int number() {
 		return number;
+	}
+	
+	public int index() {
+		return index;
 	}
 	
 }

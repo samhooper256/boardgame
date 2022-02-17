@@ -18,7 +18,7 @@ public final class AboveGroundObstacle extends Obstacle {
 	/** Assumes the given {@link Image} is not a key in {@link #MAP}. */
 	private static void addGenerator(Image image) {
 		MAP_TO_INDEX.put(image, LIST.size());
-		LIST.add(n -> new AboveGroundObstacle(image, n));
+		LIST.add((n, i) -> new AboveGroundObstacle(image, n, i));
 	}
 	
 	public static List<ObstacleGenerator> generators() {
@@ -31,8 +31,8 @@ public final class AboveGroundObstacle extends Obstacle {
 		return LIST.get(MAP_TO_INDEX.get(image));
 	}
 	
-	private AboveGroundObstacle(Image image, int number) {
-		super(image, number);
+	private AboveGroundObstacle(Image image, int number, int index) {
+		super(image, number, index);
 	}
 
 	@Override

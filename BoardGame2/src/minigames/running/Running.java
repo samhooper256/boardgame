@@ -1,10 +1,12 @@
 package minigames.running;
 
+import java.util.*;
+
 import game.board.Board;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.running.fx.RunningFXLayer;
-import minigames.running.imagelayer.RunningImageLayer;
+import minigames.running.imagelayer.*;
 import players.list.PlayerList;
 
 public class Running extends Minigame {
@@ -17,8 +19,15 @@ public class Running extends Minigame {
 		return INSTANCE;
 	}
 	
+	public static RunningImageLayer il() {
+		return get().imageLayer();
+	}
+	
+	private final Set<Survival> survivals;
+	
 	private Running() {
 		super(MiniTag.RUNNING, new RunningImageLayer(), new RunningFXLayer());
+		survivals = new TreeSet<>();
 	}
 
 	@Override
@@ -30,19 +39,34 @@ public class Running extends Minigame {
 	@Override
 	public void startMinigame() {
 		setPlayersRemaining(PlayerList.upTo(Board.get().playerCount()));
+		survivals.clear();
 		imageLayer().start();
 	}
 
+	public boolean isAlive(int player) {
+		return playersRemaining().contains(player);
+	}
+
+	public void kill(Runner r) {
+		imageLayer().kill(r);
+		survivals.add(new Survival(r.number(), r.lethalObstacle().index()));
+		playersRemaining().remove(r.number());
+		if(isFinished())
+			finish();
+	}
+	
+	private void finish() {
+		rewardsDisplay().show(getResult());
+	}
+	
 	@Override
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+		return playersRemaining().size() == 0;
 	}
 
 	@Override
 	protected MinigameResult computeResult() {
-		// TODO Auto-generated method stub
-		return null;
+		return MinigameResult.from(survivals);
 	}
 
 	@Override
@@ -59,6 +83,11 @@ public class Running extends Minigame {
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
 		imageLayer().keyReleasedIngame(kc);
+	}
+	
+	@Override
+	public RunningImageLayer imageLayer() {
+		return (RunningImageLayer) super.imageLayer();
 	}
 	
 }
