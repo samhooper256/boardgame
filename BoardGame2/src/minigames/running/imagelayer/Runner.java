@@ -7,13 +7,14 @@ import base.input.GameInput;
 import base.panes.ImagePane;
 import fxutils.Images;
 import javafx.scene.input.*;
+import minigames.CoordinatedHitRegioned;
 import minigames.running.Running;
 import minigames.running.imagelayer.obstacles.Obstacle;
 import minigames.sprites.*;
 import players.Player;
 import utils.Intersections;
 
-public class Runner extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, Alignable, HitRegioned {
+public class Runner extends ImagePane implements Updatable, AcceptsInput, Alignable, CoordinatedHitRegioned {
 
 	public static final List<Runner> LIST =
 			Collections.unmodifiableList(Arrays.asList(new Runner(1), new Runner(2), new Runner(3), new Runner(4)));
@@ -30,7 +31,6 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	private final int number;
 	private final SpriteAnimator animator;
-	private final HitRegion hitRegion; 
 	
 	/** {@code -1} if jump key not pressed. */
 	private long jumpChargeElapsed;
@@ -42,7 +42,6 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 		super(Images.stillSprite(number));
 		this.number = number;
 		this.animator = new SpriteAnimator(this);
-		hitRegion = SpriteRegions.airSpriteForImagePane(this);
 		reset();
 	}
 	
@@ -69,7 +68,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 				animator().update(diff);
 		}
 		else {
-			animator().pauseToAir();
+			animator().pauseToStill();
 			double sec = diff / 1e9, newY = getIdealY() + sec * yvel;
 			if(newY + getIdealHeight() >= ground().getIdealY()) {
 				fixToGroundLevel();
@@ -157,11 +156,6 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 	@Override
 	public SpriteAnimator animator() {
 		return animator;
-	}
-
-	@Override
-	public HitRegion hitRegion() {
-		return hitRegion;
 	}
 	
 }

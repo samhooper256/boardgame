@@ -16,9 +16,23 @@ public final class SpriteRegions {
 		return forImagePane(ip, Images.airSpriteIndex(ip.number()));
 	}
 	
+	public static <T extends ImagePane & PlayerNumbered> HitRegion stillSpriteForImagePane(T ip) {
+		return forImagePane(ip, Images.stillSpriteIndex(ip.number()));
+	}
+	
+	//add one to bottom right coordinate from GIMP; don't add one to top left coordinate in GIMP.
+	
 	public static <T extends ImagePane & PlayerNumbered> HitRegion forImagePane(T ip, int sprite) {
 		int n = ip.number();
 		switch(sprite) {
+			case 0:
+				switch(n) {
+					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 3: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 4: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					default: throw new IllegalArgumentException(String.format("Player: %d", ip.number()));
+				}
 			case 1:
 				switch(n) {
 					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
@@ -44,15 +58,10 @@ public final class SpriteRegions {
 				switch(n) {
 					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					case 3: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					case 4: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					default: throw new IllegalArgumentException(String.format("Player: %d", ip.number()));
-				}
-			case 4:
-				switch(n) {
-					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					case 3: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 3: return new HitRegion(ip, 
+						fc(32, 42, 91, 150),
+						fc(50, 8, 100, 43)
+					);
 					case 4: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					default: throw new IllegalArgumentException(String.format("Player: %d", ip.number()));
 				}

@@ -19,7 +19,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.2;
 	
 	/** nanos */
-	private static final long FIRST_DELAY = (long) 2e9; 
+	private static final long FIRST_DELAY = (long) 1.5e9; 
 	/** seconds */
 	private static final long DELAY_CONSTANT = 5L; //in seconds
 	/** nanos. */
