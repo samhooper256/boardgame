@@ -29,7 +29,12 @@ public final class SpriteRegions {
 				switch(n) {
 					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					case 3: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 3: return new HitRegion(ip, 
+						fc(65, 105, 90, 150),
+						fc(0, 82, 80, 109),
+						fc(37, 42, 90, 89),
+						fc(49, 7, 99, 43)
+					);
 					case 4: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					default: throw new IllegalArgumentException(String.format("Player: %d", ip.number()));
 				}
@@ -50,7 +55,11 @@ public final class SpriteRegions {
 				switch(n) {
 					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
-					case 3: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 3: return new HitRegion(ip, 
+						fc(34, 105, 80, 150),
+						fc(38, 42, 91, 106),
+						fc(50, 7, 100, 43)
+					);
 					case 4: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					default: throw new IllegalArgumentException(String.format("Player: %d", ip.number()));
 				}
