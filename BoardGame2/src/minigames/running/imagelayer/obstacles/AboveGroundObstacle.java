@@ -8,11 +8,12 @@ import minigames.running.imagelayer.Coords;
 
 public final class AboveGroundObstacle extends Obstacle {
 
-	private static final Map<Image, Integer> MAP_TO_INDEX= new LinkedHashMap<>();
+	private static final Map<Image, Integer> MAP_TO_INDEX = new LinkedHashMap<>();
 	private static final List<ObstacleGenerator> LIST = new ArrayList<>();
 	
 	static {
-		addGenerator(Images.ROCK1);
+		addGenerator(Images.BIG_ROCK);
+		addGenerator(Images.SMALL_ROCK);
 	}
 
 	/** Assumes the given {@link Image} is not a key in {@link #MAP}. */

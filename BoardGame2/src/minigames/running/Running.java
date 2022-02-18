@@ -12,7 +12,7 @@ import players.list.PlayerList;
 
 public class Running extends Minigame {
 
-	private static final double STARTING_VELOCITY = -200, VELOCITY_CONSTANT = -10;
+	private static final double STARTING_VELOCITY = -200, VELOCITY_CONSTANT = -20;
 	private static final LongToDoubleFunction VELOCITY_FUNCTION =
 			t -> STARTING_VELOCITY + VELOCITY_CONSTANT * Math.sqrt(t / 1e9);
 	private static final Running INSTANCE = new Running();

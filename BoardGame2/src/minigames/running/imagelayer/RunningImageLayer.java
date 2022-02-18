@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.IntToLongFunction;
 
 import base.panes.ImagePane;
+import fxutils.Images;
 import game.MainScene;
 import game.board.Board;
 import javafx.scene.input.KeyCode;
@@ -11,20 +12,24 @@ import minigames.*;
 import minigames.running.Running;
 import minigames.running.imagelayer.obstacles.*;
 import players.Player;
+import utils.RNG;
 
 public class RunningImageLayer extends MinigameImageLayer {
 	
 	private final List<Obstacle>[] obstacles;
 	
-	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.2;
+	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.SPRITE_WIDTH * 1.5; //in pixels.
+	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.5;
+	/** An {@code int} for use in {@link RNG#intInclusive(int, int)}. */
+	private static final int OBSTACLE_X_STRAY = (int) (MainScene.DEFAULT_WIDTH * .5 - 1);
 	
 	/** nanos */
-	private static final long FIRST_DELAY = (long) 1.5e9; 
+	private static final long FIRST_DELAY = (long) 1e9; 
 	/** seconds */
-	private static final long DELAY_CONSTANT = 5L; //in seconds
+	private static final long DELAY_CONSTANT = 4L; //in seconds
 	/** nanos. */
 	private static final IntToLongFunction DELAY_PRECEDING =
-			i -> (long) ((1e9) * (DELAY_CONSTANT - Math.pow(Math.E, -2) * Math.log(i)));
+			i -> (long) ((1e9) * (DELAY_CONSTANT - Math.pow(Math.E, -1) * Math.log(i)));
 	
 	private int obstacleIndex;
 	private long obstacleDelay, obstacleTimer;
@@ -70,13 +75,29 @@ public class RunningImageLayer extends MinigameImageLayer {
 	}
 	
 	private void generateObstacle() {
-		ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
-		for(int p : gamePane().playersRemaining()) {
-			Obstacle o = g.create(p, obstacleIndex);
-			o.setIdealX(OBSTACLE_SPAWN_X);
-			o.alignFor(gamePane().players().size());
-			obstaclesFor(p).add(o);
-			add(o);
+		int triesLeft = 5;
+		outer:
+		while(true) {
+			double x = OBSTACLE_SPAWN_X + RNG.intInclusive(-OBSTACLE_X_STRAY, OBSTACLE_X_STRAY);
+			ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
+			if(triesLeft > 0) {
+				double width = g.create(1, -1).getIdealWidth();
+				for(Obstacle o : obstaclesFor(gamePane().players().get(0))) {
+					if(	x >= o.getIdealX() - width - MIN_DIST_BETWEEN_OBSTACLES ||
+						x <= o.getIdealX() + o.getIdealWidth() + MIN_DIST_BETWEEN_OBSTACLES) {
+						triesLeft--;
+						continue outer;
+					}
+				}
+			}
+			for(int p : gamePane().playersRemaining()) {
+				Obstacle o = g.create(p, obstacleIndex);
+				o.setIdealX(x);
+				o.alignFor(gamePane().players().size());
+				obstaclesFor(p).add(o);
+				add(o);
+			}
+			break outer;
 		}
 		obstacleIndex++;
 		obstacleDelay = DELAY_PRECEDING.applyAsLong(obstacleIndex);
