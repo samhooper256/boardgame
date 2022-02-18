@@ -1,6 +1,7 @@
 package minigames.running;
 
 import java.util.*;
+import java.util.function.LongToDoubleFunction;
 
 import game.board.Board;
 import javafx.scene.input.KeyCode;
@@ -11,8 +12,9 @@ import players.list.PlayerList;
 
 public class Running extends Minigame {
 
-	public static final double STARTING_GAME_VELOCITY = -200;
-	
+	private static final double STARTING_VELOCITY = -200, VELOCITY_CONSTANT = -10;
+	private static final LongToDoubleFunction VELOCITY_FUNCTION =
+			t -> STARTING_VELOCITY + VELOCITY_CONSTANT * Math.sqrt(t / 1e9);
 	private static final Running INSTANCE = new Running();
 	
 	public static final Running get() {
@@ -23,7 +25,13 @@ public class Running extends Minigame {
 		return get().imageLayer();
 	}
 	
+	public static double startingVelocity() {
+		return STARTING_VELOCITY;
+	}
+	
 	private final Set<Survival> survivals;
+	private double velocity;
+	private long timeElapsed;
 	
 	private Running() {
 		super(MiniTag.RUNNING, new RunningImageLayer(), new RunningFXLayer());
@@ -31,16 +39,20 @@ public class Running extends Minigame {
 	}
 
 	@Override
-	public void update(long diff) {
-		if(!isFinished())
-			imageLayer().update(diff); //only lets update through if ingame, so we don't need to verify that instructions aren't showing.
-	}
-
-	@Override
 	public void startMinigame() {
 		setPlayersRemaining(PlayerList.upTo(Board.get().playerCount()));
 		survivals.clear();
+		velocity = STARTING_VELOCITY;
+		timeElapsed = 0;
 		imageLayer().start();
+	}
+	
+	@Override
+	public void update(long diff) {
+		if(!isFinished())
+			imageLayer().update(diff); //only lets update through if ingame, so we don't need to verify that instructions aren't showing.
+		timeElapsed += diff;
+		velocity = VELOCITY_FUNCTION.applyAsDouble(timeElapsed);
 	}
 
 	public boolean isAlive(int player) {
@@ -83,6 +95,14 @@ public class Running extends Minigame {
 	@Override
 	public void keyReleasedIngame(KeyCode kc) {
 		imageLayer().keyReleasedIngame(kc);
+	}
+	
+	public double velocity() {
+		return velocity;
+	}
+	
+	public double velocityMultiplier() {
+		return velocity / startingVelocity();
 	}
 	
 	@Override
