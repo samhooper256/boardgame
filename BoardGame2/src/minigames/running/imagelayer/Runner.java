@@ -13,7 +13,7 @@ import minigames.sprites.*;
 import players.Player;
 import utils.Intersections;
 
-public class Runner extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, Alignable {
+public class Runner extends ImagePane implements Updatable, AcceptsInput, SpriteAnimated, Alignable, HitRegioned {
 
 	public static final List<Runner> LIST =
 			Collections.unmodifiableList(Arrays.asList(new Runner(1), new Runner(2), new Runner(3), new Runner(4)));
@@ -30,6 +30,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 	
 	private final int number;
 	private final SpriteAnimator animator;
+	private final HitRegion hitRegion; 
 	
 	/** {@code -1} if jump key not pressed. */
 	private long jumpChargeElapsed;
@@ -41,6 +42,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 		super(Images.stillSprite(number));
 		this.number = number;
 		this.animator = new SpriteAnimator(this);
+		hitRegion = SpriteRegions.airSpriteForImagePane(this);
 		reset();
 	}
 	
@@ -67,9 +69,9 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 				animator().update(diff);
 		}
 		else {
-			animator().pauseToStill();
+			animator().pauseToAir();
 			double sec = diff / 1e9, newY = getIdealY() + sec * yvel;
-			if(newY + getHeight() >= ground().getIdealY()) {
+			if(newY + getIdealHeight() >= ground().getIdealY()) {
 				fixToGroundLevel();
 				onGround = true;
 				yvel = 0;
@@ -156,4 +158,10 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Sprite
 	public SpriteAnimator animator() {
 		return animator;
 	}
+
+	@Override
+	public HitRegion hitRegion() {
+		return hitRegion;
+	}
+	
 }

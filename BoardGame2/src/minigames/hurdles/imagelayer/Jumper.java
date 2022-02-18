@@ -37,7 +37,7 @@ public final class Jumper extends ImagePane implements Updatable, AcceptsInput, 
 		super(Images.stillSprite(number));
 		this.number = number;
 		animator = new SpriteAnimator(this);
-		hitRegion = SpriteRegions.forImagePane(this);
+		hitRegion = SpriteRegions.airSpriteForImagePane(this);
 		lethalHurdle = null;
 	}
 	

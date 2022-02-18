@@ -1,8 +1,10 @@
 package minigames.running.imagelayer;
 
 import java.util.*;
+import java.util.function.IntToLongFunction;
 
 import base.panes.ImagePane;
+import game.MainScene;
 import game.board.Board;
 import javafx.scene.input.KeyCode;
 import minigames.*;
@@ -13,6 +15,19 @@ import players.Player;
 public class RunningImageLayer extends MinigameImageLayer {
 	
 	private final List<Obstacle>[] obstacles;
+	
+	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.2;
+	
+	/** nanos */
+	private static final long FIRST_DELAY = (long) 2e9; 
+	/** seconds */
+	private static final long DELAY_CONSTANT = 5L; //in seconds
+	/** nanos. */
+	private static final IntToLongFunction DELAY_PRECEDING =
+			i -> (long) ((1e9) * (DELAY_CONSTANT - Math.pow(Math.E, -2) * Math.log(i)));
+	
+	private int obstacleIndex;
+	private long obstacleDelay, obstacleTimer;
 	
 	@SuppressWarnings("unchecked")
 	public RunningImageLayer() {
@@ -36,12 +51,14 @@ public class RunningImageLayer extends MinigameImageLayer {
 		}
 		ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
 		for(int p : gamePane().players()) {
-			Obstacle o = g.create(p, 1);
+			Obstacle o = g.create(p, 0);
 			o.setIdealX(1000);
 			o.alignFor(playerCount);
 			obstaclesFor(p).add(o);
 			add(o);
 		}
+		obstacleIndex = 1;
+		obstacleDelay = FIRST_DELAY;
 	}
 
 	private <T extends ImagePane & Alignable> void setupFromList(List<T> list) {
@@ -50,6 +67,20 @@ public class RunningImageLayer extends MinigameImageLayer {
 			list.get(i).alignFor(playerCount);
 			add(list.get(i));
 		}
+	}
+	
+	private void generateObstacle() {
+		ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
+		for(int p : gamePane().playersRemaining()) {
+			Obstacle o = g.create(p, obstacleIndex);
+			o.setIdealX(OBSTACLE_SPAWN_X);
+			o.alignFor(gamePane().players().size());
+			obstaclesFor(p).add(o);
+			add(o);
+		}
+		obstacleIndex++;
+		obstacleDelay = DELAY_PRECEDING.applyAsLong(obstacleIndex);
+		obstacleTimer = 0;
 	}
 	
 	@Override
@@ -71,6 +102,11 @@ public class RunningImageLayer extends MinigameImageLayer {
 			Runner.get(r).update(diff);
 			for(Obstacle o : obstaclesFor(r))
 				o.update(diff);
+		}
+		obstacleTimer += diff;
+		if(obstacleTimer >= obstacleDelay) {
+			obstacleDelay -= obstacleDelay;
+			generateObstacle();
 		}
 	}
 	

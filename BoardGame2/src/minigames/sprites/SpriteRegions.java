@@ -12,7 +12,7 @@ public final class SpriteRegions {
 		
 	}
 	
-	public static <T extends ImagePane & PlayerNumbered> HitRegion forImagePane(T ip) {
+	public static <T extends ImagePane & PlayerNumbered> HitRegion airSpriteForImagePane(T ip) {
 		switch(ip.number()) {
 			case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 			case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
