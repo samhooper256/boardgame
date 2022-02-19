@@ -70,7 +70,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 		else {
 			animator().pauseToStill();
 			double sec = diff / 1e9, newY = getIdealY() + sec * yvel;
-			if(newY + getIdealHeight() >= ground().getIdealY()) {
+			if(newY + getIdealHeight() >= groundIdealY()) {
 				fixToGroundLevel();
 				onGround = true;
 				yvel = 0;
@@ -110,10 +110,6 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 		onGround = false;
 		jumpChargeElapsed = -1;
 	}
-
-	public Ground ground() {
-		return Ground.get(number());
-	}
 	
 	public boolean onGround() {
 		return onGround;
@@ -132,7 +128,11 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 	}
 
 	private void fixToGroundLevel() {
-		setIdealBottomY(ground().getIdealY());
+		setIdealBottomY(groundIdealY());
+	}
+	
+	private double groundIdealY() {
+		return Coords.p(Running.get().players().size()).groundY(number);
 	}
 	
 	private Deque<Obstacle> obstacles() {

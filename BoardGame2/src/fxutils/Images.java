@@ -87,7 +87,8 @@ public final class Images {
 		RUNNING_TILE = get("RunningTile.png"),
 		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),
 		RUNNING_SKY = get("RunningSky.png"),
-		RUNNING_GROUND = get("RunningGround.png"),
+		RUNNING_GROUND_1 = get("RunningGround.png"),
+		RUNNING_GROUND_2 = get("RunningGround.png"),
 		BIG_ROCK = get("BigRock.png"),
 		SMALL_ROCK = get("SmallRock.png"),
 		//misc
@@ -233,6 +234,14 @@ public final class Images {
 			case 4: return SELECT_4;
 		}
 		throw new IllegalArgumentException(String.format("playerCount = %d", playerCount));
+	}
+	
+	public static Image runningGround(int variant) {
+		switch(variant) {
+			case 1: return RUNNING_GROUND_1;
+			case 2: return RUNNING_GROUND_2;
+			default: throw new IllegalArgumentException(String.format("variant: %d", variant));
+		}
 	}
 	
 	/**

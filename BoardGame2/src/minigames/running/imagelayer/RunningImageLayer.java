@@ -16,8 +16,6 @@ import utils.RNG;
 
 public class RunningImageLayer extends MinigameImageLayer {
 	
-	private final Deque<Obstacle>[] obstacles;
-	
 	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.SPRITE_WIDTH * 2; //in pixels.
 	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.5;
 	/** An {@code int} for use in {@link RNG#intInclusive(int, int)}. */
@@ -31,21 +29,27 @@ public class RunningImageLayer extends MinigameImageLayer {
 	private static final IntToLongFunction DELAY_PRECEDING =
 			i -> (long) ((1e9) * (DELAY_CONSTANT - Math.pow(Math.E, -1) * Math.log(i)));
 	
+	private final Deque<Obstacle>[] obstacles;
+	private final Deque<Ground>[] grounds;
+			
 	private int obstacleIndex;
 	private long obstacleDelay, obstacleTimer;
 	
 	@SuppressWarnings("unchecked")
 	public RunningImageLayer() {
 		super(MiniTag.RUNNING);
+		grounds = (Deque<Ground>[]) new Deque<?>[Board.maxPlayerCount()];
 		obstacles = (Deque<Obstacle>[]) new Deque<?>[Board.maxPlayerCount()];
-		for(int i = 0; i < obstacles.length; i++)
+		for(int i = 0; i < Board.maxPlayerCount(); i++) {
 			obstacles[i] = new ArrayDeque<>();
+			grounds[i] = new ArrayDeque<>();
+		}
 	}
 	
 	@Override
 	public void startMinigame() {
 		setupFromList(Sky.LIST);
-		setupFromList(Ground.LIST);
+		setupGrounds();
 		setupFromList(Runner.LIST);
 		for(Runner r : Runner.LIST)
 			r.reset();
@@ -71,6 +75,20 @@ public class RunningImageLayer extends MinigameImageLayer {
 		for(int i = 0, playerCount = gamePane().players().size(); i < playerCount; i++) {
 			list.get(i).alignFor(playerCount);
 			add(list.get(i));
+		}
+	}
+	
+	private void setupGrounds() {
+		System.out.printf("[enter] setupGrounds()%n");
+		for(int p = 0, pc = gamePane().players().size(); p < pc; p++) {
+			System.out.printf("\tp=%d, pc=%d%n", p, pc);
+			Deque<Ground> deque = grounds[p];
+			removeAll(deque);
+			deque.clear();
+			Ground g = new Ground(p + 1, 1);
+			g.alignFor(pc);
+			deque.add(g);
+			add(g);
 		}
 	}
 	
