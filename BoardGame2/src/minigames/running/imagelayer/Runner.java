@@ -22,8 +22,8 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 	private static final double
 		X = 192,
 		MAX_JUMP_CHARGE_TIME = .1e9, // 1/10 of a second
-		MAX_JUMP_VELOCITY = -300, //positive is down.
-		ACCEL = 750; //due to gravity.
+		MAX_JUMP_VELOCITY = -300, //positive is down. -300
+		ACCEL = 750; //due to gravity. 750
 
 	public static Runner get(int number) {
 		return LIST.get(Player.validate(number) - 1);

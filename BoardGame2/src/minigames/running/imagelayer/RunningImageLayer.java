@@ -60,13 +60,13 @@ public class RunningImageLayer extends MinigameImageLayer {
 		}
 		ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
 		for(int p : gamePane().players()) {
-			Obstacle o = g.create(p, 0);
+			Obstacle o = g.create(p, 1);
 			o.setIdealX(1000);
 			o.alignFor(playerCount);
 			obstaclesFor(p).add(o);
 			add(o);
 		}
-		obstacleIndex = 1;
+		obstacleIndex = 2;
 		obstacleDelay = FIRST_DELAY;
 	}
 

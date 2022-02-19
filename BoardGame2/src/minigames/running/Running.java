@@ -44,6 +44,7 @@ public class Running extends Minigame {
 		survivals.clear();
 		velocity = STARTING_VELOCITY;
 		timeElapsed = 0;
+		fxLayer().start();
 		imageLayer().start();
 	}
 	
@@ -59,8 +60,10 @@ public class Running extends Minigame {
 		return playersRemaining().contains(player);
 	}
 
+	/** Assumes the given {@link Runner} has a {@link Runner#lethalObstacle() lethal obstacle}. */
 	public void kill(Runner r) {
 		imageLayer().kill(r);
+		fxLayer().displayIndexOfLethalObstacle(r);
 		survivals.add(new Survival(r.number(), r.lethalObstacle().index()));
 		playersRemaining().remove(r.number());
 		if(isFinished())
@@ -109,6 +112,11 @@ public class Running extends Minigame {
 	@Override
 	public RunningImageLayer imageLayer() {
 		return (RunningImageLayer) super.imageLayer();
+	}
+
+	@Override
+	public RunningFXLayer fxLayer() {
+		return (RunningFXLayer) super.fxLayer();
 	}
 	
 }
