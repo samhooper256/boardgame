@@ -18,7 +18,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 	
 	private final List<Obstacle>[] obstacles;
 	
-	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.SPRITE_WIDTH * 1.5; //in pixels.
+	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.SPRITE_WIDTH * 2; //in pixels.
 	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.5;
 	/** An {@code int} for use in {@link RNG#intInclusive(int, int)}. */
 	private static final int OBSTACLE_X_STRAY = (int) (MainScene.DEFAULT_WIDTH * .5 - 1);
@@ -83,12 +83,15 @@ public class RunningImageLayer extends MinigameImageLayer {
 			if(triesLeft > 0) {
 				double width = g.create(1, -1).getIdealWidth();
 				for(Obstacle o : obstaclesFor(gamePane().players().get(0))) {
-					if(	x >= o.getIdealX() - width - MIN_DIST_BETWEEN_OBSTACLES ||
+					if(	x >= o.getIdealX() - width - MIN_DIST_BETWEEN_OBSTACLES &&
 						x <= o.getIdealX() + o.getIdealWidth() + MIN_DIST_BETWEEN_OBSTACLES) {
 						triesLeft--;
 						continue outer;
 					}
 				}
+			}
+			else {
+				System.out.printf("Used up all tries%n");
 			}
 			for(int p : gamePane().playersRemaining()) {
 				Obstacle o = g.create(p, obstacleIndex);
