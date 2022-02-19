@@ -14,7 +14,6 @@ import players.Player;
 // - should minigame tiles get disabled after their first use so they can't be used again?
 // - Pointer
 // - Display the index of the lethal obstacle above the obstacle when a player dies on it?
-// - Rolling ground in Running.
 // - Instructions for hurdles and running.
 public class Main extends Application {
 

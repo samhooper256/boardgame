@@ -79,15 +79,25 @@ public class RunningImageLayer extends MinigameImageLayer {
 	}
 	
 	private void setupGrounds() {
-		for(int p = 0, pc = gamePane().players().size(); p < pc; p++) {
-			Deque<Ground> deque = grounds[p];
+		for(int i = 0, pc = gamePane().players().size(); i < pc; i++) {
+			Deque<Ground> deque = grounds[i];
 			removeAll(deque);
 			deque.clear();
-			Ground g = new Ground(p + 1, 1);
-			g.alignFor(pc);
-			deque.add(g);
-			add(g);
+			for(int v = 1; v <= Ground.NUM_VARIANTS; v++) {
+				Ground g = addGround(i + 1, v);
+				g.setIdealX((v - 1) * MainScene.DEFAULT_WIDTH);
+			}
+			Ground last = addGround(i + 1, 1);
+			last.setIdealX(Ground.NUM_VARIANTS * MainScene.DEFAULT_WIDTH);
 		}
+	}
+	
+	private Ground addGround(int number, int variant) {
+		Ground g = new Ground(number, variant);
+		g.alignFor(gamePane().players().size());
+		groundsFor(number).addLast(g);
+		add(g);
+		return g;
 	}
 	
 	private void generateObstacle() {
@@ -151,7 +161,22 @@ public class RunningImageLayer extends MinigameImageLayer {
 			obstacleDelay -= obstacleDelay;
 			generateObstacle();
 		}
-		
+		updateGrounds(diff);
+	}
+	
+	private void updateGrounds(long diff) {
+		double sec = diff / 1e9;
+		for(int i = 0; i < grounds.length; i++) {
+			Deque<Ground> deque = grounds[i];
+			for(Ground g : deque)
+				g.setIdealX(g.getIdealX() + sec * Running.get().velocity());
+			if(deque.getFirst().getIdealRightX() < 0) {
+				deque.removeFirst();
+				Ground currentLast = deque.getLast();
+				Ground newLast = addGround(i + 1, Ground.nextVariant(currentLast.variant()));
+				newLast.setIdealX(currentLast.getIdealRightX());
+			}
+		}
 	}
 	
 	public void kill(Runner r) {
@@ -161,6 +186,11 @@ public class RunningImageLayer extends MinigameImageLayer {
 	/** Not {@link Player#validate(int) validated}. */
 	public Deque<Obstacle> obstaclesFor(int player) {
 		return obstacles[player - 1];
+	}
+	
+	/** Not {@link Player#validate(int) validated}. */
+	public Deque<Ground> groundsFor(int player) {
+		return grounds[player - 1];
 	}
 	
 	@Override

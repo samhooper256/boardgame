@@ -97,6 +97,7 @@ public class Running extends Minigame {
 		imageLayer().keyReleasedIngame(kc);
 	}
 	
+	/** Will always be negative. */
 	public double velocity() {
 		return velocity;
 	}
