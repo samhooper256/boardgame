@@ -79,9 +79,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 	}
 	
 	private void setupGrounds() {
-		System.out.printf("[enter] setupGrounds()%n");
 		for(int p = 0, pc = gamePane().players().size(); p < pc; p++) {
-			System.out.printf("\tp=%d, pc=%d%n", p, pc);
 			Deque<Ground> deque = grounds[p];
 			removeAll(deque);
 			deque.clear();
