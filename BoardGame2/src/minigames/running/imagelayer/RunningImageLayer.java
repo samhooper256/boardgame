@@ -16,7 +16,7 @@ import utils.RNG;
 
 public class RunningImageLayer extends MinigameImageLayer {
 	
-	private final List<Obstacle>[] obstacles;
+	private final Deque<Obstacle>[] obstacles;
 	
 	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.SPRITE_WIDTH * 2; //in pixels.
 	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.5;
@@ -37,9 +37,9 @@ public class RunningImageLayer extends MinigameImageLayer {
 	@SuppressWarnings("unchecked")
 	public RunningImageLayer() {
 		super(MiniTag.RUNNING);
-		obstacles = (List<Obstacle>[]) new List<?>[Board.maxPlayerCount()];
+		obstacles = (Deque<Obstacle>[]) new Deque<?>[Board.maxPlayerCount()];
 		for(int i = 0; i < obstacles.length; i++)
-			obstacles[i] = new ArrayList<>();
+			obstacles[i] = new ArrayDeque<>();
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 		for(Runner r : Runner.LIST)
 			r.reset();
 		int playerCount = gamePane().players().size();
-		for(List<Obstacle> o : obstacles) {
+		for(Deque<Obstacle> o : obstacles) {
 			removeAll(o);
 			o.clear();
 		}
@@ -124,14 +124,18 @@ public class RunningImageLayer extends MinigameImageLayer {
 		for(int i = gamePane().playersRemaining().size() - 1; i >= 0; i--) {
 			int r = gamePane().playersRemaining().get(i);
 			Runner.get(r).update(diff);
-			for(Obstacle o : obstaclesFor(r))
+			Deque<Obstacle> deque = obstaclesFor(r);
+			for(Obstacle o : deque)
 				o.update(diff);
+			while(!deque.isEmpty() && deque.getFirst().getIdealRightX() < 0)
+				deque.removeFirst();
 		}
 		obstacleTimer += diff;
 		if(obstacleTimer >= obstacleDelay) {
 			obstacleDelay -= obstacleDelay;
 			generateObstacle();
 		}
+		
 	}
 	
 	public void kill(Runner r) {
@@ -139,7 +143,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 	}
 	
 	/** Not {@link Player#validate(int) validated}. */
-	public List<Obstacle> obstaclesFor(int player) {
+	public Deque<Obstacle> obstaclesFor(int player) {
 		return obstacles[player - 1];
 	}
 	

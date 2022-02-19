@@ -135,7 +135,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 		setIdealBottomY(ground().getIdealY());
 	}
 	
-	private List<Obstacle> obstacles() {
+	private Deque<Obstacle> obstacles() {
 		return Running.il().obstaclesFor(number());
 	}
 	
