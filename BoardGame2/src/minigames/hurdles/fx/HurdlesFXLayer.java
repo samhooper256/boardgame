@@ -9,4 +9,5 @@ public class HurdlesFXLayer extends MinigameFXLayer {
 	public Hurdles gamePane() {
 		return (Hurdles) super.gamePane();
 	}
+	
 }
