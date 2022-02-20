@@ -108,16 +108,13 @@ public class RunningImageLayer extends MinigameImageLayer {
 			ObstacleGenerator g = ObstacleGenerator.randomAboveGround();
 			if(triesLeft > 0) {
 				double width = g.create(1, -1).getIdealWidth();
-				for(Obstacle o : obstaclesFor(gamePane().players().get(0))) {
+				for(Obstacle o : obstaclesFor(gamePane().playersRemaining().get(0))) {
 					if(	x >= o.getIdealX() - width - MIN_DIST_BETWEEN_OBSTACLES &&
 						x <= o.getIdealX() + o.getIdealWidth() + MIN_DIST_BETWEEN_OBSTACLES) {
 						triesLeft--;
 						continue outer;
 					}
 				}
-			}
-			else {
-				System.out.printf("Used up all tries%n");
 			}
 			for(int p : gamePane().playersRemaining()) {
 				Obstacle o = g.create(p, obstacleIndex);
@@ -166,14 +163,14 @@ public class RunningImageLayer extends MinigameImageLayer {
 	
 	private void updateGrounds(long diff) {
 		double sec = diff / 1e9;
-		for(int i = 0; i < grounds.length; i++) {
-			Deque<Ground> deque = grounds[i];
+		for(int p : gamePane().playersRemaining()) {
+			Deque<Ground> deque = groundsFor(p);
 			for(Ground g : deque)
 				g.setIdealX(g.getIdealX() + sec * Running.get().velocity());
 			if(deque.getFirst().getIdealRightX() < 0) {
 				deque.removeFirst();
 				Ground currentLast = deque.getLast();
-				Ground newLast = addGround(i + 1, Ground.nextVariant(currentLast.variant()));
+				Ground newLast = addGround(p, Ground.nextVariant(currentLast.variant()));
 				newLast.setIdealX(currentLast.getIdealRightX());
 			}
 		}

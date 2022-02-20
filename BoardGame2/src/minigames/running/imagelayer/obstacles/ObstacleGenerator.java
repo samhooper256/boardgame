@@ -6,7 +6,7 @@ import utils.RNG;
 @FunctionalInterface
 public interface ObstacleGenerator {
 
-	double LONGEST_WIDTH = Images.BIG_ROCK.getWidth();
+	double LONGEST_WIDTH = Images.OBSTACLE_1.getWidth();
 	
 	static ObstacleGenerator randomAboveGround() {	
 		return RNG.pick(AboveGroundObstacle.generators());
