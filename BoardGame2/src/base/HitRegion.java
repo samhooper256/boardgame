@@ -38,6 +38,16 @@ public final class HitRegion {
 		return regions;
 	}
 	
+	/** Returns an array whose length is {@code (regions().length / 4)}. The {@link RectBounds} in the returned array
+	 * are in the same order as in {@link #regions()}. The returned array may be freely modified without affecting this
+	 * {@link HitRegion}; a new {@code RectBounds[]} is created and returned every time this method is called. */
+	public RectBounds[] rectBounds() {
+		RectBounds[] arr = new RectBounds[regions.length / 4];
+		for(int i = 0; i < regions.length; i += 4)
+			arr[i / 4] = RectBounds.fromCorners(regions[i], regions[i + 1], regions[i + 2], regions[i + 3]);
+		return arr;
+	}
+	
 	public double xToIdealParentSpace(double x) {
 		return x + imagePane().getIdealX();
 	}
