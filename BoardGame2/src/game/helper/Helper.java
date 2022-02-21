@@ -1,4 +1,4 @@
-package game;
+package game.helper;
 
 import java.util.Objects;
 

@@ -4,6 +4,7 @@ import base.AcceptsInput;
 import base.panes.*;
 import fxutils.Images;
 import game.*;
+import game.helper.Helper;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import minigames.rewards.RewardsDisplay;
