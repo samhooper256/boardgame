@@ -6,6 +6,7 @@ import java.util.function.*;
 import base.Updatable;
 import base.panes.ImagePane;
 import fxutils.Images;
+import game.helper.HelperInfo;
 import utils.*;
 
 public final class RollableDie extends ImagePane implements Die, Updatable {
@@ -49,6 +50,7 @@ public final class RollableDie extends ImagePane implements Die, Updatable {
 	}
 	
 	private void startRoll() {
+		HelperInfo.get().setRolledRollableDie();
 		rollElapsed = 0;
 		nextSwitchIndex = 1;
 	}
