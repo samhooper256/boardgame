@@ -14,6 +14,10 @@ public final class Bits {
 		return (val & mask(index)) > 0;
 	}
 	
+	public static long set(long val, int index) {
+		return val | mask(index);
+	}
+	
 	/** A {@code long} mask whose only set bit is the one at the given index. */
 	public static long mask(int index) {
 		return 1L << index;

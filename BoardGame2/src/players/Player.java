@@ -91,7 +91,7 @@ public class Player extends PlayerIcon {
 	}
 	
 	public void reset() {
-		setRollType(RollType.CHOOSE);
+		setRollType(RollType.RANDOM);
 		medalCounter().reset();
 		passives.clear();
 		current = StartTile.get();

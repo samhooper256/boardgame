@@ -8,7 +8,7 @@ public class QuitButton extends ImagePane {
 	
 	public QuitButton() {
 		super(Images.QUIT_BUTTON);
-		setOnMouseClicked(eh -> Main.stage().close());
+		setOnMouseClicked(eh -> Main.quitGame());
 	}
 	
 }

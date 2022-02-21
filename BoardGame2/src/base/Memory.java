@@ -2,6 +2,8 @@ package base;
 
 import java.io.*;
 
+import game.helper.HelperInfo;
+
 public final class Memory {
 
 	private Memory() {
@@ -44,13 +46,23 @@ public final class Memory {
 			if(line == null)
 				return 0L;
 			return Long.parseLong(line.trim());
-		} catch (IOException e) {
+		} catch (IOException | NumberFormatException e) {
 			return 0L;
 		}
 	}
 	
 	public static boolean memoryFilesExist() {
 		return DATA_FOLDER.exists() && DATA_FILE.exists();
+	}
+	
+	public static void save() {
+		long info = HelperInfo.get().info();
+		try(FileWriter fw = new FileWriter(DATA_FILE)){
+			fw.write(String.valueOf(info));
+		} catch (IOException e) {
+			System.err.println("Error writing data.");
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -39,4 +39,8 @@ public final class HelperInfo {
 		return Bits.isSet(info(), 0);
 	}
 	
+	public void setRolledRollableDie() {
+		set(Bits.set(info(), 0));
+	}
+	
 }

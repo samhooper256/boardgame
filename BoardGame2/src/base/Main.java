@@ -71,6 +71,7 @@ public class Main extends Application {
 		Player.maxCount(); //cause Player to be initialized.
 		HelperInfo.acquireFromMemory();
 		stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+		stage.setOnCloseRequest(eh -> Main.closeAction());
 		stage.setScene(MainScene.get());
 		stage.setFullScreen(true);
 		stage.setTitle(TITLE);
@@ -82,7 +83,20 @@ public class Main extends Application {
 	}
 	
 	public static void quitGame() {
+		closeAction();
 		stage().close();
+	}
+	
+	public static void closeAction() {
+		Memory.save();
+	}
+	
+	public void setFullScreen(boolean fullScreen) {
+		stage().setFullScreen(fullScreen);
+	}
+	
+	public boolean isFullScreen() {
+		return stage().isFullScreen();
 	}
 	
 	/**
