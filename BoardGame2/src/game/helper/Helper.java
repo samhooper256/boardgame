@@ -1,10 +1,11 @@
 package game.helper;
 
-import java.util.Objects;
+import java.util.*;
 
-import base.Updatable;
+import base.*;
 import base.panes.ImagePane;
 import fxutils.Images;
+import utils.rects.RectBounds;
 
 /** invisible by default. */
 public class Helper extends ImagePane implements Updatable {
@@ -19,6 +20,7 @@ public class Helper extends ImagePane implements Updatable {
 	private long elapsed;
 	private double pivotY;
 	private ImagePane to;
+	private RectBounds toRelevantBounds;
 	
 	public Helper() {
 		super(Images.HELPER);
@@ -33,7 +35,12 @@ public class Helper extends ImagePane implements Updatable {
 		elapsed += diff;
 		if(to != null) {
 			pivotY = to.getIdealY() - ABOVE_DIST;
-			setIdealCenterX(to.getIdealCenterX());
+			if(toRelevantBounds != null) {
+				setIdealCenterX(to.getIdealX() + toRelevantBounds.x() + toRelevantBounds.width() * .5);
+			}
+			else {
+				setIdealCenterX(to.getIdealCenterX());
+			}
 		}
 		setIdealCenterY(getY(elapsed));
 	}
@@ -53,6 +60,20 @@ public class Helper extends ImagePane implements Updatable {
 	/** Does <em>not</em> make this {@link Helper} {@link #isVisible() visible}.*/
 	public void pointTo(ImagePane ip) {
 		to = ip;
+		if(to instanceof HitRegioned) {
+			RectBounds[] bounds = ((HitRegioned) ip).hitRegion().rectBounds();
+			if(bounds.length == 1) {
+				toRelevantBounds = bounds[0];
+			}
+			else {
+				Arrays.sort(bounds, Comparator.comparing(RectBounds::y));
+				if(bounds[0].y() == bounds[1].y())
+					//if there's a tie, just point to the middle as if 'to' were not HitRegioned.
+					toRelevantBounds = null;
+				else
+					toRelevantBounds = bounds[0];
+			}
+		}
 	}
 	
 	public void detachAndHide() {
