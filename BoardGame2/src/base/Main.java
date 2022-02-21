@@ -13,7 +13,7 @@ import players.Player;
 
 //TODO:
 // - should minigame tiles get disabled after their first use so they can't be used again?
-// - Pointer
+// - Pointer to archers in archery minigame.
 // - Instructions for hurdles and running.
 public class Main extends Application {
 
