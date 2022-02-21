@@ -5,6 +5,7 @@ import java.util.Collection;
 import base.*;
 import base.panes.*;
 import game.MainScene;
+import game.helper.HelperInfo;
 import javafx.scene.input.*;
 import minigames.*;
 import minigames.archery.*;
@@ -16,7 +17,7 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 		FENCE_TOP_Y = MainScene.DEFAULT_HEIGHT * .675,
 		FENCE_HEIGHT = 60,
 		FENCE_BOTTOM_Y = FENCE_TOP_Y + FENCE_HEIGHT;
-	
+
 	public ArcheryImageLayer() {
 		super(MiniTag.ARCHERY);
 	}
@@ -38,8 +39,6 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());
-		helper().pointTo(gamePane().archer(3));
-		helper().setVisible(true);
 	}
 	
 	@Override
@@ -60,11 +59,30 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 		return null;
 	}
 	
+	public void pointHelperTo(Archer a) {
+		helper().pointTo(a);
+		helper().setVisible(true);
+	}
+	
+	public void hideHelper() {
+		helper().setVisible(false);
+	}
+	
 	@Override
 	public void keyPressedIngame(KeyCode kc) {
-		for(Archer a : gamePane().archers())
-			if(gamePane().isMobile(a))
+		for(Archer a : gamePane().archers()) {
+			if(gamePane().isMobile(a)) {
 				a.keyPressed(kc);
+				if(a.number() == 1) {
+					helper().setVisible(false);
+					HelperInfo.get().setUsedArcher1();
+				}
+				else if(a.number() == 2) {
+					helper().setVisible(false);
+					HelperInfo.get().setUsedArcher2();
+				}
+			}
+		}
 	}
 
 	@Override

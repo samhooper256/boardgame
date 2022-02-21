@@ -69,6 +69,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		rings[1].fader().fadeIn();
 		currentWalk = null;
 		helper.setVisible(false);
+		elapsed = 0;
 	}
 	
 	private void placeTiles() {

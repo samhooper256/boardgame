@@ -4,6 +4,7 @@ import java.util.*;
 
 import fxutils.Fader;
 import game.board.Board;
+import game.helper.HelperInfo;
 import javafx.animation.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
@@ -20,6 +21,7 @@ import players.list.PlayerList;
 public class Archery extends Minigame {
 
 	private static final Duration WAVE_POPUP_DURATION = Duration.millis(1000); //Does not include time spent fading out.
+	private static final long HELPER_SHOW_DELAY = (long) 5e9;
 	private static final Archery INSTANCE = new Archery(WaveGenerator.STANDARD);
 	
 	public static Archery get() {
@@ -39,6 +41,7 @@ public class Archery extends Minigame {
 	private boolean arrowFired, finished;
 	private int waveIndex, turn;
 	private Target currentTarget;
+	private long elapsedSinceStartOfTurn;
 	
 	private Archery(WaveGenerator waveGenerator) {
 		super(MiniTag.ARCHERY, new ArcheryImageLayer(), new ArcheryFXLayer());
@@ -64,6 +67,7 @@ public class Archery extends Minigame {
 		survivals.clear();
 		arrowFired = finished = false;
 		currentTarget = null;
+		elapsedSinceStartOfTurn = 0;
 		updateControls(turn);
 		imageLayer().start();
 		fxLayer().start();
@@ -88,6 +92,7 @@ public class Archery extends Minigame {
 			createNextTarget();
 			arrowFired = false;
 		}
+		elapsedSinceStartOfTurn = 0;
 	}
 	
 	@Override
@@ -159,6 +164,12 @@ public class Archery extends Minigame {
 	
 	@Override
 	public void update(long diff) {
+		if(isIngame())
+			elapsedSinceStartOfTurn += diff;
+		if(turn == 1 && !HelperInfo.get().hasUsedArcher1() && elapsedSinceStartOfTurn > HELPER_SHOW_DELAY)
+			imageLayer().pointHelperTo(archer(1));
+		else if(turn == 2 && !HelperInfo.get().hasUsedArcher2() && elapsedSinceStartOfTurn > HELPER_SHOW_DELAY)
+			imageLayer().pointHelperTo(archer(2));
 		imageLayer().update(diff);
 	}
 	
@@ -179,6 +190,14 @@ public class Archery extends Minigame {
 		if(me.getButton() == MouseButton.PRIMARY) {
 			if(!arrowFired) {
 				archer(turn).click(me);
+				if(turn == 1) {
+					imageLayer().hideHelper();
+					HelperInfo.get().setUsedArcher1();
+				}
+				else if(turn == 2) {
+					imageLayer().hideHelper();
+					HelperInfo.get().setUsedArcher2();
+				}
 				arrowFired = true;
 			}
 		}
