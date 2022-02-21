@@ -38,8 +38,6 @@ public class ArcheryImageLayer extends MinigameImageLayer {
 		removeAll(gamePane().archers());
 		putArchersInPosition();
 		addAll(gamePane().archers());
-		helper().pointTo(gamePane().archer(1));
-		helper().setVisible(true);
 	}
 	
 	@Override

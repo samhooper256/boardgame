@@ -50,7 +50,7 @@ public final class RollableDie extends ImagePane implements Die, Updatable {
 	}
 	
 	private void startRoll() {
-		HelperInfo.get().setRolledRollableDie();
+		Board.il().notifyRollableDieRolled();
 		rollElapsed = 0;
 		nextSwitchIndex = 1;
 	}

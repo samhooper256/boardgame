@@ -7,15 +7,17 @@ import base.panes.*;
 import events.SimpleTextEvent;
 import fxutils.*;
 import game.board.*;
-import game.helper.Helper;
+import game.helper.*;
 import javafx.geometry.Point2D;
 import medals.*;
 import players.Player;
 import tiles.*;
 
-//uses packets 0, 1, and 2.
+/** uses packets 0, 1 (events), and 2 (helper). */
 public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 
+	private static final long HELPER_SHOW_DELAY = (long) 5e9;
+	
 	private final Ring[] rings; //index i is the ring for player i;
 	private final Helper helper;
 	
@@ -25,6 +27,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	
 	private List<Tile> tiles;
 	private WalkAnimation currentWalk;
+	private long elapsed;
 	
 	public BoardImageLayer() {
 		helper = new Helper();
@@ -45,6 +48,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		for(int i = 1; i <= Player.maxCount(); i++)
 			rings[i].lockCoordinatesTo(Player.get(i));
 		add(2, helper);
+		helper.pointTo(RollableDie.get());
 	}
 	
 	public void start() {
@@ -64,6 +68,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			rings[i].fader().disappear();
 		rings[1].fader().fadeIn();
 		currentWalk = null;
+		helper.setVisible(false);
 	}
 	
 	private void placeTiles() {
@@ -140,12 +145,21 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	
 	@Override
 	public void updatePane(long diff) {
-		helper.update(diff);
+		elapsed += diff;
+		if(!HelperInfo.get().hasRolledRollableDie() && elapsed >= HELPER_SHOW_DELAY) {
+			helper.setVisible(true);
+			helper.update(diff);
+		}
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i].update(diff);
 		RollableDie.get().update(diff);
 		if(currentWalk != null)
 			currentWalk.update(diff);
+	}
+	
+	public void notifyRollableDieRolled() {
+		helper.setVisible(false);
+		HelperInfo.get().setRolledRollableDie();
 	}
 	
 	public void showSimpleTextEvent(SimpleTextEvent event) {

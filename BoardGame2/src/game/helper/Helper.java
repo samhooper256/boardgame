@@ -50,8 +50,8 @@ public class Helper extends ImagePane implements Updatable {
 		return pivotY;
 	}
 	
+	/** Does <em>not</em> make this {@link Helper} {@link #isVisible() visible}.*/
 	public void pointTo(ImagePane ip) {
-		setVisible(true);
 		to = ip;
 	}
 	

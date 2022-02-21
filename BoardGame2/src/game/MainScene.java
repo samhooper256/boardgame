@@ -145,7 +145,7 @@ public class MainScene extends Scene implements Updatable {
 	
 	@Override
 	public void update(long diff) {
-		if(!paused) {
+		if(!paused && ingame()) {
 			if(isPlayingMinigame())
 				currentMinigame().update(diff);
 			else
