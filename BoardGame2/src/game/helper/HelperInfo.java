@@ -1,5 +1,6 @@
 package game.helper;
 
+import base.Memory;
 import utils.Bits;
 
 /** Each bit in {@link #info()} corresponds to whether or not the user, during any session of the game at any time, has
@@ -14,6 +15,10 @@ public final class HelperInfo {
 	/** {@link #info()} is {@code 0} by default. */
 	public static HelperInfo get() {
 		return INSTANCE;
+	}
+	
+	public static void acquireFromMemory() {
+		INSTANCE.set(Memory.HELPER_INFO);
 	}
 	
 	private long info;

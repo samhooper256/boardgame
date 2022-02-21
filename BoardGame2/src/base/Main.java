@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import game.MainScene;
+import game.helper.HelperInfo;
 import javafx.application.*;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCombination;
@@ -16,7 +17,7 @@ import players.Player;
 // - Instructions for hurdles and running.
 public class Main extends Application {
 
-	public static final String TITLE = "greek olympics and stuff";
+	public static final String TITLE = "Olympics";
 	public static final String RESOURCES_PREFIX = "/resources/";
 	
 	private static Stage stage;
@@ -68,6 +69,7 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Main.stage = stage;
 		Player.maxCount(); //cause Player to be initialized.
+		HelperInfo.acquireFromMemory();
 		stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		stage.setScene(MainScene.get());
 		stage.setFullScreen(true);
