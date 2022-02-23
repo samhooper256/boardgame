@@ -93,7 +93,12 @@ public final class Images {
 		OBSTACLE_2 = get("Obstacle2.png"),
 		OBSTACLE_3 = get("Obstacle3.png"),
 		//misc
-		HELPER = get("Helper.png");
+		HELPER = get("Helper.png"),
+		//win
+		WIN_BACKGROUND = get("WinBackground.png"),
+		PODIUM_1 = get("1stPodium.png"),
+		PODIUM_2 = get("2ndPodium.png"),
+		PODIUM_3 = get("3rdPodium.png");
 			
 	
 	/** row is the player, index is the sprite for that player. */

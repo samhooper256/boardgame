@@ -17,7 +17,7 @@ public final class WalkAnimation implements Updatable {
 	
 	public WalkAnimation(Player player, int distance) {
 		this.player = player;
-		this.destIndex = pIndex() + distance;
+		this.destIndex = (pIndex() + distance) % Board.TILE_COUNT;
 		finished = false;
 	}
 	
@@ -26,7 +26,7 @@ public final class WalkAnimation implements Updatable {
 		if(finished)
 			return;
 		elapsed += diff;
-		if(pIndex() < destIndex) {
+		if(pIndex() != destIndex) {
 			if(elapsed > STEP_DURATION) {
 				Board.il().movePlayer(player, pIndex() + 1);
 				elapsed %= STEP_DURATION;

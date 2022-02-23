@@ -175,9 +175,10 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		return true;
 	}
 	
-	/** The {@link Tile} at the given 0-based index, where the tile at index 0 is the start tile. */
+	/** The {@link Tile} at the given 0-based index, where the tile at index 0 is the start tile. Wraps around if
+	 * {@code (index >= Board.TILE_COUNT)}.*/
 	public Tile tileAt(int index) {
-		return tiles.get(index);
+		return tiles.get(index % Board.TILE_COUNT);
 	}
 
 	public int tileIndex(Tile tile) {
@@ -209,9 +210,11 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	public void walkFinished() {
 		Tile destTile = tileAt(currentWalk.destTileIndex());
 		Board.get().playerLanded(destTile); //calls playerLanded in this class.
-		if(destTile instanceof SafeTile) //TODO this is not how this should be done.
-			gamePane().incrementTurn(); //Minigames and events will call this when they finish.
 		currentWalk = null;
+		if(destTile instanceof SafeTile)
+			gamePane().incrementTurn(); //Minigames and events will call this when they finish.
+		if(destTile instanceof StartTile)
+			Board.get().endGame();
 	}
 	
 	/** Called to notify this {@link BoardImageLayer} that the turn has been incremented. */

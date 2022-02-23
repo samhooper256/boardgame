@@ -1,13 +1,15 @@
 package game.board;
 
+import java.util.*;
 import java.util.stream.*;
 
 import base.Updatable;
 import base.panes.*;
 import events.*;
-import game.BoardFade;
+import game.*;
 import game.board.fx.BoardFXLayer;
 import game.board.imagelayer.*;
+import game.win.WinPane;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import medals.MedalReward;
@@ -80,7 +82,10 @@ public class Board extends GamePane implements Updatable {
 	
 	public void executeTurn(int diceRoll) {
 		readyToRoll = false;
-		imageLayer().walk(Player.get(turn), diceRoll);
+		Player p = Player.get(turn);
+		if(p.tile().index() + diceRoll >= TILE_COUNT)
+			diceRoll = TILE_COUNT - p.tile().index();
+		imageLayer().walk(p, diceRoll);
 	}
 	
 	public void playerLanded(Tile tile) {
@@ -175,6 +180,13 @@ public class Board extends GamePane implements Updatable {
 		incrementTurn();
 		currentEvent = null;
 		readyToRoll = true;
+	}
+	
+	public void endGame() {
+		List<Player> ranking = players().sorted(Comparator.comparing(Player::score).reversed())
+				.collect(Collectors.toCollection(ArrayList::new));
+		WinPane.get().setupFor(ranking);
+		MainScene.get().fadeToWinPane();
 	}
 	
 	public Player currentPlayer() {

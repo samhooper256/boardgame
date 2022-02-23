@@ -1,12 +1,11 @@
 package game;
 
 import base.panes.FadeLayer;
-import fxutils.*;
 import game.board.Board;
 import javafx.util.Duration;
 import minigames.*;
 
-public class BoardFade extends FadeLayer implements Fadeable {
+public class BoardFade extends FadeLayer {
 	
 	public static final Duration FADE_IN = Duration.millis(500), FADE_OUT = FADE_IN;
 	

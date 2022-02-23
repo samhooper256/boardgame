@@ -1,9 +1,8 @@
-package game.playerselect;
+package fxutils;
 
 import java.util.*;
 
 import base.panes.ImagePane;
-import fxutils.Images;
 import players.Player;
 
 public class Avatar extends ImagePane {

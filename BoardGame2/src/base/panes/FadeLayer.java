@@ -5,6 +5,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/** Use {@code fader().fadeIn()} to make the transition. It will automatically fade out. */
 public abstract class FadeLayer extends StackPane implements Fadeable {
 
 	private final Fader fader;

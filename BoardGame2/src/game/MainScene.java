@@ -40,6 +40,7 @@ public class MainScene extends Scene implements Updatable {
 	private final PauseLayer pauseLayer;
 	private final BoardFade boardFade;
 	private final PlayerSelectFade playerSelectFade;
+	private final WinFade winFade;
 	private final ToPlayerSelectAnimation tpsAnimation;
 	
 	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
@@ -60,7 +61,8 @@ public class MainScene extends Scene implements Updatable {
 		root = (Pane) getRoot();
 		boardFade = new BoardFade();
 		playerSelectFade = new PlayerSelectFade();
-		fadeLayer = new StackPane(boardFade, playerSelectFade);
+		winFade = new WinFade();
+		fadeLayer = new StackPane(boardFade, playerSelectFade, winFade);
 		fadeLayer.setMouseTransparent(true);
 		selectLayer = new StackPane();
 		contentLayer = new StackPane();
@@ -185,6 +187,10 @@ public class MainScene extends Scene implements Updatable {
 	
 	public void fadeBackFromMinigame(MinigameResult result) {
 		boardFade.toBoard(result);
+	}
+	
+	public void fadeToWinPane() {
+		winFade.fader().fadeIn();
 	}
 	
 	public boolean isPlayingMinigame() {

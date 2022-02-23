@@ -1,6 +1,7 @@
 package game.playerselect;
 
 import base.panes.AbstractImageLayer;
+import fxutils.Avatar;
 import players.*;
 
 import static game.playerselect.CountSelect.*;

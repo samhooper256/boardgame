@@ -74,6 +74,10 @@ public class Player extends PlayerIcon {
 		return current;
 	}
 	
+	public int score() {
+		return medalCounter.score();
+	}
+	
 	public void setTile(Tile newTile) {
 		current = newTile;
 	}

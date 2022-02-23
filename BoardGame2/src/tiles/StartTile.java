@@ -17,7 +17,7 @@ public final class StartTile extends Tile {
 
 	@Override
 	public void land(Player p) {
-		// TODO Auto-generated method stub
+		//nothing
 	}
 
 }

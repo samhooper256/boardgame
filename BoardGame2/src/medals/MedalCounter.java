@@ -50,4 +50,11 @@ public class MedalCounter {
 			changeListener.run();
 	}
 	
+	public int score() {
+		int score = 0;
+		for(Map.Entry<Medal, Integer> e : map.entrySet())
+			score += e.getValue() * e.getKey().pointValue();
+		return score;
+	}
+	
 }
