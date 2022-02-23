@@ -11,13 +11,18 @@ import players.Player;
 
 public class WinImageLayer extends AbstractImageLayer {
 
-	private final ImagePane background, podium1, podium2, podium3;
+	private static final double PRESS_SPACE_BOTTOM_PADDING = 20;
+	
+	private final ImagePane background, podium1, podium2, podium3, pressSpace;
 	
 	public WinImageLayer() {
 		background = new ImagePane(Images.WIN_BACKGROUND);
 		podium1 = new ImagePane(Images.PODIUM_1);
 		podium2 = new ImagePane(Images.PODIUM_2);
 		podium3 = new ImagePane(Images.PODIUM_3);
+		pressSpace = new ImagePane(Images.PRESS_SPACE);
+		pressSpace.setIdealCenterX(MainScene.CENTER_X);
+		pressSpace.setIdealBottomY(MainScene.DEFAULT_HEIGHT - PRESS_SPACE_BOTTOM_PADDING);
 		add(background);
 	}
 	
@@ -29,6 +34,7 @@ public class WinImageLayer extends AbstractImageLayer {
 	public void setupFor(List<Player> ranking) {
 		removePodiums();
 		removeAvatars();
+		remove(pressSpace);
 		podium1.setIdealCenterX(MainScene.CENTER_X);
 		podium1.setIdealBottomY(MainScene.DEFAULT_HEIGHT);
 		podium2.setIdealRightX(podium1.getIdealX());
@@ -44,6 +50,7 @@ public class WinImageLayer extends AbstractImageLayer {
 			add(avatars.get(i));
 		}
 		
+		add(pressSpace);
 	}
 	
 	private void removePodiums() {
