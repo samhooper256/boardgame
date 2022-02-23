@@ -139,11 +139,6 @@ public class Board extends GamePane implements Updatable {
 			readyToRoll = true;
 	}
 	
-	@Override
-	public void keyPressed(KeyCode kc) {
-		tryRequestEventFinish();
-	}
-	
 	private void rollTransitionFinished() {
 		readyToRoll = true;
 	}
@@ -208,6 +203,21 @@ public class Board extends GamePane implements Updatable {
 	@Override
 	public void update(long diff) {
 		imageLayer().update(diff);
+	}
+	
+	@Override
+	public void keyPressed(KeyCode kc) {
+		tryRequestEventFinish();
+		cheats().keyPressed(kc);
+	}
+	
+	@Override
+	public void keyReleased(KeyCode kc) {
+		cheats().keyReleased(kc);
+	}
+	
+	public BoardCheats cheats() {
+		return BoardCheats.get();
 	}
 	
 	@Override
