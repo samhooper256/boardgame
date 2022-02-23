@@ -178,7 +178,8 @@ public class Board extends GamePane implements Updatable {
 	}
 	
 	public void endGame() {
-		List<Player> ranking = players().sorted(Comparator.comparing(Player::score).reversed())
+		List<Player> ranking = players().sorted(Comparator.comparing(Player::score).reversed()
+				.thenComparing(Player::number))
 				.collect(Collectors.toCollection(ArrayList::new));
 		WinPane.get().setupFor(ranking);
 		MainScene.get().fadeToWinPane();
