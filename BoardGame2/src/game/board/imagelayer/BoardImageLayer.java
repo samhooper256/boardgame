@@ -217,9 +217,11 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			Board.get().endGame();
 	}
 	
-	/** Called to notify this {@link BoardImageLayer} that the turn has been incremented. */
-	public void turnIncrementedTo(int turn) {
-		rings[Board.prevTurn(turn)].fader().fadeOutAndHide();
+	/** Called to notify this {@link BoardImageLayer} that the turn has been set to a different number. */
+	public void turnSetTo(int turn) {
+		for(int i = 1; i < rings.length; i++)
+			if(rings[i].fader().isShowing())
+				rings[i].fader().fadeOutAndHide();
 		if(!rings[turn].fader().isShowing())
 			rings[turn].fader().fadeIn();
 	}

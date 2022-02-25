@@ -40,7 +40,6 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		addAll(AvatarBorder.LIST);
 		addAll(avatars);
 		addAll(icons);
-		
 	}
 	
 	void notifyAnimationToPlayerSelectStarted() {

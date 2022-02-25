@@ -1,4 +1,6 @@
-package players;
+package players.passives;
+
+import players.Player;
 
 public abstract class AbstractTemporaryPassive extends AbstractPassive implements TemporaryPassive {
 

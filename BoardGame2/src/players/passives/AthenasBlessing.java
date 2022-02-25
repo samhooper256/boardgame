@@ -1,4 +1,6 @@
-package players;
+package players.passives;
+
+import players.*;
 
 public class AthenasBlessing extends AbstractTemporaryPassive {
 

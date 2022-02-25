@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import base.AcceptsInput;
 import javafx.scene.input.KeyCode;
+import players.Player;
 
 public final class BoardCheats implements AcceptsInput {
 	
@@ -60,13 +61,21 @@ public final class BoardCheats implements AcceptsInput {
 	public void keyReleased(KeyCode kc) {
 		if(!ENABLED)
 			return;
-		System.out.printf("cheats released: %s%n", kc);
+//		System.out.printf("cheats released: %s%n", kc);
 		if(kc == KeyCode.ENTER) {
-			if(buffer.stream().allMatch(KeyCode::isDigitKey)) {
+			if(!buffer.isEmpty() && buffer.stream().allMatch(KeyCode::isDigitKey)) {
 				int dist = Integer.parseInt(buffer.stream().map(c -> String.valueOf(value(c)))
 						.collect(Collectors.joining()));
 				Board.get().executeTurn(dist);
 			}
+			buffer.clear();
+		}
+		else if(kc == KeyCode.P) {
+			System.out.printf("PLAYERS:%n");
+			for(int i = 1; i <= 4; i++)
+				System.out.printf("\t%s%n", Player.get(i));
+		}
+		else if(kc == KeyCode.SHIFT) {
 			buffer.clear();
 		}
 		else {

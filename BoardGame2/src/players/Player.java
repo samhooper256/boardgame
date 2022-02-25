@@ -3,6 +3,7 @@ package players;
 import java.util.*;
 
 import medals.MedalCounter;
+import players.passives.*;
 import tiles.*;
 
 public class Player extends PlayerIcon {
@@ -43,6 +44,7 @@ public class Player extends PlayerIcon {
 	
 	private Tile current;
 	private RollType rollType;
+	private boolean injured;
 	
 	private Player(int number) {
 		super(number);
@@ -51,6 +53,13 @@ public class Player extends PlayerIcon {
 		reset();
 	}
 
+	public void reset() {
+		setRollType(RollType.RANDOM);
+		medalCounter().reset();
+		passives.clear();
+		current = StartTile.get();
+	}
+	
 	public void acquirePassive(Passive p) {
 		p.activate();
 		passives.add(p);
@@ -94,16 +103,17 @@ public class Player extends PlayerIcon {
 		return medalCounter;
 	}
 	
-	public void reset() {
-		setRollType(RollType.RANDOM);
-		medalCounter().reset();
-		passives.clear();
-		current = StartTile.get();
+	public boolean isInjured() {
+		return injured;
+	}
+	
+	public void setInjured(boolean injured) {
+		this.injured = injured;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("Player[%d]", number());
+		return String.format("Player[%d, rollType=%s, injured=%b, passives=%s]", number(), rollType, injured, passives);
 	}
 	
 	@Override
