@@ -13,9 +13,11 @@ public class WinImageLayer extends AbstractImageLayer {
 
 	private static final double PRESS_SPACE_BOTTOM_PADDING = 20;
 	
+	private final Avatar[] avatars;
 	private final ImagePane background, podium1, podium2, podium3, pressSpace;
 	
 	public WinImageLayer() {
+		avatars = new Avatar[] {new Avatar(1), new Avatar(2), new Avatar(3), new Avatar(4)};
 		background = new ImagePane(Images.WIN_BACKGROUND);
 		podium1 = new ImagePane(Images.PODIUM_1);
 		podium2 = new ImagePane(Images.PODIUM_2);
@@ -43,7 +45,7 @@ public class WinImageLayer extends AbstractImageLayer {
 		podium3.setIdealBottomY(MainScene.DEFAULT_HEIGHT);
 		addAll(podium3, podium2, podium1);
 		
-		List<Avatar> avatars = ranking.stream().map(p -> Avatar.forPlayer(p.number())).collect(Collectors.toList());
+		List<Avatar> avatars = ranking.stream().map(p -> avatar(p.number())).collect(Collectors.toList());
 		
 		for(int i = 0, max = Math.min(avatars.size(), 3); i < max; i++) {
 			setupAvatarOnPodium(avatars.get(i), i + 1);
@@ -58,7 +60,7 @@ public class WinImageLayer extends AbstractImageLayer {
 	}
 	
 	private void removeAvatars() {
-		removeAll(Avatar.LIST);
+		removeAll(avatars);
 	}
 	
 	private void setupAvatarOnPodium(Avatar a, int place) {
@@ -77,6 +79,10 @@ public class WinImageLayer extends AbstractImageLayer {
 		throw new IllegalArgumentException(String.format("place: %d", place));
 	}
 
+	private Avatar avatar(int number) {
+		return avatars[Player.validate(number) - 1];
+	}
+	
 	@Override
 	public WinPane gamePane() {
 		return (WinPane) super.gamePane();

@@ -15,14 +15,16 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 	
 	private final CountSelectHover[] hovers;
 	private final PlayerIcon[] icons;
+	private final Avatar[] avatars;
 	
 	public PlayerSelectImageLayer() {
-		Avatar.forPlayer(1).setIdealCenter(CENTER_X - AVATAR_X_DIST, CENTER_Y - AVATAR_Y_DIST);
-		Avatar.forPlayer(2).setIdealCenter(CENTER_X + AVATAR_X_DIST, CENTER_Y - AVATAR_Y_DIST);
-		Avatar.forPlayer(3).setIdealCenter(CENTER_X - AVATAR_X_DIST, CENTER_Y + AVATAR_Y_DIST);
-		Avatar.forPlayer(4).setIdealCenter(CENTER_X + AVATAR_X_DIST, CENTER_Y + AVATAR_Y_DIST);
+		avatars = new Avatar[] {new Avatar(1), new Avatar(2), new Avatar(3), new Avatar(4)};
+		avatar(1).setIdealCenter(CENTER_X - AVATAR_X_DIST, CENTER_Y - AVATAR_Y_DIST);
+		avatar(2).setIdealCenter(CENTER_X + AVATAR_X_DIST, CENTER_Y - AVATAR_Y_DIST);
+		avatar(3).setIdealCenter(CENTER_X - AVATAR_X_DIST, CENTER_Y + AVATAR_Y_DIST);
+		avatar(4).setIdealCenter(CENTER_X + AVATAR_X_DIST, CENTER_Y + AVATAR_Y_DIST);
 		for(int i = 0; i < AvatarBorder.LIST.size(); i++)
-			AvatarBorder.LIST.get(i).setIdealCenter(Avatar.LIST.get(i).getIdealCenter());
+			AvatarBorder.LIST.get(i).setIdealCenter(avatars[i].getIdealCenter());
 		hovers = new CountSelectHover[Player.maxCount() - 1]; // for 2, 3, and 4 players.
 		for(int i = 0; i < hovers.length; i++)
 			hovers[i] = new CountSelectHover();
@@ -31,12 +33,12 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		icons = new PlayerIcon[Player.maxCount()];
 		for(int i = 1; i <= Player.maxCount(); i++) {
 			icons[i - 1] = new PlayerIcon(i);
-			icons[i - 1].setIdealCoords(Avatar.forPlayer(i).getIdealCoords());
+			icons[i - 1].setIdealCoords(avatar(i).getIdealCoords());
 		}
 		addAll(hovers);
 		addAll(SELECT2, SELECT3, SELECT4);
 		addAll(AvatarBorder.LIST);
-		addAll(Avatar.LIST);
+		addAll(avatars);
 		addAll(icons);
 		
 	}
@@ -62,6 +64,10 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 			AvatarBorder.forPlayer(i).setActive(true);
 		for(; i <= Player.maxCount(); i++)
 			AvatarBorder.forPlayer(i).setActive(false);
+	}
+	
+	private Avatar avatar(int number) {
+		return avatars[Player.validate(number) - 1];
 	}
 	
 	@Override

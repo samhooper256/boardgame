@@ -3,8 +3,10 @@ package game.win;
 import java.util.List;
 
 import base.panes.*;
+import game.MainScene;
 import game.win.fx.WinFXLayer;
 import game.win.imagelayer.WinImageLayer;
+import javafx.scene.input.KeyCode;
 import players.Player;
 
 public class WinPane extends GamePane {
@@ -23,6 +25,12 @@ public class WinPane extends GamePane {
 	 * index 1 stores the player who came in 2nd place, etc.) */
 	public void setupFor(List<Player> ranking) {
 		imageLayer().setupFor(ranking);
+	}
+	
+	@Override
+	public void keyReleased(KeyCode kc) {
+		if(kc == KeyCode.SPACE)
+			MainScene.get().fadeToMainFromWin();
 	}
 	
 	@Override
