@@ -20,7 +20,7 @@ public final class Images {
 		//main menu stuff
 		MAIN_MENU = get("main_menu.png"),
 		PLAY_BUTTON = get("PlayButton.png"),
-		QUIT_BUTTON = get("quit_button.png"),
+		QUIT_BUTTON = get("QuitButton.png"),
 		//player select stuff
 		SELECT_2 = get("select2.png"),
 		SELECT_3 = get("select3.png"),
@@ -84,7 +84,7 @@ public final class Images {
 		HURDLE_HEAD = get("hurdle_head.png"),
 		HURDLE_LEGS = get("hurdle_legs.png"),
 		//running
-		RUNNING_TILE = get("RunningTile.png"),
+		RUNNING_TILE = get("Running_tile.png"),
 		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),
 		RUNNING_SKY = get("RunningSky.png"),
 		RUNNING_GROUND_1 = get("RunningGround1.png"),
