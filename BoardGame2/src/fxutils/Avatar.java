@@ -1,6 +1,5 @@
 package fxutils;
 
-
 import base.panes.ImagePane;
 
 public class Avatar extends ImagePane {

@@ -1,6 +1,6 @@
 package events;
 
-abstract class AbstractSimpleTextEvent extends AbstractEvent implements SimpleTextEvent {
+public abstract class AbstractSimpleTextEvent extends AbstractEvent implements SimpleTextEvent {
 
 	private final String name, description;
 	

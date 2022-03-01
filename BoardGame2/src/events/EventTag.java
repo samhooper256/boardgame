@@ -2,6 +2,8 @@ package events;
 
 import java.util.function.Supplier;
 
+import events.athenasblessing.AthenasBlessingEvent;
+import events.injury.InjuryEvent;
 import utils.RNG;
 
 public enum EventTag {
