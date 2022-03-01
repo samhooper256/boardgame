@@ -174,6 +174,31 @@ public class ImagePane extends StackPane {
     	return getIdealY() + getIdealHeight();
     }
     
+    /** Equivalent to {@link #setIdealCoords(double, double)}. */
+    public void setIdealTopLeftCorner(double x, double y) {
+    	setIdealCoords(x, y);
+    }
+    
+    public void setIdealTopRightCorner(double x, double y) {
+    	setIdealRightX(x);
+    	setIdealY(y);
+    }
+    
+    public void setIdealBottomLeftCorner(double x, double y) {
+    	setIdealX(x);
+    	setIdealBottomY(y);
+    }
+    
+    public void setIdealBottomRightCorner(double x, double y) {
+    	setIdealRightX(x);
+    	setIdealBottomY(y);
+    }
+    
+    public void multiplyIdealSize(double scale) {
+    	setIdealWidth(getIdealWidth() * scale);
+    	setIdealHeight(getIdealHeight() * scale);
+    }
+    
     public ResizableImage rimage() {
     	return rimage;
     }

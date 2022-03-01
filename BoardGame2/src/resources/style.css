@@ -19,3 +19,9 @@
 .pause-button:hover {
 	-fx-background-color: #999999;
 }
+
+.dont-steal-button {
+	-fx-font: bold 30 "Courier New";
+	-fx-background-color: #878787;
+	-fx-background-radius: 3;
+}

@@ -147,11 +147,23 @@ public class Board extends GamePane implements Updatable {
 		incrementTurn();
 	}
 	
-	public void showSimpleTextEvent(SimpleTextEvent event) {
+	public void showEvent(Event event) {
 		readyToRoll = false;
+		if(event instanceof SimpleTextEvent)
+			showSimpleTextEvent((SimpleTextEvent) event);
+		else
+			showComplexEvent((ComplexEvent) event);
+		currentEvent = event;
+	}
+
+	private void showSimpleTextEvent(SimpleTextEvent event) {
 		imageLayer().showSimpleTextEvent(event);
 		fxLayer().showSimpleTextEvent(event);
-		currentEvent = event;
+	}
+	
+	private void showComplexEvent(ComplexEvent event) {
+		imageLayer().showComplexEvent(event);
+		fxLayer().showComplexEvent(event);
 	}
 	
 	public void tryRequestEventFinish() {
@@ -169,6 +181,7 @@ public class Board extends GamePane implements Updatable {
 	/** In the case of a {@link SimpleTextEvent}, this should be called as soon as the event popup completely finishes
 	 * fading out. */
 	public void eventFinished() {
+		imageLayer().eventFinished();
 		incrementTurn();
 		currentEvent = null;
 		readyToRoll = true;
@@ -186,6 +199,10 @@ public class Board extends GamePane implements Updatable {
 		return Player.get(turn());
 	}
 	
+	public Event currentEvent() {
+		return currentEvent;
+	}
+	
 	public boolean readyToRoll() {
 		return readyToRoll;
 	}
@@ -194,6 +211,7 @@ public class Board extends GamePane implements Updatable {
 		return playerCount;
 	}
 	
+	/** Returns a {@link Stream} containing only the players up to (and including) {@link #playerCount()}. */
 	public Stream<Player> players() {
 		return IntStream.rangeClosed(1, playerCount).mapToObj(Player::get);
 	}
@@ -205,7 +223,8 @@ public class Board extends GamePane implements Updatable {
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
-		tryRequestEventFinish();
+		if(!(currentEvent instanceof ComplexEvent)) //true for nulls.
+			tryRequestEventFinish();
 		cheats().keyPressed(kc);
 	}
 	

@@ -1,7 +1,7 @@
 package game.board.fx;
 
 import base.panes.*;
-import events.SimpleTextEvent;
+import events.*;
 import game.board.*;
 import javafx.geometry.Point2D;
 import medals.*;
@@ -58,6 +58,12 @@ public class BoardFXLayer extends FXLayer {
 		eventTitle.fader().fadeIn();
 		eventDescription.fader().fadeIn();
 		pressAnyKey.fader().fadeIn();
+	}
+	
+	public void showComplexEvent(ComplexEvent event) {
+		eventTitle.setText(event.name());
+		eventTitle.fader().fadeIn();
+		getChildren().addAll(event.fxNodes());
 	}
 	
 	/** Begins fading out the {@link SimpleTextEvent}-related materials. */

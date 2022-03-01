@@ -1,6 +1,6 @@
 package events;
 
-abstract class AbstractEvent implements Event {
+public abstract class AbstractEvent implements Event {
 
 	private final EventTag tag;
 	
