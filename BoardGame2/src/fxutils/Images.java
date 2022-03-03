@@ -22,9 +22,9 @@ public final class Images {
 		PLAY_BUTTON = get("PlayButton.png"),
 		QUIT_BUTTON = get("QuitButton.png"),
 		//player select stuff
-		SELECT_2 = get("select2.png"),
-		SELECT_3 = get("select3.png"),
-		SELECT_4 = get("select4.png"),
+		SELECT_2 = get("two.png"),
+		SELECT_3 = get("three.png"),
+		SELECT_4 = get("four.png"),
 		COUNT_SELECT_HOVER = get("count_select_hover.png"),
 		//avatars
 		TREE_AVATAR = get("Tree Avatar.png"),
