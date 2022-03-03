@@ -1,11 +1,17 @@
 package events;
 
+import game.board.Board;
 import players.Player;
 
 public interface Event {
 	
+	String name();
+	
 	EventTag tag();
 
-	public void play(Player p);
+	
+	default void play(Player player) {
+		Board.get().showEvent(this);
+	}
 	
 }

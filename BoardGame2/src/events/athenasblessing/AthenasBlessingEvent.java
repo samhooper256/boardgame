@@ -1,5 +1,6 @@
-package events;
+package events.athenasblessing;
 
+import events.*;
 import players.Player;
 import players.passives.AthenasBlessing;
 

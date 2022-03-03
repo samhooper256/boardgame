@@ -31,8 +31,10 @@ public final class RewardsDisplay {
 		pressSpace = new PressSpace();
 		players = new FadeablePlayerIcon[Player.maxCount()];
 		background = new Background();
-		for(int i = 0; i < Player.maxCount(); i++)
-			players[i] = new FadeablePlayerIcon(i + 1);
+		for(int i = 0; i < Player.maxCount(); i++) {
+			players[i] = new FadeablePlayerIcon(i + 1, FADE_TIME);
+			players[i].multiplyIdealSize(2);
+		}
 		medals = new FadeableMedalIcon[Medal.count()];
 		for(int i = 0; i < Medal.count(); i++)
 			medals[i] = new FadeableMedalIcon(Medal.withIndex(i));

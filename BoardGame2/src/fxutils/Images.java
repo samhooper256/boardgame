@@ -64,7 +64,9 @@ public final class Images {
 		//board stuff
 		RING = get("PlayerRing.png"),
 		BOARD_BACKGROUND = get("BoardBackground.png"),
+		//events
 		EVENT_BACKGROUND = get("event_background.png"),
+		STEAL_ICON_BACKGROUND = get("steal_icon_background.png"),
 		//general minigame stuff
 		PRESS_SPACE = get("PressSpace.png"),
 		//archery

@@ -1,5 +1,6 @@
-package events;
+package events.injury;
 
+import events.*;
 import players.Player;
 import players.passives.*;
 
