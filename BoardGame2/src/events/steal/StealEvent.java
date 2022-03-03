@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import events.*;
 import fxutils.Fonts;
-import game.MainScene;
 import game.board.Board;
 import javafx.scene.control.*;
 import players.*;
