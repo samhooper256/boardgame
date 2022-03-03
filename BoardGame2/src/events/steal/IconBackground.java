@@ -4,6 +4,7 @@ import java.util.*;
 
 import base.panes.ImagePane;
 import fxutils.*;
+import game.MainScene;
 import game.board.Board;
 import players.*;
 
@@ -23,6 +24,17 @@ public class IconBackground extends ImagePane implements Fadeable, PlayerNumbere
 		super(Images.STEAL_ICON_BACKGROUND);
 		this.number = number;
 		fader = new Fader(this).setDurations(Board.EVENT_FADE_DURATION);
+		MainScene.get().addMouseMoveHandler(me -> {
+			double x = me.getX(), y = me.getY(), lx = getLayoutX(), ly = getLayoutY();
+			setHighlighted(x >= lx && x <= lx + getWidth() && y >= ly && y <= ly + getHeight());
+		});
+	}
+	
+	public void setHighlighted(boolean highlighted) {
+		if(highlighted)
+			setImage(Images.STEAL_ICON_BACKGROUND_HIGHLIGHTED);
+		else
+			setImage(Images.STEAL_ICON_BACKGROUND);
 	}
 	
 	@Override

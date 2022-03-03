@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import events.*;
 import fxutils.Fonts;
+import game.MainScene;
 import game.board.Board;
 import javafx.scene.control.*;
 import players.*;
@@ -38,6 +39,7 @@ public class StealEvent extends AbstractComplexEvent implements ComplexEvent {
 		dontSteal = new DontStealButton();
 		dontSteal.layoutXProperty().bind(dontSteal.widthProperty().multiply(-.5).add(CENTER_X));
 		dontSteal.setLayoutY(DONT_STEAL_Y);
+		
 		Collections.addAll(fxNodes, instructions, dontSteal);
 	}
 

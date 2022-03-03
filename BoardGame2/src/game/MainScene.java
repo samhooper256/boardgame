@@ -1,6 +1,10 @@
 package game;
 
+import java.util.*;
+import java.util.function.*;
+
 import base.*;
+import base.Timer;
 import base.input.GameInput;
 import base.panes.*;
 import fxutils.*;
@@ -43,6 +47,7 @@ public class MainScene extends Scene implements Updatable {
 	private final ToWinFade toWinFade;
 	private final WinToMainFade winToMainFade;
 	private final ToPlayerSelectAnimation tpsAnimation;
+	private final List<Consumer<MouseEvent>> mouseMoveHandlers;
 	
 	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
 	private boolean paused;
@@ -84,6 +89,8 @@ public class MainScene extends Scene implements Updatable {
 		setOnMouseClicked(this::mouseClicked);
 		setOnMousePressed(this::mousePressed);
 		setOnMouseReleased(this::mouseReleased);
+		mouseMoveHandlers = new ArrayList<>();
+		setOnMouseMoved(this::mouseMoved);
 		timer = new Timer(this::update);
 	}
 	
@@ -145,6 +152,15 @@ public class MainScene extends Scene implements Updatable {
 			return;
 		if(isPlayingMinigame())
 			currentMinigame().mouseReleased(me);
+	}
+	
+	private void mouseMoved(MouseEvent me) {
+		for(Consumer<MouseEvent> action : mouseMoveHandlers)
+			action.accept(me);
+	}
+	
+	public void addMouseMoveHandler(Consumer<MouseEvent> action) {
+		mouseMoveHandlers.add(action);
 	}
 	
 	@Override

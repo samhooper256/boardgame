@@ -67,6 +67,7 @@ public final class Images {
 		//events
 		EVENT_BACKGROUND = get("event_background.png"),
 		STEAL_ICON_BACKGROUND = get("steal_icon_background.png"),
+		STEAL_ICON_BACKGROUND_HIGHLIGHTED = get("steal_icon_background_highlighted.png"),
 		//general minigame stuff
 		PRESS_SPACE = get("PressSpace.png"),
 		//archery
