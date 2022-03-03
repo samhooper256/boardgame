@@ -120,6 +120,11 @@ public abstract class AbstractImageLayer extends Pane implements ImageLayer {
 	}
 	
 	@Override
+	public boolean contains(ImagePane image) {
+		return getChildren().contains(image);
+	}
+	
+	@Override
 	public void clearAllImages() {
 		getChildren().clear();
 		for(PacketImpl p : packets)

@@ -6,6 +6,8 @@ import base.panes.ImagePane;
 import fxutils.*;
 import game.MainScene;
 import game.board.Board;
+import javafx.scene.input.MouseEvent;
+import medals.Medal;
 import players.*;
 
 public class IconBackground extends ImagePane implements Fadeable, PlayerNumbered {
@@ -24,10 +26,23 @@ public class IconBackground extends ImagePane implements Fadeable, PlayerNumbere
 		super(Images.STEAL_ICON_BACKGROUND);
 		this.number = number;
 		fader = new Fader(this).setDurations(Board.EVENT_FADE_DURATION);
-		MainScene.get().addMouseMoveHandler(me -> {
-			double x = me.getX(), y = me.getY(), lx = getLayoutX(), ly = getLayoutY();
-			setHighlighted(x >= lx && x <= lx + getWidth() && y >= ly && y <= ly + getHeight());
+		MainScene.get().addMouseMoveHandler(me -> setHighlighted(mouseInBounds(me)));
+		MainScene.get().addMouseClickHandler(me -> {
+			if(isVisible() && getParent() != null && !fader().isFading() && mouseInBounds(me)) {
+				Player theif = Player.get(Board.get().turn()), robbed = Player.get(number());
+				Medal m = robbed.medalCounter().getHighest();
+				if(m != null) {
+					robbed.medalCounter().remove(m);
+					theif.medalCounter().add(m);
+				}
+				Board.get().requestEventFinish();
+			}
 		});
+	}
+	
+	private boolean mouseInBounds(MouseEvent me) {
+		double x = me.getX(), y = me.getY(), lx = getLayoutX(), ly = getLayoutY();
+		return x >= lx && x <= lx + getWidth() && y >= ly && y <= ly + getHeight();
 	}
 	
 	public void setHighlighted(boolean highlighted) {

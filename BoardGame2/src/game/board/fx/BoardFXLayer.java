@@ -2,8 +2,10 @@ package game.board.fx;
 
 import base.panes.*;
 import events.*;
+import fxutils.Fadeable;
 import game.board.*;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import medals.*;
 import players.Player;
 
@@ -69,8 +71,17 @@ public class BoardFXLayer extends FXLayer {
 	/** Begins fading out the {@link SimpleTextEvent}-related materials. */
 	public void demandEventFinish() {
 		eventTitle.fader().fadeOutAndHide();
-		eventDescription.fader().fadeOutAndHide();
-		pressAnyKey.fader().fadeOutAndHide();
+		Event event = Board.get().currentEvent();
+		if(event instanceof SimpleTextEvent) {
+			eventDescription.fader().fadeOutAndHide();
+			pressAnyKey.fader().fadeOutAndHide();
+		}
+		else {
+			ComplexEvent ce = (ComplexEvent) event;
+			for(Node node : ce.fxNodes())
+				if(node instanceof Fadeable)
+					((Fadeable) node).fader().fadeOutAndHide();
+		}
 	}
 	
 	@Override

@@ -47,7 +47,7 @@ public class MainScene extends Scene implements Updatable {
 	private final ToWinFade toWinFade;
 	private final WinToMainFade winToMainFade;
 	private final ToPlayerSelectAnimation tpsAnimation;
-	private final List<Consumer<MouseEvent>> mouseMoveHandlers;
+	private final List<Consumer<MouseEvent>> mouseMoveHandlers, mouseClickHandlers;
 	
 	private UnaffiliatedFXLayer glassLayer; //can't be final for initialization reasons...
 	private boolean paused;
@@ -86,6 +86,7 @@ public class MainScene extends Scene implements Updatable {
 		getStylesheets().add(Main.class.getResource(Main.RESOURCES_PREFIX + "style.css").toExternalForm());
 		setOnKeyPressed(this::keyPressed);
 		setOnKeyReleased(this::keyReleased);
+		mouseClickHandlers = new ArrayList<>();
 		setOnMouseClicked(this::mouseClicked);
 		setOnMousePressed(this::mousePressed);
 		setOnMouseReleased(this::mouseReleased);
@@ -134,6 +135,8 @@ public class MainScene extends Scene implements Updatable {
 	}
 	
 	private void mouseClicked(MouseEvent me) {
+		for(Consumer<MouseEvent> action : mouseClickHandlers)
+			action.accept(me);
 		if(paused)
 			return;
 		if(isPlayingMinigame())
@@ -159,8 +162,16 @@ public class MainScene extends Scene implements Updatable {
 			action.accept(me);
 	}
 	
+	/** Mouse move handlers will be called every time the mouse is moved, no matter where the user is and even if the
+	 * game is paused. */
 	public void addMouseMoveHandler(Consumer<MouseEvent> action) {
 		mouseMoveHandlers.add(action);
+	}
+	
+	/** Mouse click handlers will be called every time the mouse is moved, no matter where the user is and even if the
+	 * game is paused. */
+	public void addMouseClickHandler(Consumer<MouseEvent> action) {
+		mouseClickHandlers.add(action);
 	}
 	
 	@Override

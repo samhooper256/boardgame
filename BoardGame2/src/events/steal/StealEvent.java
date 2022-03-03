@@ -4,39 +4,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import events.*;
-import fxutils.Fonts;
 import game.MainScene;
 import game.board.Board;
-import javafx.scene.control.*;
 import players.*;
 
 import static game.MainScene.*;
 
 public class StealEvent extends AbstractComplexEvent implements ComplexEvent {
 	
+	public static final double INSTRUCTIONS_Y = DEFAULT_HEIGHT * .39;
+	
 	private static final double
-		INSTRUCTIONS_Y = DEFAULT_HEIGHT * .39,
 		DONT_STEAL_Y = DEFAULT_HEIGHT * .59,
 		ICON_SPACING = 32,
 		ICON_SIZE = 128,
 		ICON_CENTER_Y = CENTER_Y + 3;
 	
-	private final PlayerIcon[] icons;
-	private final Label instructions;
+	private final FadeablePlayerIcon[] icons;
+	private final Instructions instructions;
 	private final DontStealButton dontSteal;
 	
 	public StealEvent() {
 		super(EventTag.STEAL);
-		icons = new PlayerIcon[Player.maxCount()];
+		icons = new FadeablePlayerIcon[Player.maxCount()];
 		for(int i = 0; i < icons.length; i++) {
-			icons[i] = new PlayerIcon(i + 1);
+			icons[i] = new FadeablePlayerIcon(i + 1, Board.EVENT_FADE_DURATION);
 			icons[i].setIdealSize(ICON_SIZE);
 		}
-		instructions = new Label("Choose a player to steal from - or don't");
-		instructions.setFont(Fonts.UI_SMALL);
-		instructions.layoutXProperty().bind(instructions.widthProperty().multiply(-.5).add(CENTER_X));
-		instructions.setLayoutY(INSTRUCTIONS_Y);
-		dontSteal = new DontStealButton();
+		instructions = new Instructions();
+		dontSteal = new DontStealButton(this);
 		dontSteal.setIdealCenterX(MainScene.CENTER_X);
 		dontSteal.setIdealY(DONT_STEAL_Y);
 		Collections.addAll(fxNodes, instructions);
@@ -61,6 +57,7 @@ public class StealEvent extends AbstractComplexEvent implements ComplexEvent {
 		}
 		imagePanes.add(dontSteal);
 	}
+	
 	
 	private PlayerIcon icon(int number) {
 		return icons[number - 1];

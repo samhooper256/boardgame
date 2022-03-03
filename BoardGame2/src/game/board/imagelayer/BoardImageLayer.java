@@ -173,6 +173,12 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		for(ImagePane ip : ips)
 			if(ip instanceof Fadeable)
 				((Fadeable) ip).fader().fadeIn();
+		for(ImagePane ip : ips) {
+			if(contains(ip)) {
+				System.out.printf("contains: %s%n", ip);
+			}
+		}
+		System.out.println();
 		addAll(1, ips);
 	}
 	
@@ -182,7 +188,8 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 			return false;
 		Event event = Board.get().currentEvent();
 		if(event instanceof ComplexEvent) {
-			for(ImagePane ip : ((ComplexEvent) event).imagePanes())
+			ComplexEvent ce = (ComplexEvent) event;
+			for(ImagePane ip : ce.imagePanes())
 				if(ip instanceof Fadeable)
 					((Fadeable) ip).fader().fadeOutAndHide();
 		}
@@ -193,9 +200,14 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	/** Should only be called by {@link Board}. Assumes {@link Board#currentEvent()} has not yet been set to
 	 * {@code null}. */
 	public void eventFinished() {
+		System.out.printf("event finished!%n");
 		Event event = Board.get().currentEvent();
-		if(event instanceof ComplexEvent)
-			removeAll(((ComplexEvent) event).imagePanes());
+		if(event instanceof ComplexEvent) {
+			List<ImagePane> ips = ((ComplexEvent) event).imagePanes();
+			System.out.printf("\tit's complex... %d items to remove. children before: %d%n", ips.size(), getChildren().size());
+			removeAll(ips);
+			System.out.printf("\tchildren after: %d%n", getChildren().size());
+		}
 	}
 	
 	/** The {@link Tile} at the given 0-based index, where the tile at index 0 is the start tile. Wraps around if

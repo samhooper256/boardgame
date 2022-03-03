@@ -77,6 +77,8 @@ public interface ImageLayer extends Updatable {
 	 * Returns {@code true} if the {@link ImagePane} was present and has been removed, {@code false} otherwise. */
 	boolean remove(ImagePane image);
 	
+	boolean contains(ImagePane image);
+	
 	default void removeAll(ImagePane... images) {
 		for(ImagePane image : images)
 			remove(image);
