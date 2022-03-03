@@ -1,14 +1,14 @@
 package events.steal;
 
-import javafx.scene.control.Button;
+import base.panes.ImagePane;
+import fxutils.*;
 
-public class DontStealButton extends Button {
+public class DontStealButton extends ImagePane {
 
-	private static final String CSS = "dont-steal-button";
-	
 	public DontStealButton() {
-		super("Don't Steal");
-		getStyleClass().add(CSS);
+		super(Images.DONT_STEAL);
+		setOnMouseEntered(me -> setImage(Images.DONT_STEAL_HOVERED));
+		setOnMouseExited(me -> setImage(Images.DONT_STEAL));
 	}
 	
 }
