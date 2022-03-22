@@ -6,6 +6,10 @@ public class MedalIcon extends ImagePane {
 
 	private final Medal medal;
 	
+	public MedalIcon(Medal medal) {
+		this(medal, 1);
+	}
+	
 	public MedalIcon(Medal medal, double scale) {
 		super(medal.image());
 		setIdealWidth(getIdealWidth() * scale);

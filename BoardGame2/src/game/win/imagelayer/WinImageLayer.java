@@ -7,14 +7,19 @@ import base.panes.*;
 import fxutils.*;
 import game.MainScene;
 import game.win.WinPane;
+import medals.*;
 import players.Player;
 
 public class WinImageLayer extends AbstractImageLayer {
 
-	private static final double PRESS_SPACE_BOTTOM_PADDING = 20;
+	private static final double PRESS_SPACE_BOTTOM_PADDING = 20, MEDAL_Y_DOWN = -5;
 	
 	private final Avatar[] avatars;
-	private final ImagePane background, podium1, podium2, podium3, pressSpace;
+	private final ImagePane
+		background,
+		/* first place */ podium1, /* second place */ podium2, /* third place */ podium3,
+		pressSpace;
+	private final MedalIcon medal1, medal2, medal3;
 	
 	public WinImageLayer() {
 		avatars = new Avatar[] {new Avatar(1), new Avatar(2), new Avatar(3), new Avatar(4)};
@@ -22,6 +27,9 @@ public class WinImageLayer extends AbstractImageLayer {
 		podium1 = new ImagePane(Images.PODIUM_1);
 		podium2 = new ImagePane(Images.PODIUM_2);
 		podium3 = new ImagePane(Images.PODIUM_3);
+		medal1 = new MedalIcon(Medal.GOLD);
+		medal2 = new MedalIcon(Medal.SILVER);
+		medal3 = new MedalIcon(Medal.BRONZE);
 		pressSpace = new ImagePane(Images.PRESS_SPACE);
 		pressSpace.setIdealCenterX(MainScene.CENTER_X);
 		pressSpace.setIdealBottomY(MainScene.DEFAULT_HEIGHT - PRESS_SPACE_BOTTOM_PADDING);
@@ -43,7 +51,13 @@ public class WinImageLayer extends AbstractImageLayer {
 		podium2.setIdealBottomY(MainScene.DEFAULT_HEIGHT);
 		podium3.setIdealX(podium1.getIdealRightX());
 		podium3.setIdealBottomY(MainScene.DEFAULT_HEIGHT);
-		addAll(podium3, podium2, podium1);
+		medal1.setIdealCoords(podium1.getIdealX() + .5 * podium1.getIdealWidth() - .5 * medal1.getIdealWidth(),
+				podium1.getIdealY() + MEDAL_Y_DOWN);
+		medal2.setIdealCoords(podium2.getIdealX() + .5 * podium2.getIdealWidth() - .5 * medal2.getIdealWidth(),
+				podium2.getIdealY() + MEDAL_Y_DOWN);
+		medal3.setIdealCoords(podium3.getIdealX() + .5 * podium3.getIdealWidth() - .5 * medal3.getIdealWidth(),
+				podium3.getIdealY() + MEDAL_Y_DOWN);
+		addAll(podium3, medal3, podium2, medal2, podium1, medal1);
 		
 		List<Avatar> avatars = ranking.stream().map(p -> avatar(p.number())).collect(Collectors.toList());
 		
