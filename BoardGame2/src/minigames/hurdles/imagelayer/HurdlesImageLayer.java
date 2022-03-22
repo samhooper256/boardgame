@@ -12,10 +12,10 @@ import players.Player;
 public class HurdlesImageLayer extends MinigameImageLayer {
 
 	public static final double
-		MAX_HURDLE_SPACING = 700,
+		MAX_HURDLE_SPACING = 1500,
 		MIN_HURDLE_SPACING = 400,
 		HURDLE_SPACING_DIFF = 10,
-		MIN_HURDLE_HEIGHT = 100,
+		MIN_HURDLE_HEIGHT = 240, //TODO set it back to 100.
 		MAX_HURDLE_HEIGHT = 400,
 		HURDLE_HEIGHT_DIFF = 10,
 		FIRST_HURDLE_X = 1400;
@@ -108,7 +108,7 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	}
 
 	private void generateHurdle() {
-		double newX = hurdles.getLast().getX() + nextHurdleSpacing;
+		double newX = hurdles.getLast().getBaseX() + nextHurdleSpacing;
 		Hurdle h = new Hurdle(nextHurdleIndex, nextHurdleHeight, newX);
 		if(nextHurdleSpacing - HURDLE_SPACING_DIFF >= MIN_HURDLE_SPACING)
 			nextHurdleSpacing -= HURDLE_SPACING_DIFF;

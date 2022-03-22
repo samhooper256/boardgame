@@ -86,8 +86,9 @@ public final class Images {
 		JUMP_BAR = get("jump_bar.png"),
 		JUMP_BAR_BACKGROUND = get("jump_bar_background.png"),
 		JUMP_BAR_TICK = get("jump_bar_tick.png"),
-		HURDLE_HEAD = get("hurdle_head.png"),
-		HURDLE_LEGS = get("hurdle_legs.png"),
+		HURDLE_BASE = get("hurdle base.png"),
+		HURDLE_HEAD = get("hurdle head.png"),
+		HURDLE_LEGS = get("hurdle legs.png"),
 		//running
 		RUNNING_TILE = get("Running_tile.png"),
 		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),

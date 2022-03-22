@@ -21,7 +21,7 @@ public class MedalCoords {
 	private static final MedalCoords[][] STORE = new MedalCoords[Player.maxCount() + 1][];
 	
 	static {
-		STORE[Player.maxCount()] = new MedalCoords[Player.maxCount()];
+		STORE[Player.maxCount()] = new MedalCoords[Player.maxCount() + 1];
 		for(int i = 1; i <= Player.maxCount(); i++) {
 			STORE[Player.maxCount()][i] = new MedalCoords(
 					quad(i, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .4),
