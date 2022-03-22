@@ -15,14 +15,15 @@ public class MedalCoords {
 	private static final double ZOOM_FACTOR = 1; //TODO remove this if I never end up using it?
 	
 	private static final double[]
-			QUAD_X ={0, -DEFAULT_WIDTH * .25, DEFAULT_WIDTH * .25, -DEFAULT_WIDTH * .25, DEFAULT_WIDTH * .25},
+			QUAD_X = {0, -DEFAULT_WIDTH * .25, DEFAULT_WIDTH * .25, -DEFAULT_WIDTH * .25, DEFAULT_WIDTH * .25},
 			QUAD_Y = {0, -DEFAULT_HEIGHT * .25, -DEFAULT_HEIGHT * .25, DEFAULT_HEIGHT * .25, DEFAULT_HEIGHT * .25};
 	
-	private static final MedalCoords[] STORE = new MedalCoords[Player.maxCount() + 1];
+	private static final MedalCoords[][] STORE = new MedalCoords[Player.maxCount() + 1][];
 	
 	static {
+		STORE[Player.maxCount()] = new MedalCoords[Player.maxCount()];
 		for(int i = 1; i <= Player.maxCount(); i++) {
-			STORE[i] = new MedalCoords(
+			STORE[Player.maxCount()][i] = new MedalCoords(
 					quad(i, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .4),
 					quad(i, DEFAULT_WIDTH * .35, DEFAULT_HEIGHT * .6),
 					quad(i, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .6),
@@ -30,11 +31,17 @@ public class MedalCoords {
 			);
 		}
 	}
+	
+	//TODO REMOVE THIS METHOD
 	public static MedalCoords forPlayer(int player) {
-		return STORE[Player.validate(player)];
+		return forPlayer(player, Player.maxCount());
 	}
 	
-	/** Scaled the given coordinates (which are in terms of the entire screen) down to the given quadrant. Quadrants:
+	public static MedalCoords forPlayer(int player, int playerCount) {
+		return STORE[Player.validate(playerCount)][Player.validate(player)];
+	}
+	
+	/** Scales the given coordinates (which are in terms of the entire screen) down to the given quadrant. Quadrants:
 	 * 1 | 2
 	 * -----
 	 * 3 | 4
