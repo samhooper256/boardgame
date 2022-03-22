@@ -8,6 +8,8 @@ import minigames.running.Running;
  * numbered starting at {@code 1}. */
 public final class Coords {
 
+	private static final double RUNNER_X = 192, KEY_ICON_X = RUNNER_X + .5 * Runner.WIDTH - .5 * RunningKeyIcon.WIDTH;
+	
 	private static final Coords P2 = new Coords(2), P3 = new Coords(3), P4 = new Coords(4);
 	
 	public static Coords p(int playerCount) {
@@ -45,6 +47,18 @@ public final class Coords {
 	
 	public double zoneHeight() {
 		return MainScene.DEFAULT_HEIGHT / playerCount;
+	}
+	
+	public double keyIconY(int zone) {
+		return groundY(zone) + 10;
+	}
+	
+	public double keyIconX() {
+		return KEY_ICON_X;
+	}
+	
+	public double runnerX() {
+		return RUNNER_X;
 	}
 	
 }

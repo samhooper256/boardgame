@@ -31,7 +31,8 @@ public class RunningImageLayer extends MinigameImageLayer {
 	
 	private final Deque<Obstacle>[] obstacles;
 	private final Deque<Ground>[] grounds;
-			
+	private final List<RunningKeyIcon> keyIcons;
+	
 	private int obstacleIndex;
 	private long obstacleDelay, obstacleTimer;
 	
@@ -44,6 +45,9 @@ public class RunningImageLayer extends MinigameImageLayer {
 			obstacles[i] = new ArrayDeque<>();
 			grounds[i] = new ArrayDeque<>();
 		}
+		keyIcons = new ArrayList<>(Player.maxCount());
+		for(int i = 1; i <= Player.maxCount(); i++)
+			keyIcons.add(new RunningKeyIcon(i));
 	}
 	
 	@Override
@@ -51,6 +55,7 @@ public class RunningImageLayer extends MinigameImageLayer {
 		setupFromList(Sky.LIST);
 		setupGrounds();
 		setupFromList(Runner.LIST);
+		setupFromList(keyIcons);
 		for(Runner r : Runner.LIST)
 			r.reset();
 		int playerCount = gamePane().players().size();

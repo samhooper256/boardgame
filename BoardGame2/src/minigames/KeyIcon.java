@@ -6,9 +6,9 @@ import game.MainScene;
 import minigames.hurdles.imagelayer.Coords;
 import players.*;
 
-public final class KeyIcon extends ImagePane implements PlayerNumbered {
+public class KeyIcon extends ImagePane implements PlayerNumbered {
 
-	public static final double Y = MainScene.DEFAULT_HEIGHT - 64;
+	public static final double Y = MainScene.DEFAULT_HEIGHT - 64, WIDTH = Images.KEY_1.getWidth();
 	
 	private final int number;
 	
