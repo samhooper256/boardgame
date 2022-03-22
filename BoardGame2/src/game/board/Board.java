@@ -182,6 +182,7 @@ public class Board extends GamePane implements Updatable {
 	 * fading out. */
 	public void eventFinished() {
 		imageLayer().eventFinished();
+		fxLayer().eventFinished();
 		incrementTurn();
 		currentEvent = null;
 		readyToRoll = true;

@@ -1,11 +1,14 @@
 package game.board.fx;
 
+import java.util.List;
+
 import base.panes.*;
 import events.*;
 import fxutils.Fadeable;
 import game.board.*;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import medals.*;
 import players.Player;
 
@@ -16,6 +19,7 @@ public class BoardFXLayer extends FXLayer {
 	private final EventTitle eventTitle;
 	private final EventDescription eventDescription;
 	private final PressAnyKey pressAnyKey;
+	private final Pane customNodes;
 	
 	public BoardFXLayer() {
 		for(int mindex = 0; mindex < medals.length; mindex++) {
@@ -42,7 +46,8 @@ public class BoardFXLayer extends FXLayer {
 		eventTitle = new EventTitle();
 		eventDescription = new EventDescription();
 		pressAnyKey = new PressAnyKey();
-		getChildren().addAll(eventTitle, eventDescription, pressAnyKey);
+		customNodes = new Pane();
+		getChildren().addAll(eventTitle, eventDescription, pressAnyKey, customNodes);
 	}
 	
 	public void start() {
@@ -65,7 +70,14 @@ public class BoardFXLayer extends FXLayer {
 	public void showComplexEvent(ComplexEvent event) {
 		eventTitle.setText(event.name());
 		eventTitle.fader().fadeIn();
-		getChildren().addAll(event.fxNodes());
+		List<Node> eventNodes = event.fxNodes();
+		for(Node n : eventNodes) {
+			if(n instanceof Fadeable)
+				((Fadeable) n).fader().fadeIn();
+			else
+				n.setVisible(true);
+		}
+		customNodes.getChildren().addAll(eventNodes);
 	}
 	
 	/** Begins fading out the {@link SimpleTextEvent}-related materials. */
@@ -82,6 +94,10 @@ public class BoardFXLayer extends FXLayer {
 				if(node instanceof Fadeable)
 					((Fadeable) node).fader().fadeOutAndHide();
 		}
+	}
+	
+	public void eventFinished() {
+		customNodes.getChildren().clear();
 	}
 	
 	@Override
