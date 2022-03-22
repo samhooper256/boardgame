@@ -7,6 +7,7 @@ import fxutils.Images;
 import javafx.scene.input.KeyCode;
 import minigames.*;
 import minigames.hurdles.Hurdles;
+import players.Player;
 
 public class HurdlesImageLayer extends MinigameImageLayer {
 
@@ -24,6 +25,7 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	private double nextHurdleSpacing, nextHurdleHeight;
 	private int nextHurdleIndex;
 	private LinkedList<Hurdle> hurdles;
+	private final List<KeyIcon> keyIcons;
 	
 	public HurdlesImageLayer() {
 		super(MiniTag.HURDLES);
@@ -35,7 +37,10 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		addAll(JumpBarBackground.LIST);
 		addAll(JumpBar.LIST);
 		addAll(JumpBarTick.LIST);
-		addAll(KeyIcon.LIST);
+		keyIcons = new ArrayList<>(Player.maxCount());
+		for(int i = 1; i <= Player.maxCount(); i++)
+			keyIcons.add(new KeyIcon(i));
+		addAll(keyIcons);
 	}
 	
 	@Override
@@ -62,12 +67,12 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 		removeAll(JumpBarBackground.LIST);
 		removeAll(JumpBar.LIST);
 		removeAll(JumpBarTick.LIST);
-		removeAll(KeyIcon.LIST);
+		removeAll(keyIcons);
 	}
 	
 	private void addAllPlayerImages(int number) {
 		addAll(Jumper.get(number), JumpBarBackground.get(number), JumpBar.get(number), JumpBarTick.get(number),
-				KeyIcon.get(number));
+				keyIcons.get(number - 1));
 	}
 	
 	@Override

@@ -1,26 +1,18 @@
-package minigames.hurdles.imagelayer;
-
-import java.util.*;
+package minigames;
 
 import base.panes.ImagePane;
 import fxutils.Images;
 import game.MainScene;
+import minigames.hurdles.imagelayer.Coords;
 import players.*;
 
 public final class KeyIcon extends ImagePane implements PlayerNumbered {
 
 	public static final double Y = MainScene.DEFAULT_HEIGHT - 64;
 	
-	public static final List<KeyIcon> LIST = Collections.unmodifiableList(Arrays.asList(
-			new KeyIcon(1), new KeyIcon(2), new KeyIcon(3), new KeyIcon(4)));
-	
-	public static KeyIcon get(int number) {
-		return LIST.get(Player.validate(number) - 1);
-	}
-	
 	private final int number;
 	
-	private KeyIcon(int number) {
+	public KeyIcon(int number) {
 		super(Images.singleKeyImage(number));
 		this.number = number;
 		setIdealCenterX(Coords.get().xCenter(number));
