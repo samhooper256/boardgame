@@ -28,9 +28,6 @@ public class BoardFXLayer extends FXLayer {
 				medals[mindex][player] = ml;
 				getChildren().add(ml);
 				ml.setVisible(false);
-				Point2D coords = MedalCoords.forPlayer(player).medal(mindex);
-				ml.setLayoutX(coords.getX() + 18);
-				ml.setLayoutY(coords.getY() - 18);
 			}
 		}
 		for(int player = 1; player <= Player.maxCount(); player++) {
@@ -51,12 +48,26 @@ public class BoardFXLayer extends FXLayer {
 	}
 	
 	public void start() {
+		int pc = gamePane().playerCount();
+		layoutMedalIcons(pc);
 		for(int mindex = 0; mindex < medals.length; mindex++)
 			for(int player = 1; player <= Board.maxPlayerCount(); player++)
-				medals[mindex][player].setVisible(player <= gamePane().playerCount());
+				medals[mindex][player].setVisible(player <= pc);
 		eventTitle.fader().disappear();
 		eventDescription.fader().disappear();
 		pressAnyKey.fader().disappear();
+	}
+	
+	private void layoutMedalIcons(int pc) {
+		for(int p = 1; p <= pc; p++) {
+			MedalCoords mc = MedalCoords.forPlayer(pc, p);
+			for(int mindex = 0; mindex < medals.length; mindex++) {
+				Point2D coords = mc.medal(mindex);
+				MedalLabel ml = medals[mindex][p];
+				ml.setLayoutX(coords.getX() + 18);
+				ml.setLayoutY(coords.getY() - 18);
+			}
+		}
 	}
 	
 	public void showSimpleTextEvent(SimpleTextEvent event) {

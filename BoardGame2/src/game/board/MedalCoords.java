@@ -18,27 +18,44 @@ public class MedalCoords {
 			QUAD_X = {0, -DEFAULT_WIDTH * .25, DEFAULT_WIDTH * .25, -DEFAULT_WIDTH * .25, DEFAULT_WIDTH * .25},
 			QUAD_Y = {0, -DEFAULT_HEIGHT * .25, -DEFAULT_HEIGHT * .25, DEFAULT_HEIGHT * .25, DEFAULT_HEIGHT * .25};
 	
+	/** [total player count][player number]*/
 	private static final MedalCoords[][] STORE = new MedalCoords[Player.maxCount() + 1][];
 	
 	static {
-		STORE[Player.maxCount()] = new MedalCoords[Player.maxCount() + 1];
-		for(int i = 1; i <= Player.maxCount(); i++) {
-			STORE[Player.maxCount()][i] = new MedalCoords(
-					quad(i, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .4),
-					quad(i, DEFAULT_WIDTH * .35, DEFAULT_HEIGHT * .6),
-					quad(i, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .6),
-					quad(i, DEFAULT_WIDTH * .65, DEFAULT_HEIGHT * .6)
-			);
+		for(int pc = 2; pc <= 4; pc++) {
+			STORE[pc] = new MedalCoords[pc + 1];
+			for(int p = 1; p <= pc; p++) {
+				STORE[pc][p] = new MedalCoords(
+						scale(p, pc, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .4),
+						scale(p, pc, DEFAULT_WIDTH * .35, DEFAULT_HEIGHT * .6),
+						scale(p, pc, DEFAULT_WIDTH * .5, DEFAULT_HEIGHT * .6),
+						scale(p, pc, DEFAULT_WIDTH * .65, DEFAULT_HEIGHT * .6)
+				);
+			}
 		}
 	}
 	
-	//TODO REMOVE THIS METHOD
-	public static MedalCoords forPlayer(int player) {
-		return forPlayer(player, Player.maxCount());
-	}
-	
-	public static MedalCoords forPlayer(int player, int playerCount) {
+	public static MedalCoords forPlayer(int playerCount, int player) {
 		return STORE[Player.validate(playerCount)][Player.validate(player)];
+	}
+
+	private static Point2D scale(int player, int playerCount, double x, double y) {
+		if(player < 1 || player > playerCount)
+			throw new IllegalArgumentException(String.format("player < playerCount (%d < %d)", player, playerCount));
+		if(playerCount == 4) {
+			return quad(player, x, y);
+		}
+		else if(playerCount == 3) {
+			if(player <= 2)
+				return quad(player, x, y);
+			return bottomCentered(x, y);
+		}
+		else if(playerCount == 2) {
+			if(player == 1)
+				return quad(1, x, y);
+			return quad(4, x, y);
+		}
+		throw new IllegalArgumentException(String.format("playerCount: %d", playerCount));
 	}
 	
 	/** Scales the given coordinates (which are in terms of the entire screen) down to the given quadrant. Quadrants:
@@ -49,6 +66,11 @@ public class MedalCoords {
 	private static Point2D quad(int quad, double x, double y) {
 		Point2D p = Points.zoom(x, y, .5);
 		return new Point2D(p.getX() + QUAD_X[quad], p.getY() + QUAD_Y[quad]);
+	}
+
+	private static Point2D bottomCentered(double x, double y) {
+		Point2D p = Points.zoom(x, y, .5);
+		return new Point2D(p.getX(), p.getY() + QUAD_Y[3]);
 	}
 	
 	private final Point2D player;

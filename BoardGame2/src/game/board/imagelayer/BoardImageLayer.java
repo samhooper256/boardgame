@@ -21,20 +21,22 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	private final Ring[] rings; //index i is the ring for player i;
 	private final Helper helper;
 	
-	/** Maps each player number to a {@link List} of all the {@link ImagePane} that make up that player's medal area.
-	 * (Specifically, each list will contain four images: three medals and a player icon).*/
-	private final Map<Integer, List<ImagePane>> medalAreaImages;
+	/** [total player count][player number] */
+	private final List<ImagePane>[][] medalAreaImages;
 	
 	private List<Tile> tiles;
 	private WalkAnimation currentWalk;
 	private long elapsed;
 	
+	@SuppressWarnings("unchecked")
 	public BoardImageLayer() {
 		helper = new Helper();
 		this.rings = new Ring[Board.maxPlayerCount() + 1];
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			rings[i] = new Ring();
-		medalAreaImages = new HashMap<>();
+		medalAreaImages = (List<ImagePane>[][]) new List[Player.maxCount() + 1][];
+		for(int pc = 2; pc <= Player.maxCount(); pc++)
+			medalAreaImages[pc] = (List<ImagePane>[]) new List[pc + 1];
 		createMedalAreas();
 		tiles = Collections.emptyList();
 	}
@@ -120,28 +122,34 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	}
 	
 	private void createMedalAreas() {
-		for(int i = 1; i <= Board.maxPlayerCount(); i++) {
-			MedalCoords coords = MedalCoords.forPlayer(i);
-			ImagePane p = new ImagePane(Images.player(i));
-			MedalIcon gold = new MedalIcon(Medal.GOLD, .25);
-			MedalIcon silver = new MedalIcon(Medal.SILVER, .25);
-			MedalIcon bronze = new MedalIcon(Medal.BRONZE, .25);
-			p.setIdealCenter(coords.player());
-			gold.setIdealCenter(coords.gold());
-			silver.setIdealCenter(coords.silver());
-			bronze.setIdealCenter(coords.bronze());
-			medalAreaImages.put(i, Arrays.asList(p, gold, silver, bronze));
+		for(int pc = 2; pc <= Player.maxCount(); pc++) {
+			for(int p = 1; p <= pc; p++) {
+				MedalCoords coords = MedalCoords.forPlayer(pc, p);
+				ImagePane pip = new ImagePane(Images.player(p));
+				MedalIcon gold = new MedalIcon(Medal.GOLD, .25);
+				MedalIcon silver = new MedalIcon(Medal.SILVER, .25);
+				MedalIcon bronze = new MedalIcon(Medal.BRONZE, .25);
+				pip.setIdealCenter(coords.player());
+				gold.setIdealCenter(coords.gold());
+				silver.setIdealCenter(coords.silver());
+				bronze.setIdealCenter(coords.bronze());
+				medalAreaImages[pc][p] = Arrays.asList(pip, gold, silver, bronze);
+			}
 		}
 	}
 	
 	private void removeMedalAreas() {
-		for(int i = 1; i <= Board.maxPlayerCount(); i++)
-			removeAll(medalAreaImages.get(i));
+		for(List<ImagePane>[] row : medalAreaImages)
+			if(row != null)
+				for(List<ImagePane> list : row)
+					if(list != null)
+						removeAll(list);
 	}
 	
 	private void addMedalAreas() {
-		for(int i = 1; i <= gamePane().playerCount(); i++)
-			addAll(medalAreaImages.get(i));
+		int pc = gamePane().playerCount();
+		for(int p = 1; p <= pc; p++)
+			addAll(medalAreaImages[pc][p]);
 	}
 	
 	@Override
