@@ -17,12 +17,13 @@ public abstract class Minigame extends GamePane implements Updatable {
 	private final RewardsDisplay rewardsDisplay;
 	
 	private MinigameResult result;
+	private boolean exitStarted;
 	
 	public Minigame(MiniTag tag, MinigameImageLayer imageLayer, FXLayer fxLayer) {
 		super(imageLayer, fxLayer);
 		this.tag = tag;
 		rewardsDisplay = new RewardsDisplay();
-		result = null;
+		//result and exitStarted are set in start()
 		imageLayer.setGamePane(this);
 		fxLayer.setGamePane(this);
 		imageLayer().initRewardsDisplay();
@@ -37,6 +38,7 @@ public abstract class Minigame extends GamePane implements Updatable {
 	 * {@link #startMinigame()}.</p> */
 	public final void start() {
 		result = null;
+		exitStarted = false;
 		rewardsDisplay().hide();
 		startMinigame();
 	}
@@ -76,8 +78,10 @@ public abstract class Minigame extends GamePane implements Updatable {
 				imageLayer().fadeOutInstructions();
 		}
 		else if(isFinished()) {
-			if(kc == GameInput.controls().next())
+			if(!exitStarted && kc == GameInput.controls().next()) {
+				exitStarted = true;
 				MainScene.get().fadeBackFromMinigame(getResult());
+			}
 		}
 		else {
 			keyPressedIngame(kc);

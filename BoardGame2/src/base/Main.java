@@ -15,9 +15,6 @@ import players.Player;
 // - Instructions for hurdles and running.
 // - somewhere tell the user that gold medals are worth 3, silver 2, bronze 1.
 // - Hurdles bug: if the meter is fully charged when the game ends.
-// - make "space to continue" in WinPane actually work; add "fade back to main menu" FadeLayer.
-// - pause screen needs a "resume" button
-// - make all the components of the StealEvent fadeable.
 public class Main extends Application {
 
 	public static final String TITLE = "Olympics";
