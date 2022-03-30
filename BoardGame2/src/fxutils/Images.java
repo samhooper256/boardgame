@@ -111,10 +111,10 @@ public final class Images {
 	private static final Image[][] MINIGAME_SPRITES = {
 		null,
 		{
-			getSprite("TreeSprite0.png"),
-			getSprite("TreeSprite1.png"),
-			getSprite("TreeSprite2.png"),
-			getSprite("TreeSprite3.png")
+			getSprite("nymphsprite1.png"),
+			getSprite("nymphsprite2.png"),
+			getSprite("nymphsprite3.png"),
+			getSprite("nymphsprite4.png")
 		},
 		{
 			getSprite("LyreSprite0.png"),
