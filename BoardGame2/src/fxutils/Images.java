@@ -34,7 +34,7 @@ public final class Images {
 		AVATAR_ACTIVE_BORDER = get("avatar_active_border.png"),
 		AVATAR_INACTIVE_BORDER = get("avatar_inactive_border.png"),
 		//player icons
-		TREE = get("TreePlayer.png"), // player 1
+		TREE = get("TreePlayer.png"), // player 1 - nymph/tree
 		LYRE = get("LyrePlayer.png"), //player 2
 		WARRIOR = get("WarriorPlayer.png"), //player 3
 		WINGS = get("WingsPlayer.png"), //player 4
@@ -111,10 +111,10 @@ public final class Images {
 	private static final Image[][] MINIGAME_SPRITES = {
 		null,
 		{
-			getSprite("nymphsprite1.png"),
-			getSprite("nymphsprite2.png"),
-			getSprite("nymphsprite3.png"),
-			getSprite("nymphsprite4.png")
+			getSprite("NymphSprite0.png"),
+			getSprite("NymphSprite1.png"),
+			getSprite("NymphSprite2.png"),
+			getSprite("NymphSprite3.png")
 		},
 		{
 			getSprite("LyreSprite0.png"),

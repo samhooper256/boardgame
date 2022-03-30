@@ -1,4 +1,4 @@
-package minigames.sprites;
+	package minigames.sprites;
 
 import base.HitRegion;
 import base.panes.ImagePane;
