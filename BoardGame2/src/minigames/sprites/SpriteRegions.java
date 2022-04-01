@@ -27,7 +27,11 @@ public final class SpriteRegions {
 		switch(sprite) {
 			case 0:
 				switch(n) {
-					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 1: return new HitRegion(ip, 
+						fc(21, 116, 87, 150),
+						fc(64, 55, 84, 117),
+						fc(26, 1, 65, 117)
+					);
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 3: return new HitRegion(ip, 
 						fc(65, 105, 90, 150),
@@ -40,7 +44,11 @@ public final class SpriteRegions {
 				}
 			case 1:
 				switch(n) {
-					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 1: return new HitRegion(ip, 
+						fc(39, 123, 66, 150),
+						fc(26, 103, 81, 124),
+						fc(26, 1, 77, 104)
+					);
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 3: return new HitRegion(ip,
 						fc(54, 106, 77, 150),
@@ -53,7 +61,12 @@ public final class SpriteRegions {
 				}
 			case 2:
 				switch(n) {
-					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 1: return new HitRegion(ip,
+						fc(28, 118, 75, 150),
+						fc(29, 102, 84, 119),
+						fc(29, 62, 80, 103),
+						fc(29, 0, 69, 63)
+					);
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 3: return new HitRegion(ip, 
 						fc(34, 105, 80, 150),
@@ -65,7 +78,12 @@ public final class SpriteRegions {
 				}
 			case 3:
 				switch(n) {
-					case 1: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
+					case 1: return new HitRegion(ip,
+						fc(23, 118, 88, 147),
+						fc(26, 94, 81, 119),
+						fc(26, 71, 72, 95),
+						fc(26, 0, 66, 72)
+					);
 					case 2: return new HitRegion(ip, RectBounds.of(0, 0, Images.SPRITE_WIDTH, Images.SPRITE_HEIGHT));
 					case 3: return new HitRegion(ip, 
 						fc(32, 42, 91, 150),

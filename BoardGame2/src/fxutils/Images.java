@@ -210,7 +210,7 @@ public final class Images {
 	
 	public static int stillSpriteIndex(int player) {
 		switch(player) {
-			case 1: return 3;
+			case 1: return 1;
 			case 2: return 3;
 			case 3: return 3;
 			case 4: return 3;
@@ -227,7 +227,7 @@ public final class Images {
 	
 	public static int airSpriteIndex(int player) {
 		switch(player) {
-			case 1: return 1;
+			case 1: return 0;
 			case 2: return 1;
 			case 3: return 1;
 			case 4: return 1;
