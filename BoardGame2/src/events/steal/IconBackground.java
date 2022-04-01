@@ -13,7 +13,7 @@ import players.*;
 public class IconBackground extends ImagePane implements Fadeable, PlayerNumbered {
 
 	public static final List<IconBackground> LIST = Collections.unmodifiableList(Arrays.asList(
-			new IconBackground(1), new IconBackground(1), new IconBackground(1), new IconBackground(1)));
+			new IconBackground(1), new IconBackground(2), new IconBackground(3), new IconBackground(4)));
 	
 	public static IconBackground of(int number) {
 		return LIST.get(Player.validate(number) - 1);

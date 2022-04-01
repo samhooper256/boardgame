@@ -34,10 +34,11 @@ public class MedalCounter {
 	 * unsuccessful if there were no medals of the given tier). */
 	public boolean remove(Medal medal) {
 		int current = get(medal);
-		if(current == 0)
-			return false;
-		map.put(medal, current - 1);
-		return true;
+		boolean result = current != 0;
+		if(result)
+			map.put(medal, current - 1);
+		runChangeListeners();
+		return result;
 	}
 	
 	public void removeOrThrow(Medal medal) {
