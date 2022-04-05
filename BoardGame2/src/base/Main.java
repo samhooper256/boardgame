@@ -14,7 +14,6 @@ import players.Player;
 //TODO:
 // - Instructions for hurdles and running.
 // - somewhere tell the user that gold medals are worth 3, silver 2, bronze 1.
-// - Hurdles bug: if the meter is fully charged when the game ends.
 public class Main extends Application {
 
 	public static final String TITLE = "Olympics";

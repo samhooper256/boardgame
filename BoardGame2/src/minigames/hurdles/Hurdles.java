@@ -58,6 +58,7 @@ public class Hurdles extends Minigame {
 	}
 
 	public void kill(Jumper j) {
+		j.bar().reset();
 		imageLayer().kill(j);
 		survivals.add(new Survival(j.number(), j.lethalHurdle().index()));
 		playersRemaining().remove(j.number());

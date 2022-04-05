@@ -71,7 +71,7 @@ public class HurdlesImageLayer extends MinigameImageLayer {
 	}
 	
 	private void addAllPlayerImages(int number) {
-		addAll(Jumper.get(number), JumpBarBackground.get(number), JumpBar.get(number), JumpBarTick.get(number),
+		addAll(Jumper.get(number), JumpBarBackground.get(number), Jumper.get(number).bar(), JumpBarTick.get(number),
 				keyIcons.get(number - 1));
 	}
 	

@@ -110,7 +110,7 @@ public final class Jumper extends ImagePane implements Updatable, AcceptsInput, 
 	public void tryJump(double charge) {
 		if(!onGround)
 			return;
-		double p = JumpBar.get(number).optimalCharge();
+		double p = bar().optimalCharge();
 		double mult = (-Math.abs(charge - p) + p) / p;
 		onGround = false;
 		yvel = JUMP_VEL * mult;
@@ -152,6 +152,10 @@ public final class Jumper extends ImagePane implements Updatable, AcceptsInput, 
 	@Override
 	public SpriteAnimator animator() {
 		return animator;
+	}
+	
+	public JumpBar bar() {
+		return JumpBar.get(number);
 	}
 	
 }

@@ -67,6 +67,12 @@ public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 			stopCharging();
 	}
 	
+	/** Sets the {@link #charge()} to {@code 0.0} <em>without</em> causing the corresponding {@link Jumper} to jump. */
+	public void reset() {
+		chargingElapsed = -1;
+		resetClip();
+	}
+	
 	public void startCharging() {
 		chargingElapsed = 0;
 	}
@@ -75,8 +81,7 @@ public class JumpBar extends ImagePane implements Updatable, AcceptsInput {
 		if(!hasCharge())
 			return;
 		Jumper.get(number).tryJump(charge());
-		chargingElapsed = -1;
-		resetClip();
+		reset();
 	}
 	
 	public boolean isCharging() {
