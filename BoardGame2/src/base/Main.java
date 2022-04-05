@@ -12,7 +12,8 @@ import javafx.stage.Stage;
 import players.Player;
 
 //TODO:
-// - Instructions for hurdles and running.
+// - Hurdles Instructions: add better background.
+// - Running Instructions: add final obstacle images, add better background.
 // - somewhere tell the user that gold medals are worth 3, silver 2, bronze 1.
 public class Main extends Application {
 
@@ -21,7 +22,7 @@ public class Main extends Application {
 	
 	private static Stage stage;
 	
-	public static final List<Point2D> POINTS = new ArrayList<>(Arrays.asList(
+	public static final List<Point2D> POINTS = Collections.unmodifiableList(Arrays.asList(
 			new Point2D(55.38,31.11), //top left corner
 			new Point2D(210.76, 31.11),
 			new Point2D(366.14, 31.11),
