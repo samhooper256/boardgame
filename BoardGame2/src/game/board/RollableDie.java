@@ -34,21 +34,28 @@ public final class RollableDie extends ImagePane implements Die, Updatable {
 	
 	private int currentFace, nextSwitchIndex;
 	private long rollElapsed;
+	private boolean glowing;
 	
 	private RollableDie() {
 		super(Images.die(DEFAULT_FACE));
 		currentFace = DEFAULT_FACE;
 		rollElapsed = -1;
+		glowing = false;
 		Screen.center(this);
 		this.setOnMouseClicked(eh -> tryRoll());
 	}
 	
 	public void tryRoll() {
-		if(Board.get().readyToRoll() && !isRolling())
+		if(canRoll())
 			startRoll();
 	}
 	
+	public boolean canRoll() {
+		return Board.get().readyToRoll() && !isRolling();
+	}
+	
 	private void startRoll() {
+		setGlowing(false);
 		Board.il().notifyRollableDieRolled();
 		rollElapsed = 0;
 		nextSwitchIndex = 1;
@@ -83,8 +90,25 @@ public final class RollableDie extends ImagePane implements Die, Updatable {
 		return face;
 	}
 	
+	void notifyBoardWasSetReadyToRoll() {
+		setGlowing(true);
+	}
+	
 	public boolean isRolling() {
 		return rollElapsed >= 0;
+	}
+	
+	public void setGlowing(boolean glowing) {
+		boolean old = this.glowing;
+		this.glowing = glowing;
+		if(!old && glowing)
+			DieGlow.get().startFadingIn();
+		else if(old && !glowing)
+			DieGlow.get().hide();
+	}
+	
+	public boolean isGlowing() {
+		return glowing;
 	}
 
 	@Override

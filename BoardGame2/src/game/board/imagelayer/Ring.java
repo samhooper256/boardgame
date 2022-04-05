@@ -12,7 +12,7 @@ public class Ring extends FadeableImagePane implements Updatable {
 
 	private static final double ANGULAR_VELOCITY = 15; //degrees/sec
 	
-	private static final Duration
+	public static final Duration
 			FADE_OUT_DURATION = BoardFade.FADE_OUT,
 			FADE_IN_DURATION = BoardFade.FADE_IN;
 	

@@ -46,6 +46,7 @@ public final class Images {
 		DIE4 = get("Dice4.png"),
 		DIE5 = get("Dice5.png"),
 		DIE6 = get("Dice6.png"),
+		DIE_GLOW = get("DieGlow.png"),
 		//keys
 		KEY_M = get("M.png"),
 		KEY_X = get("X.png"),

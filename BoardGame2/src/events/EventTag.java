@@ -13,8 +13,7 @@ public enum EventTag {
 	INJURY(InjuryEvent::new),
 	STEAL(StealEvent::new);
 
-	private static final EnumSet<EventTag> ENABLED = EnumSet.of(EventTag.STEAL);
-//	private static final EnumSet<EventTag> ENABLED = EnumSet.allOf(EventTag.class);
+	private static final EnumSet<EventTag> ENABLED = EnumSet.allOf(EventTag.class);
 	private static final List<EventTag> ENABLED_AS_LIST = new ArrayList<>(ENABLED);
 	
 	public static EventTag random() {

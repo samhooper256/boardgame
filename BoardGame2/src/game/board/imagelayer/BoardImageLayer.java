@@ -46,6 +46,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 		add(new ImagePane(Images.BOARD_BACKGROUND));
 		for(int i = 1; i <= Board.maxPlayerCount(); i++)
 			add(rings[i]);
+		add(DieGlow.get()); //RollableDie/FixedDies are added by BoardAnimations.
 		add(1, EventBackground.get());
 		for(int i = 1; i <= Player.maxCount(); i++)
 			rings[i].lockCoordinatesTo(Player.get(i));
@@ -155,6 +156,7 @@ public class BoardImageLayer extends AbstractImageLayer implements Updatable {
 	@Override
 	public void updatePane(long diff) {
 		elapsed += diff;
+		DieGlow.get().update(diff);
 		if(!HelperInfo.get().hasRolledRollableDie() && elapsed >= HELPER_SHOW_DELAY) {
 			helper.setVisible(true);
 			helper.update(diff);

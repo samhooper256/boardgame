@@ -60,7 +60,7 @@ public class Board extends GamePane implements Updatable {
 	public void start(int playerCount) {
 		this.playerCount = playerCount;
 		turn = 1;
-		readyToRoll = false;
+		setReadyToRoll(false);
 		currentEvent = null;
 		Player.resetAll();
 		setupFirstDie();
@@ -73,7 +73,7 @@ public class Board extends GamePane implements Updatable {
 	}
 	
 	public void executeTurn(int diceRoll) {
-		readyToRoll = false;
+		setReadyToRoll(false);
 		Player p = Player.get(turn);
 		if(p.tile().index() + diceRoll >= TILE_COUNT)
 			diceRoll = TILE_COUNT - p.tile().index();
@@ -103,7 +103,7 @@ public class Board extends GamePane implements Updatable {
 		RollType firstRollType = currentPlayer().rollType();
 		BoardAnimations.setupFirstDie(firstRollType);
 		lastRollType = firstRollType;
-		readyToRoll = true;
+		setReadyToRoll(true);
 	}
 	
 	private void setupDie() {
@@ -125,7 +125,7 @@ public class Board extends GamePane implements Updatable {
 			//readyToRoll is set to true after the transition finishes.
 			BoardAnimations.transitionToRandomRoll(this::rollTransitionFinished);
 		else
-			readyToRoll = true;
+			setReadyToRoll(true);
 	}
 	
 	private void setupChooseDie() {
@@ -133,11 +133,11 @@ public class Board extends GamePane implements Updatable {
 			//readyToRoll is set to true after the transition finishes.
 			BoardAnimations.transitionToChooseRoll(this::rollTransitionFinished);
 		else
-			readyToRoll = true;
+			setReadyToRoll(true);
 	}
 	
 	private void rollTransitionFinished() {
-		readyToRoll = true;
+		setReadyToRoll(true);
 	}
 	
 	/** Called immediately after the {@link BoardFade} disappears and the user is looking at the {@link Board}. */
@@ -148,7 +148,7 @@ public class Board extends GamePane implements Updatable {
 	}
 	
 	public void showEvent(Event event) {
-		readyToRoll = false;
+		setReadyToRoll(false);
 		if(event instanceof SimpleTextEvent)
 			showSimpleTextEvent((SimpleTextEvent) event);
 		else
@@ -185,7 +185,7 @@ public class Board extends GamePane implements Updatable {
 		fxLayer().eventFinished();
 		incrementTurn();
 		currentEvent = null;
-		readyToRoll = true;
+		setReadyToRoll(true);
 	}
 	
 	public void endGame() {
@@ -206,6 +206,12 @@ public class Board extends GamePane implements Updatable {
 	
 	public boolean readyToRoll() {
 		return readyToRoll;
+	}
+	
+	private void setReadyToRoll(boolean readyToRoll) {
+		this.readyToRoll = readyToRoll;
+		if(readyToRoll())
+			RollableDie.get().notifyBoardWasSetReadyToRoll();
 	}
 	
 	public int playerCount() {
