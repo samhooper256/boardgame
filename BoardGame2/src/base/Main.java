@@ -14,7 +14,6 @@ import players.Player;
 //TODO:
 // - Hurdles Instructions: add better background.
 // - Running Instructions: add final obstacle images, add better background.
-// - hide unused ScoreLabels
 // - do chained Athenas work?
 // - somewhere tell the user that gold medals are worth 3, silver 2, bronze 1.
 public class Main extends Application {
