@@ -41,11 +41,11 @@ public class BoardFXLayer extends FXLayer {
 				medalLabels[Medal.GOLD.index()][p].setValue(c.get(Medal.GOLD));
 				medalLabels[Medal.SILVER.index()][p].setValue(c.get(Medal.SILVER));
 				medalLabels[Medal.BRONZE.index()][p].setValue(c.get(Medal.BRONZE));
-				scoreLabel(p).setValue(c.score());
+				scoreLabels[p].setValue(c.score());
 			};
 			c.addChangeListener(mccl);
 			scoreLabels[player] = new ScoreLabel();
-			getChildren().add(scoreLabel(player));
+			getChildren().add(scoreLabels[player]);
 		}
 		eventTitle = new EventTitle();
 		eventDescription = new EventDescription();
@@ -61,6 +61,8 @@ public class BoardFXLayer extends FXLayer {
 		for(int mindex = 0; mindex < medalLabels.length; mindex++)
 			for(int player = 1; player <= Board.maxPlayerCount(); player++)
 				medalLabels[mindex][player].setVisible(player <= pc);
+		for(int player = 1; player <= Board.maxPlayerCount(); player++)
+			scoreLabels[player].setVisible(player <= pc);
 		eventTitle.fader().disappear();
 		eventDescription.fader().disappear();
 		pressAnyKey.fader().disappear();
@@ -81,7 +83,7 @@ public class BoardFXLayer extends FXLayer {
 	private void layoutScoreLabels(final int pc) {
 		for(int p = 1; p <= pc; p++) {
 			MedalCoords mc = MedalCoords.forPlayer(pc, p);
-			ScoreLabel pi = scoreLabel(p);
+			ScoreLabel pi = scoreLabels[p];
 			Point2D player = mc.player();
 			pi.setLayoutX(player.getX() - 32);
 			pi.setLayoutY(player.getY() + 24);
@@ -123,11 +125,6 @@ public class BoardFXLayer extends FXLayer {
 				if(node instanceof Fadeable)
 					((Fadeable) node).fader().fadeOutAndHide();
 		}
-	}
-	
-	/** @param player 1-based */
-	private ScoreLabel scoreLabel(int player) {
-		return scoreLabels[player];
 	}
 	
 	public void eventFinished() {
