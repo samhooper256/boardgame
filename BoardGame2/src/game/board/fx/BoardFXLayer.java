@@ -15,17 +15,21 @@ import players.Player;
 public class BoardFXLayer extends FXLayer {
 	
 	/** row=medal, col=player*/
-	private final MedalLabel[][] medals = new MedalLabel[Medal.count()][Player.maxCount() + 1];
+	private final MedalLabel[][] medalLabels;
+	/** index=player */
+	private final ScoreLabel[] scoreLabels;
 	private final EventTitle eventTitle;
 	private final EventDescription eventDescription;
 	private final PressAnyKey pressAnyKey;
 	private final Pane customNodes;
 	
 	public BoardFXLayer() {
-		for(int mindex = 0; mindex < medals.length; mindex++) {
-			for(int player = 1; player < medals[mindex].length; player++) {
+		medalLabels = new MedalLabel[Medal.count()][Player.maxCount() + 1];
+		scoreLabels = new ScoreLabel[Player.maxCount() + 1];
+		for(int mindex = 0; mindex < medalLabels.length; mindex++) {
+			for(int player = 1; player < medalLabels[mindex].length; player++) {
 				MedalLabel ml = new MedalLabel(0);
-				medals[mindex][player] = ml;
+				medalLabels[mindex][player] = ml;
 				getChildren().add(ml);
 				ml.setVisible(false);
 			}
@@ -33,12 +37,15 @@ public class BoardFXLayer extends FXLayer {
 		for(int player = 1; player <= Player.maxCount(); player++) {
 			MedalCounter c = Player.get(player).medalCounter();
 			final int p = player;
-			Runnable changeListener = () -> {
-				medals[Medal.GOLD.index()][p].setValue(c.get(Medal.GOLD));
-				medals[Medal.SILVER.index()][p].setValue(c.get(Medal.SILVER));
-				medals[Medal.BRONZE.index()][p].setValue(c.get(Medal.BRONZE));
+			Runnable mccl = () -> {
+				medalLabels[Medal.GOLD.index()][p].setValue(c.get(Medal.GOLD));
+				medalLabels[Medal.SILVER.index()][p].setValue(c.get(Medal.SILVER));
+				medalLabels[Medal.BRONZE.index()][p].setValue(c.get(Medal.BRONZE));
+				scoreLabel(p).setValue(c.score());
 			};
-			c.addChangeListener(changeListener);
+			c.addChangeListener(mccl);
+			scoreLabels[player] = new ScoreLabel();
+			getChildren().add(scoreLabel(player));
 		}
 		eventTitle = new EventTitle();
 		eventDescription = new EventDescription();
@@ -49,24 +56,35 @@ public class BoardFXLayer extends FXLayer {
 	
 	public void start() {
 		int pc = gamePane().playerCount();
-		layoutMedalIcons(pc);
-		for(int mindex = 0; mindex < medals.length; mindex++)
+		layoutMedalLabels(pc);
+		layoutScoreLabels(pc);
+		for(int mindex = 0; mindex < medalLabels.length; mindex++)
 			for(int player = 1; player <= Board.maxPlayerCount(); player++)
-				medals[mindex][player].setVisible(player <= pc);
+				medalLabels[mindex][player].setVisible(player <= pc);
 		eventTitle.fader().disappear();
 		eventDescription.fader().disappear();
 		pressAnyKey.fader().disappear();
 	}
 	
-	private void layoutMedalIcons(int pc) {
+	private void layoutMedalLabels(final int pc) {
 		for(int p = 1; p <= pc; p++) {
 			MedalCoords mc = MedalCoords.forPlayer(pc, p);
-			for(int mindex = 0; mindex < medals.length; mindex++) {
+			for(int mindex = 0; mindex < medalLabels.length; mindex++) {
 				Point2D coords = mc.medal(mindex);
-				MedalLabel ml = medals[mindex][p];
+				MedalLabel ml = medalLabels[mindex][p];
 				ml.setLayoutX(coords.getX() + 18);
 				ml.setLayoutY(coords.getY() - 18);
 			}
+		}
+	}
+	
+	private void layoutScoreLabels(final int pc) {
+		for(int p = 1; p <= pc; p++) {
+			MedalCoords mc = MedalCoords.forPlayer(pc, p);
+			ScoreLabel pi = scoreLabel(p);
+			Point2D player = mc.player();
+			pi.setLayoutX(player.getX() - 32);
+			pi.setLayoutY(player.getY() + 24);
 		}
 	}
 	
@@ -105,6 +123,11 @@ public class BoardFXLayer extends FXLayer {
 				if(node instanceof Fadeable)
 					((Fadeable) node).fader().fadeOutAndHide();
 		}
+	}
+	
+	/** @param player 1-based */
+	private ScoreLabel scoreLabel(int player) {
+		return scoreLabels[player];
 	}
 	
 	public void eventFinished() {
