@@ -36,8 +36,8 @@ public final class Images {
 		//player icons
 		TREE = get("TreePlayer.png"), // player 1 - nymph/tree
 		LYRE = get("LyrePlayer.png"), //player 2
-		WARRIOR = get("WarriorPlayer.png"), //player 3
-		WINGS = get("WingsPlayer.png"), //player 4
+		WARRIOR = get("WarriorPlayer.png"), //player 3 - warrior
+		WINGS = get("WingsPlayer.png"), //player 4 - icarus/wings
 		//die
 		DIE0 = get("DiceBase.png"),
 		DIE1 = get("Dice1.png"),
@@ -130,10 +130,10 @@ public final class Images {
 			getSprite("WarriorSprite3.png")
 		},
 		{
-			getSprite("icarus sprite1.png"),
-			getSprite("icarus sprite2.png"),
-			getSprite("icarus sprite3.png"),
-			getSprite("icarus sprite4.png")
+			getSprite("IcarusSprite0.png"),
+			getSprite("IcarusSprite1.png"),
+			getSprite("IcarusSprite2.png"),
+			getSprite("IcarusSprite3.png")
 		}
 	};
 	
@@ -212,7 +212,7 @@ public final class Images {
 	public static int stillSpriteIndex(int player) {
 		switch(player) {
 			case 1: return 1;
-			case 2: return 3;
+			case 2: return 3; //TODO
 			case 3: return 3;
 			case 4: return 3;
 			default: throw new IllegalArgumentException(String.format("Player: %d", player));
@@ -229,9 +229,9 @@ public final class Images {
 	public static int airSpriteIndex(int player) {
 		switch(player) {
 			case 1: return 0;
-			case 2: return 1;
+			case 2: return 1; //TODO
 			case 3: return 1;
-			case 4: return 1;
+			case 4: return 0;
 			default: throw new IllegalArgumentException(String.format("Player: %d", player));
 		}
 	}
