@@ -5,8 +5,11 @@ public interface TemporaryPassive extends Passive {
 	
 	int turnsRemaining();
 	
+	/** Called when a turn has elapsed. */
 	void turnElapsed();
 	
 	void wearOff();
+	
+	void setTurnsRemaining(int turnsRemaining);
 	
 }

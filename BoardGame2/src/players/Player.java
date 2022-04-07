@@ -60,9 +60,43 @@ public class Player extends PlayerIcon {
 		current = StartTile.get();
 	}
 	
+	/** If this {@link Player} already {@link #hasPassive(PassiveTag) has} a {@link Passive} with the given
+	 * {@link PassiveTag tag}, then all of the following occur:
+	 * <ol>
+	 * <li>{@link Passive#activate()} is <em>not</em> called on the given passive</li>
+	 * <li>The given passive is <em>not</em> added to {@link #passivesUnmodifiable()}</li>
+	 * <li>The {@link TemporaryPassive#turnsRemaining() turnsRemaining()} of the current passive with the given's tag
+	 * is incremented by the given's number of turns remaining, if applicable. </li>
+	 * </ol>*/
 	public void acquirePassive(Passive p) {
-		p.activate();
-		passives.add(p);
+		if(hasPassive(p.tag())) {
+			if(p.isTemporary()) {
+				TemporaryPassive current = (TemporaryPassive) getPassive(p.tag());
+				current.setTurnsRemaining(current.turnsRemaining() + ((TemporaryPassive) p).turnsRemaining());
+			}
+			//if p is not temporary, do nothing.
+		}
+		else {
+			p.activate();
+			passives.add(p);
+		}
+	}
+
+	public boolean hasPassive(PassiveTag tag) {
+		return getPassive(tag) != null;
+	}
+	
+	/** Returns {@code null} if no {@link Passive} with the given {@link PassiveTag}. */
+	public Passive getPassive(PassiveTag tag) {
+		for(Passive p : passives)
+			if(p.tag() == tag)
+				return p;
+		return null;
+	}
+	
+	
+	public List<Passive> passivesUnmodifiable() {
+		return Collections.unmodifiableList(passives);
 	}
 	
 	public void turnFinished() {

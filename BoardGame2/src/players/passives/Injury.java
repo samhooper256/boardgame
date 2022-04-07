@@ -7,7 +7,7 @@ public class Injury extends AbstractTemporaryPassive {
 	private static final int TURNS = 2;
 	
 	public Injury(Player p) {
-		super(p, TURNS);
+		super(PassiveTag.INJURY, p, TURNS);
 	}
 	
 	@Override

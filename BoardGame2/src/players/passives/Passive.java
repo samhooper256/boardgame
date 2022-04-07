@@ -10,4 +10,10 @@ public interface Passive {
 	 * once.*/
 	void activate();
 	
+	PassiveTag tag();
+	
+	default boolean isTemporary() {
+		return this instanceof TemporaryPassive;
+	}
+	
 }

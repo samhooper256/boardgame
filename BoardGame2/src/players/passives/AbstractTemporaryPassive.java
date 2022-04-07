@@ -6,8 +6,8 @@ public abstract class AbstractTemporaryPassive extends AbstractPassive implement
 
 	private int turnsRemaining;
 	
-	public AbstractTemporaryPassive(Player player, int turnCount) {
-		super(player);
+	public AbstractTemporaryPassive(PassiveTag tag, Player player, int turnCount) {
+		super(tag, player);
 		turnsRemaining = turnCount;
 	}
 	
@@ -21,6 +21,11 @@ public abstract class AbstractTemporaryPassive extends AbstractPassive implement
 		turnsRemaining--;
 		if(turnsRemaining <= 0)
 			wearOff();
+	}
+	
+	@Override
+	public void setTurnsRemaining(int turnsRemaining) {
+		this.turnsRemaining = turnsRemaining;
 	}
 
 }
