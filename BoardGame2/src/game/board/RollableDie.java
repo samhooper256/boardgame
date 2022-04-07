@@ -90,7 +90,7 @@ public final class RollableDie extends ImagePane implements Die, Updatable {
 		return face;
 	}
 	
-	void notifyBoardWasSetReadyToRoll() {
+	void notifyBoardWasSetReadyToRollRollable() {
 		setGlowing(true);
 	}
 	

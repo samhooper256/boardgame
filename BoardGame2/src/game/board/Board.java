@@ -132,7 +132,7 @@ public class Board extends GamePane implements Updatable {
 		if(lastRollType == RollType.RANDOM)
 			//readyToRoll is set to true after the transition finishes.
 			BoardAnimations.transitionToChooseRoll(this::rollTransitionFinished);
-		else
+		else 
 			setReadyToRoll(true);
 	}
 	
@@ -185,7 +185,6 @@ public class Board extends GamePane implements Updatable {
 		fxLayer().eventFinished();
 		incrementTurn();
 		currentEvent = null;
-		setReadyToRoll(true);
 	}
 	
 	public void endGame() {
@@ -210,8 +209,8 @@ public class Board extends GamePane implements Updatable {
 	
 	private void setReadyToRoll(boolean readyToRoll) {
 		this.readyToRoll = readyToRoll;
-		if(readyToRoll())
-			RollableDie.get().notifyBoardWasSetReadyToRoll();
+		if(readyToRoll() && currentPlayer().rollType() == RollType.RANDOM)
+			RollableDie.get().notifyBoardWasSetReadyToRollRollable();
 	}
 	
 	public int playerCount() {
