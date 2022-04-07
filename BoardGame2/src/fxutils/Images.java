@@ -130,10 +130,10 @@ public final class Images {
 			getSprite("WarriorSprite3.png")
 		},
 		{
-			getSprite("WingsSprite0.png"),
-			getSprite("WingsSprite1.png"),
-			getSprite("WingsSprite2.png"),
-			getSprite("WingsSprite3.png")
+			getSprite("icarus sprite1.png"),
+			getSprite("icarus sprite2.png"),
+			getSprite("icarus sprite3.png"),
+			getSprite("icarus sprite4.png")
 		}
 	};
 	
