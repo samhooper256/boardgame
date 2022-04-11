@@ -16,7 +16,7 @@ import utils.RNG;
 
 public class RunningImageLayer extends MinigameImageLayer {
 	
-	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.SPRITE_WIDTH * 2; //in pixels.
+	private static final double MIN_DIST_BETWEEN_OBSTACLES = Images.MAX_SPRITE_WIDTH * 2; //in pixels.
 	private static final double OBSTACLE_SPAWN_X = MainScene.DEFAULT_WIDTH * 1.5;
 	/** An {@code int} for use in {@link RNG#intInclusive(int, int)}. */
 	private static final int OBSTACLE_X_STRAY = (int) (MainScene.DEFAULT_WIDTH * .5 - 1);

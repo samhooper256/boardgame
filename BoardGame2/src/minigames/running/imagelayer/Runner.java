@@ -19,8 +19,6 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 	public static final List<Runner> LIST =
 			Collections.unmodifiableList(Arrays.asList(new Runner(1), new Runner(2), new Runner(3), new Runner(4)));
 	
-	public static final double WIDTH = Images.SPRITE_WIDTH;
-	
 	private static final double
 		MAX_JUMP_CHARGE_TIME = .1e9, // 1/10 of a second
 		MAX_JUMP_VELOCITY = -300, //positive is down. -300
@@ -124,7 +122,7 @@ public class Runner extends ImagePane implements Updatable, AcceptsInput, Aligna
 	
 	private void alignForTrusted(int playerCount) {
 		Coords c = Coords.p(playerCount);
-		setIdealX(c.runnerX());
+		setIdealX(c.runnerX(number()));
 		setIdealBottomY(c.playerBottomY(number()));
 	}
 

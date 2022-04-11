@@ -1,5 +1,6 @@
 package minigames.running.imagelayer;
 
+import fxutils.Images;
 import game.MainScene;
 import minigames.running.Running;
 
@@ -8,7 +9,7 @@ import minigames.running.Running;
  * numbered starting at {@code 1}. */
 public final class Coords {
 
-	private static final double RUNNER_X = 192, KEY_ICON_X = RUNNER_X + .5 * Runner.WIDTH - .5 * RunningKeyIcon.WIDTH;
+	private static final double RUNNER_CENTER_X = 192 + 40, KEY_ICON_X = RUNNER_CENTER_X - .5 * RunningKeyIcon.WIDTH;
 	
 	private static final Coords P2 = new Coords(2), P3 = new Coords(3), P4 = new Coords(4);
 	
@@ -57,8 +58,8 @@ public final class Coords {
 		return KEY_ICON_X;
 	}
 	
-	public double runnerX() {
-		return RUNNER_X;
+	public double runnerX(int player) {
+		return RUNNER_CENTER_X - .5 * Images.spriteWidth(player);
 	}
 	
 }

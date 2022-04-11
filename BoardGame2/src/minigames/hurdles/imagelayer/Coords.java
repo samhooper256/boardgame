@@ -6,7 +6,8 @@ import players.Player;
 
 public final class Coords {
 
-	private static final double SPACING = 20;
+	private static final double SPRITE_SPACING = 20;
+	private static final double ASSUMED_SPRITE_WIDTH = 80;
 	
 	private static final Coords INSTANCE = new Coords();
 	
@@ -19,7 +20,7 @@ public final class Coords {
 	private Coords() {
 		xCenters = new double[Player.maxCount()];
 		for(int i = 0; i < xCenters.length; i++)
-			xCenters[i] = Images.SPRITE_WIDTH * (i + 0.5) + SPACING * (i + 1);
+			xCenters[i] = ASSUMED_SPRITE_WIDTH * (i + 0.5) + SPRITE_SPACING * (i + 1);
 	}
 
 	public double xCenter(int player) {

@@ -12,9 +12,18 @@ import players.Player;
  * @author Sam Hooper
  */
 public final class Images {
+	/** The factor by which the image pixel dimensions of sprite images are multiplied. */
+	public static final double SPRITE_SCALE_FACTOR = .8; 
 	
-	public static final double SPRITE_WIDTH = 80, SPRITE_HEIGHT = 120;
+	/** All sprites have the same height. The height in pixels of the image file is 150; this constant is 80% of
+	 * that. */
+	public static final double SPRITE_HEIGHT = 120;
 	public static final int SPRITES = 4;
+	
+	//these are both 80% of the image file's dimensions.
+	private static final double
+		STANDARD_SPRITE_WIDTH = 80,
+		EXTENDED_SPRITE_WIDTH = 160;
 	
 	public static final Image
 		//main menu stuff
@@ -107,6 +116,22 @@ public final class Images {
 		PODIUM_2 = get("2ndPodium.png"),
 		PODIUM_3 = get("3rdPodium.png");
 			
+	private static final double[] SPRITE_WIDTHS = {
+		0,
+		STANDARD_SPRITE_WIDTH,
+		EXTENDED_SPRITE_WIDTH,
+		STANDARD_SPRITE_WIDTH,
+		STANDARD_SPRITE_WIDTH
+	};
+	
+	public static final double MAX_SPRITE_WIDTH;
+	
+	static {
+		double max = 0;
+		for(int p = 1; p <= Player.maxCount(); p++)
+			max = Math.max(max, spriteWidth(p));
+		MAX_SPRITE_WIDTH = max;
+	}
 	
 	/** row is the player, index is the sprite for that player. */
 	private static final Image[][] MINIGAME_SPRITES = {
@@ -137,7 +162,7 @@ public final class Images {
 		}
 	};
 	
-	public static final double PLAYER_IDEAL_SIZE = TREE.getWidth();
+	public static final double PLAYER_ICON_IDEAL_SIZE = TREE.getWidth();
 	
 	private Images() {}
 
@@ -207,6 +232,14 @@ public final class Images {
 	public static Image sprite(int player, int n) { 
 		Player.validate(player);
 		return MINIGAME_SPRITES[player][n];
+	}
+	
+	public static double spriteWidth(int player) {
+		return SPRITE_WIDTHS[Player.validate(player)];
+	}
+	
+	public static double spriteHeight(int player) {
+		return SPRITE_HEIGHT; //all sprites have the same height.
 	}
 	
 	public static int stillSpriteIndex(int player) {
