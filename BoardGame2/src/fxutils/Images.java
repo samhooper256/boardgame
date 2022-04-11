@@ -137,28 +137,28 @@ public final class Images {
 	private static final Image[][] MINIGAME_SPRITES = {
 		null,
 		{
-			getSprite("NymphSprite0.png"),
-			getSprite("NymphSprite1.png"),
-			getSprite("NymphSprite2.png"),
-			getSprite("NymphSprite3.png")
+			getSprite(1, "NymphSprite0.png"),
+			getSprite(1, "NymphSprite1.png"),
+			getSprite(1, "NymphSprite2.png"),
+			getSprite(1, "NymphSprite3.png")
 		},
 		{
-			getSprite("LyreSprite0.png"),
-			getSprite("LyreSprite1.png"),
-			getSprite("LyreSprite2.png"),
-			getSprite("LyreSprite3.png")
+			getSprite(2, "LyreSprite0.png"),
+			getSprite(2, "LyreSprite1.png"),
+			getSprite(2, "LyreSprite2.png"),
+			getSprite(2, "LyreSprite3.png")
 		},
 		{
-			getSprite("WarriorSprite0.png"),
-			getSprite("WarriorSprite1.png"),
-			getSprite("WarriorSprite2.png"),
-			getSprite("WarriorSprite3.png")
+			getSprite(3, "WarriorSprite0.png"),
+			getSprite(3, "WarriorSprite1.png"),
+			getSprite(3, "WarriorSprite2.png"),
+			getSprite(3, "WarriorSprite3.png")
 		},
 		{
-			getSprite("IcarusSprite0.png"),
-			getSprite("IcarusSprite1.png"),
-			getSprite("IcarusSprite2.png"),
-			getSprite("IcarusSprite3.png")
+			getSprite(4, "IcarusSprite0.png"),
+			getSprite(4, "IcarusSprite1.png"),
+			getSprite(4, "IcarusSprite2.png"),
+			getSprite(4, "IcarusSprite3.png")
 		}
 	};
 	
@@ -314,8 +314,8 @@ public final class Images {
 		return new Image(Main.getResourceStream(filename), requestedWidth, requestedHeight, preserveRatio, smooth);
 	}
 	
-	private static Image getSprite(String filename) {
-		return get(filename, SPRITE_WIDTH, SPRITE_HEIGHT, true, true);
+	private static Image getSprite(int player, String filename) {
+		return get(filename, spriteWidth(player), SPRITE_HEIGHT, true, true);
 	}
 	
 	public static Image singleKeyImage(int number) {
