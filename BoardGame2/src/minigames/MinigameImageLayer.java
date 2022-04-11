@@ -18,7 +18,9 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 
 	public static final Duration INSTRUCTIONS_FADE_OUT_DURATION = Duration.millis(300);
 	
-	protected final FadeableImagePane instructions, pressSpace;
+	private static final double MEDAL_POINTS_X_OFFSET = -14;
+	
+	protected final FadeableImagePane instructions, medalPoints, pressSpace;
 	
 	private final Helper helper;
 	
@@ -30,10 +32,14 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 		instructions.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		instructions.setIdealCenter(MainScene.CENTER_X, MainScene.CENTER_Y);
 		instructions.fader().setFadeOutFinishedAction(() -> gamePane().ingameStarted());
+		medalPoints = new FadeableImagePane(Images.MEDAL_POINTS);
+		medalPoints.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
+		medalPoints.setIdealX(instructions.getIdealRightX() + MEDAL_POINTS_X_OFFSET);
+		medalPoints.setIdealCenterY(MainScene.CENTER_Y);
 		pressSpace = new FadeableImagePane(Images.PRESS_SPACE);
 		pressSpace.fader().setOutDuration(INSTRUCTIONS_FADE_OUT_DURATION);
 		pressSpace.setIdealCenter(MainScene.CENTER_X, MainScene.DEFAULT_HEIGHT * .8);
-		addAll(1, instructions, pressSpace);
+		addAll(1, medalPoints, instructions, pressSpace);
 		add(3, helper());
 	}
 	
@@ -53,11 +59,13 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	
 	public void showInstructions() {
 		instructions().fader().appear();
+		medalPoints().fader().appear();
 		pressSpace().fader().appear();
 	}
 	
 	public void fadeOutInstructions() {
 		instructions().fader().fadeOutAndHide();
+		medalPoints().fader().fadeOutAndHide();
 		pressSpace().fader().fadeOutAndHide();
 	}
 	
@@ -103,6 +111,10 @@ public abstract class MinigameImageLayer extends AbstractImageLayer implements A
 	
 	public FadeableImagePane instructions() {
 		return instructions;
+	}
+	
+	public FadeableImagePane medalPoints() {
+		return medalPoints;
 	}
 	
 	public FadeableImagePane pressSpace() {

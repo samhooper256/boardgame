@@ -14,7 +14,8 @@ import players.Player;
 //TODO:
 // - Hurdles Instructions: add better background.
 // - Running Instructions: add final obstacle images, add better background.
-// - somewhere tell the user that gold medals are worth 3, silver 2, bronze 1.
+// - MedalPoints: add better background.
+// - change play button on main menu to just say "PLAY"
 public class Main extends Application {
 
 	public static final String TITLE = "Olympics";

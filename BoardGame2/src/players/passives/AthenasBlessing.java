@@ -12,13 +12,11 @@ public class AthenasBlessing extends AbstractTemporaryPassive {
 
 	@Override
 	public void activate() {
-		System.out.printf("%s activated%n", this);
 		player().setRollType(RollType.CHOOSE);
 	}
 
 	@Override
 	public void wearOff() {
-		System.out.printf("%s wears off%n", this);
 		player().setRollType(RollType.RANDOM);
 	}
 	

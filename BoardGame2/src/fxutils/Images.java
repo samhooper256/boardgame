@@ -82,6 +82,7 @@ public final class Images {
 		DONT_STEAL_HOVERED = get("don't_steal_hovered.png"),
 		//general minigame stuff
 		PRESS_SPACE = get("PressSpace.png"),
+		MEDAL_POINTS = get("MedalPoints.png"),
 		//archery
 		ARCHERY_INSTRUCTIONS = get("ArcheryInstructions.png"),
 		REWARDS_BACKGROUND = get("rewards_background.png"),
