@@ -10,7 +10,8 @@ public final class Fonts {
 			UI_SMALL = Font.font(UI_FONT_FAMILY_NAME, FontWeight.BOLD, 24),
 			UI_MED = Font.font(UI_FONT_FAMILY_NAME, FontWeight.BOLD, 36),
 			UI_LARGE = Font.font(UI_FONT_FAMILY_NAME, FontWeight.BOLD, 48),
-			UI_XLARGE = Font.font(UI_FONT_FAMILY_NAME, FontWeight.BOLD, 72);
+			UI_XLARGE = Font.font(UI_FONT_FAMILY_NAME, FontWeight.BOLD, 72),
+			UI_XXLARGE = Font.font(UI_FONT_FAMILY_NAME, FontWeight.BOLD, 96);
 	
 	private Fonts() {
 		

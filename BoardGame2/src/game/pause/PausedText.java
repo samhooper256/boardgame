@@ -10,7 +10,7 @@ public final class PausedText extends Label {
 	public PausedText() {
 		setText("Paused");
 		getStyleClass().add(CSS);
-		setFont(Fonts.UI_XLARGE);
+		setFont(Fonts.UI_XXLARGE);
 	}
 	
 }
