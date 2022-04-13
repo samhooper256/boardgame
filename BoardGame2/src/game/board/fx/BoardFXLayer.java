@@ -20,7 +20,7 @@ public class BoardFXLayer extends FXLayer {
 	private final ScoreLabel[] scoreLabels;
 	private final EventTitle eventTitle;
 	private final EventDescription eventDescription;
-	private final PressAnyKey pressAnyKey;
+	private final PressSpaceToContinue pressAnyKey;
 	private final Pane customNodes;
 	
 	public BoardFXLayer() {
@@ -49,7 +49,7 @@ public class BoardFXLayer extends FXLayer {
 		}
 		eventTitle = new EventTitle();
 		eventDescription = new EventDescription();
-		pressAnyKey = new PressAnyKey();
+		pressAnyKey = new PressSpaceToContinue();
 		customNodes = new Pane();
 		getChildren().addAll(eventTitle, eventDescription, pressAnyKey, customNodes);
 	}

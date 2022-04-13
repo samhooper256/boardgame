@@ -7,12 +7,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.text.TextAlignment;
 
-public class PressAnyKey extends Label implements Fadeable {
+public class PressSpaceToContinue extends Label implements Fadeable {
 
 	private final Fader fader;
 	
-	public PressAnyKey() {
-		super("(press any key to continue)");
+	public PressSpaceToContinue() {
+		super("(press space to continue)");
 		fader = new Fader(this).setDurations(Board.EVENT_FADE_DURATION);
 		setAlignment(Pos.CENTER);
 		setTextAlignment(TextAlignment.CENTER);

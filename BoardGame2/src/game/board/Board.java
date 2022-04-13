@@ -229,7 +229,7 @@ public class Board extends GamePane implements Updatable {
 	
 	@Override
 	public void keyPressed(KeyCode kc) {
-		if(!(currentEvent instanceof ComplexEvent)) //true for nulls.
+		if(kc == KeyCode.SPACE && !(currentEvent instanceof ComplexEvent))
 			tryRequestEventFinish();
 		cheats().keyPressed(kc);
 	}
