@@ -32,4 +32,7 @@ public class PauseLayer extends StackPane implements Fadeable {
 		return fader;
 	}
 	
+	public void unpause() {
+		fader().fadeOutAndHide();
+	}
 }

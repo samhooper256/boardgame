@@ -283,11 +283,7 @@ public class MainScene extends Scene implements Updatable {
 	
 	private void requestUnpause() {
 		if(!pauseLayer().fader().isFading())
-			unpause();
-	}
-	
-	public void unpause() {
-		pauseLayer().fader().fadeOutAndHide(); //the fade out finished action will call unpauseFinished()
+			pauseLayer().unpause();
 	}
 	
 	private void unpauseFinished() {

@@ -8,7 +8,7 @@ public class ButtonBox extends VBox {
 	private static final double SPACING = 8;
 	
 	public ButtonBox() {
-		super(SPACING, new ToMainMenu(), new Quit());
+		super(SPACING, new Resume(), new ToMainMenu(), new Quit());
 		setAlignment(Pos.CENTER);
 	}
 	
