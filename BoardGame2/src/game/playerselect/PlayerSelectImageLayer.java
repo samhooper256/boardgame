@@ -30,7 +30,7 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 			hovers[i] = new CountSelectHover();
 		for(int count = 2; count <= Player.maxCount(); count++) {
 			CountSelect cs = CountSelect.forCount(count);
-			hover(count).setIdealCenter(cs.getIdealCenterX() - 2, cs.getIdealCenterY() - 10);
+			hover(count).setIdealCenter(cs.getIdealCenterX(), cs.getIdealCenterY());
 		}
 		icons = new PlayerIcon[Player.maxCount()];
 		for(int i = 1; i <= Player.maxCount(); i++) {
