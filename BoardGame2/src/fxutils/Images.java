@@ -144,10 +144,10 @@ public final class Images {
 			getSprite(1, "NymphSprite3.png")
 		},
 		{
-			getSprite(2, "centaur sprite 1.png"),
-			getSprite(2, "centaur sprite 2.png"),
-			getSprite(2, "centaur sprite 3.png"),
-			getSprite(2, "centaur sprite 4.png")
+			getSprite(2, "CentaurSprite0.png"),
+			getSprite(2, "CentaurSprite1.png"),
+			getSprite(2, "CentaurSprite2.png"),
+			getSprite(2, "CentaurSprite3.png")
 		},
 		{
 			getSprite(3, "WarriorSprite0.png"),
@@ -246,7 +246,7 @@ public final class Images {
 	public static int stillSpriteIndex(int player) {
 		switch(player) {
 			case 1: return 1;
-			case 2: return 3; //TODO
+			case 2: return 1;
 			case 3: return 3;
 			case 4: return 3;
 			default: throw new IllegalArgumentException(String.format("Player: %d", player));
@@ -263,7 +263,7 @@ public final class Images {
 	public static int airSpriteIndex(int player) {
 		switch(player) {
 			case 1: return 0;
-			case 2: return 1; //TODO
+			case 2: return 3;
 			case 3: return 1;
 			case 4: return 0;
 			default: throw new IllegalArgumentException(String.format("Player: %d", player));
