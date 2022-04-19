@@ -144,10 +144,10 @@ public final class Images {
 			getSprite(1, "NymphSprite3.png")
 		},
 		{
-			getSprite(2, "LyreSprite0.png"),
-			getSprite(2, "LyreSprite1.png"),
-			getSprite(2, "LyreSprite2.png"),
-			getSprite(2, "LyreSprite3.png")
+			getSprite(2, "centaur sprite 1.png"),
+			getSprite(2, "centaur sprite 2.png"),
+			getSprite(2, "centaur sprite 3.png"),
+			getSprite(2, "centaur sprite 4.png")
 		},
 		{
 			getSprite(3, "WarriorSprite0.png"),
