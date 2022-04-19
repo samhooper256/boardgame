@@ -15,8 +15,8 @@ public final class Images {
 	/** The factor by which the image pixel dimensions of sprite images are multiplied. */
 	public static final double SPRITE_SCALE_FACTOR = .8; 
 	
-	/** All sprites have the same height. The height in pixels of the image file is 150; this constant is 80% of
-	 * that. */
+	/** All sprites have the same height. The height in pixels of the image file is 150; this constant is
+	 * {@link #SPRITE_SCALE_FACTOR} of that ({@value #SPRITE_HEIGHT}). */
 	public static final double SPRITE_HEIGHT = 120;
 	public static final int SPRITES = 4;
 	
