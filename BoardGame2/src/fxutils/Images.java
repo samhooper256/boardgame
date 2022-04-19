@@ -91,7 +91,7 @@ public final class Images {
 		TARGET = get("Target.png"),
 		ARCHERY_BACKGROUND = get("archery_background.png"),
 		//hurdles
-		HURDLES_BACKGROUND = get("Sky.png"),
+		HURDLES_BACKGROUND = get("i tried.png"),
 		HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
 		HURDLES_GROUND = get("hurdles_ground.png"),
 		JUMP_BAR = get("jump_bar.png"),
