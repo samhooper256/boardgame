@@ -103,7 +103,7 @@ public final class Images {
 		//running
 		RUNNING_TILE = get("Running_tile.png"),
 		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),
-		RUNNING_SKY = get("RunningSky.png"),
+		RUNNING_SKY = get("running sky.png"),
 		RUNNING_GROUND_1 = get("RunningGround1.png"),
 		RUNNING_GROUND_2 = get("RunningGround2.png"),
 		OBSTACLE_1 = get("Obstacle1.png"),
