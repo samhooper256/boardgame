@@ -32,7 +32,13 @@ public final class SpriteRegions {
 						fc(64, 55, 84, 117),
 						fc(26, 1, 65, 117)
 					);
-					case 2: return new HitRegion(ip, RectBounds.of(0, 0, 80, 120));
+					case 2: return new HitRegion(ip,
+						fc(38, 138, 65, 150),
+						fc(38, 96, 136, 139),
+						fc(38, 88, 140, 97),
+						fc(0, 53, 149, 89),
+						fc(100, 2, 168, 56)
+					);
 					case 3: return new HitRegion(ip, 
 						fc(65, 105, 90, 150),
 						fc(0, 82, 80, 109),
@@ -53,7 +59,13 @@ public final class SpriteRegions {
 						fc(26, 103, 81, 124),
 						fc(26, 1, 77, 104)
 					);
-					case 2: return new HitRegion(ip, RectBounds.of(0, 0, 80, 120));
+					case 2: return new HitRegion(ip, 
+						fc(38, 136, 75, 147),
+						fc(38, 88, 140, 137),
+						fc(0, 53, 140, 89),
+						fc(100, 2, 149, 87),
+						fc(148, 2, 168, 56)
+					);
 					case 3: return new HitRegion(ip,
 						fc(54, 106, 77, 150),
 						fc(9, 85, 55, 117),
@@ -76,7 +88,12 @@ public final class SpriteRegions {
 						fc(29, 62, 80, 103),
 						fc(29, 0, 69, 63)
 					);
-					case 2: return new HitRegion(ip, RectBounds.of(0, 0, 80, 120));
+					case 2: return new HitRegion(ip,
+						fc(32, 133, 60, 144),
+						fc(32, 88, 150, 134),
+						fc(0, 53, 150, 89),
+						fc(100, 2, 168, 56)
+					);
 					case 3: return new HitRegion(ip, 
 						fc(34, 105, 80, 150),
 						fc(38, 42, 91, 106),
@@ -98,7 +115,11 @@ public final class SpriteRegions {
 						fc(26, 71, 72, 95),
 						fc(26, 0, 66, 72)
 					);
-					case 2: return new HitRegion(ip, RectBounds.of(0, 0, 80, 120));
+					case 2: return new HitRegion(ip,
+						fc(21, 79, 164, 131),
+						fc(0, 52, 164, 80),
+						fc(100, 1, 168, 53)
+					);
 					case 3: return new HitRegion(ip, 
 						fc(32, 42, 91, 150),
 						fc(50, 8, 100, 43)

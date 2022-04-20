@@ -16,6 +16,7 @@ import players.Player;
 // - Running Instructions: add final obstacle images, add better background.
 // - MedalPoints: add better background.
 // - change play button on main menu to just say "PLAY"
+// - change avatars to animations of them running.
 public class Main extends Application {
 
 	public static final String TITLE = "Olympics";
