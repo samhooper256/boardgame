@@ -17,6 +17,7 @@ import players.Player;
 // - MedalPoints: add better background.
 // - change play button on main menu to just say "PLAY"
 // - make separate still sprite for centaur?
+// - one of the centaur sprites has a lighter skin color than the rest?
 public class Main extends Application {
 
 	public static final String TITLE = "Olympics";
