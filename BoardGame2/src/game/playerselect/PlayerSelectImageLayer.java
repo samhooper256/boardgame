@@ -22,7 +22,7 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		runningSprite(3).setIdealCenter(CENTER_X - AVATAR_X_DIST, CENTER_Y + AVATAR_Y_DIST);
 		runningSprite(4).setIdealCenter(CENTER_X + AVATAR_X_DIST, CENTER_Y + AVATAR_Y_DIST);
 		for(int i = 1; i <= Player.maxCount(); i++)
-			AvatarBorder.forPlayer(i).setIdealCenter(runningSprite(i).getIdealCenter());
+			SpriteBorder.forPlayer(i).setIdealCenter(runningSprite(i).getIdealCenter());
 		hovers = new CountSelectHover[Player.maxCount() - 1]; // for 2, 3, and 4 players.
 		for(int i = 0; i < hovers.length; i++)
 			hovers[i] = new CountSelectHover();
@@ -33,22 +33,22 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		icons = new PlayerIcon[Player.maxCount()];
 		for(int i = 1; i <= Player.maxCount(); i++) {
 			icons[i - 1] = new PlayerIcon(i);
-			AvatarBorder ab = AvatarBorder.forPlayer(i);
+			SpriteBorder sb = SpriteBorder.forPlayer(i);
 			icons[i - 1].setIdealCoords(
-				ab.getIdealX() + AvatarBorder.THICKNESS + ICON_PADDING,
-				ab.getIdealY() + AvatarBorder.THICKNESS + ICON_PADDING
+				sb.getIdealX() + SpriteBorder.THICKNESS + ICON_PADDING,
+				sb.getIdealY() + SpriteBorder.THICKNESS + ICON_PADDING
 			);
 		}
 		addAll(hovers);
 		addAll(SELECT2, SELECT3, SELECT4);
-		addAll(AvatarBorder.LIST);
+		addAll(SpriteBorder.LIST);
 		addAll(RunningSprite.LIST);
 		addAll(icons);
 	}
 	
 	void notifyAnimationToPlayerSelectStarted() {
-		for(AvatarBorder ab : AvatarBorder.LIST)
-			ab.setActive(false);
+		for(SpriteBorder sb : SpriteBorder.LIST)
+			sb.setActive(false);
 		for(CountSelectHover csh : hovers)
 			csh.setVisible(false);
 	}
@@ -64,9 +64,9 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		hover(playerCount).setVisible(true);
 		int i;
 		for(i = 1; i <= playerCount; i++)
-			AvatarBorder.forPlayer(i).setActive(true);
+			SpriteBorder.forPlayer(i).setActive(true);
 		for(; i <= Player.maxCount(); i++)
-			AvatarBorder.forPlayer(i).setActive(false);
+			SpriteBorder.forPlayer(i).setActive(false);
 	}
 	
 	private RunningSprite runningSprite(int number) {

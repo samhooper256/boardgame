@@ -6,18 +6,18 @@ import base.panes.ImagePane;
 import fxutils.Images;
 import players.Player;
 
-public class AvatarBorder extends ImagePane {
+public class SpriteBorder extends ImagePane {
 	
 	public static final double THICKNESS = 17;
 	
-	public static final List<AvatarBorder> LIST =
-			Arrays.asList(new AvatarBorder(), new AvatarBorder(), new AvatarBorder(), new AvatarBorder());
+	public static final List<SpriteBorder> LIST =
+			Arrays.asList(new SpriteBorder(), new SpriteBorder(), new SpriteBorder(), new SpriteBorder());
 	
-	public static AvatarBorder forPlayer(int player) {
+	public static SpriteBorder forPlayer(int player) {
 		return LIST.get(Player.validate(player) - 1);
 	}
 	
-	public AvatarBorder() {
+	public SpriteBorder() {
 		super(Images.AVATAR_INACTIVE_BORDER);
 	}
 	
