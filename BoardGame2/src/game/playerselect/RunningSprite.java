@@ -11,6 +11,8 @@ import utils.Colls;
 
 public class RunningSprite extends ImagePane implements SpriteAnimated {
 
+	private static final double SCALE_FACTOR = 2;
+	
 	public static final List<RunningSprite> LIST = Colls.ulist(
 		new RunningSprite(1), new RunningSprite(2), new RunningSprite(3), new RunningSprite(4)
 	);
@@ -24,6 +26,7 @@ public class RunningSprite extends ImagePane implements SpriteAnimated {
 	
 	private RunningSprite(int number) {
 		super(Images.stillSprite(number));
+		setIdealSize(getIdealWidth() * SCALE_FACTOR, getIdealHeight() * SCALE_FACTOR);
 		this.number = number;
 		spriteAnimator = new SpriteAnimator(this);
 	}

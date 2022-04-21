@@ -11,7 +11,8 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 	private static final double
 			AVATAR_Y_DIST = DEFAULT_HEIGHT * .25,
 			AVATAR_X_DIST = DEFAULT_WIDTH * .35,
-			ICON_PADDING = 6;
+			ICON_PADDING = 6,
+			CENTAUR_X_OFFSET = 12;
 	
 	private final CountSelectHover[] hovers;
 	private final PlayerIcon[] icons;
@@ -39,6 +40,7 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 				sb.getIdealY() + SpriteBorder.THICKNESS + ICON_PADDING
 			);
 		}
+		RunningSprite.forPlayer(PlayerNumbers.CENTAUR).shiftIdealX(CENTAUR_X_OFFSET);
 		addAll(hovers);
 		addAll(SELECT2, SELECT3, SELECT4);
 		addAll(SpriteBorder.LIST);
