@@ -51,7 +51,6 @@ public final class BoardCheats implements AcceptsInput {
 	public void keyReleased(KeyCode kc) {
 		if(!ENABLED)
 			return;
-//		System.out.printf("cheats released: %s%n", kc);
 		if(kc == KeyCode.ENTER) {
 			if(!buffer.isEmpty() && buffer.stream().allMatch(KeyCode::isDigitKey)) {
 				int dist = Integer.parseInt(buffer.stream().map(c -> String.valueOf(value(c)))
