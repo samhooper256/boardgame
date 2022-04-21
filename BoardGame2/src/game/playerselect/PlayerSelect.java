@@ -1,10 +1,11 @@
 package game.playerselect;
 
+import base.Updatable;
 import base.panes.*;
 import fxutils.Backgrounds;
 import javafx.scene.paint.Color;
 
-public class PlayerSelect extends GamePane {
+public class PlayerSelect extends GamePane implements Updatable {
 
 	private static final PlayerSelect INSTANCE = new PlayerSelect();
 	
@@ -19,6 +20,11 @@ public class PlayerSelect extends GamePane {
 	
 	public void notifyAnimationToPlayerSelectStarted() {
 		imageLayer().notifyAnimationToPlayerSelectStarted();
+	}
+	
+	@Override
+	public void update(long diff) {
+		imageLayer().update(diff);
 	}
 	
 	@Override

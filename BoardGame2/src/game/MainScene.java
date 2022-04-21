@@ -176,12 +176,13 @@ public class MainScene extends Scene implements Updatable {
 	
 	@Override
 	public void update(long diff) {
-		if(!paused && ingame()) {
+		if(!paused && ingame())
 			if(isPlayingMinigame())
 				currentMinigame().update(diff);
 			else
 				Board.get().update(diff);
-		}
+		else
+			PlayerSelect.get().update(diff);
 	}
 	
 	public void animateToPlayerSelect() {

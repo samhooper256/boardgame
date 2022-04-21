@@ -14,7 +14,6 @@ public class WinImageLayer extends AbstractImageLayer {
 
 	private static final double PRESS_SPACE_BOTTOM_PADDING = 20, MEDAL_Y_DOWN = -5;
 	
-	private final Avatar[] avatars;
 	private final ImagePane
 		background,
 		/* first place */ podium1, /* second place */ podium2, /* third place */ podium3,
@@ -22,7 +21,6 @@ public class WinImageLayer extends AbstractImageLayer {
 	private final MedalIcon medal1, medal2, medal3;
 	
 	public WinImageLayer() {
-		avatars = new Avatar[] {new Avatar(1), new Avatar(2), new Avatar(3), new Avatar(4)};
 		background = new ImagePane(Images.WIN_BACKGROUND);
 		podium1 = new ImagePane(Images.PODIUM_1);
 		podium2 = new ImagePane(Images.PODIUM_2);
@@ -59,11 +57,12 @@ public class WinImageLayer extends AbstractImageLayer {
 				podium3.getIdealY() + MEDAL_Y_DOWN);
 		addAll(podium3, medal3, podium2, medal2, podium1, medal1);
 		
-		List<Avatar> avatars = ranking.stream().map(p -> avatar(p.number())).collect(Collectors.toList());
+		List<StillSprite> sprites =
+				ranking.stream().map(p -> stillSprite(p.number())).collect(Collectors.toList());
 		
-		for(int i = 0, max = Math.min(avatars.size(), 3); i < max; i++) {
-			setupAvatarOnPodium(avatars.get(i), i + 1);
-			add(avatars.get(i));
+		for(int i = 0, max = Math.min(sprites.size(), 3); i < max; i++) {
+			setupSpriteOnPodium(sprites.get(i), i + 1);
+			add(sprites.get(i));
 		}
 		
 		add(pressSpace);
@@ -74,10 +73,10 @@ public class WinImageLayer extends AbstractImageLayer {
 	}
 	
 	private void removeAvatars() {
-		removeAll(avatars);
+		removeAll(StillSprite.LIST);
 	}
 	
-	private void setupAvatarOnPodium(Avatar a, int place) {
+	private void setupSpriteOnPodium(StillSprite a, int place) {
 		ImagePane p = podium(place);
 		a.setIdealCenterX(p.getIdealCenterX());
 		a.setIdealBottomY(p.getIdealY());
@@ -93,8 +92,8 @@ public class WinImageLayer extends AbstractImageLayer {
 		throw new IllegalArgumentException(String.format("place: %d", place));
 	}
 
-	private Avatar avatar(int number) {
-		return avatars[Player.validate(number) - 1];
+	private StillSprite stillSprite(int number) {
+		return StillSprite.forPlayer(number);
 	}
 	
 	@Override
