@@ -91,7 +91,7 @@ public final class Images {
 		TARGET = get("Target.png"),
 		ARCHERY_BACKGROUND = get("archery_background.png"),
 		//hurdles
-		HURDLES_BACKGROUND = get("Sky.png"),
+		HURDLES_BACKGROUND = get("i tried.png"),
 		HURDLES_INSTRUCTIONS = get("hurdles_instructions.png"),
 		HURDLES_GROUND = get("hurdles_ground.png"),
 		JUMP_BAR = get("jump_bar.png"),
@@ -103,9 +103,9 @@ public final class Images {
 		//running
 		RUNNING_TILE = get("Running_tile.png"),
 		RUNNING_INSTRUCTIONS = get("RunningInstructions.png"),
-		RUNNING_SKY = get("RunningSky.png"),
-		RUNNING_GROUND_1 = get("RunningGround1.png"),
-		RUNNING_GROUND_2 = get("RunningGround2.png"),
+		RUNNING_SKY = get("running sky.png"),
+		RUNNING_GROUND_1 = get("running ground.png"),
+		RUNNING_GROUND_2 = get("running ground.png"),
 		OBSTACLE_1 = get("Obstacle1.png"),
 		OBSTACLE_2 = get("Obstacle2.png"),
 		OBSTACLE_3 = get("Obstacle3.png"),
