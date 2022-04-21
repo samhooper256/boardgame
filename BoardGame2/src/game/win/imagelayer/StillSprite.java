@@ -14,6 +14,10 @@ public class StillSprite extends ImagePane implements PlayerNumbered {
 		new StillSprite(1), new StillSprite(2), new StillSprite(3), new StillSprite(4)
 	);
 	
+	public static StillSprite forPlayer(PlayerNumbered pn) {
+		return forPlayer(pn.number());
+	}
+	
 	public static StillSprite forPlayer(int number) {
 		return LIST.get(Player.validate(number) - 1);
 	}

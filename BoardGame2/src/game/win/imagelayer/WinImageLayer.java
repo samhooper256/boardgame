@@ -41,7 +41,7 @@ public class WinImageLayer extends AbstractImageLayer {
 	
 	public void setupFor(List<Player> ranking) {
 		removePodiums();
-		removeAvatars();
+		removeSprites();
 		remove(pressSpace);
 		podium1.setIdealCenterX(MainScene.CENTER_X);
 		podium1.setIdealBottomY(MainScene.DEFAULT_HEIGHT);
@@ -57,8 +57,7 @@ public class WinImageLayer extends AbstractImageLayer {
 				podium3.getIdealY() + MEDAL_Y_DOWN);
 		addAll(podium3, medal3, podium2, medal2, podium1, medal1);
 		
-		List<StillSprite> sprites =
-				ranking.stream().map(p -> stillSprite(p.number())).collect(Collectors.toList());
+		List<StillSprite> sprites = ranking.stream().map(StillSprite::forPlayer).collect(Collectors.toList());
 		
 		for(int i = 0, max = Math.min(sprites.size(), 3); i < max; i++) {
 			setupSpriteOnPodium(sprites.get(i), i + 1);
@@ -72,7 +71,7 @@ public class WinImageLayer extends AbstractImageLayer {
 		removeAll(podium1, podium2, podium3);
 	}
 	
-	private void removeAvatars() {
+	private void removeSprites() {
 		removeAll(StillSprite.LIST);
 	}
 	
@@ -90,10 +89,6 @@ public class WinImageLayer extends AbstractImageLayer {
 		if(place == 3)
 			return podium3;
 		throw new IllegalArgumentException(String.format("place: %d", place));
-	}
-
-	private StillSprite stillSprite(int number) {
-		return StillSprite.forPlayer(number);
 	}
 	
 	@Override
