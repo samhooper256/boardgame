@@ -10,6 +10,8 @@ import utils.Colls;
 
 public class StillSprite extends ImagePane implements PlayerNumbered {
 	
+	private static final double SCALE_FACTOR = 1.5;
+	
 	public static final List<StillSprite> LIST = Colls.ulist(
 		new StillSprite(1), new StillSprite(2), new StillSprite(3), new StillSprite(4)
 	);
@@ -26,6 +28,7 @@ public class StillSprite extends ImagePane implements PlayerNumbered {
 	
 	private StillSprite(int number) {
 		super(Images.stillSprite(number));
+		setIdealSize(getIdealWidth() * SCALE_FACTOR, getIdealHeight() * SCALE_FACTOR);
 		this.number = number;
 	}
 	
