@@ -10,7 +10,8 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 
 	private static final double
 			AVATAR_Y_DIST = DEFAULT_HEIGHT * .25,
-			AVATAR_X_DIST = DEFAULT_WIDTH * .35;
+			AVATAR_X_DIST = DEFAULT_WIDTH * .35,
+			ICON_PADDING = 6;
 	
 	private final CountSelectHover[] hovers;
 	private final PlayerIcon[] icons;
@@ -32,7 +33,11 @@ public class PlayerSelectImageLayer extends AbstractImageLayer {
 		icons = new PlayerIcon[Player.maxCount()];
 		for(int i = 1; i <= Player.maxCount(); i++) {
 			icons[i - 1] = new PlayerIcon(i);
-			icons[i - 1].setIdealCoords(runningSprite(i).getIdealCoords());
+			AvatarBorder ab = AvatarBorder.forPlayer(i);
+			icons[i - 1].setIdealCoords(
+				ab.getIdealX() + AvatarBorder.THICKNESS + ICON_PADDING,
+				ab.getIdealY() + AvatarBorder.THICKNESS + ICON_PADDING
+			);
 		}
 		addAll(hovers);
 		addAll(SELECT2, SELECT3, SELECT4);

@@ -179,9 +179,26 @@ public class ImagePane extends StackPane {
     	setIdealCoords(x, y);
     }
     
+    public void setIdealTopLeftCorner(Point2D point) {
+    	setIdealCoords(point);
+    }
+    
+    /** Equivalent to {@link #getIdealCoords()}*/
+    public Point2D getIdealTopLeftCorner() {
+    	return getIdealCoords();
+    }
+    
     public void setIdealTopRightCorner(double x, double y) {
     	setIdealRightX(x);
     	setIdealY(y);
+    }
+    
+    public void setIdealTopRightCorner(Point2D point) {
+    	setIdealTopRightCorner(point.getX(), point.getY());
+    }
+    
+    public Point2D getIdealTopRightCorner() {
+    	return new Point2D(getIdealRightX(), getIdealY());
     }
     
     public void setIdealBottomLeftCorner(double x, double y) {
@@ -189,9 +206,25 @@ public class ImagePane extends StackPane {
     	setIdealBottomY(y);
     }
     
+    public void setIdealBottomLeftCorner(Point2D point) {
+    	setIdealBottomLeftCorner(point.getX(), point.getY());
+    }
+    
+    public Point2D getIdealBottomLeftCorner() {
+    	return new Point2D(getIdealX(), getIdealBottomY());
+    }
+    
     public void setIdealBottomRightCorner(double x, double y) {
     	setIdealRightX(x);
     	setIdealBottomY(y);
+    }
+    
+    public void setIdealBottomRightCorner(Point2D point) {
+    	setIdealBottomRightCorner(point.getX(), point.getY());
+    }
+    
+    public Point2D getIdealBottomRightCorner() {
+    	return new Point2D(getIdealRightX(), getIdealBottomY());
     }
     
     public void multiplyIdealSize(double scale) {

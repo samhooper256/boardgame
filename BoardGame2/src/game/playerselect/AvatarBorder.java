@@ -8,6 +8,8 @@ import players.Player;
 
 public class AvatarBorder extends ImagePane {
 	
+	public static final double THICKNESS = 17;
+	
 	public static final List<AvatarBorder> LIST =
 			Arrays.asList(new AvatarBorder(), new AvatarBorder(), new AvatarBorder(), new AvatarBorder());
 	
